@@ -7,7 +7,7 @@ const StyledImg = styled.div`
   width: 10rem;
   height: 10rem;
   display: inline-block;
-  padding-top: 3rem;
+  padding-top: 10rem;
 `;
 
 const StyledDiv = styled.div`
@@ -27,6 +27,7 @@ const StyledInput = styled.div`
     border: none;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
+    padding: 1rem 3rem;
   }
   input:first-child {
     margin-bottom: 1.5rem;
@@ -48,12 +49,22 @@ const StyledButton = styled.button`
 
   color: #ffffff;
   font-family: ${fonts.family};
-  font-size: 3rem;
+  font-size: 2rem;
+  cursor: pointer;
+  :hover {
+    transition: 0.3s;
+    opacity: 0.8;
+  }
 `;
 
 export default function Home() {
   return (
     <StyledDiv>
+      <style jsx global>{`
+        body {
+          margin: 0;
+        }
+      `}</style>
       <StyledImg>
         <Image src={logo} alt="home logo" />
       </StyledImg>
