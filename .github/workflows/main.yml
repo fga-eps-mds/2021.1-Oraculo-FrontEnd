@@ -1,0 +1,30 @@
+name: SonarCloud Test
+
+on:
+  push:
+    branches:
+      -main
+  pull_request:
+    branches:
+      -main
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Check Repo
+        uses: actions/checkout@v2
+          
+      - name: Create Env file .env
+        run: touch .env
+
+      - name: Tests check
+        run: sudo docker-compose run oraculo-frontend bash -c  "yarn && yarn test --coverage --watchAll=false"
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
