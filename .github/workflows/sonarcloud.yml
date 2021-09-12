@@ -1,16 +1,29 @@
 name: SonarCloud CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      -main
+  pull_request:
+    branches:
+      -main
 
 jobs:
   tests:
+    name: Tests
     runs-on: ubuntu-latest
   
     steps:
-    - uses: actions/checkout@v2
+    - name: Check Repo
+      uses: actions/checkout@v2
+      with:
+          fetch-depth: 0  # Avoid clones
+          
+    - name: Create Env file .env
+      run: touch .env
 
     - name: Tests check
-      run: docker-compose run oraculo-frontend bash -c  "yarn && yarn run test"
+      run: sudo docker-compose run oraculo-frontend bash -c  "yarn && yarn test --coverage --watchAll=false"
 
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
