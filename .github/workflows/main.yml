@@ -10,8 +10,8 @@ on:
 
 
 jobs:
-  tests:
-    name: Tests
+  pre-release:
+    name: Pre release
     runs-on: ubuntu-latest
   
     steps:
