@@ -1,8 +1,7 @@
-FROM node:14
+FROM node:15
+
+COPY . /app
+
 WORKDIR /app
-COPY package.json .
-RUN yarn
-RUN npx browserslist@latest --update-db
-COPY . .
-EXPOSE 3000
-CMD ["yarn", "start"]
+
+CMD ["sh","-c", "yarn install && yarn start"]
