@@ -30,6 +30,7 @@ export const StyledBlueRectangle = styled.div`
 
   border: none;
   border-radius: 20px 0px 0px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   background-color: #1f3541;
   display: flex;
@@ -54,4 +55,59 @@ export const StyledCut = styled.div`
   border-top: 65px solid #1f3541;
   border-left: 65px solid #ffffff;
   width: 0;
+`;
+
+export const StyledWhiteRectangle = styled.div`
+  position: absolute;
+  left: 45rem;
+  top: 17rem;
+  height: 38rem;
+  width: 48rem;
+
+  border: none;
+  border-radius: 0px 20px 20px 0px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  background-color: #ffffff;
+  display: flex;
+`;
+
+export const StyledForms = styled.div`
+  form {
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    align-items: baseline;
+
+    top: 1rem;
+    left: 20%;
+
+    h1 {
+      font-family: Open Sans;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 33px;
+      display: flex;
+      align-items: center;
+      color: #000000;
+    }
+
+    input {
+      width: 26rem;
+      height: 2rem;
+      background: #ffffff;
+
+      border-radius: 12px;
+      border: 2px solid #000000;
+
+      ::placeholder {
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 33px;
+      }
+    }
+  }
 `;
