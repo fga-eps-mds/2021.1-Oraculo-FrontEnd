@@ -1,16 +1,23 @@
 import React from "react";
-import styles from "./styles";
+import { FormLogin, StyledDiv } from "./styles";
+import Logo from "../../Assets/logo-dark.svg";
+import MainButton from "../../Components/MainButton";
 
 const LoginScreen = () => {
   return (
-    <div>
+    <FormLogin>
       <form>
-        <input type="email" placeholder="Usuario" />
+        <img src={Logo} />
+        <div>
+          <input type="email" placeholder="Usuario" />
+        </div>
         <input type="password" placeholder="Senha" />
-        <button>Esqueci minha Senha</button>
-        <button>Entrar</button>
+        <StyledDiv>
+          <a>Esqueci minha Senha</a>
+          <MainButton title={"Entrar"} />
+        </StyledDiv>
       </form>
-    </div>
+    </FormLogin>
   );
 };
 export default LoginScreen;
