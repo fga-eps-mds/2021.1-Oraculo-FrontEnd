@@ -17,9 +17,12 @@ const CreateProcess = () => {
     <>
       <Header />
 
-      <StyledTitle>Criar Processo</StyledTitle>
-
-      <MainButton title={"Adicionar Campo"} />
+      <StyledTitle>
+        Criar Processo
+        <div>
+          <MainButton title={"Adicionar Campo"} />
+        </div>
+      </StyledTitle>
 
       <StyledBlueRectangle>
         <StyledPaperSheet>
@@ -39,7 +42,7 @@ const CreateProcess = () => {
             <h1>Data de Emissão</h1>
             <input type="text" placeholder="  Data de Emissão" />
             <h1>Tags</h1>
-            <input type="text" placeholder="  Tags" />
+            <input type="text" placeholder="  +" />
           </form>
         </StyledForms>
         <StyledCancelButton>Cancelar</StyledCancelButton>

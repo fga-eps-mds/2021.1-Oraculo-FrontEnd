@@ -19,6 +19,14 @@ export const StyledTitle = styled.h1`
   text-align: center;
 
   color: #000000;
+
+  div {
+    position: absolute;
+    top: 10px;
+    left: 45rem;
+    height: 4rem;
+    width: 24rem;
+  }
 `;
 
 export const StyledBlueRectangle = styled.div`
