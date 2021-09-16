@@ -1,10 +1,14 @@
-version: "3.7"
+version: "3.8"
+
 services:
-  oraculo-frontend:
+  frontend:
+    container_name: oraculo_frontend
     build: .
     ports:
-      - "3000:3000"
+      - 3000:3000
     volumes:
-      - .:/app/
-    env_file:
-      - ./.env
+      - ./:/app/
+      - node_modules:/app/node_modules
+
+volumes:
+  node_modules:
