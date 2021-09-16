@@ -1,16 +1,19 @@
 import React from "react";
-import styles from "./styles";
+import { FormLogin } from "./styles";
+//import Logo from '../../../public/'
+
 
 const LoginScreen = () => {
   return (
-    <div>
-      <form>
-        <input type="email" placeholder="Usuario" />
-        <input type="password" placeholder="Senha" />
-        <button>Esqueci minha Senha</button>
-        <button>Entrar</button>
-      </form>
-    </div>
+      <FormLogin>
+        <div>
+            <input type="email" placeholder="Usuario" />
+            <input type="password" placeholder="Senha" />
+            <a>Esqueci minha Senha</a>
+            <button>Entrar</button>
+        </div>
+      </FormLogin>
+    
   );
 };
 export default LoginScreen;
