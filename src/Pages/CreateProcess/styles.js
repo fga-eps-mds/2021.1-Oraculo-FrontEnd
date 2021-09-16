@@ -111,3 +111,45 @@ export const StyledForms = styled.div`
     }
   }
 `;
+
+export const StyledCancelButton = styled.button`
+  position: absolute;
+  width: 9.375rem;
+  height: 2.5rem;
+  bottom: 2.5rem;
+  left: 22rem;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+  text-align: center;
+
+  border: 1px solid #000000;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  border: 2px solid #000000;
+`;
+
+export const StyledCreateButton = styled.button`
+  position: absolute;
+  width: 9.375rem;
+  height: 2.5rem;
+  bottom: 2.5rem;
+  left: 32rem;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 15px;
+  background: #5289b5;
+  cursor: pointer;
+`;

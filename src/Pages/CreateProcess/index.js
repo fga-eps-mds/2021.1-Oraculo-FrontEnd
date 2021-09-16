@@ -6,6 +6,8 @@ import { StyledPaperSheet } from "./styles";
 import { StyledCut } from "./styles";
 import { StyledWhiteRectangle } from "./styles";
 import { StyledForms } from "./styles";
+import { StyledCancelButton } from "./styles";
+import { StyledCreateButton } from "./styles";
 
 import MainButton from "../../Components/MainButton";
 import Header from "../../Components/Header";
@@ -40,6 +42,8 @@ const CreateProcess = () => {
             <input type="text" placeholder="  Tags" />
           </form>
         </StyledForms>
+        <StyledCancelButton>Cancelar</StyledCancelButton>
+        <StyledCreateButton>Criar</StyledCreateButton>
       </StyledWhiteRectangle>
     </>
   );
