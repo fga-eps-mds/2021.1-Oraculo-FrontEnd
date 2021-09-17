@@ -3,8 +3,8 @@ export const styles = {};
 
 export const FormLogin = styled.div`
   background-color: #f6f6f6;
-  height: 100vh;
-  width: 100vw;
+  height: 87vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

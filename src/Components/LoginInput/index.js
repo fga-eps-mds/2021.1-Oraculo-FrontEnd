@@ -1,10 +1,25 @@
 import { DivInput } from "./style";
 
-const LoginInput = ({ placeholderInput, inputType, children }) => {
+const LoginInput = ({
+  idInput,
+  nameInput,
+  placeholderInput,
+  inputType,
+  onChangeInput,
+  valueInput,
+  children,
+}) => {
   return (
     <DivInput>
       {children}
-      <input type={inputType} placeholder={placeholderInput} />
+      <input
+        id={idInput}
+        name={nameInput}
+        type={inputType}
+        onChange={onChangeInput}
+        placeholder={placeholderInput}
+        value={valueInput}
+      />
     </DivInput>
   );
 };
