@@ -60,7 +60,9 @@ const CreateProcess = () => {
               </form>
             </StyledForms>
             <StyledButtonsDiv>
-              <StyledCancelButton>Cancelar</StyledCancelButton>
+              <StyledCancelButton onClick={() => window.history.back()}>
+                Cancelar
+              </StyledCancelButton>
               <StyledCreateButton>Criar</StyledCreateButton>
             </StyledButtonsDiv>
           </StyledWhiteRectangle>
