@@ -1,5 +1,6 @@
 import React from "react";
 import { FaRegFileAlt, FaPlus } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   StyledCreateButton,
@@ -14,6 +15,8 @@ import {
 
 import MainButton from "../../Components/MainButton";
 import Header from "../../Components/Header";
+
+const notify = () => toast.success("Criado com Sucesso!!");
 
 const CreateProcess = () => {
   return (
@@ -63,7 +66,8 @@ const CreateProcess = () => {
               <StyledCancelButton onClick={() => window.history.back()}>
                 Cancelar
               </StyledCancelButton>
-              <StyledCreateButton>Criar</StyledCreateButton>
+              <StyledCreateButton onClick={notify}>Criar</StyledCreateButton>
+              <Toaster />
             </StyledButtonsDiv>
           </StyledWhiteRectangle>
         </StyledProcess>
