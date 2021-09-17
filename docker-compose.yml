@@ -9,6 +9,13 @@ services:
     volumes:
       - ./:/app/
       - node_modules:/app/node_modules
+    networks:
+      - processos-network
 
 volumes:
   node_modules:
+
+networks:
+  processos-network:
+    name: processos-network
+    driver: bridge
