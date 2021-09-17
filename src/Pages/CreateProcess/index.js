@@ -1,24 +1,47 @@
-import React from "react";
-import { FaRegFileAlt, FaPlus } from "react-icons/fa";
+import axios from "axios";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-
+import { FaPlus, FaRegFileAlt } from "react-icons/fa";
+import Header from "../../Components/Header";
+import MainButton from "../../Components/MainButton";
 import {
-  StyledCreateButton,
-  StyledCancelButton,
-  StyledForms,
-  StyledWhiteRectangle,
-  StyledTitle,
   StyledBlueRectangle,
-  StyledProcess,
   StyledButtonsDiv,
+  StyledCancelButton,
+  StyledCreateButton,
+  StyledForms,
+  StyledProcess,
+  StyledTitle,
+  StyledWhiteRectangle,
 } from "./styles";
 
-import MainButton from "../../Components/MainButton";
-import Header from "../../Components/Header";
-
-const notify = () => toast.success("Criado com Sucesso!!");
-
 const CreateProcess = () => {
+  const [seiNumber, setSeiNumber] = useState("");
+  const [emitter, setEmitter] = useState("");
+  const [sector, setSector] = useState("");
+  const [issueDate, setIssueDate] = useState("");
+
+  async function handleSubmit(event) {
+    console.info(`evento: ${event}`);
+
+    let request = axios.post("http://localhost:8000/processos", {
+      seiNumber: seiNumber,
+      emitter: emitter,
+      sector: sector,
+      issueDate: issueDate,
+    });
+
+    request.then(
+      async (ok) => {
+        toast.success("Processo criado");
+      },
+      async (error) => {
+        console.error(`failed to send request ${error}`);
+        toast.error("Falha ao criar processo");
+      }
+    );
+  }
+
   return (
     <>
       <Header />
@@ -37,22 +60,46 @@ const CreateProcess = () => {
 
           <StyledWhiteRectangle>
             <StyledForms>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div>
                   <h1>Emissor</h1>
-                  <input type="text" placeholder="Emissor" />
+                  <input
+                    id="emitter"
+                    type="text"
+                    placeholder="Emissor"
+                    value={emitter}
+                    onChange={(event) => setEmitter(event.target.value)}
+                  />
                 </div>
                 <div>
                   <h1>N° do SEI</h1>
-                  <input type="text" placeholder="N° do SEI" />
+                  <input
+                    id="seiNum"
+                    type="text"
+                    placeholder="N° do SEI"
+                    onChange={(event) => setSeiNumber(event.target.value)}
+                    value={seiNumber}
+                  />
                 </div>
                 <div>
                   <h1>Setor</h1>
-                  <input type="text" placeholder="Setor" />
+                  <input
+                    id="sectorNum"
+                    type="text"
+                    placeholder="Setor"
+                    onChange={(event) => setSector(event.target.value)}
+                    value={sector}
+                  />
                 </div>
                 <div>
                   <h1>Data de Emissão</h1>
-                  <input type="text" placeholder="Data de Emissão" />
+                  <input
+                    id="issueDate"
+                    type="text"
+                    placeholder="Data de Emissão"
+                    onChange={(event) => setIssueDate(event.target.value)}
+                    value={issueDate}
+                  />
                 </div>
                 <div>
                   <h1>Tags</h1>
@@ -66,11 +113,13 @@ const CreateProcess = () => {
               <StyledCancelButton onClick={() => window.history.back()}>
                 Cancelar
               </StyledCancelButton>
-              <StyledCreateButton onClick={notify}>Criar</StyledCreateButton>
-              <Toaster />
+              <StyledCreateButton onClick={handleSubmit}>
+                Criar
+              </StyledCreateButton>
             </StyledButtonsDiv>
           </StyledWhiteRectangle>
         </StyledProcess>
+        <Toaster />
       </div>
     </>
   );
