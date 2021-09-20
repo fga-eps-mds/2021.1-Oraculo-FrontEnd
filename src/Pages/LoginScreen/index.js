@@ -15,8 +15,6 @@ const LoginScreen = () => {
   function handleClick(event) {
     if (passwordLogin === "12345" && userLogin === "user@teste") {
       login(passwordLogin);
-      event.preventDefault();
-      console.log(userLogin);
       history.push("/admin-page");
     }
   }
