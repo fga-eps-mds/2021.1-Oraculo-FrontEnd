@@ -1,18 +1,26 @@
 import React from "react";
-import MainButton from "../../Components/MainButton";
 import { logout } from "../../Auth/Auth";
+import MainButton from "../../Components/MainButton";
 import { history } from "../../history";
 
 const AdminScreen = () => {
-  const handleClickCheckout = (event) => {
-    logout();
-    history.push("/login");
-  };
-  return (
-    <>
-      <div>Voce esta logado como ADMIN</div>
-      <MainButton title="logout" onClick={handleClickCheckout} />
-    </>
-  );
+	function handleClickCheckout() {
+		logout();
+		history.push("/login");
+		window.location.reload();
+	}
+
+	function handleProcess() {
+		history.push("/criar-processo");
+		window.location.reload();
+	}
+
+	return (
+		<>
+			<div>Voce esta logado como ADMIN</div>
+			<MainButton title="criar processo" onClick={handleProcess} />
+			<MainButton title="logout" onClick={handleClickCheckout} />
+		</>
+	);
 };
 export default AdminScreen;
