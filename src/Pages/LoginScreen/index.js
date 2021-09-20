@@ -1,16 +1,72 @@
-import React from "react";
-import styles from "./styles";
+import React, { useState } from "react";
+import { FormLogin, StyledDiv } from "./styles";
+import Logo from "../../Assets/logo-dark.svg";
+import MainButton from "../../Components/MainButton";
+import LoginInput from "../../Components/LoginInput/index";
+import Header from "../../Components/Header";
+import { FaUserCircle, FaLock } from "react-icons/fa";
+import axios from "axios";
+import { history } from "../../history";
+import { login } from "../../Auth/Auth";
 
 const LoginScreen = () => {
+  const [userLogin, setUserLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
+
+  function handleClick(event) {
+    //event.preventDefault();
+    if (passwordLogin == "12345" && userLogin == "user@teste") {
+      login(passwordLogin);
+      history.push("/admin-page");
+    }
+
+    // axios
+    //   .post("http://localhost:8000/", {
+    //     userLogin: userLogin,
+    //     passwordLogin: passwordLogin,
+    //   })
+    //   .then((resp) => {
+    //     const { data } = resp;
+    //     if (data) {
+    //       // localStorage.setItem("user-token", data);
+    //       history.push("/admin-page");
+    //     }
+    //   });
+  }
+
   return (
-    <div>
-      <form>
-        <input type="email" placeholder="Usuario" />
-        <input type="password" placeholder="Senha" />
-        <button>Esqueci minha Senha</button>
-        <button>Entrar</button>
-      </form>
-    </div>
+    <>
+      <Header />
+      <FormLogin>
+        <form>
+          <img src={Logo} alt="Logo" />
+          <LoginInput
+            idInput="userLogin"
+            nameInput="userLogin"
+            placeholderInput="Usuário"
+            inputType="email"
+            valueInput={userLogin}
+            onChangeInput={(event) => setUserLogin(event.target.value)}
+          >
+            <FaUserCircle />
+          </LoginInput>
+          <LoginInput
+            idInput="passwordLogin"
+            nameInput="passwordLogin"
+            placeholderInput="Senha"
+            inputType="password"
+            valueInput={passwordLogin}
+            onChangeInput={(event) => setPasswordLogin(event.target.value)}
+          >
+            <FaLock />
+          </LoginInput>
+          <StyledDiv>
+            <a href="//">Esqueci minha Senha</a>
+            <MainButton onClick={handleClick} title={"Entrar"} />
+          </StyledDiv>
+        </form>
+      </FormLogin>
+    </>
   );
 };
 export default LoginScreen;
