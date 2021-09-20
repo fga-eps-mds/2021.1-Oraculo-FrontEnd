@@ -5,7 +5,6 @@ import MainButton from "../../Components/MainButton";
 import LoginInput from "../../Components/LoginInput/index";
 import Header from "../../Components/Header";
 import { FaUserCircle, FaLock } from "react-icons/fa";
-import axios from "axios";
 import { history } from "../../history";
 import { login } from "../../Auth/Auth";
 
@@ -14,24 +13,10 @@ const LoginScreen = () => {
   const [passwordLogin, setPasswordLogin] = useState("");
 
   function handleClick(event) {
-    //event.preventDefault();
-    if (passwordLogin == "12345" && userLogin == "user@teste") {
+    if (passwordLogin === "12345" && userLogin === "user@teste") {
       login(passwordLogin);
       history.push("/admin-page");
     }
-
-    // axios
-    //   .post("http://localhost:8000/", {
-    //     userLogin: userLogin,
-    //     passwordLogin: passwordLogin,
-    //   })
-    //   .then((resp) => {
-    //     const { data } = resp;
-    //     if (data) {
-    //       // localStorage.setItem("user-token", data);
-    //       history.push("/admin-page");
-    //     }
-    //   });
   }
 
   return (
