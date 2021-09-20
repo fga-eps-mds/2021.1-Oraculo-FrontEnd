@@ -4,6 +4,7 @@ export const styles = {};
 export const FormLogin = styled.div`
   background-color: #f6f6f6;
   height: 100vh;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,22 +18,11 @@ export const FormLogin = styled.div`
     background: #fff;
     align-items: center;
     box-sizing: border-box;
-
     justify-content: center;
-    /* img {
+
+    img {
       width: 100%;
       justify-content: center;
-    } */
-
-    input {
-      width: 22.5rem;
-      line-height: 3rem;
-      height: 2rem;
-      border-radius: 15px;
-      margin: 0.5rem 0rem;
-      ::placeholder {
-        padding-left: 1rem;
-      }
     }
 
     a {
