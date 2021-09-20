@@ -5,20 +5,33 @@ import MainButton from "../../Components/MainButton";
 import LoginInput from "../../Components/LoginInput/index";
 import Header from "../../Components/Header";
 import { FaUserCircle, FaLock } from "react-icons/fa";
+import axios from "axios";
+import { history } from "../../history";
+import { login } from "../../Auth/Auth";
 
-function initialState() {
-  return { userLogin: "", passwordLogin: "" };
-}
 const LoginScreen = () => {
-  const [values, setValues] = useState(initialState);
+  const [userLogin, setUserLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
 
-  function onChange(event) {
-    const { value, name } = event.target;
+  function handleClick(event) {
+    //event.preventDefault();
+    if (passwordLogin == "12345" && userLogin == "user@teste") {
+      login(passwordLogin);
+      history.push("/admin-page");
+    }
 
-    setValues({
-      ...values,
-      [name]: value,
-    });
+    // axios
+    //   .post("http://localhost:8000/", {
+    //     userLogin: userLogin,
+    //     passwordLogin: passwordLogin,
+    //   })
+    //   .then((resp) => {
+    //     const { data } = resp;
+    //     if (data) {
+    //       // localStorage.setItem("user-token", data);
+    //       history.push("/admin-page");
+    //     }
+    //   });
   }
 
   return (
@@ -32,8 +45,8 @@ const LoginScreen = () => {
             nameInput="userLogin"
             placeholderInput="Usuário"
             inputType="email"
-            valueInput={values.userLogin}
-            onChangeInput={onChange}
+            valueInput={userLogin}
+            onChangeInput={(event) => setUserLogin(event.target.value)}
           >
             <FaUserCircle />
           </LoginInput>
@@ -42,14 +55,14 @@ const LoginScreen = () => {
             nameInput="passwordLogin"
             placeholderInput="Senha"
             inputType="password"
-            valueInput={values.passwordLogin}
-            onChangeInput={onChange}
+            valueInput={passwordLogin}
+            onChangeInput={(event) => setPasswordLogin(event.target.value)}
           >
             <FaLock />
           </LoginInput>
           <StyledDiv>
             <a href="//">Esqueci minha Senha</a>
-            <MainButton title={"Entrar"} />
+            <MainButton onClick={handleClick} title={"Entrar"} />
           </StyledDiv>
         </form>
       </FormLogin>

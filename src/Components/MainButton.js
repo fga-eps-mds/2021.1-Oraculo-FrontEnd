@@ -19,6 +19,8 @@ const StyledButton = styled.button`
   justify-content: center;
 `;
 
-const MainButton = ({ title }) => <StyledButton>{title}</StyledButton>;
+const MainButton = ({ title, onClick }) => (
+  <StyledButton onClick={onClick}>{title}</StyledButton>
+);
 
 export default MainButton;
