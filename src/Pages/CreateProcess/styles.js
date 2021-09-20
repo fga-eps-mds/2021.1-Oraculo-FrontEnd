@@ -2,39 +2,32 @@ import styled from "styled-components";
 
 export const styles = {};
 
-export const StyledTitle = styled.h1`
-  position: absolute;
-  width: 24.063rem;
-  height: 2.625rem;
-  left: 24rem;
-  top: 9.625rem;
-
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 40px;
-  line-height: 49px;
+export const StyledTitle = styled.div`
   display: flex;
   align-items: center;
-  text-align: center;
-
-  color: #000000;
-
-  div {
-    position: absolute;
-    top: 10px;
-    left: 45rem;
-    height: 4rem;
-    width: 24rem;
+  justify-content: space-around;
+  p {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 49px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
   }
 `;
 
+export const StyledProcess = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const StyledBlueRectangle = styled.div`
-  position: absolute;
-  left: 22rem;
-  top: 17rem;
   height: 38rem;
   width: 23rem;
+  justify-content: center;
 
   border: none;
   border-radius: 20px 0px 0px 20px;
@@ -45,30 +38,10 @@ export const StyledBlueRectangle = styled.div`
   align-items: center;
 `;
 
-export const StyledPaperSheet = styled.div`
-  position: absolute;
-  left: 22%;
-  height: 17rem;
-  width: 13rem;
-
-  background-color: #ffffff;
-  display: flex;
-`;
-
-export const StyledCut = styled.div`
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-top: 65px solid #1f3541;
-  border-left: 65px solid #ffffff;
-  width: 0;
-`;
-
 export const StyledWhiteRectangle = styled.div`
-  position: absolute;
-  left: 45rem;
-  top: 17rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   height: 38rem;
   width: 48rem;
 
@@ -77,55 +50,76 @@ export const StyledWhiteRectangle = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   background-color: #ffffff;
-  display: flex;
 `;
 
 export const StyledForms = styled.div`
+  padding-bottom: 4rem;
   form {
-    position: absolute;
-    display: flex;
-    flex-flow: column;
     align-items: baseline;
-
-    top: 1rem;
-    left: 20%;
-
-    h1 {
-      font-family: Open Sans;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 33px;
-      display: flex;
-      align-items: center;
-      color: #000000;
-    }
-
-    input {
-      width: 26rem;
-      height: 2rem;
-      background: #ffffff;
-
-      border-radius: 12px;
-      border: 2px solid #000000;
-
-      ::placeholder {
-        font-family: Open Sans;
+    margin-left: auto;
+    div {
+      box-sizing: border-box;
+      h1 {
+        text-align: left;
+        font-family: Montserrat;
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
         line-height: 33px;
+        color: #000000;
+        margin-left: 11rem;
+      }
+
+      input {
+        width: 26rem;
+        height: 2rem;
+        background: #ffffff;
+        padding-left: 0.5rem;
+
+        border-radius: 12px;
+        border: 2px solid #000000;
+        outline: none;
+
+        ::placeholder {
+          font-family: Open Sans;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 33px;
+          opacity: 0.7;
+        }
+      }
+
+      button {
+        width: 26.9rem;
+        height: 2rem;
+        background: #ffffff;
+        padding: 0.55rem 0rem 1.55rem 1rem;
+        align-items: center;
+
+        border-radius: 12px;
+        border: 2px solid #000000;
+        text-align: left;
+        cursor: pointer;
+        svg {
+          font-size: 18px;
+          line-height: 33px;
+        }
       }
     }
   }
 `;
 
+export const StyledButtonsDiv = styled.div`
+  margin-left: 15rem;
+  button {
+    margin-left: 1rem;
+  }
+`;
+
 export const StyledCancelButton = styled.button`
-  position: absolute;
   width: 9.375rem;
   height: 2.5rem;
-  bottom: 2.5rem;
-  left: 22rem;
 
   font-family: Montserrat;
   font-style: normal;
@@ -142,11 +136,8 @@ export const StyledCancelButton = styled.button`
 `;
 
 export const StyledCreateButton = styled.button`
-  position: absolute;
   width: 9.375rem;
   height: 2.5rem;
-  bottom: 2.5rem;
-  left: 32rem;
 
   font-family: Montserrat;
   font-style: normal;
