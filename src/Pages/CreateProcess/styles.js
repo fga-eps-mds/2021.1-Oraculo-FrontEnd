@@ -39,6 +39,7 @@ export const StyledBlueRectangle = styled.div`
 `;
 
 export const StyledWhiteRectangle = styled.div`
+  overflow-y: scroll;
   align-items: center;
   justify-content: center;
   text-align: center;
