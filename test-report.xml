@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/app/src/App.test.js">
+    <testCase name="renders learn react link" duration="95">
+      <failure message="TestingLibraryElementError: Unable to find an element with the text: /learn react/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[TestingLibraryElementError: Unable to find an element with the text: /learn react/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+<body>
+  <div>
+    <div
+      class="sc-gsTEea iIVosi"
+    >
+      <img
+        src="logo-white.svg"
+      />
+    </div>
+    <div
+      class="sc-kEjbQP gMxFuV"
+    >
+      <form>
+        <img
+          alt="Logo"
+          src="logo-dark.svg"
+        />
+        <div
+          class="sc-jrAFXE gdmxqk"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 496 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"
+            />
+          </svg>
+          <input
+            id="userLogin"
+            name="userLogin"
+            placeholder="Usuário"
+            type="email"
+            value=""
+          />
+        </div>
+        <div
+          class="sc-jrAFXE gdmxqk"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 448 512"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"
+            />
+          </svg>
+          <input
+            id="passwordLogin"
+            name="passwordLogin"
+            placeholder="Senha"
+            type="password"
+            value=""
+          />
+        </div>
+        <div
+          class="sc-iqHYmW hpfFFB"
+        >
+          <a
+            href="//"
+          >
+            Esqueci minha Senha
+          </a>
+          <button
+            class="sc-bdfBQB kzDFZN"
+          >
+            Entrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+    at Object.getElementError (/app/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at /app/node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+    at /app/node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+    at getByText (/app/node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+    at Object.<anonymous> (/app/src/App.test.js:6:30)
+    at Promise.then.completed (/app/node_modules/jest-circus/build/utils.js:276:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/app/node_modules/jest-circus/build/utils.js:216:10)
+    at _callCircusTest (/app/node_modules/jest-circus/build/run.js:212:40)
+    at _runTest (/app/node_modules/jest-circus/build/run.js:149:3)
+    at _runTestsForDescribeBlock (/app/node_modules/jest-circus/build/run.js:63:9)
+    at run (/app/node_modules/jest-circus/build/run.js:25:3)
+    at runAndTransformResultsToJestFormat (/app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:176:21)
+    at jestAdapter (/app/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:109:19)
+    at runTestInternal (/app/node_modules/jest-runner/build/runTest.js:380:16)
+    at runTest (/app/node_modules/jest-runner/build/runTest.js:472:34)]]></failure>
+    </testCase>
+  </file>
+</testExecutions>
