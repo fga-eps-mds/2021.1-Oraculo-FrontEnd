@@ -63,25 +63,39 @@ const RegistrationScreen = () => {
                 </div>
                 <div>
                   <h1>Departamento:</h1>
-                  <input
+                  <select
                     id="registerDepartmentInput"
                     type="text"
-                    placeholder="Departamento"
                     onChange={(event) =>
                       setRegisterDepartment(event.target.value)
                     }
                     value={registerDepartment}
-                  />
+                  >
+                    <option value="GI">Gerência de identificação - GI</option>
+                    <option value="UI">Unidade de inteligência - UI</option>
+                    <option value="GA">Gerencia adjunta - GA</option>
+                    <option value="DICRIM">Divisão criminal - DICRIM</option>
+                    <option value="DITEC">Divisão de tecnologia - DITEC</option>
+                    <option value="DIADM">
+                      Divisão administrativa - DIADM
+                    </option>
+                    <option value="DICIV">Divisão civil - DICIV</option>
+                  </select>
                 </div>
                 <div>
                   <h1>Nível de usuário:</h1>
-                  <input
+                  <select
                     id="registerUserLevel"
                     type="text"
-                    placeholder="Nível de administrador"
                     onChange={(event) => setUserLevel(event.target.value)}
                     value={registerUserLevel}
-                  />
+                  >
+                    <option value="1">Administrador Máximo</option>
+                    <option value="2">Administrador DICRIM</option>
+                    <option value="3">Administrador DITEC</option>
+                    <option value="4">Administrador DIADM</option>
+                    <option value="5">Administrador DICIV</option>
+                  </select>
                 </div>
                 <div>
                   <h1>Senha:</h1>
