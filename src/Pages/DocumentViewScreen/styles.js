@@ -19,27 +19,46 @@ export const StyledOrganizeButtons = styled.div`
   border: 0px solid #5e5e5e;
   box-sizing: border-box;
   border-radius: 10px 10px 0px 0px;
+  height: 4rem;
+  align-items: center;
+`;
 
-  button {
-    width: 10rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+export const StyledSmallButton = styled.button`
+  width: 10%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    font-family: Montserrat;
-    color: #ffffff;
-    font-style: normal;
-    font-size: 28px;
-    line-height: 20px;
-    text-align: center;
+  font-family: Montserrat;
+  color: #ffffff;
+  font-style: normal;
+  font-size: 28px;
+  line-height: 20px;
+  text-align: center;
 
-    background: #1f3541;
-    cursor: pointer;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+`;
 
-    border: 0px solid #5e5e5e;
-    border-radius: 10px 10px 0px 0px;
-  }
+export const StyledBigButton = styled.button`
+  width: 18%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Montserrat;
+  color: #ffffff;
+  font-style: normal;
+  font-size: 28px;
+  line-height: 20px;
+  text-align: center;
+
+  background: transparent;
+  cursor: pointer;
+  border: none;
 `;
 
 export const StyledTitle = styled.div`
@@ -65,7 +84,6 @@ export const StyledFilterButton = styled.button`
   line-height: 20px;
   text-align: center;
 
-  border: 1px solid #000000;
   border-radius: 15px;
   background: rgba(255, 255, 255, 1);
   cursor: pointer;
