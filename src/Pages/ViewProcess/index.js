@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../Components/Header";
 import { DivInfoProcess, DivShowProcess, DivSupProcess } from "./style";
 import { FaUserCircle, FaTelegramPlane } from "react-icons/fa";
+import DropDownButton from "../../Components/DropDownButton";
 
 const ViewProcess = () => {
   return (
@@ -18,7 +19,9 @@ const ViewProcess = () => {
             <p>Willian Cops</p>
           </div>
           <span>Setor:</span>
-          {/*create component drop menu */}
+
+          <DropDownButton />
+
           <div className="fowardIcon">
             <a href="//">Encaminhar</a>
             <FaTelegramPlane />

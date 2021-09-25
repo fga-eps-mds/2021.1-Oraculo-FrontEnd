@@ -5,7 +5,7 @@ const DivSupProcess = styled.div`
 `;
 const DivInfoProcess = styled.div`
   width: 35.5%;
-  height: 100vh;
+  height: 90vh;
   background-color: #1f3541;
   color: white;
   font-size: 1rem;
@@ -19,18 +19,18 @@ const DivInfoProcess = styled.div`
 
   hr {
     border-color: #5289b5;
-    margin: 1rem 15%auto;
+    margin: 1rem 15%;
   }
 
   span {
     text-align: left;
-    line-height: 3rem;
     font-size: 1.5rem;
   }
 
   .issuerIcon {
     display: flex;
     align-items: center;
+    margin: 1rem 0;
     svg {
       width: 2rem;
       height: 2rem;
@@ -42,6 +42,7 @@ const DivInfoProcess = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 1rem;
     a {
       text-decoration: none;
       color: white;
