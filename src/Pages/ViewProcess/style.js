@@ -94,7 +94,7 @@ const DivShowProcess = styled.div`
     padding: 1rem 2rem 2rem;
     border: 1px solid #000;
     box-sizing: border-box;
-    margin: 2rem 0;
+    margin-top: 2rem;
   }
   .infoProcessicon {
     display: flex;

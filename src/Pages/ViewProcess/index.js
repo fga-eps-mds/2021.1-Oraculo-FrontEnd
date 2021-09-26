@@ -18,8 +18,6 @@ const ViewProcess = () => {
             </div>
             <span>Data de Emissão: 26/06/2020</span>
           </div>
-          <p></p>
-          <p></p>
           <SectionMovBlock />
         </DivShowProcess>
         <DivInfoProcess>

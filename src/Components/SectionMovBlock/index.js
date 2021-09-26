@@ -1,18 +1,18 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { DivMovBlock, DivNodeBlock } from "./styles";
+import { DivMovBlock, DivNodeBlock, StyledLine } from "./styles";
 
 const SectionMovBlock = () => {
   return (
     <>
       <DivNodeBlock>
-        <div></div>
-        <ul>
-          <li>
-            <p>Setor: X</p>
-            <p>26/02/2021</p>
-          </li>
-        </ul>
+        <StyledLine>
+          <div></div>
+        </StyledLine>
+        <div className="content">
+          <p>Setor: X</p>
+          <p>26/02/2021</p>
+        </div>
       </DivNodeBlock>
       <DivMovBlock>
         <div>
