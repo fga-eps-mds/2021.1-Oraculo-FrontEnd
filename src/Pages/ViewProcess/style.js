@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const DivSupProcess = styled.div`
   display: flex;
+  background-color: #f6f6f6;
 `;
 const DivInfoProcess = styled.div`
   width: 35.5%;
@@ -84,6 +85,33 @@ const DivInfoProcess = styled.div`
 
 const DivShowProcess = styled.div`
   width: 64.5%;
+  margin: 0 5%;
+
+  .infoProcess {
+    width: 100%;
+    background: #fff;
+    border-radius: 15px;
+    padding: 1rem 2rem 2rem;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    margin: 2rem 0;
+  }
+  .infoProcessicon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: baseline;
+    p {
+      margin: 0 0 2rem 0;
+      font-size: 2.5rem;
+    }
+    svg {
+      left: 5%;
+      color: #5289b5;
+      height: 1.3rem;
+      width: 1.3rem;
+    }
+  }
 `;
 
 export { DivInfoProcess, DivShowProcess, DivSupProcess };
