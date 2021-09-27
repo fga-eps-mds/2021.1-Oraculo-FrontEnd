@@ -1,7 +1,7 @@
 export const colors = {
-  navyBlue: '#1F3541',
-  blueGrotto: '#5289B5',
-  whiteSmoke: '#F6F6F6',
+  header: '#1F3541',
+  primary: '#5289B5',
+  background: '#F6F6F6',
   red: '#FF0000',
   black: '#000000',
   white: '#ffffff'
