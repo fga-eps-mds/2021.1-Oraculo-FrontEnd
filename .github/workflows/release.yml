@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
           
       - name: Run tests
-        run: sudo docker-compose run oraculo-frontend bash -c  "yarn && yarn test --coverage --watchAll=false"
+        run: sudo docker-compose run frontend bash -c  "yarn && yarn test --coverage --watchAll=false"
       
       - name: Get Date
         id: date
