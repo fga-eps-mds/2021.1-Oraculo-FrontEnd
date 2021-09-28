@@ -16,7 +16,7 @@ jobs:
 
       - name: Run tests
         run: sudo docker-compose run frontend bash -c  "yarn && yarn test --coverage --watchAll=false"
-
+        
       - name: Get Date
         id: date
         run: echo "::set-output name=date::$(date +'%m-%d-%Y-%H-%M')"
