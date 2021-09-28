@@ -1,9 +1,9 @@
 import React from "react";
 import { StyledWhiteButton } from "./styles";
 
-const GenericWhiteButton = ({ title }) => (
+const GenericWhiteButton = ({ title, onClick }) => (
   <>
-    <StyledWhiteButton>{title}</StyledWhiteButton>
+    <StyledWhiteButton onClick={onClick}>{title}</StyledWhiteButton>
   </>
 );
 
