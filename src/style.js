@@ -10,6 +10,7 @@ export const colors = {
 
 export const fonts = {
   font: "Montserrat",
+  sizeXXlg: "28px",
   sizeXlg: "24px",
   sizeLg: "18px",
   sizeMd: "16px",
