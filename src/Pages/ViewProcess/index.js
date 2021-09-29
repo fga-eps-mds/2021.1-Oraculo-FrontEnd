@@ -19,6 +19,8 @@ const ViewProcess = () => {
             <span>Data de Emissão: 26/06/2020</span>
           </div>
           <SectionMovBlock />
+          <SectionMovBlock />
+          <SectionMovBlock />
         </DivShowProcess>
         <DivInfoProcess>
           <h2>Joana Depolice</h2>

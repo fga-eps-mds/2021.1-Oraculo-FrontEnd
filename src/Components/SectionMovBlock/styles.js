@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { fonts, colors, radius } from "../../style";
 
 const DivNodeBlock = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const DivNodeBlock = styled.div`
 const StyledLine = styled.div`
   width: 2px;
   height: 10rem;
-  background: #5289b5;
+  background: ${colors.primary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,16 +25,16 @@ const StyledLine = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 3.5px solid #5289b5;
+    border: 3.5px solid ${colors.primary};
     width: 1px;
     height: 1px;
   }
 `;
 
 const DivMovBlock = styled.div`
-  background: #fff;
-  border-radius: 15px;
-  border: 1px solid #000;
+  background: ${colors.white};
+  border-radius: ${radius.sizeMd};
+  border: 1px solid ${colors.black};
   padding: 0rem 2rem 0.5rem;
   div {
     display: flex;

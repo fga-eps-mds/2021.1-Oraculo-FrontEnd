@@ -1,31 +1,33 @@
 import styled from "styled-components";
+import { fonts, colors, radius } from "../../style";
 
 const DivSupProcess = styled.div`
   display: flex;
-  background-color: #f6f6f6;
+  background-color: ${colors.background};
 `;
 const DivInfoProcess = styled.div`
   width: 35.5%;
   height: 90vh;
-  background-color: #1f3541;
-  color: white;
-  font-size: 1rem;
+  background-color: ${colors.header};
+  color: ${colors.white};
+  font-size: ${fonts.sizeMd};
+  font-family: ${fonts.font};
   padding: 0 3%;
   box-sizing: border-box;
   h2 {
     text-align: center;
-    font-size: 1.8rem;
+    font-size: ${fonts.sizeXlg};
     font-weight: 700;
   }
 
   hr {
-    border-color: #5289b5;
+    border-color: ${colors.primary};
     margin: 1rem 15%;
   }
 
   span {
     text-align: left;
-    font-size: 1.5rem;
+    font-size: ${fonts.sizeXlg};
   }
 
   .issuerIcon {
@@ -47,7 +49,7 @@ const DivInfoProcess = styled.div`
     a {
       text-decoration: none;
       color: white;
-      font-size: 1.125rem;
+      font-size: ${fonts.sizeLg};
     }
     svg {
       margin: 0 1rem;
@@ -72,10 +74,10 @@ const DivInfoProcess = styled.div`
   }
 
   .historic {
-    border: 2px solid #fff;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 1.5rem;
+    border: 2px solid ${colors.white};
+    border-radius: ${radius.sizeSm};
+    font-size: ${fonts.sizeLg};
+    color: ${colors.white};
     display: block;
     text-align: center;
     margin-top: 2rem;
@@ -86,13 +88,16 @@ const DivInfoProcess = styled.div`
 const DivShowProcess = styled.div`
   width: 64.5%;
   margin: 0 5%;
+  height: 70vh;
+  overflow-y: scroll;
+  font-family: ${fonts.font};
 
   .infoProcess {
     width: 100%;
-    background: #fff;
-    border-radius: 15px;
+    background: ${colors.white};
+    border-radius: ${radius.sizeMd};
     padding: 1rem 2rem 2rem;
-    border: 1px solid #000;
+    border: 1px solid ${colors.black};
     box-sizing: border-box;
     margin-top: 2rem;
   }
@@ -103,11 +108,11 @@ const DivShowProcess = styled.div`
     align-items: baseline;
     p {
       margin: 0 0 2rem 0;
-      font-size: 2.5rem;
+      font-size: ${fonts.sizeXXlg};
     }
     svg {
       left: 5%;
-      color: #5289b5;
+      color: ${colors.primary};
       height: 1.3rem;
       width: 1.3rem;
     }
