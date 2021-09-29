@@ -21,7 +21,7 @@ const AdminScreen = () => {
   }
 
   function handleViewCreateProfile() {
-    history.push("/criar-user");
+    history.push("/criar-usuario");
     window.location.reload();
   }
 
