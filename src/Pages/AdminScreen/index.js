@@ -15,11 +15,17 @@ const AdminScreen = () => {
 		window.location.reload();
 	}
 
+	function handleViewProfile(){
+		history.push("/user");
+		window.location.reload();
+	}
+
 	return (
 		<>
 			<div>Voce esta logado como ADMIN</div>
 			<MainButton title="criar processo" onClick={handleProcess} />
 			<MainButton title="logout" onClick={handleClickCheckout} />
+			<MainButton title="ver usuario" onClick={handleViewProfile} />
 		</>
 	);
 };
