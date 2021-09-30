@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import DivSelectSetor from "./styles";
 
-const DropDownButton = () => {
+const DropDownButton = ({ onChangeOpt }) => {
   return (
     <DivSelectSetor>
-      <select>
-        <option claaname="selectSetorOpt" selected value="criminal">
+      <select onChange={onChangeOpt}>
+        <option name="selectSetorOpt" selected value="criminal">
           Criminal
         </option>
-        <option claaname="selectSetorOpt" value="tecnologia">
+        <option name="selectSetorOpt" value="tecnologia">
           Tecnologia
         </option>
-        <option claaname="selectSetorOpt" value="administrativa">
+        <option name="selectSetorOpt" value="administrativa">
           Administrativo
         </option>
-        <option claaname="selectSetorOpt" value="civil">
+        <option name="selectSetorOpt" value="civil">
           civil
         </option>
       </select>
