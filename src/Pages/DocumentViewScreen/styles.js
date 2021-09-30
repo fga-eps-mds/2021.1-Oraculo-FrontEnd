@@ -66,19 +66,3 @@ export const StyledTitle = styled.div`
   text-align: left;
   color: #000000;
 `;
-export const StyledFilterButton = styled.button`
-  width: 10rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Montserrat;
-  font-style: normal;
-  font-size: 28px;
-  line-height: 20px;
-  text-align: center;
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 1);
-  cursor: pointer;
-  border: 2px solid #000000;
-`;
