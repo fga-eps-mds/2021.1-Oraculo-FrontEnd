@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import DivSelectSetor from "./styles";
 
 const DropDownButton = ({ onChangeOpt }) => {

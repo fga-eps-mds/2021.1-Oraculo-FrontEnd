@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import Header from "../../Components/Header";
-import { DivInfoProcess, DivShowProcess, DivSupProcess } from "./style";
+import {
+  StyledDivInfoProcess,
+  StyledDivShowProcess,
+  StyledDivSupProcess,
+  StyledDivButtons,
+} from "./style";
 import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
-import SectionMovBlock from "../../Components/SectionMovBlock";
-import Sectors from "../../Components/FowardSetor";
 import FowardSector from "../../Components/FowardSetor";
+import GenericWhiteButton from "../../Components/GenericWhiteButton";
+import GenericRedButton from "../../Components/GenericRedButton";
 
 const ViewProcess = () => {
+  const handleButtonProcess = () => {
+    alert("Função ainda nao implementada");
+  };
   const [foward, setFoward] = useState("criminal");
 
   const [sectors, setSectors] = useState([]);
@@ -18,7 +26,10 @@ const ViewProcess = () => {
       ...sectors,
       {
         setor: foward,
-        data: "26/07/2010",
+        setorOrigin: "criminal",
+        date: "26/07/2010",
+        dateFoward: "29/09/2021",
+        name: "nome default encarregado",
       },
     ];
     setSectors(newSectors);
@@ -27,8 +38,8 @@ const ViewProcess = () => {
   return (
     <>
       <Header />
-      <DivSupProcess>
-        <DivShowProcess>
+      <StyledDivSupProcess>
+        <StyledDivShowProcess>
           <div className="infoProcess">
             <div className="infoProcessicon">
               <p>Nº do SEI: 199.293.9485</p>
@@ -37,9 +48,13 @@ const ViewProcess = () => {
             <span>Data de Emissão: 26/06/2020</span>
           </div>
           <FowardSector sectors={sectors} />
-          {/* <SectionMovBlock setor={foward} /> */}
-        </DivShowProcess>
-        <DivInfoProcess>
+
+          <StyledDivButtons>
+            <GenericWhiteButton title="voltar" onClick={handleButtonProcess} />
+            <GenericRedButton title="concluir" onClick={handleButtonProcess} />
+          </StyledDivButtons>
+        </StyledDivShowProcess>
+        <StyledDivInfoProcess>
           <h2>Joana Depolice</h2>
           <hr></hr>
           <span>Emissor:</span>
@@ -54,7 +69,7 @@ const ViewProcess = () => {
           />
 
           <div className="fowardIcon">
-            <a onClick={handleFoward}>Encaminhar</a>
+            <p onClick={handleFoward}>Encaminhar</p>
             <FaTelegramPlane />
           </div>
           <span>Tags:</span>
@@ -67,8 +82,8 @@ const ViewProcess = () => {
           <a className="historic" href="//">
             Histórico de alterações
           </a>
-        </DivInfoProcess>
-      </DivSupProcess>
+        </StyledDivInfoProcess>
+      </StyledDivSupProcess>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fonts, colors, radius } from "../../style";
+import { colors, radius } from "../../style";
 
 const DivNodeBlock = styled.div`
   display: flex;
