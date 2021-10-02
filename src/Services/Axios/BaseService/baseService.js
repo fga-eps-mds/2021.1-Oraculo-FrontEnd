@@ -7,6 +7,9 @@ export const APIProcess = axios.create({
 
 export const APIProfile = axios.create({
     baseURL: BaseUrlProfile,
+    headers: {
+        "Access-Control-Allow-Origin": "localhost",
+    },
 });
 
 export const APITags = axios.create({
@@ -27,8 +30,8 @@ APIProcess.interceptors.response.use(
 APITags.interceptors.response.use(
     async (response) => {
         try {
-            const authToken = await response.status;
-            if (authToken === 500 || authToken === 401) {
+            const token = await response.status;
+            if (token === 500 || token === 401) {
                 localStorage.clear();
                 window.location.reload();
             }
@@ -49,8 +52,8 @@ APITags.interceptors.response.use(
 APIProfile.interceptors.response.use(
     async (response) => {
         try {
-            const authToken = await response.status;
-            if (authToken === 500 || authToken === 401) {
+            const token = await response.status;
+            if (token === 500 || token === 401) {
                 localStorage.clear();
                 window.location.reload();
             }
