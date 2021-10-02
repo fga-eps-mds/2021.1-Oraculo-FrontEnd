@@ -1,57 +1,67 @@
 import React, { useState } from "react";
 import { FaLock, FaUserCircle } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../Assets/logo-dark.svg";
-import { login } from "../../Auth/Auth";
 import Header from "../../Components/Header";
 import LoginInput from "../../Components/LoginInput/index";
 import MainButton from "../../Components/MainButton";
-import { history } from "../../history";
 import { FormLogin, StyledDiv } from "./styles";
+import { loginUser } from "../../Services/Axios/profileService";
+import { login } from "../../Auth/Auth";
+import { history } from "../../history";
 
 const LoginScreen = () => {
-	const [userLogin, setUserLogin] = useState("");
-	const [passwordLogin, setPasswordLogin] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-	function handleClick(event) {
-		if (passwordLogin === "12345" && userLogin === "user@teste") {
-			login(passwordLogin);
-			history.push("/admin-page");
-		}
-	}
+    async function handleClick(event) {
+        const user = { email, password };
 
-	return (
-		<>
-			<Header />
-			<FormLogin>
-				<form>
-					<img src={Logo} alt="Logo" />
-					<LoginInput
-						idInput="userLogin"
-						nameInput="userLogin"
-						placeholderInput="Usuário"
-						inputType="email"
-						valueInput={userLogin}
-						onChangeInput={(event) => setUserLogin(event.target.value)}
-					>
-						<FaUserCircle />
-					</LoginInput>
-					<LoginInput
-						idInput="passwordLogin"
-						nameInput="passwordLogin"
-						placeholderInput="Senha"
-						inputType="password"
-						valueInput={passwordLogin}
-						onChangeInput={(event) => setPasswordLogin(event.target.value)}
-					>
-						<FaLock />
-					</LoginInput>
-					<StyledDiv>
-						<a href="//">Esqueci minha Senha</a>
-						<MainButton onClick={handleClick} title={"Entrar"} />
-					</StyledDiv>
-				</form>
-			</FormLogin>
-		</>
-	);
+        const result = await loginUser(user, toast);
+        const auth = result?.auth;
+        if (auth) {
+            login(auth.token);
+            history.push("/admin-page");
+        }
+    }
+
+    return (
+        <>
+            <Header />
+            <FormLogin>
+                <form>
+                    <img src={Logo} alt="Logo" />
+                    <LoginInput
+                        idInput="email"
+                        nameInput="email"
+                        placeholderInput="Usuário"
+                        inputType="email"
+                        valueInput={email}
+                        onChangeInput={(event) => setEmail(event.target.value)}>
+                        <FaUserCircle />
+                    </LoginInput>
+                    <LoginInput
+                        idInput="password"
+                        nameInput="password"
+                        placeholderInput="Senha"
+                        inputType="password"
+                        valueInput={password}
+                        onChangeInput={(event) => setPassword(event.target.value)}>
+                        <FaLock />
+                    </LoginInput>
+                    <StyledDiv>
+                        <a href="/esqueci-senha">Esqueci minha Senha</a>
+                        <MainButton
+                            onClick={(event) => {
+                                handleClick(event);
+                            }}
+                            title={"Entrar"}
+                        />
+                    </StyledDiv>
+                </form>
+                <Toaster />
+            </FormLogin>
+        </>
+    );
 };
 export default LoginScreen;
