@@ -1,14 +1,14 @@
 import { APIProfile } from "./BaseService/index";
-import { User } from "../../Model/User";
 
-export async function registerUser(User, toast) {
+export async function registerUser(user, toast) {
     try {
-        APIProfile.post("/register", {
-            email: User.email,
-            password: User.password,
-            departmentID: User.departmentID,
-            level: User.level,
-            sectionID: User.sectionID,
+        console.info(`sending user: ${JSON.stringify(user)}`);
+        await APIProfile.post("/register", {
+            email: user.email,
+            password: user.password,
+            departmentID: user.departmentID,
+            level: user.level,
+            sectionID: user.sectionID,
         });
 
         toast.success("Usuário cadastrado com sucesso");
@@ -22,7 +22,7 @@ export async function registerUser(User, toast) {
         } else if (status === 400) {
             toast.error("Faltam algumas informações para realizar o cadastro do usuário");
         } else {
-            toast.warn("Erro ao cadastrar usuário");
+            toast.error(`Erro ao cadastrar usuário!`);
         }
     }
 }
@@ -35,7 +35,7 @@ export async function loginUser(user, toast) {
         });
 
         if (response.data.error) {
-            toast.success("Email e/ou senha inválidos");
+            toast.error("Email e/ou senha inválidos");
         } else {
             APIProfile.defaults.headers = { "x-access-token": response.data.token };
         }
