@@ -29,16 +29,12 @@ APIProcess.interceptors.response.use(
 
 APITags.interceptors.response.use(
     async (response) => {
-        try {
-            const token = await response.status;
-            if (token === 500 || token === 401) {
-                localStorage.clear();
-                window.location.reload();
-            }
-            return response;
-        } catch (err) {
-            return response;
+        const token = await response.status;
+        if (token === 500 || token === 401) {
+            localStorage.clear();
+            window.location.reload();
         }
+        return response;
     },
     (error) => {
         if (error.response.status === 500) {
