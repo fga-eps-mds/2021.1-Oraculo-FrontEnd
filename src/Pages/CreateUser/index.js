@@ -3,6 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import Header from "../../Components/Header";
 import { registerUser } from "../../Services/Axios/profileService";
+import { SectionsList } from "./sections";
 
 import {
     StyledBlueRectangle,
@@ -76,9 +77,7 @@ const ViewProfile = () => {
                                         onChange={(event) =>
                                             setDepartment(event.target.value)
                                         }>
-                                        <option>Seção de identificação criminal</option>
-                                        <option>Seção de retrato falado</option>
-                                        <option>Seção de malote</option>
+                                        <SectionsList />
                                     </select>
                                 </div>
                                 <div>
