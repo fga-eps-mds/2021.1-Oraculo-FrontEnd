@@ -2,7 +2,9 @@ import { APIProfile } from "./BaseService/index";
 
 export async function registerUser(user, toast) {
     try {
-        console.info(`sending user: ${JSON.stringify(user)}`);
+        // TODO: parse user department ID and section ID
+        // TODO: save state between pages
+
         await APIProfile.post("/register", {
             email: user.email,
             password: user.password,
@@ -31,18 +33,23 @@ export async function loginUser(user, toast) {
     try {
         const response = await APIProfile.post("/login", {
             email: user.email,
-            pass: user.password,
+            password: user.password,
         });
 
-        if (response.data.error) {
-            toast.error("Email e/ou senha inválidos");
-        } else {
-            APIProfile.defaults.headers = { "x-access-token": response.data.token };
-        }
+        APIProfile.defaults.headers.common["x-access-token"] = response.data.token;
 
         return response.data;
     } catch (err) {
-        toast.success("Não foi possivel fazer login. Tente novamente mais tarde.");
+        const status = err.response?.status;
+
+        if (status === 401) {
+            toast.error("Usuário e/ou senha inválidos");
+        } else if (status === 400) {
+            toast.error("Requisição inválida");
+        } else {
+            toast.error("Não foi possivel fazer login. Tente novamente mais tarde.");
+        }
+
         console.error(err);
         return null;
     }
