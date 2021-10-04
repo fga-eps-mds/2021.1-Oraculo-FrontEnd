@@ -46,7 +46,9 @@ const StyledDivInfoProcess = styled.div`
     align-items: center;
     justify-content: flex-end;
     margin-top: 1rem;
-    p {
+    button {
+      background: transparent;
+      border: none;
       text-decoration: none;
       color: white;
       font-size: ${fonts.sizeLg};

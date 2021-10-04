@@ -19,7 +19,9 @@ const SectionMovBlock = ({ fowardSector }) => {
           <p>{fowardSector.name}</p>
         </div>
         <div>
-          <p>Processo enviado para o setor: {fowardSector.setor}</p>
+          <p>
+            {fowardSector.defaultText}: {fowardSector.setor}
+          </p>
           <p>{fowardSector.date}</p>
         </div>
       </DivMovBlock>

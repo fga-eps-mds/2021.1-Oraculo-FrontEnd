@@ -11,28 +11,57 @@ import DropDownButton from "../../Components/DropDownButton";
 import FowardSector from "../../Components/FowardSetor";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
+import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
 
 const ViewProcess = () => {
+  const [buttonModal, setButtonModal] = useState(false);
   const handleButtonProcess = () => {
-    alert("Função ainda nao implementada");
+    setButtonModal(true);
   };
+
   const [foward, setFoward] = useState("criminal");
 
   const [sectors, setSectors] = useState([]);
 
   const handleFoward = () => {
-    console.log(foward);
     const newSectors = [
       ...sectors,
       {
+        defaultText: "Processo enviado para o setor",
         setor: foward,
-        setorOrigin: "criminal",
+        setorOrigin: "Criminal",
         date: "26/07/2010",
         dateFoward: "29/09/2021",
-        name: "nome default encarregado",
+        name: "José carlos",
       },
     ];
     setSectors(newSectors);
+  };
+
+  const [buttonDone, setButtonDone] = useState(false);
+  const handleClickModalRed = () => {
+    const newSectors = [
+      ...sectors,
+      {
+        defaultText: "Registro: Concluido",
+        setorOrigin: "Criminal",
+        name: "José carlos",
+        date: "27/09/2021",
+      },
+    ];
+    setSectors(newSectors);
+    setButtonModal(false);
+    setButtonDone(true);
+
+    document.querySelector(".fowardIcon").style.display = "none";
+  };
+
+  const handleReopen = () => {
+    alert("Em implementação");
+  };
+
+  const handleClickModalWhite = () => {
+    setButtonModal(false);
   };
 
   return (
@@ -50,8 +79,11 @@ const ViewProcess = () => {
           <FowardSector sectors={sectors} />
 
           <StyledDivButtons>
-            <GenericWhiteButton title="voltar" onClick={handleButtonProcess} />
-            <GenericRedButton title="concluir" onClick={handleButtonProcess} />
+            <GenericWhiteButton title="voltar" onClick="" />
+            <GenericRedButton
+              title={buttonDone ? "Reabrir" : "Concluir"}
+              onClick={buttonDone ? handleReopen : handleButtonProcess}
+            />
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
@@ -69,7 +101,7 @@ const ViewProcess = () => {
           />
 
           <div className="fowardIcon">
-            <p onClick={handleFoward}>Encaminhar</p>
+            <button onClick={handleFoward}>Encaminhar</button>
             <FaTelegramPlane />
           </div>
           <span>Tags:</span>
@@ -83,6 +115,15 @@ const ViewProcess = () => {
             Histórico de alterações
           </a>
         </StyledDivInfoProcess>
+
+        <ModalDoubleCheck
+          content="Você tem certeza que quer confirmar esse Registro?"
+          trigger={buttonModal}
+          titleRedButton="Concluir"
+          titleWhiteButton="Cancelar"
+          onClickRedButton={handleClickModalRed}
+          onClickWhiteButton={handleClickModalWhite}
+        />
       </StyledDivSupProcess>
     </>
   );
