@@ -52,11 +52,15 @@ APITags.interceptors.response.use(
 APIProfile.interceptors.response.use(
     async (response) => {
         try {
-            const token = await response.status;
-            if (token === 500 || token === 401) {
+            console.log(
+                `default headers: ${JSON.stringify(APIProfile.defaults.headers)}`
+            );
+            const status = response.status;
+            if (status === 500 || status === 401) {
                 localStorage.clear();
                 window.location.reload();
             }
+
             return response;
         } catch (err) {
             return response;
