@@ -80,6 +80,7 @@ const ViewProcess = () => {
       setSectors(newSectors);
       setbuttonModalReopen(false);
       setButtonDone(false);
+      setReason("");
 
       document.querySelector(".fowardIcon").style.display = "";
     } else {
