@@ -5,7 +5,7 @@ export const styles = {};
 export const StyledTitle = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   p {
     font-family: Montserrat;
     font-style: normal;
@@ -19,9 +19,13 @@ export const StyledTitle = styled.div`
   }
 `;
 
-export const StyledProcess = styled.div`
+export const StyledViewProfile = styled.div`
+  width: 100vw;
+  height: 100vh;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
 `;
 
 export const StyledBlueRectangle = styled.div`
@@ -39,7 +43,6 @@ export const StyledBlueRectangle = styled.div`
 `;
 
 export const StyledWhiteRectangle = styled.div`
-  overflow-y: scroll;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -113,12 +116,13 @@ export const StyledForms = styled.div`
 
 export const StyledButtonsDiv = styled.div`
   margin-left: 15rem;
+  margin-top: 12em;
   button {
     margin-left: 1rem;
   }
 `;
 
-export const StyledCancelButton = styled.button`
+export const StyledBackButton = styled.button`
   width: 9.375rem;
   height: 2.5rem;
 
@@ -136,7 +140,7 @@ export const StyledCancelButton = styled.button`
   border: 2px solid #000000;
 `;
 
-export const StyledCreateButton = styled.button`
+export const StyledEditButton = styled.button`
   width: 9.375rem;
   height: 2.5rem;
 
