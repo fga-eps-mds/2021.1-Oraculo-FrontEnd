@@ -45,8 +45,11 @@ const DivMovBlock = styled.div`
       height: 2rem;
     }
   }
-  div:last-child {
+  .infoSetor {
+    display: flex;
     justify-content: space-between;
+    p {
+    }
   }
 `;
 export { DivMovBlock, DivNodeBlock, StyledLine };

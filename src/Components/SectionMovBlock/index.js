@@ -18,12 +18,16 @@ const SectionMovBlock = ({ fowardSector }) => {
           <FaUserCircle />
           <p>{fowardSector.name}</p>
         </div>
-        <div>
+        <div className="infoSetor">
           <p>
             {fowardSector.defaultText}: {fowardSector.setor}
           </p>
           <p>{fowardSector.date}</p>
         </div>
+        <p>{fowardSector.department}</p>
+        <p>
+          {fowardSector.reason} {fowardSector.reasonText}
+        </p>
       </DivMovBlock>
     </>
   );
