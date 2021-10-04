@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { fonts, colors, radius } from "../../style";
 
-const DivSupProcess = styled.div`
+const StyledDivSupProcess = styled.div`
   display: flex;
   background-color: ${colors.background};
 `;
-const DivInfoProcess = styled.div`
+const StyledDivInfoProcess = styled.div`
   width: 35.5%;
   height: 90vh;
   background-color: ${colors.header};
@@ -46,7 +46,7 @@ const DivInfoProcess = styled.div`
     align-items: center;
     justify-content: flex-end;
     margin-top: 1rem;
-    a {
+    p {
       text-decoration: none;
       color: white;
       font-size: ${fonts.sizeLg};
@@ -85,7 +85,7 @@ const DivInfoProcess = styled.div`
   }
 `;
 
-const DivShowProcess = styled.div`
+const StyledDivShowProcess = styled.div`
   width: 64.5%;
   margin: 0 5%;
   height: 70vh;
@@ -119,4 +119,17 @@ const DivShowProcess = styled.div`
   }
 `;
 
-export { DivInfoProcess, DivShowProcess, DivSupProcess };
+const StyledDivButtons = styled.div`
+  position: absolute;
+  bottom: 20px;
+  right: 37%;
+  button {
+    margin-left: 1rem;
+  }
+`;
+export {
+  StyledDivInfoProcess,
+  StyledDivShowProcess,
+  StyledDivSupProcess,
+  StyledDivButtons,
+};
