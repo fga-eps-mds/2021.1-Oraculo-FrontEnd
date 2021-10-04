@@ -11,7 +11,10 @@ import DropDownButton from "../../Components/DropDownButton";
 import FowardSector from "../../Components/FowardSetor";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
-import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+import {
+  ModalDoubleCheck,
+  ModalReopenProcess,
+} from "../../Components/ModalDoubleCheck";
 
 const ViewProcess = () => {
   const [buttonModal, setButtonModal] = useState(false);
@@ -20,9 +23,7 @@ const ViewProcess = () => {
   };
 
   const [foward, setFoward] = useState("criminal");
-
   const [sectors, setSectors] = useState([]);
-
   const handleFoward = () => {
     const newSectors = [
       ...sectors,
@@ -56,12 +57,39 @@ const ViewProcess = () => {
     document.querySelector(".fowardIcon").style.display = "none";
   };
 
+  const [buttonModalReopen, setbuttonModalReopen] = useState(false);
   const handleReopen = () => {
-    alert("Em implementação");
+    setbuttonModalReopen(true);
+  };
+
+  const [reason, setReason] = useState("");
+  const handleClickModalBlue = () => {
+    if (reason != "") {
+      const newSectors = [
+        ...sectors,
+        {
+          defaultText: "Registro: Reaberto",
+          department: "Departamento: Criminal",
+          reason: "Motivo:",
+          reasonText: reason,
+          setorOrigin: "Criminal",
+          name: "José carlos",
+          date: "27/09/2021",
+        },
+      ];
+      setSectors(newSectors);
+      setbuttonModalReopen(false);
+      setButtonDone(false);
+
+      document.querySelector(".fowardIcon").style.display = "";
+    } else {
+      alert("ERRO: Motivo obrigatório");
+    }
   };
 
   const handleClickModalWhite = () => {
     setButtonModal(false);
+    setbuttonModalReopen(false);
   };
 
   return (
@@ -123,6 +151,15 @@ const ViewProcess = () => {
           titleWhiteButton="Cancelar"
           onClickRedButton={handleClickModalRed}
           onClickWhiteButton={handleClickModalWhite}
+        />
+
+        <ModalReopenProcess
+          trigger={buttonModalReopen}
+          titleBlueButton="Reabrir"
+          titleWhiteButton="Cancelar"
+          onClickBlueButton={handleClickModalBlue}
+          onClickWhiteButton={handleClickModalWhite}
+          onChange={(event) => setReason(event.target.value)}
         />
       </StyledDivSupProcess>
     </>
