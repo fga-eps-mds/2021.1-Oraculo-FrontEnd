@@ -1,15 +1,23 @@
+import { STORAGE_KEY } from "../../Auth/Auth";
 import { APIProfile } from "./BaseService/index";
+
+function getToken() {
+    return String(localStorage.getItem(STORAGE_KEY));
+}
 
 export async function registerUser(user, toast) {
     try {
-        console.info(`sending user: ${JSON.stringify(user)}`);
-        await APIProfile.post("/register", {
-            email: user.email,
-            password: user.password,
-            departmentID: user.departmentID,
-            level: user.level,
-            sectionID: user.sectionID,
-        });
+        await APIProfile.post(
+            "/register",
+            {
+                email: user.email,
+                password: user.password,
+                departmentID: user.departmentID,
+                level: user.level,
+                sectionID: user.sectionID,
+            },
+            { headers: { "X-Access-Token": getToken() } }
+        );
 
         toast.success("Usuário cadastrado com sucesso");
     } catch (err) {
@@ -34,7 +42,7 @@ export async function loginUser(user, toast) {
             password: user.password,
         });
 
-        APIProfile.defaults.headers = { "x-access-token": response.data.token };
+        APIProfile.defaults.headers.common["x-access-token"] = response.data.token;
 
         return response.data;
     } catch (err) {
@@ -55,7 +63,13 @@ export async function loginUser(user, toast) {
 
 export async function listAllUsers(toast) {
     try {
-        const response = await APIProfile.post("/users/all");
+        const response = await APIProfile.post(
+            "/users/all",
+            {},
+            {
+                headers: { "X-Access-Token": getToken() },
+            }
+        );
         return response.data;
     } catch (err) {
         const status = err.response?.status;
@@ -70,7 +84,11 @@ export async function listAllUsers(toast) {
 
 export async function getUserAccessLevel(user, toast) {
     try {
-        const response = await APIProfile.post("/user/access-level");
+        const response = await APIProfile.post(
+            "/user/access-level",
+            {},
+            { headers: { "X-Access-Token": getToken() } }
+        );
         return response.data;
     } catch (err) {
         const status = err.response?.status;
