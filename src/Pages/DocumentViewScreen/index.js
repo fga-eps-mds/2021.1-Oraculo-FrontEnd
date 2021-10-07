@@ -52,7 +52,7 @@ const DocumentViewScreen = () => {
           <MainButton title={"Novo Documento"} />
         </div>
         <StyledOrganizeButtons>
-          <StyledBigButton>Emissor</StyledBigButton>
+          <StyledBigButton>Solicitante</StyledBigButton>
           <StyledBigButton>N do SEI</StyledBigButton>
           <StyledBigButton>Divisão</StyledBigButton>
           <StyledBigButton>Data</StyledBigButton>

@@ -2,9 +2,9 @@ import React from "react";
 
 import { StyledBigDiv, StyledBigButton, StyledSmallButton } from "./styles";
 
-const PocketDocument = ({ name, seiNumber, department, documentDate }) => (
+const PocketDocument = ({ requester, seiNumber, department, documentDate }) => (
   <StyledBigDiv>
-    <StyledBigButton>{name}</StyledBigButton>
+    <StyledBigButton>{requester}</StyledBigButton>
     <StyledBigButton>{seiNumber}</StyledBigButton>
     <StyledBigButton>{department}</StyledBigButton>
     <StyledBigButton>{documentDate}</StyledBigButton>

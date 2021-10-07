@@ -11,7 +11,7 @@ const Posts = ({ posts, loading }) => {
     <StyledListGroup>
       {posts.map((post) => (
         <PocketDocument
-          name={post.requester}
+          requester={post.requester}
           seiNumber={post.sei_number}
           department={post.description}
           documentDate={post.document_date}
