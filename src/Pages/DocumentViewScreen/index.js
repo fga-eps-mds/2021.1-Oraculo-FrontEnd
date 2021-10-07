@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../Components/Header";
 import MainButton from "../../Components/MainButton";
-import PocketDocument from "../../Components/PocketDocument";
 import FilterButton from "../../Components/FilterButton";
 import {
   StyledTitle,
@@ -13,6 +12,8 @@ import {
 
 import Posts from "../../Components/Posts/index";
 import Pagination from "../../Components/Pagination/index";
+import { recieveAllProcess } from "../../Services/Axios/processService";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 const DocumentViewScreen = () => {
@@ -21,16 +22,16 @@ const DocumentViewScreen = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
-      setPosts(res.data);
-      setLoading(false);
-    };
+  async function fetchPosts() {
+    setLoading(true);
+    const res = await recieveAllProcess(toast);
+    setPosts(res);
+    setLoading(false);
+  }
 
+  window.onload = function () {
     fetchPosts();
-  }, []);
+  };
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
