@@ -1,8 +1,7 @@
-import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { DivMovBlock, DivNodeBlock, StyledLine } from "./styles";
 
-const SectionMovBlock = () => {
+const SectionMovBlock = ({ fowardSector }) => {
   return (
     <>
       <DivNodeBlock>
@@ -10,18 +9,18 @@ const SectionMovBlock = () => {
           <div></div>
         </StyledLine>
         <div className="content">
-          <p>Setor: X</p>
-          <p>26/02/2021</p>
+          <p>Setor: {fowardSector.setorOrigin} </p>
+          <p>{fowardSector.dateFoward}</p>
         </div>
       </DivNodeBlock>
       <DivMovBlock>
         <div>
           <FaUserCircle />
-          <p>Evandro Nascimento</p>
+          <p>{fowardSector.name}</p>
         </div>
         <div>
-          <p>Processo enviado para o setor:X</p>
-          <p>26/02/2021</p>
+          <p>Processo enviado para o setor: {fowardSector.setor}</p>
+          <p>{fowardSector.date}</p>
         </div>
       </DivMovBlock>
     </>

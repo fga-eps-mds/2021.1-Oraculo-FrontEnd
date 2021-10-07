@@ -1,16 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../Components/Header";
-import { DivInfoProcess, DivShowProcess, DivSupProcess } from "./style";
+import {
+  StyledDivInfoProcess,
+  StyledDivShowProcess,
+  StyledDivSupProcess,
+  StyledDivButtons,
+} from "./style";
 import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
-import SectionMovBlock from "../../Components/SectionMovBlock";
+import FowardSector from "../../Components/FowardSetor";
+import GenericWhiteButton from "../../Components/GenericWhiteButton";
+import GenericRedButton from "../../Components/GenericRedButton";
 
 const ViewProcess = () => {
+  const handleButtonProcess = () => {
+    alert("Função ainda nao implementada");
+  };
+  const [foward, setFoward] = useState("criminal");
+
+  const [sectors, setSectors] = useState([]);
+
+  const handleFoward = () => {
+    console.log(foward);
+    const newSectors = [
+      ...sectors,
+      {
+        setor: foward,
+        setorOrigin: "criminal",
+        date: "26/07/2010",
+        dateFoward: "29/09/2021",
+        name: "nome default encarregado",
+      },
+    ];
+    setSectors(newSectors);
+  };
+
   return (
     <>
       <Header />
-      <DivSupProcess>
-        <DivShowProcess>
+      <StyledDivSupProcess>
+        <StyledDivShowProcess>
           <div className="infoProcess">
             <div className="infoProcessicon">
               <p>Nº do SEI: 199.293.9485</p>
@@ -18,11 +47,14 @@ const ViewProcess = () => {
             </div>
             <span>Data de Emissão: 26/06/2020</span>
           </div>
-          <SectionMovBlock />
-          <SectionMovBlock />
-          <SectionMovBlock />
-        </DivShowProcess>
-        <DivInfoProcess>
+          <FowardSector sectors={sectors} />
+
+          <StyledDivButtons>
+            <GenericWhiteButton title="voltar" onClick={handleButtonProcess} />
+            <GenericRedButton title="concluir" onClick={handleButtonProcess} />
+          </StyledDivButtons>
+        </StyledDivShowProcess>
+        <StyledDivInfoProcess>
           <h2>Joana Depolice</h2>
           <hr></hr>
           <span>Emissor:</span>
@@ -32,10 +64,12 @@ const ViewProcess = () => {
           </div>
           <span>Setor:</span>
 
-          <DropDownButton />
+          <DropDownButton
+            onChangeOpt={(event) => setFoward(event.target.value)}
+          />
 
           <div className="fowardIcon">
-            <a href="//">Encaminhar</a>
+            <p onClick={handleFoward}>Encaminhar</p>
             <FaTelegramPlane />
           </div>
           <span>Tags:</span>
@@ -48,8 +82,8 @@ const ViewProcess = () => {
           <a className="historic" href="//">
             Histórico de alterações
           </a>
-        </DivInfoProcess>
-      </DivSupProcess>
+        </StyledDivInfoProcess>
+      </StyledDivSupProcess>
     </>
   );
 };

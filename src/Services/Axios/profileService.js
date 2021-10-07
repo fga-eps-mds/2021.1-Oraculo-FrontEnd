@@ -36,7 +36,7 @@ export async function loginUser(user, toast) {
             password: user.password,
         });
 
-        APIProfile.defaults.headers = { "x-access-token": response.data.token };
+        APIProfile.defaults.headers.common["x-access-token"] = response.data.token;
 
         return response.data;
     } catch (err) {
