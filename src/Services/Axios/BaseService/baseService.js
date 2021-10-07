@@ -7,9 +7,6 @@ export const APIProcess = axios.create({
 
 export const APIProfile = axios.create({
     baseURL: BaseUrlProfile,
-    headers: {
-        "Access-Control-Allow-Origin": "localhost",
-    },
 });
 
 export const APITags = axios.create({
@@ -29,8 +26,8 @@ APIProcess.interceptors.response.use(
 
 APITags.interceptors.response.use(
     async (response) => {
-        const token = await response.status;
-        if (token === 500 || token === 401) {
+        const status = await response.status;
+        if (status === 500 || status === 401) {
             localStorage.clear();
             window.location.reload();
         }
@@ -48,23 +45,23 @@ APITags.interceptors.response.use(
 APIProfile.interceptors.response.use(
     async (response) => {
         try {
-            console.log(
-                `default headers: ${JSON.stringify(APIProfile.defaults.headers)}`
-            );
-            const status = response.status;
+            const status = response?.status;
+            console.log(`response: ${JSON.stringify(status)}`);
             if (status === 500 || status === 401) {
-                localStorage.clear();
+                //localStorage.clear();
                 window.location.reload();
             }
-
             return response;
         } catch (err) {
             return response;
         }
     },
     (error) => {
-        if (error.response.status === 500) {
-            localStorage.clear();
+        console.log(`ERROR: ${JSON.stringify(error)}`);
+        const status = error.response?.status;
+
+        if (status === 500) {
+            //localStorage.clear();
             window.location.reload();
         }
         return Promise.reject(error);

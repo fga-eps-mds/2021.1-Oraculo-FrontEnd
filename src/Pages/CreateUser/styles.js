@@ -151,7 +151,7 @@ export const StyledBackButton = styled.button`
     border: 2px solid #000000;
 `;
 
-export const StyledEditButton = styled.button`
+export const StyledRegisterButton = styled.button`
     width: 9.375rem;
     height: 2.5rem;
 
