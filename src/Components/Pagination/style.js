@@ -17,4 +17,7 @@ export const StyledPageLink = styled.a`
   text-align: center;
   padding: 16px;
   text-decoration: none;
+  :focus {
+    background-color: ${colors.blue};
+  }
 `;
