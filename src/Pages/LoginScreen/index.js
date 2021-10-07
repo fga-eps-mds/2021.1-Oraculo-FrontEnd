@@ -7,7 +7,7 @@ import LoginInput from "../../Components/LoginInput/index";
 import MainButton from "../../Components/MainButton";
 import { FormLogin, StyledDiv } from "./styles";
 import { loginUser } from "../../Services/Axios/profileService";
-import { login, STORAGE_KEY } from "../../Auth/Auth";
+import { login } from "../../Auth/Auth";
 import { history } from "../../history";
 
 const LoginScreen = () => {

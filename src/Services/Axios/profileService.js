@@ -17,8 +17,8 @@ const userLevels = [
 ];
 
 async function validateUser(user) {
-    let section = Number.parseInt(user.sectionID);
-    let department = Number.parseInt(user.departmentID);
+    const section = Number.parseInt(user.sectionID);
+    const department = Number.parseInt(user.departmentID);
     let level = Number.parseInt(user.level);
 
     level =
@@ -26,7 +26,9 @@ async function validateUser(user) {
             ? userLevels[1].level
             : level;
 
-    if (section <= 0 || department <= 0) throw new Error("invalid department or section");
+    if (section <= 0 || department <= 0) {
+        throw new Error("invalid department or section");
+    }
 
     return {
         email: user.email,

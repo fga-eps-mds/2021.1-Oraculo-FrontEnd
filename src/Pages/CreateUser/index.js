@@ -31,7 +31,7 @@ const ViewProfile = () => {
             level: level,
         };
 
-        return await registerUser(user, toast);
+        return registerUser(user, toast);
     }
 
     return (
