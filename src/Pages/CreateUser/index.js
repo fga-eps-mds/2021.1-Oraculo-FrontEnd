@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import Header from "../../Components/Header";
 import { registerUser } from "../../Services/Axios/profileService";
@@ -22,18 +22,6 @@ const ViewProfile = () => {
     const [department, setDepartment] = useState(1);
     const [level] = useState(2);
 
-    async function handleSubmit(event) {
-        console.log(`department: ${department}`);
-        const user = {
-            email,
-            password,
-            departmentID: department,
-            level,
-        };
-
-        await registerUser(user, toast);
-    }
-
     return (
         <>
             <Header />
@@ -45,7 +33,7 @@ const ViewProfile = () => {
 
                     <StyledWhiteRectangle>
                         <StyledForms>
-                            <form onSubmit={handleSubmit}>
+                            <form>
                                 <div>
                                     <h1>Name</h1>
                                     <input
@@ -98,9 +86,7 @@ const ViewProfile = () => {
                             <StyledBackButton onClick={() => window.history.back()}>
                                 Voltar
                             </StyledBackButton>
-                            <StyledEditButton onClick={handleSubmit}>
-                                Cadastrar
-                            </StyledEditButton>
+                            <StyledEditButton>Cadastrar</StyledEditButton>
                         </StyledButtonsDiv>
                     </StyledWhiteRectangle>
                 </StyledViewProfile>

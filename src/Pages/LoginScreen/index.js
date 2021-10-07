@@ -7,7 +7,7 @@ import LoginInput from "../../Components/LoginInput/index";
 import MainButton from "../../Components/MainButton";
 import { FormLogin, StyledDiv } from "./styles";
 import { loginUser } from "../../Services/Axios/profileService";
-import { login } from "../../Auth/Auth";
+import { login, STORAGE_KEY } from "../../Auth/Auth";
 import { history } from "../../history";
 
 const LoginScreen = () => {
@@ -20,7 +20,7 @@ const LoginScreen = () => {
         const result = await loginUser(user, toast);
         const auth = result?.auth;
         if (auth) {
-            login(auth.token);
+            login(result.token);
             history.push("/admin-page");
         }
     }
