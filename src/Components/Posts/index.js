@@ -1,21 +1,20 @@
 import React from "react";
 import PocketDocument from "../PocketDocument";
-import { StyledListGroup, StyledListGroupItem } from "./style";
+import { StyledListGroup } from "./style";
 
 const Posts = ({ posts, loading }) => {
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <h2>Carregando...</h2>;
   }
 
   return (
     <StyledListGroup>
       {posts.map((post) => (
         <PocketDocument
-          key={post.id}
-          name={post.id}
-          seiNumber={post.id}
-          department={post.id}
-          documentDate={post.id}
+          name={post.requester}
+          seiNumber={post.sei_number}
+          department={post.description}
+          documentDate={post.document_date}
         ></PocketDocument>
       ))}
     </StyledListGroup>
