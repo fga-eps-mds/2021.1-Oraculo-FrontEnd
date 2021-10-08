@@ -2,14 +2,14 @@ import React from "react";
 import PocketDocument from "../PocketDocument";
 import { StyledListGroup } from "./style";
 
-const Posts = ({ posts, loading }) => {
+const Process = ({ process, loading }) => {
   if (loading) {
     return <h2>Carregando...</h2>;
   }
 
   return (
     <StyledListGroup>
-      {posts.map((post) => (
+      {process.map((post) => (
         <PocketDocument
           requester={post.requester}
           seiNumber={post.sei_number}
@@ -21,4 +21,4 @@ const Posts = ({ posts, loading }) => {
   );
 };
 
-export default Posts;
+export default Process;

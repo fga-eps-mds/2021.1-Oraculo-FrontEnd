@@ -6,10 +6,10 @@ import {
   StyledPageLink,
 } from "./style";
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({ processPerPage, totalProcess, paginate }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalProcess / processPerPage); i++) {
     pageNumbers.push(i);
   }
 

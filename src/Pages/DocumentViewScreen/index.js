@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../../Components/Header";
 import MainButton from "../../Components/MainButton";
 import FilterButton from "../../Components/FilterButton";
@@ -10,33 +10,32 @@ import {
   StyledSmallButton,
 } from "./styles";
 
-import Posts from "../../Components/Posts/index";
+import Process from "../../Components/Process";
 import Pagination from "../../Components/Pagination/index";
 import { recieveAllProcess } from "../../Services/Axios/processService";
-import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
+import toast from "react-hot-toast";
 
 const DocumentViewScreen = () => {
-  const [posts, setPosts] = useState([]);
+  const [process, setProcess] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(4);
+  const [processPerPage] = useState(4);
 
-  async function fetchPosts() {
+  async function fetchProcess() {
     setLoading(true);
     const res = await recieveAllProcess(toast);
-    setPosts(res);
+    setProcess(res);
     setLoading(false);
   }
 
   window.onload = function () {
-    fetchPosts();
+    fetchProcess();
   };
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  // Get current process
+  const indexOfLastProcess = currentPage * processPerPage;
+  const indexOfFirstProcess = indexOfLastProcess - processPerPage;
+  const currentProcess = process.slice(indexOfFirstProcess, indexOfLastProcess);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -46,7 +45,7 @@ const DocumentViewScreen = () => {
       <Header />
 
       <StyledBody>
-        <StyledTitle>Processos</StyledTitle>
+        <StyledTitle>Registros</StyledTitle>
         <div>
           <FilterButton />
           <MainButton title={"Novo Documento"} />
@@ -59,10 +58,10 @@ const DocumentViewScreen = () => {
           <StyledBigButton>Tag</StyledBigButton>
           <StyledSmallButton>...</StyledSmallButton>
         </StyledOrganizeButtons>
-        <Posts posts={currentPosts} loading={loading} />
+        <Process process={currentProcess} loading={loading} />
         <Pagination
-          postsPerPage={postsPerPage}
-          totalPosts={posts.length}
+          processPerPage={processPerPage}
+          totalProcess={process.length}
           paginate={paginate}
         />
       </StyledBody>
