@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { history } from "../../history";
 import Header from "../../Components/Header";
 import MainButton from "../../Components/MainButton";
 import FilterButton from "../../Components/FilterButton";
@@ -12,7 +13,7 @@ import {
 
 import Process from "../../Components/Process";
 import Pagination from "../../Components/Pagination/index";
-import { recieveAllProcess } from "../../Services/Axios/processService";
+import { getAllProcess } from "../../Services/Axios/processService";
 import toast from "react-hot-toast";
 
 const DocumentViewScreen = () => {
@@ -21,9 +22,14 @@ const DocumentViewScreen = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [processPerPage] = useState(4);
 
+  function handleProcess() {
+    history.push("/criar-processo");
+    window.location.reload();
+  }
+
   async function fetchProcess() {
     setLoading(true);
-    const res = await recieveAllProcess(toast);
+    const res = await getAllProcess(toast);
     setProcess(res);
     setLoading(false);
   }
@@ -48,7 +54,7 @@ const DocumentViewScreen = () => {
         <StyledTitle>Registros</StyledTitle>
         <div>
           <FilterButton />
-          <MainButton title={"Novo Documento"} />
+          <MainButton title={"Novo Registro"} onClick={handleProcess} />
         </div>
         <StyledOrganizeButtons>
           <StyledBigButton>Solicitante</StyledBigButton>

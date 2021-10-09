@@ -1,6 +1,6 @@
 import { APIProcess } from "./BaseService/index";
 
-export async function recieveAllProcess(toast) {
+export async function getAllProcess(toast) {
   try {
     console.log("Response chamada");
     const response = await APIProcess.get("/records", {});
