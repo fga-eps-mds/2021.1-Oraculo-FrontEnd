@@ -1,3 +1,3 @@
-import { APIProfile } from "./baseService";
+import { APIProfile, APITags, APIProcess } from "./baseService";
 
-export { APIProfile };
+export { APIProfile, APITags, APIProcess };

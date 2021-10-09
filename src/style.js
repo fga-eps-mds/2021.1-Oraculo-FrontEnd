@@ -3,12 +3,14 @@ export const colors = {
   primary: "#5289B5",
   background: "#F6F6F6",
   red: "#FF0000",
+  blue: "#5289B5",
   black: "#000000",
   white: "#ffffff",
 };
 
 export const fonts = {
   font: "Montserrat",
+  sizeXXlg: "28px",
   sizeXlg: "24px",
   sizeLg: "18px",
   sizeMd: "16px",

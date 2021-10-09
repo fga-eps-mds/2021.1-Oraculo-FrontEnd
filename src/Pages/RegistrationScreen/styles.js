@@ -90,6 +90,22 @@ export const StyledForms = styled.div`
           opacity: 0.7;
         }
       }
+      select {
+        width: 27rem;
+        height: 2.4rem;
+        background: #ffffff;
+        padding-left: 0.5rem;
+
+        border-radius: 12px;
+        border: 2px solid #000000;
+        outline: none;
+
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 33px;
+      }
 
       button {
         width: 26.9rem;

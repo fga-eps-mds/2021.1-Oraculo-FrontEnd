@@ -6,6 +6,7 @@ import AdminScreen from "./Pages/AdminScreen/";
 import CreateProcess from "./Pages/CreateProcess";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
+import CreateUser from "./Pages/CreateUser";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
 	<Route
@@ -26,6 +27,7 @@ const Routes = () => (
 			<Route exact path="/login" component={() => <LoginScreen />} />
 			<PrivateRoutes path="/admin-page" component={() => <AdminScreen />} />
 			<PrivateRoutes path="/criar-processo" component={() => <CreateProcess />} />
+			<PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
 			<PrivateRoutes path="/user" component={() => <ViewProfile />} />
 			<Route exact path="/" component={() => <LoginScreen />} />
 		</Switch>

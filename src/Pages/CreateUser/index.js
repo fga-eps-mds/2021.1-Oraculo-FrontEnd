@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import Header from "../../Components/Header";
-import { getProfile } from "../../Services/Axios/profileServices";
+import { registerUser } from "../../Services/Axios/profileService";
+import { SectionsList } from "./sections";
 
 import {
     StyledBlueRectangle,
     StyledButtonsDiv,
     StyledBackButton,
-    StyledEditButton,
+    StyledRegisterButton,
     StyledForms,
     StyledViewProfile,
     StyledWhiteRectangle,
@@ -17,12 +18,27 @@ import {
 const ViewProfile = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [sector, setSector] = useState("");
+    const [password, setPassword] = useState("");
+    const [department, setDepartment] = useState(1);
+    const [level] = useState(2);
+
+    async function handleClick(event) {
+        const user = {
+            email: email,
+            password: password,
+            departmentID: department,
+            sectionID: department,
+            level: level,
+        };
+
+        return registerUser(user, toast);
+    }
 
     return (
         <>
             <Header />
             <div>
+                <Toaster />
                 <StyledViewProfile>
                     <StyledBlueRectangle>
                         <BiUserCircle size="20rem" color="white" />
@@ -53,27 +69,43 @@ const ViewProfile = () => {
                                 </div>
                                 <div>
                                     <h1>Setor</h1>
+                                    <select
+                                        required
+                                        placeholder="Selecione o departamento"
+                                        onChange={(event) => {
+                                            setDepartment(event.target.selectedIndex + 1);
+                                        }}>
+                                        <SectionsList />
+                                    </select>
+                                </div>
+                                <div>
+                                    <h1>Senha</h1>
                                     <input
-                                        id="sectorNum"
-                                        type="text"
-                                        placeholder="Setor"
+                                        id="password"
+                                        type="password"
+                                        placeholder="Senha"
                                         onChange={(event) =>
-                                            setSector(event.target.value)
+                                            setPassword(event.target.value)
                                         }
-                                        value={sector}
+                                        value={password}
                                     />
                                 </div>
                             </form>
                         </StyledForms>
                         <StyledButtonsDiv>
-                            <StyledBackButton onClick={() => window.history.back()}>
+                            <StyledBackButton
+                                type="button"
+                                onClick={() => window.history.back()}>
                                 Voltar
                             </StyledBackButton>
-                            <StyledEditButton>Editar</StyledEditButton>
+                            <StyledRegisterButton
+                                type="button"
+                                onClick={(event) => handleClick(event)}>
+                                Cadastrar
+                            </StyledRegisterButton>
                         </StyledButtonsDiv>
                     </StyledWhiteRectangle>
                 </StyledViewProfile>
-                <Toaster />
             </div>
         </>
     );
