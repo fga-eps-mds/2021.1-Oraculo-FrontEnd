@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import Header from "../../Components/Header";
+import { registerUser } from "../../Services/Axios/profileService";
+import { SectionsList } from "./sections";
 
 import {
     StyledBlueRectangle,
     StyledButtonsDiv,
     StyledBackButton,
-    StyledEditButton,
+    StyledRegisterButton,
     StyledForms,
     StyledViewProfile,
     StyledWhiteRectangle,
@@ -20,10 +22,23 @@ const ViewProfile = () => {
     const [department, setDepartment] = useState(1);
     const [level] = useState(2);
 
+    async function handleClick(event) {
+        const user = {
+            email: email,
+            password: password,
+            departmentID: department,
+            sectionID: department,
+            level: level,
+        };
+
+        return registerUser(user, toast);
+    }
+
     return (
         <>
             <Header />
             <div>
+                <Toaster />
                 <StyledViewProfile>
                     <StyledBlueRectangle>
                         <BiUserCircle size="20rem" color="white" />
@@ -57,15 +72,10 @@ const ViewProfile = () => {
                                     <select
                                         required
                                         placeholder="Selecione o departamento"
-                                        onLoad={(event) =>
-                                            setDepartment(event.target.value)
-                                        }
-                                        onChange={(event) =>
-                                            setDepartment(event.target.value)
-                                        }>
-                                        <option>Seção de identificação criminal</option>
-                                        <option>Seção de retrato falado</option>
-                                        <option>Seção de malote</option>
+                                        onChange={(event) => {
+                                            setDepartment(event.target.selectedIndex + 1);
+                                        }}>
+                                        <SectionsList />
                                     </select>
                                 </div>
                                 <div>
@@ -83,14 +93,19 @@ const ViewProfile = () => {
                             </form>
                         </StyledForms>
                         <StyledButtonsDiv>
-                            <StyledBackButton onClick={() => window.history.back()}>
+                            <StyledBackButton
+                                type="button"
+                                onClick={() => window.history.back()}>
                                 Voltar
                             </StyledBackButton>
-                            <StyledEditButton>Cadastrar</StyledEditButton>
+                            <StyledRegisterButton
+                                type="button"
+                                onClick={(event) => handleClick(event)}>
+                                Cadastrar
+                            </StyledRegisterButton>
                         </StyledButtonsDiv>
                     </StyledWhiteRectangle>
                 </StyledViewProfile>
-                <Toaster />
             </div>
         </>
     );

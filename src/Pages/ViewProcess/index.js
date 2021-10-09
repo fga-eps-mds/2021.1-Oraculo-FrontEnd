@@ -11,43 +11,53 @@ import DropDownButton from "../../Components/DropDownButton";
 import FowardSector from "../../Components/FowardSetor";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
+import toast, { Toaster } from "react-hot-toast";
+import { getProcessByID } from "../../Services/Axios/processService";
 
-const ViewProcess = () => {
+const ViewProcess = (props) => {
+  const [sector, setSector] = useState("criminal");
+  const [foward, setFoward] = useState([]);
+  const [seiNumber, setSeiNumber] = useState("");
+  const [documentDate, setDocumentDate] = useState("");
+
+  window.onload = async function getProcess() {
+    const process = await getProcessByID(props.id, toast);
+    setSeiNumber(process.sei_number);
+    setDocumentDate(process.document_date);
+  };
+
   const handleButtonProcess = () => {
     alert("Função ainda nao implementada");
   };
-  const [foward, setFoward] = useState("criminal");
-
-  const [sectors, setSectors] = useState([]);
 
   const handleFoward = () => {
-    console.log(foward);
-    const newSectors = [
-      ...sectors,
+    const newFoward = [
+      ...foward,
       {
-        setor: foward,
+        setor: sector,
         setorOrigin: "criminal",
-        date: "26/07/2010",
-        dateFoward: "29/09/2021",
+        date: "15/02/2021",
+        dateFoward: "15/02/2021",
         name: "nome default encarregado",
       },
     ];
-    setSectors(newSectors);
+    setFoward(newFoward);
   };
 
   return (
     <>
       <Header />
+      <Toaster />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
           <div className="infoProcess">
             <div className="infoProcessicon">
-              <p>Nº do SEI: 199.293.9485</p>
+              <p>{seiNumber}</p>
               <FaPen />
             </div>
-            <span>Data de Emissão: 26/06/2020</span>
+            <span>Data de Emissão: {documentDate}</span>
           </div>
-          <FowardSector sectors={sectors} />
+          <FowardSector foward={foward} />
 
           <StyledDivButtons>
             <GenericWhiteButton title="voltar" onClick={handleButtonProcess} />
@@ -65,7 +75,7 @@ const ViewProcess = () => {
           <span>Setor:</span>
 
           <DropDownButton
-            onChangeOpt={(event) => setFoward(event.target.value)}
+            onChangeOpt={(event) => setSector(event.target.value)}
           />
 
           <div className="fowardIcon">

@@ -20,7 +20,7 @@ const LoginScreen = () => {
         const result = await loginUser(user, toast);
         const auth = result?.auth;
         if (auth) {
-            login(auth.token);
+            login(result.token);
             history.push("/admin-page");
         }
     }

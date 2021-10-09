@@ -1,8 +1,7 @@
-import { APIProcess } from "./BaseService/index";
+import { APIProcess } from "./BaseService";
 
 export async function getAllProcess(toast) {
   try {
-    console.log("Response chamada");
     const response = await APIProcess.get("/records", {});
     console.log(`${JSON.stringify(response)}`);
     return response.data;
@@ -14,5 +13,14 @@ export async function getAllProcess(toast) {
     } else {
       toast.error("Não foi possivel realizar a requisição");
     }
+  }
+}
+
+export async function getProcessByID(ID, toast) {
+  try {
+    const response = await APIProcess.get(`/records/${ID}`);
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar processo!");
   }
 }

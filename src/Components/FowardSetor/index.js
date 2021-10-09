@@ -1,10 +1,10 @@
 import React from "react";
 import SectionMovBlock from "../SectionMovBlock";
 
-const FowardSector = ({ sectors }) => {
+const FowardSector = ({ foward }) => {
   return (
     <>
-      {sectors.map((sector) => (
+      {foward.map((sector) => (
         <SectionMovBlock fowardSector={sector} />
       ))}
     </>

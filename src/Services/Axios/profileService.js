@@ -5,16 +5,52 @@ function getToken() {
     return String(localStorage.getItem(STORAGE_KEY));
 }
 
-export async function registerUser(user, toast) {
+const userLevels = [
+    {
+        level: 1,
+        description: "admin",
+    },
+    {
+        level: 2,
+        description: "common",
+    },
+];
+
+async function validateUser(user) {
+    const section = Number.parseInt(user.sectionID);
+    const department = Number.parseInt(user.departmentID);
+    let level = Number.parseInt(user.level);
+
+    level =
+        level !== userLevels[0].level && level !== userLevels[1].level
+            ? userLevels[1].level
+            : level;
+
+    if (section <= 0 || department <= 0) {
+        throw new Error("invalid department or section");
+    }
+
+    return {
+        email: user.email,
+        password: user.password,
+        sectionID: section,
+        departmentID: department,
+        level: level,
+    };
+}
+
+export async function registerUser(usr, toast) {
     try {
+        const user = await validateUser(usr);
+
         await APIProfile.post(
             "/register",
             {
                 email: user.email,
                 password: user.password,
                 departmentID: user.departmentID,
-                level: user.level,
                 sectionID: user.sectionID,
+                level: user.level,
             },
             { headers: { "X-Access-Token": getToken() } }
         );
@@ -32,6 +68,8 @@ export async function registerUser(user, toast) {
         } else {
             toast.error(`Erro ao cadastrar usuário!`);
         }
+
+        console.error(`erro ao cadastrar usuário: ${err}`);
     }
 }
 
