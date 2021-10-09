@@ -20,7 +20,10 @@ const ViewProcess = (props) => {
   const [seiNumber, setSeiNumber] = useState("");
   const [documentDate, setDocumentDate] = useState("");
 
-  window.onload = async function getProcess() {
+  const [name, setName] = useState("");
+  const [setor, setSetor] = useState("");
+
+  window.onload = async function getInitInfo() {
     const process = await getProcessByID(props.id, toast);
     setSeiNumber(process.sei_number);
     setDocumentDate(process.document_date);
@@ -31,13 +34,19 @@ const ViewProcess = (props) => {
   };
 
   const handleFoward = () => {
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    var dataAtual = dia + "/" + mes + "/" + ano;
+
     const newFoward = [
       ...foward,
       {
         setor: sector,
         setorOrigin: "criminal",
-        date: "15/02/2021",
-        dateFoward: "15/02/2021",
+        date: dataAtual,
+        dateFoward: dataAtual,
         name: "nome default encarregado",
       },
     ];
