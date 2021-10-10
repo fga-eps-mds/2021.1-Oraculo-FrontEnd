@@ -13,20 +13,28 @@ import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
 import { getProcessByID } from "../../Services/Axios/processService";
+import { getInfoUser } from "../../Services/Axios/profileService";
 
 const ViewProcess = (props) => {
   const [sector, setSector] = useState("criminal");
   const [foward, setFoward] = useState([]);
   const [seiNumber, setSeiNumber] = useState("");
   const [documentDate, setDocumentDate] = useState("");
+  const [requester, setRequester] = useState("");
 
-  const [name, setName] = useState("");
-  const [setor, setSetor] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userSetor, setUserSetor] = useState("");
 
   window.onload = async function getInitInfo() {
     const process = await getProcessByID(props.id, toast);
     setSeiNumber(process.sei_number);
     setDocumentDate(process.document_date);
+    setRequester(process.requester);
+
+    const user = await getInfoUser(toast);
+    //substituir por nome quando implementar no back
+    setUserName(user.email);
+    setUserSetor(user.setor);
   };
 
   const handleButtonProcess = () => {
@@ -44,10 +52,10 @@ const ViewProcess = (props) => {
       ...foward,
       {
         setor: sector,
-        setorOrigin: "criminal",
+        setorOrigin: userSetor,
         date: dataAtual,
         dateFoward: dataAtual,
-        name: "nome default encarregado",
+        name: userName,
       },
     ];
     setFoward(newFoward);
@@ -74,14 +82,14 @@ const ViewProcess = (props) => {
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
-          <h2>Joana Depolice</h2>
+          <h2>{userName}</h2>
           <hr></hr>
-          <span>Emissor:</span>
+          <span>Solicitante:</span>
           <div className="issuerIcon">
             <FaUserCircle />
-            <p>Willian Cops</p>
+            <p>{requester}</p>
           </div>
-          <span>Setor:</span>
+          <span>Divisão:</span>
 
           <DropDownButton
             onChangeOpt={(event) => setSector(event.target.value)}
