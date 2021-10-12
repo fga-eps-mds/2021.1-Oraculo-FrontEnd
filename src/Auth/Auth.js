@@ -1,4 +1,4 @@
-const STORAGE_KEY = "user-token";
+export const STORAGE_KEY = "user-token";
 
 const isAuthenticated = () => !!localStorage.getItem(STORAGE_KEY);
 

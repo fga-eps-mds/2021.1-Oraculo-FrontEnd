@@ -11,31 +11,54 @@ import DropDownButton from "../../Components/DropDownButton";
 import FowardSector from "../../Components/FowardSetor";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
-import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+import toast, { Toaster } from "react-hot-toast";
+import { getProcessByID } from "../../Services/Axios/processService";
+import { getInfoUser } from "../../Services/Axios/profileService";
 
-const ViewProcess = () => {
-  const [buttonModal, setButtonModal] = useState(false);
+const ViewProcess = (props) => {
+  const [sector, setSector] = useState("criminal");
+  const [foward, setFoward] = useState([]);
+  const [seiNumber, setSeiNumber] = useState("");
+  const [documentDate, setDocumentDate] = useState("");
+  const [requester, setRequester] = useState("");
+
+  const [userName, setUserName] = useState("");
+  const [userSetor, setUserSetor] = useState("");
+
+  window.onload = async function getInitInfo() {
+    const process = await getProcessByID(props.id, toast);
+    setSeiNumber(process.sei_number);
+    setDocumentDate(process.document_date);
+    setRequester(process.requester);
+
+    const user = await getInfoUser(toast);
+    //substituir por nome quando implementar no back
+    setUserName(user.email);
+    setUserSetor(user.setor);
+  };
+
   const handleButtonProcess = () => {
     setButtonModal(true);
   };
 
-  const [foward, setFoward] = useState("criminal");
-
-  const [sectors, setSectors] = useState([]);
-
   const handleFoward = () => {
-    const newSectors = [
-      ...sectors,
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    var dataAtual = dia + "/" + mes + "/" + ano;
+
+    const newFoward = [
+      ...foward,
       {
-        defaultText: "Processo enviado para o setor",
-        setor: foward,
-        setorOrigin: "Criminal",
-        date: "26/07/2010",
-        dateFoward: "29/09/2021",
-        name: "José carlos",
+        setor: sector,
+        setorOrigin: userSetor,
+        date: dataAtual,
+        dateFoward: dataAtual,
+        name: userName,
       },
     ];
-    setSectors(newSectors);
+    setFoward(newFoward);
   };
 
   const [buttonDone, setButtonDone] = useState(false);
@@ -67,16 +90,17 @@ const ViewProcess = () => {
   return (
     <>
       <Header />
+      <Toaster />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
           <div className="infoProcess">
             <div className="infoProcessicon">
-              <p>Nº do SEI: 199.293.9485</p>
+              <p>{seiNumber}</p>
               <FaPen />
             </div>
-            <span>Data de Emissão: 26/06/2020</span>
+            <span>Data de Emissão: {documentDate}</span>
           </div>
-          <FowardSector sectors={sectors} />
+          <FowardSector foward={foward} />
 
           <StyledDivButtons>
             <GenericWhiteButton title="voltar" onClick="" />
@@ -87,17 +111,17 @@ const ViewProcess = () => {
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
-          <h2>Joana Depolice</h2>
+          <h2>{userName}</h2>
           <hr></hr>
-          <span>Emissor:</span>
+          <span>Solicitante:</span>
           <div className="issuerIcon">
             <FaUserCircle />
-            <p>Willian Cops</p>
+            <p>{requester}</p>
           </div>
-          <span>Setor:</span>
+          <span>Divisão:</span>
 
           <DropDownButton
-            onChangeOpt={(event) => setFoward(event.target.value)}
+            onChangeOpt={(event) => setSector(event.target.value)}
           />
 
           <div className="fowardIcon">
