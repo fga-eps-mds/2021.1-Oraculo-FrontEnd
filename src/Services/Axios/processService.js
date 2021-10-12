@@ -24,3 +24,12 @@ export async function getProcessByID(ID, toast) {
     toast.error("Erro ao buscar processo!");
   }
 }
+
+export async function getProcessByPage(page, toast) {
+  try {
+    const response = await APIProcess.get(`/records/page/${page}`);
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar processo!");
+  }
+}
