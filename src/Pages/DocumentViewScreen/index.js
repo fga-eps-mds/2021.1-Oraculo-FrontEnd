@@ -13,14 +13,23 @@ import {
 
 import Process from "../../Components/Process";
 import Pagination from "../../Components/Pagination/index";
-import { getAllProcess } from "../../Services/Axios/processService";
+import {
+  getAllProcess,
+  getProcessByPage,
+} from "../../Services/Axios/processService";
 import toast from "react-hot-toast";
 
 const DocumentViewScreen = () => {
   const [process, setProcess] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
+  const [allProcesses, setallProcesses] = useState([]);
+
+  async function setAll() {
+    const temp = await getAllProcess(toast);
+    setallProcesses(temp);
+  }
 
   function handleProcess() {
     history.push("/criar-processo");
@@ -29,13 +38,14 @@ const DocumentViewScreen = () => {
 
   async function fetchProcess() {
     setLoading(true);
-    const res = await getAllProcess(toast);
+    const res = await getProcessByPage(currentPage * processPerPage, toast);
     setProcess(res);
     setLoading(false);
   }
 
   window.onload = function () {
     fetchProcess();
+    setAll();
   };
 
   // Get current process
@@ -57,17 +67,19 @@ const DocumentViewScreen = () => {
           <MainButton title={"Novo Registro"} onClick={handleProcess} />
         </div>
         <StyledOrganizeButtons>
+          <StyledBigButton>Nº do Registro</StyledBigButton>
           <StyledBigButton>Solicitante</StyledBigButton>
-          <StyledBigButton>N do SEI</StyledBigButton>
-          <StyledBigButton>Divisão</StyledBigButton>
-          <StyledBigButton>Data</StyledBigButton>
-          <StyledBigButton>Tag</StyledBigButton>
+          <StyledBigButton>Inclusão</StyledBigButton>
+          <StyledBigButton>Nº do SEI</StyledBigButton>
+          <StyledSmallButton>Cidade</StyledSmallButton>
+          <StyledSmallButton>UF</StyledSmallButton>
+          <StyledSmallButton>Tag</StyledSmallButton>
           <StyledSmallButton>...</StyledSmallButton>
         </StyledOrganizeButtons>
         <Process process={currentProcess} loading={loading} />
         <Pagination
           processPerPage={processPerPage}
-          totalProcess={process.length}
+          totalProcess={allProcesses.length}
           paginate={paginate}
         />
       </StyledBody>

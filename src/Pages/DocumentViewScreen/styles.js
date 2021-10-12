@@ -5,7 +5,7 @@ export const styles = {};
 export const StyledBody = styled.div`
   display: -ms-flexbox;
   align-items: center;
-  margin-inline: 15rem;
+  margin-inline: 2rem;
   div {
     margin-top: 2rem;
     display: flex;
@@ -23,7 +23,7 @@ export const StyledOrganizeButtons = styled.div`
 `;
 
 export const StyledSmallButton = styled.button`
-  width: 10%;
+  width: 7%;
   height: 3rem;
   display: flex;
   align-items: center;
