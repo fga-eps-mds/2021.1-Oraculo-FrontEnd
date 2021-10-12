@@ -12,7 +12,7 @@ export const StyledBigDiv = styled.div`
 `;
 
 export const StyledSmallButton = styled.button`
-  width: 10%;
+  width: 7%;
   border: none;
   background: transparent;
   cursor: pointer;
