@@ -11,10 +11,12 @@ const Process = ({ process, loading }) => {
     <StyledListGroup>
       {process.map((post) => (
         <PocketDocument
+          registerNumber={post.register_number}
           requester={post.requester}
+          inclusionDate={post.document_date}
+          city={post.city}
+          state={post.state}
           seiNumber={post.sei_number}
-          department={post.description}
-          documentDate={post.document_date}
         ></PocketDocument>
       ))}
     </StyledListGroup>
