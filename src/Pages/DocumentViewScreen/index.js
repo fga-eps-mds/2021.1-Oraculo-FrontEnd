@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { history } from "../../history";
 import Header from "../../Components/Header";
 import MainButton from "../../Components/MainButton";
@@ -21,7 +21,6 @@ import toast from "react-hot-toast";
 
 const DocumentViewScreen = () => {
   const [process, setProcess] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
   const [allProcesses, setallProcesses] = useState([]);
@@ -36,22 +35,17 @@ const DocumentViewScreen = () => {
     window.location.reload();
   }
 
-  async function fetchProcess() {
-    setLoading(true);
-    const res = await getProcessByPage(currentPage * processPerPage, toast);
-    setProcess(res);
-    setLoading(false);
-  }
+  useEffect(() => {
+    const fetchProcess = async () => {
+      console.log(currentPage);
+      setProcess(await getProcessByPage(currentPage * processPerPage, toast));
+    };
+    fetchProcess();
+  }, [currentPage]);
 
   window.onload = function () {
-    fetchProcess();
     setAll();
   };
-
-  // Get current process
-  const indexOfLastProcess = currentPage * processPerPage;
-  const indexOfFirstProcess = indexOfLastProcess - processPerPage;
-  const currentProcess = process.slice(indexOfFirstProcess, indexOfLastProcess);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -76,7 +70,7 @@ const DocumentViewScreen = () => {
           <StyledSmallButton>Tag</StyledSmallButton>
           <StyledSmallButton>...</StyledSmallButton>
         </StyledOrganizeButtons>
-        <Process process={currentProcess} loading={loading} />
+        <Process process={process} />
         <Pagination
           processPerPage={processPerPage}
           totalProcess={allProcesses.length}
