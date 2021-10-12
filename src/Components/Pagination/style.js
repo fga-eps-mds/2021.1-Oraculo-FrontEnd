@@ -11,9 +11,12 @@ export const StyledPagination = styled.ul`
 export const StyledPageItems = styled.li`
   float: left;
 `;
-export const StyledPageLink = styled.a`
+export const StyledPageLink = styled.button`
+  cursor: pointer;
   display: block;
   color: white;
+  background-color: transparent;
+  border: none;
   text-align: center;
   padding: 16px;
   text-decoration: none;
