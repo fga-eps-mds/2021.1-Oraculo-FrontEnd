@@ -17,8 +17,8 @@ const Pagination = ({ processPerPage, totalProcess, paginate }) => {
     <StyledNavigation>
       <StyledPagination>
         {pageNumbers.map((number) => (
-          <StyledPageItems>
-            <StyledPageLink onClick={() => paginate(number)}>
+          <StyledPageItems key={number}>
+            <StyledPageLink onClick={() => paginate(number - 1)}>
               {number}
             </StyledPageLink>
           </StyledPageItems>

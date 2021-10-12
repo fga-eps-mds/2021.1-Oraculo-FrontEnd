@@ -2,15 +2,12 @@ import React from "react";
 import PocketDocument from "../PocketDocument";
 import { StyledListGroup } from "./style";
 
-const Process = ({ process, loading }) => {
-  if (loading) {
-    return <h2>Carregando...</h2>;
-  }
-
+const Process = ({ process }) => {
   return (
     <StyledListGroup>
       {process.map((post) => (
         <PocketDocument
+          key={post.id}
           registerNumber={post.register_number}
           requester={post.requester}
           inclusionDate={post.document_date}
