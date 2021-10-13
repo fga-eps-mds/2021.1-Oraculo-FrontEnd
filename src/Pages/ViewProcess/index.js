@@ -12,36 +12,92 @@ import FowardSector from "../../Components/FowardSetor";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
-import { getProcessByID } from "../../Services/Axios/processService";
+import {
+  getProcessByID,
+  fowardRegisterDep,
+} from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
+import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
 
+const getDate = () => {
+  var data = new Date();
+  var dia = String(data.getDate()).padStart(2, "0");
+  var mes = String(data.getMonth() + 1).padStart(2, "0");
+  var ano = data.getFullYear();
+  var dataAtual = dia + "/" + mes + "/" + ano;
+  return dataAtual;
+};
 const ViewProcess = (props) => {
   const [sector, setSector] = useState("criminal");
   const [foward, setFoward] = useState([]);
   const [seiNumber, setSeiNumber] = useState("");
   const [documentDate, setDocumentDate] = useState("");
   const [requester, setRequester] = useState("");
+  const [situationReg, setSituation] = useState("");
 
   const [userName, setUserName] = useState("");
   const [userSetor, setUserSetor] = useState("");
+  const [userSectionID, setUserSectionID] = useState("");
+
+  const [buttonModal, setButtonModal] = useState("");
 
   window.onload = async function getInitInfo() {
     const process = await getProcessByID(props.id, toast);
+    setSituation(process.situation);
     setSeiNumber(process.sei_number);
     setDocumentDate(process.document_date);
     setRequester(process.requester);
 
+    alert(situationReg);
+
+    //mostra processo concluido e muda botão
+    if (situationReg == 1) {
+      const newFoward = [
+        ...foward,
+        {
+          name: "NOME",
+          defaultText: "Registro: Concluido",
+          date: getDate(),
+        },
+      ];
+      setFoward(newFoward);
+      setButtonModal(false);
+      setButtonDone(true);
+    }
+
     const user = await getInfoUser(toast);
     //substituir por nome quando implementar no back
     setUserName(user.email);
-    setUserSetor(user.setor);
+    setUserSetor(user.departments[0].name);
+    console.log(user.departments[0].name);
+    setUserSectionID(user.departments[0].id);
   };
 
   const handleButtonProcess = () => {
     setButtonModal(true);
   };
 
-  const handleFoward = () => {
+  async function handleFoward() {
+    const response = await fowardRegisterDep(userSectionID, props.id, toast);
+
+    if (response) {
+      const newFoward = [
+        ...foward,
+        {
+          defaultText: "processo enviado para o setor",
+          setor: sector,
+          setorOrigin: userSetor,
+          date: getDate(),
+          dateFoward: getDate(),
+          name: userName,
+        },
+      ];
+      setFoward(newFoward);
+    }
+  }
+
+  const [buttonDone, setButtonDone] = useState(false);
+  const handleClickModalRed = () => {
     var data = new Date();
     var dia = String(data.getDate()).padStart(2, "0");
     var mes = String(data.getMonth() + 1).padStart(2, "0");
@@ -51,28 +107,12 @@ const ViewProcess = (props) => {
     const newFoward = [
       ...foward,
       {
-        setor: sector,
-        setorOrigin: userSetor,
+        name: "NOME",
+        defaultText: "Registro: Concluido",
         date: dataAtual,
-        dateFoward: dataAtual,
-        name: userName,
       },
     ];
     setFoward(newFoward);
-  };
-
-  const [buttonDone, setButtonDone] = useState(false);
-  const handleClickModalRed = () => {
-    const newSectors = [
-      ...sectors,
-      {
-        defaultText: "Registro: Concluido",
-        setorOrigin: "Criminal",
-        name: "José carlos",
-        date: "27/09/2021",
-      },
-    ];
-    setSectors(newSectors);
     setButtonModal(false);
     setButtonDone(true);
 
