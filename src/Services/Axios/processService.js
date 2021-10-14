@@ -34,3 +34,15 @@ export async function getProcessByPage(page, toast) {
     toast.error("Erro ao buscar processo!");
   }
 }
+
+export async function getProcessTotalNumber(ID, toast) {
+  try {
+    const response = await APIProcess.get(
+      "http://localhost:8001/count/records"
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar total de registros!");
+  }
+}
