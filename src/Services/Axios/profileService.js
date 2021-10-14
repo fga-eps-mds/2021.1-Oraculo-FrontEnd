@@ -116,6 +116,17 @@ export async function listAllUsers(toast) {
   }
 }
 
+export async function getInfoUser(toast) {
+  try {
+    const response = await APIProfile.get("user/info", {
+      headers: { "X-Access-Token": getToken() },
+    });
+    return response.data;
+  } catch (error) {
+    toast.error("Falha ao obter dados do usuário");
+  }
+}
+
 export async function getUserAccessLevel(user, toast) {
   try {
     const response = await APIProfile.post(
@@ -130,26 +141,5 @@ export async function getUserAccessLevel(user, toast) {
     if (status === 500) {
       toast.error("Erro ao obter informações sobre o seu nível de acesso");
     }
-  }
-}
-
-export async function getProfileInfo(toast) {
-  try {
-    const response = await APIProfile.get("/user/info", {
-      headers: { "X-Access-Token": getToken() },
-    });
-
-    console.info(`user profile returned successfully`);
-    return response.data;
-  } catch (error) {
-    const status = error.response?.status;
-
-    if (status === 500) {
-      console.error(`server error detected: ${error}`);
-    } else {
-      toast.error("Erro ao obter informações sobre o perfil");
-    }
-
-    return null;
   }
 }

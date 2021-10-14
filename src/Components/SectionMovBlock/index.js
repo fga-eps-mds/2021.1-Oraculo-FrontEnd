@@ -9,7 +9,7 @@ const SectionMovBlock = ({ fowardSector }) => {
           <div></div>
         </StyledLine>
         <div className="content">
-          <p>Setor: {fowardSector.setorOrigin} </p>
+          <p>{fowardSector.setorOrigin} </p>
           <p>{fowardSector.dateFoward}</p>
         </div>
       </DivNodeBlock>
