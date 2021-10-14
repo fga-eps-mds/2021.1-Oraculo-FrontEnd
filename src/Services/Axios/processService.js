@@ -25,3 +25,14 @@ export async function fowardRegisterDep(section_id, id, toast) {
     return false;
   }
 }
+
+export async function setStatusRecord(id, situation_record, toast) {
+  try {
+    await APIProcess.post(`/records/${id}/status`, {
+      situation_record: situation_record,
+    });
+    toast.success("Registro concluido!");
+  } catch (error) {
+    toast.error("Erro ao tentar concluir registro");
+  }
+}

@@ -15,6 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 import {
   getProcessByID,
   fowardRegisterDep,
+  setStatusRecord,
 } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
@@ -43,15 +44,13 @@ const ViewProcess = (props) => {
 
   window.onload = async function getInitInfo() {
     const process = await getProcessByID(props.id, toast);
-    setSituation(process.situation);
+
     setSeiNumber(process.sei_number);
     setDocumentDate(process.document_date);
     setRequester(process.requester);
-
-    alert(situationReg);
-
     //mostra processo concluido e muda botão
-    if (situationReg == 1) {
+
+    if (process.situation == 1) {
       const newFoward = [
         ...foward,
         {
@@ -68,9 +67,9 @@ const ViewProcess = (props) => {
     const user = await getInfoUser(toast);
     //substituir por nome quando implementar no back
     setUserName(user.email);
-    setUserSetor(user.departments[0].name);
-    console.log(user.departments[0].name);
-    setUserSectionID(user.departments[0].id);
+    setUserSetor(user.sections[0].name);
+    console.log(user.sections[0].name);
+    setUserSectionID(user.sections[0].id);
   };
 
   const handleButtonProcess = () => {
@@ -112,6 +111,8 @@ const ViewProcess = (props) => {
         date: dataAtual,
       },
     ];
+
+    setStatusRecord(props.id, 1, toast);
     setFoward(newFoward);
     setButtonModal(false);
     setButtonDone(true);
