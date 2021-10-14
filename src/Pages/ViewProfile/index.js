@@ -2,7 +2,7 @@ import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import Header from "../../Components/Header";
-import { getProfileInfo } from "../../Services/Axios/profileService";
+import { getInfoUser } from "../../Services/Axios/profileService";
 
 import {
   StyledBlueRectangle,
@@ -26,7 +26,7 @@ class ViewProfile extends React.Component {
   }
 
   componentDidMount() {
-    getProfileInfo(toast).then((userInfo) => {
+    getInfoUser(toast).then((userInfo) => {
       this.setState({ user: userInfo, loaded: true });
     });
   }
