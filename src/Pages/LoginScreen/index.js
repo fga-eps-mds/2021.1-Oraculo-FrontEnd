@@ -28,10 +28,6 @@ class LoginScreen extends React.Component {
     this.setState({ email: newMail });
   }
 
-  componentDidMount() {
-    this.setState({ email: "", password: "" });
-  }
-
   async handleClick(event) {
     const user = { email: this.state.email, password: this.state.password };
     const result = await loginUser(user, toast);
