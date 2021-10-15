@@ -65,11 +65,9 @@ const ViewProcess = (props) => {
     }
 
     const user = await getInfoUser(toast);
-    //substituir por nome quando implementar no back
-    setUserName(user.email);
+
+    setUserName(user.name);
     setUserSetor(user.sections[0].name);
-    console.log(user.sections[0].name);
-    setUserSectionID(user.sections[0].id);
   };
 
   const handleButtonProcess = () => {

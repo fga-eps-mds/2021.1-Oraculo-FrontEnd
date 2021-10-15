@@ -1,80 +1,99 @@
-import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import React from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import Header from "../../Components/Header";
+import { getInfoUser } from "../../Services/Axios/profileService";
+
 import {
-    StyledBlueRectangle,
-    StyledButtonsDiv,
-    StyledBackButton,
-    StyledEditButton,
-    StyledForms,
-    StyledViewProfile,
-    StyledWhiteRectangle,
+  StyledBlueRectangle,
+  StyledButtonsDiv,
+  StyledBackButton,
+  StyledEditButton,
+  StyledForms,
+  StyledViewProfile,
+  StyledWhiteRectangle,
 } from "./styles";
 
-const ViewProfile = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [sector, setSector] = useState("");
+class ViewProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+      loaded: false,
+      newName: "",
+      newSector: "",
+    };
+  }
 
-    return (
+  componentDidMount() {
+    getInfoUser(toast).then((userInfo) => {
+      this.setState({ user: userInfo, loaded: true });
+    });
+  }
+
+  render() {
+    const { user } = this.state;
+
+    if (!this.state.loaded) {
+      return (
         <>
-            <Header />
-            <div>
-                <StyledViewProfile>
-                    <StyledBlueRectangle>
-                        <BiUserCircle size="20rem" color="white" />
-                    </StyledBlueRectangle>
-
-                    <StyledWhiteRectangle>
-                        <StyledForms>
-                            <form>
-                                <div>
-                                    <h1>Name</h1>
-                                    <input
-                                        id="name"
-                                        type="text"
-                                        placeholder="William Cops"
-                                        value={name}
-                                        onChange={(event) => setName(event.target.value)}
-                                    />
-                                </div>
-                                <div>
-                                    <h1>Email</h1>
-                                    <input
-                                        id="email"
-                                        type="text"
-                                        placeholder="william@pcgo.org.br"
-                                        value={email}
-                                        onChange={(event) => setEmail(event.target.value)}
-                                    />
-                                </div>
-                                <div>
-                                    <h1>Setor</h1>
-                                    <input
-                                        id="sectorNum"
-                                        type="text"
-                                        placeholder="Setor"
-                                        onChange={(event) =>
-                                            setSector(event.target.value)
-                                        }
-                                        value={sector}
-                                    />
-                                </div>
-                            </form>
-                        </StyledForms>
-                        <StyledButtonsDiv>
-                            <StyledBackButton onClick={() => window.history.back()}>
-                                Voltar
-                            </StyledBackButton>
-                            <StyledEditButton>Editar</StyledEditButton>
-                        </StyledButtonsDiv>
-                    </StyledWhiteRectangle>
-                </StyledViewProfile>
-                <Toaster />
-            </div>
+          <p>Carregando ...</p>
         </>
-    );
-};
+      );
+    } else {
+      return (
+        <>
+          <Header />
+          <div>
+            <StyledViewProfile>
+              <StyledBlueRectangle>
+                <BiUserCircle size="20rem" color="white" />
+              </StyledBlueRectangle>
+
+              <StyledWhiteRectangle>
+                <StyledForms>
+                  <form>
+                    <div>
+                      <h1>Name</h1>
+                      <input id="name" type="text" placeholder="William Cops" />
+                    </div>
+                    <div>
+                      <h1>Email</h1>
+                      <input
+                        id="email"
+                        type="text"
+                        placeholder="william@pcgo.org.br"
+                        value={user.email}
+                      />
+                    </div>
+                    <div>
+                      <h1>Setor</h1>
+                      <input
+                        id="sectorNum"
+                        type="text"
+                        placeholder="Setor"
+                        value={user.departments[0].name}
+                      />
+                    </div>
+                  </form>
+                </StyledForms>
+                <StyledButtonsDiv>
+                  <StyledBackButton onClick={() => window.history.back()}>
+                    Voltar
+                  </StyledBackButton>
+                  <StyledEditButton
+                    onClick={() => toast.error("Essa função estará disponível em breve")}>
+                    Editar
+                  </StyledEditButton>
+                </StyledButtonsDiv>
+              </StyledWhiteRectangle>
+            </StyledViewProfile>
+            <Toaster />
+          </div>
+        </>
+      );
+    }
+  }
+}
 
 export default ViewProfile;
