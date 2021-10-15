@@ -28,6 +28,8 @@ export async function getProcessByID(ID, toast) {
 
 export async function fowardRegisterDep(section_id, id, toast) {
   try {
+    console.log(id);
+    console.log(section_id);
     await APIProcess.post(`/records/${id}/forward`, {
       section_id: section_id,
     });

@@ -34,13 +34,15 @@ const ViewProcess = (props) => {
   const [seiNumber, setSeiNumber] = useState("");
   const [documentDate, setDocumentDate] = useState("");
   const [requester, setRequester] = useState("");
-  const [situationReg, setSituation] = useState("");
 
   const [userName, setUserName] = useState("");
   const [userSetor, setUserSetor] = useState("");
   const [userSectionID, setUserSectionID] = useState("");
 
   const [buttonModal, setButtonModal] = useState("");
+  const [buttonModalConfirmForward, setButtonModalConfirmForward] =
+    useState("");
+  const [buttonDone, setButtonDone] = useState(false);
 
   window.onload = async function getInitInfo() {
     const process = await getProcessByID(props.id, toast);
@@ -48,13 +50,17 @@ const ViewProcess = (props) => {
     setSeiNumber(process.sei_number);
     setDocumentDate(process.document_date);
     setRequester(process.requester);
-    //mostra processo concluido e muda botão
+
+    const user = await getInfoUser(toast);
+
+    setUserName(user.name);
+    setUserSetor(user.sections[0].name);
 
     if (process.situation == 1) {
       const newFoward = [
         ...foward,
         {
-          name: "NOME",
+          name: user.name,
           defaultText: "Registro: Concluido",
           date: getDate(),
         },
@@ -62,20 +68,17 @@ const ViewProcess = (props) => {
       setFoward(newFoward);
       setButtonModal(false);
       setButtonDone(true);
+      document.querySelector(".fowardIcon").style.display = "none";
     }
-
-    const user = await getInfoUser(toast);
-
-    setUserName(user.name);
-    setUserSetor(user.sections[0].name);
   };
 
-  const handleButtonProcess = () => {
-    setButtonModal(true);
+  const handleFoward = () => {
+    setButtonModalConfirmForward(true);
   };
 
-  async function handleFoward() {
-    const response = await fowardRegisterDep(userSectionID, props.id, toast);
+  async function handleClickModalConfirmForward() {
+    //problem: i need know the department number
+    const response = await fowardRegisterDep(4, props.id, toast);
 
     if (response) {
       const newFoward = [
@@ -90,23 +93,22 @@ const ViewProcess = (props) => {
         },
       ];
       setFoward(newFoward);
+      setButtonModalConfirmForward(false);
     }
   }
 
-  const [buttonDone, setButtonDone] = useState(false);
-  const handleClickModalRed = () => {
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
+  const handleButtonProcess = () => {
+    setButtonModal(true);
+  };
 
+  const handleClickModalRed = () => {
     const newFoward = [
       ...foward,
       {
-        name: "NOME",
+        name: userName,
+
         defaultText: "Registro: Concluido",
-        date: dataAtual,
+        date: getDate(),
       },
     ];
 
@@ -124,6 +126,7 @@ const ViewProcess = (props) => {
 
   const handleClickModalWhite = () => {
     setButtonModal(false);
+    setButtonModalConfirmForward(false);
   };
 
   return (
@@ -185,6 +188,14 @@ const ViewProcess = (props) => {
           titleRedButton="Concluir"
           titleWhiteButton="Cancelar"
           onClickRedButton={handleClickModalRed}
+          onClickWhiteButton={handleClickModalWhite}
+        />
+        <ModalDoubleCheck
+          content="Deseja realmente encaminhar esse registro?"
+          trigger={buttonModalConfirmForward}
+          titleRedButton="confirmar"
+          titleWhiteButton="Cancelar"
+          onClickRedButton={handleClickModalConfirmForward}
           onClickWhiteButton={handleClickModalWhite}
         />
       </StyledDivSupProcess>
