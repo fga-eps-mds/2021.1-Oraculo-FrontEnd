@@ -1,10 +1,21 @@
-const { PROD, PROFILE_BASE_URL, RECORDS_BASE_URL, TAGS_BASE_URL } = process.env;
+require("dotenv").config();
+const {
+  REACT_APP_PROD,
+  REACT_APP_PROFILE_BASE_URL,
+  REACT_APP_RECORDS_BASE_URL,
+  REACT_APP_TAGS_BASE_URL,
+} = process.env;
 
 let BaseUrlProfile = "";
 let BaseUrlProcess = "";
 let BaseUrlTags = "";
 
-if (PROD !== "true") {
+console.log(REACT_APP_PROD);
+console.log(REACT_APP_PROFILE_BASE_URL);
+console.log(REACT_APP_RECORDS_BASE_URL);
+console.log(REACT_APP_TAGS_BASE_URL);
+
+if (REACT_APP_PROD !== "true") {
   /**
    * Estamos no ambiente de desevolvimento (local), portanto
    * não é necessário apontar para endereços externos
@@ -17,9 +28,9 @@ if (PROD !== "true") {
    * Estamos no ambiente de produção, portanto devemos pegar
    * as variáveis de ambiente definidas durante o deploy
    */
-  BaseUrlProfile = `${PROFILE_BASE_URL}`;
-  BaseUrlProcess = `${RECORDS_BASE_URL}`;
-  BaseUrlTags = `${TAGS_BASE_URL}`;
+  BaseUrlProfile = `${REACT_APP_PROFILE_BASE_URL}`;
+  BaseUrlProcess = `${REACT_APP_RECORDS_BASE_URL}`;
+  BaseUrlTags = `${REACT_APP_TAGS_BASE_URL}`;
 }
 
 export { BaseUrlProfile, BaseUrlProcess, BaseUrlTags };
