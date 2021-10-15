@@ -2,10 +2,24 @@ import styled from "styled-components";
 
 export const styles = {};
 
-export const StyledBody = styled.div`
+export const StyledPage = styled.div`
   display: -ms-flexbox;
   align-items: center;
   margin-inline: 15rem;
+`;
+
+export const StyledTop = styled.div`
+  display: inline-flex;
+  align-items: center;
+`;
+
+export const StyledSearchBarSize = styled.div`
+  box-sizing: border-box;
+  width: 30rem;
+  margin-right: 26rem;
+`;
+
+export const StyledBottom = styled.div`
   div {
     margin-top: 2rem;
     display: flex;
