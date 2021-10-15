@@ -1,14 +1,25 @@
-/**
- * URL para fazer requests ao microsserviço de profiles
- */
-export const BaseUrlProfile = "http://localhost:8000";
+const { PROD, PROFILE_BASE_URL, RECORDS_BASE_URL, TAGS_BASE_URL } = process.env;
 
-/**
- * URL para fazer requests ao microsserviço de processos
- */
-export const BaseUrlProcess = "http://localhost:8001";
+let BaseUrlProfile = "";
+let BaseUrlProcess = "";
+let BaseUrlTags = "";
 
-/**
- * URL para fazer requests ao microsserviço de tags
- */
-export const BaseUrlTags = "http://localhost:8002";
+if (PROD !== "true") {
+  /**
+   * Estamos no ambiente de desevolvimento (local), portanto
+   * não é necessário apontar para endereços externos
+   */
+  BaseUrlProfile = "http://localhost:8000";
+  BaseUrlProcess = "http://localhost:8001";
+  BaseUrlTags = "http://localhost:8002";
+} else {
+  /**
+   * Estamos no ambiente de produção, portanto devemos pegar
+   * as variáveis de ambiente definidas durante o deploy
+   */
+  BaseUrlProfile = `${PROFILE_BASE_URL}`;
+  BaseUrlProcess = `${RECORDS_BASE_URL}`;
+  BaseUrlTags = `${TAGS_BASE_URL}`;
+}
+
+export { BaseUrlProfile, BaseUrlProcess, BaseUrlTags };
