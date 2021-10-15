@@ -1,37 +1,37 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { isAuthenticated } from "./Auth/Auth";
-import { history } from "./history";
 import AdminScreen from "./Pages/AdminScreen/";
 import CreateProcess from "./Pages/CreateProcess";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
 import CreateUser from "./Pages/CreateUser";
+import { history } from "./history";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
-	<Route
-		{...prop}
-		render={(props) =>
-			isAuthenticated() ? (
-				<Component {...props} />
-			) : (
-				<Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-			)
-		}
-	/>
+  <Route
+    {...prop}
+    render={(props) =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+      )
+    }
+  />
 );
 
 const Routes = () => (
-	<BrowserRouter history={history}>
-		<Switch>
-			<Route exact path="/login" component={() => <LoginScreen />} />
-			<PrivateRoutes path="/admin-page" component={() => <AdminScreen />} />
-			<PrivateRoutes path="/criar-processo" component={() => <CreateProcess />} />
-			<PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
-			<PrivateRoutes path="/user" component={() => <ViewProfile />} />
-			<Route exact path="/" component={() => <LoginScreen />} />
-		</Switch>
-	</BrowserRouter>
+  <BrowserRouter history={history}>
+    <Switch>
+      <Route exact path="/login" component={() => <LoginScreen history={history} />} />
+      <PrivateRoutes path="/admin-page" component={() => <AdminScreen />} />
+      <PrivateRoutes path="/criar-processo" component={() => <CreateProcess />} />
+      <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
+      <PrivateRoutes path="/user" component={() => <ViewProfile />} />
+      <Route exact path="/" component={() => <LoginScreen />} />
+    </Switch>
+  </BrowserRouter>
 );
 
 export default Routes;
