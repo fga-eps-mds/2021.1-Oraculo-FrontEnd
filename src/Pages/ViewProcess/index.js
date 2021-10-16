@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header";
 import {
   StyledDivInfoProcess,
@@ -25,36 +25,36 @@ const ViewProcess = (props) => {
   const [userName, setUserName] = useState("");
   const [userSetor, setUserSetor] = useState("");
 
-  window.onload = async function getInitInfo() {
-    const process = await getProcessByID(props.id, toast);
-    setSeiNumber(process.sei_number);
-    setDocumentDate(process.document_date);
-    setRequester(process.requester);
+  useEffect(() => {
+    const record = await getProcessByID(props.id, toast);
+    setSeiNumber(record.sei_number);
+    setDocumentDate(record.document_date);
+    setRequester(record.requester);
 
     const user = await getInfoUser(toast);
 
     setUserName(user.name);
     setUserSetor(user.sections[0].name);
-  };
+  });
 
   const handleButtonProcess = () => {
     alert("Função ainda nao implementada");
   };
 
   const handleFoward = () => {
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
+    let date = new Date();
+    let day = String(date.getDate()).padStart(2, "0");
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let year = date.getFullYear();
+    let currentDate = day + "/" + month + "/" + year;
 
     const newFoward = [
       ...foward,
       {
         setor: sector,
         setorOrigin: userSetor,
-        date: dataAtual,
-        dateFoward: dataAtual,
+        date: currentDate,
+        dateFoward: currentDate,
         name: userName,
       },
     ];
