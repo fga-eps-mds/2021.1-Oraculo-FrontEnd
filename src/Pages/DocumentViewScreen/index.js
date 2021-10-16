@@ -14,7 +14,7 @@ import {
 import Process from "../../Components/Process";
 import Pagination from "../../Components/Pagination/index";
 import {
-  getAllProcess,
+  getProcessTotalNumber,
   getProcessByPage,
 } from "../../Services/Axios/processService";
 import toast from "react-hot-toast";
@@ -23,11 +23,12 @@ const DocumentViewScreen = () => {
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
-  const [allProcesses, setallProcesses] = useState([]);
+  const [allProcesses, setAllProcesses] = useState([]);
 
   async function setAll() {
-    const temp = await getAllProcess(toast);
-    setallProcesses(temp);
+    const temp = await getProcessTotalNumber(toast);
+    setAllProcesses(temp.count);
+    console.log(allProcesses);
   }
 
   function handleProcess() {
@@ -73,7 +74,7 @@ const DocumentViewScreen = () => {
         <Process process={process} />
         <Pagination
           processPerPage={processPerPage}
-          totalProcess={allProcesses.length}
+          totalProcess={allProcesses}
           paginate={paginate}
         />
       </StyledBody>
