@@ -1,17 +1,31 @@
+import React, { useState } from "react";
 import Header from "../../Components/Header";
 import MainButton from "../../Components/MainButton";
 import SearchBar from "../../Components/SearchBar";
+import Fields from "../../Components/Fields";
+import toast from "react-hot-toast";
 import {
   StyledTitle,
   StyledBottom,
   StyledOrganizeButtons,
   StyledBigButton,
   StyledSearchBarSize,
-  StyledTop,
   StyledPage,
+  StyledTop,
 } from "./styles";
+import { getAllProcess } from "../../Services/Axios/processService";
 
 const ViewAllFields = () => {
+  const [register, setRegister] = useState([]);
+
+  const fetchProcess = async () => {
+    setRegister(await getAllProcess(toast));
+  };
+
+  window.onload = function () {
+    fetchProcess();
+  };
+
   return (
     <>
       <Header />
@@ -29,6 +43,8 @@ const ViewAllFields = () => {
             <StyledBigButton>Descrição</StyledBigButton>
             <StyledBigButton>Criador</StyledBigButton>
           </StyledOrganizeButtons>
+
+          <Fields process={register} />
         </StyledBottom>
       </StyledPage>
     </>
