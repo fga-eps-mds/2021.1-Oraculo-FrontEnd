@@ -8,6 +8,19 @@ export const StyledPage = styled.div`
   margin-inline: 15rem;
 `;
 
+export const StyledTitle = styled.h1`
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 49px;
+  display: flex;
+  text-align: left;
+  color: #000000;
+`;
+
 export const StyledTop = styled.div`
   display: inline-flex;
   align-items: center;
@@ -16,14 +29,14 @@ export const StyledTop = styled.div`
 export const StyledSearchBarSize = styled.div`
   box-sizing: border-box;
   width: 30rem;
-  margin-right: 26rem;
+  margin-right: 36rem;
 `;
 
 export const StyledBottom = styled.div`
   div {
-    margin-top: 2rem;
     display: flex;
     justify-content: space-between;
+    margin: 2rem 0 0 0;
   }
 `;
 
@@ -53,14 +66,6 @@ export const StyledBigButton = styled.button`
   border: none;
 `;
 
-export const StyledTitle = styled.h1`
-  margin-top: 6rem;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 40px;
-  line-height: 49px;
-  display: flex;
-  text-align: left;
-  color: #000000;
+export const StyledScroll = styled.div`
+  height: 20rem;
 `;
