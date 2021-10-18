@@ -11,14 +11,14 @@ const PocketDocument = ({
   seiNumber,
 }) => (
   <StyledBigDiv>
-    <StyledBigButton>{registerNumber}</StyledBigButton>
-    <StyledBigButton>{requester}</StyledBigButton>
-    <StyledBigButton>{inclusionDate}</StyledBigButton>
-    <StyledBigButton>{seiNumber}</StyledBigButton>
-    <StyledSmallButton>{city}</StyledSmallButton>
-    <StyledSmallButton>{state}</StyledSmallButton>
-    <StyledSmallButton>Tag</StyledSmallButton>
-    <StyledSmallButton>...</StyledSmallButton>
+    <button class="registerNumber">{registerNumber}</button>
+    <button class="city">{city}</button>
+    <button class="state">{state}</button>
+    <button class="requester">{requester}</button>
+    <button class="inclusionDate">{inclusionDate}</button>
+    <button class="seiNumber">{seiNumber}</button>
+    <button class="tag">Tag</button>
+    <button class="extra">...</button>
   </StyledBigDiv>
 );
 
