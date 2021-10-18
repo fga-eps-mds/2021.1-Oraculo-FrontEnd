@@ -28,7 +28,7 @@ const AdminScreen = () => {
   return (
     <>
       <div>Voce esta logado como ADMIN</div>
-      <MainButton title="criar processo" onClick={handleProcess} />
+      <MainButton title="criar registro" onClick={handleProcess} />
       <MainButton title="logout" onClick={handleClickCheckout} />
       <MainButton title="ver usuario" onClick={handleViewProfile} />
       <MainButton title="criar usuario" onClick={handleViewCreateProfile} />

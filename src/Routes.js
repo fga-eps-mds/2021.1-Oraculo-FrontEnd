@@ -7,6 +7,7 @@ import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
 import CreateUser from "./Pages/CreateUser";
 import { history } from "./history";
+import ViewRecord from "./Pages/ViewRecord";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -15,7 +16,9 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
       isAuthenticated() ? (
         <Component {...props} />
       ) : (
-        <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+        <Redirect
+          to={{ pathname: "/login", state: { from: props.location } }}
+        />
       )
     }
   />
@@ -24,9 +27,17 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
 const Routes = () => (
   <BrowserRouter history={history}>
     <Switch>
-      <Route exact path="/login" component={() => <LoginScreen history={history} />} />
+      <Route
+        exact
+        path="/login"
+        component={() => <LoginScreen history={history} />}
+      />
+      <Route exact path="/view-record" component={() => <ViewRecord />} />
       <PrivateRoutes path="/admin-page" component={() => <AdminScreen />} />
-      <PrivateRoutes path="/criar-processo" component={() => <CreateProcess />} />
+      <PrivateRoutes
+        path="/criar-processo"
+        component={() => <CreateProcess />}
+      />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/user" component={() => <ViewProfile />} />
       <Route exact path="/" component={() => <LoginScreen />} />

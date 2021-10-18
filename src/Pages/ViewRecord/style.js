@@ -93,7 +93,7 @@ const StyledDivShowProcess = styled.div`
   font-family: ${fonts.font};
 
   .infoProcess {
-    width: 100%;
+    width: 98%;
     background: ${colors.white};
     border-radius: ${radius.sizeMd};
     padding: 1rem 2rem 2rem;
