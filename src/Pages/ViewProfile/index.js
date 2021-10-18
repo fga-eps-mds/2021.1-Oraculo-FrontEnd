@@ -55,7 +55,12 @@ class ViewProfile extends React.Component {
                   <form>
                     <div>
                       <h1>Name</h1>
-                      <input id="name" type="text" placeholder="William Cops" />
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="William Cops"
+                        value={user.name != undefined ? user.name : "erro"}
+                      />
                     </div>
                     <div>
                       <h1>Email</h1>
@@ -63,7 +68,7 @@ class ViewProfile extends React.Component {
                         id="email"
                         type="text"
                         placeholder="william@pcgo.org.br"
-                        value={user.email}
+                        value={user.email != undefined ? user.email : "erro"}
                       />
                     </div>
                     <div>
