@@ -72,7 +72,11 @@ class ViewProfile extends React.Component {
                         id="sectorNum"
                         type="text"
                         placeholder="Setor"
-                        value={user.departments[0].name}
+                        value={
+                          user.sections[0] != undefined
+                            ? user.sections[0].name
+                            : "erro"
+                        }
                       />
                     </div>
                   </form>
@@ -82,7 +86,10 @@ class ViewProfile extends React.Component {
                     Voltar
                   </StyledBackButton>
                   <StyledEditButton
-                    onClick={() => toast.error("Essa função estará disponível em breve")}>
+                    onClick={() =>
+                      toast.error("Essa função estará disponível em breve")
+                    }
+                  >
                     Editar
                   </StyledEditButton>
                 </StyledButtonsDiv>
