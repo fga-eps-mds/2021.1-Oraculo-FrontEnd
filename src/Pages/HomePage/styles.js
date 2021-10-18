@@ -7,7 +7,7 @@ export const StyledBody = styled.div`
   margin-right: 46px;
 
   h1 {
-    margin-top: 60px;
+    margin-top: 40px;
   }
 `;
 
@@ -23,7 +23,8 @@ export const StyledOrganizeButtons = styled.div`
 `;
 
 export const StyledBigButton = styled.button`
-  width: 12.5%;
+  display: inline-block;
+  margin: 0 50px;
   height: 3rem;
   align-items: center;
   justify-content: center;
@@ -36,8 +37,4 @@ export const StyledBigButton = styled.button`
   background: transparent;
   cursor: pointer;
   border: none;
-`;
-
-export const StyledFirstSpace = styled.div`
-  margin-left: 60px;
 `;
