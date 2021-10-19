@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { isAuthenticated } from "./Auth/Auth";
-import AdminScreen from "./Pages/AdminScreen/";
+// import  from "./Pages/AdminScreen/";
 import CreateProcess from "./Pages/CreateProcess";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
 import CreateUser from "./Pages/CreateUser";
 import { history } from "./history";
 import ViewRecord from "./Pages/ViewRecord";
+import HomePage from "./Pages/HomePage";
 import ChangePassword from "./Pages/ChangePassword";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
@@ -28,17 +29,10 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
 const Routes = () => (
   <BrowserRouter history={history}>
     <Switch>
-      <Route
-        exact
-        path="/login"
-        component={() => <LoginScreen history={history} />}
-      />
+      <Route exact path="/login" component={() => <LoginScreen history={history} />} />
       <Route exact path="/ver-registro" component={() => <ViewRecord />} />
       <PrivateRoutes path="/administrador" component={() => <AdminScreen />} />
-      <PrivateRoutes
-        path="/criar-registro"
-        component={() => <CreateProcess />}
-      />
+      <PrivateRoutes path="/criar-registro" component={() => <CreateProcess />} />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
       <PrivateRoutes path="/alterar-senha" component={() => <ChangePassword/>} />
