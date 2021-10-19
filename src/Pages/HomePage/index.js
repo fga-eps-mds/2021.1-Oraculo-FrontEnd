@@ -55,12 +55,12 @@ const HomePage = () => {
           <StyledBigButton>Tags</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
-        {/* <Process process={process} />
+        <Process process={process} />
         <Pagination
           processPerPage={processPerPage}
           totalProcess={allProcesses}
           paginate={paginate}
-        /> */}
+        />
       </StyledBody>
     </>
   );
