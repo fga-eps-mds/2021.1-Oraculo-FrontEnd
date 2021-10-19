@@ -34,13 +34,13 @@ const Routes = () => (
         component={() => <LoginScreen history={history} />}
       />
       <Route exact path="/view-record" component={() => <ViewRecord />} />
-      <PrivateRoutes path="/admin-page" component={() => <HomePage />} />
+      <PrivateRoutes path="/pagina-admin" component={() => <HomePage />} />
       <PrivateRoutes
         path="/criar-registro"
         component={() => <CreateProcess />}
       />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
-      <PrivateRoutes path="/user" component={() => <ViewProfile />} />
+      <PrivateRoutes path="/perfil" component={() => <ViewProfile />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>

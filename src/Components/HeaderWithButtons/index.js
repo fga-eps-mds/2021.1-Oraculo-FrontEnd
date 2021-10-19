@@ -16,7 +16,7 @@ const HeaderWithButtons = () => {
   }
 
   function handleAdmin() {
-    history.push("/admin-page");
+    history.push("/pagina-admin");
     window.location.reload();
   }
 
@@ -27,7 +27,12 @@ const HeaderWithButtons = () => {
   }
 
   function handleViewProfile() {
-    history.push("/user");
+    history.push("/perfil");
+    window.location.reload();
+  }
+
+  function handleCreateUser() {
+    history.push("/criar-usuario");
     window.location.reload();
   }
 
@@ -42,7 +47,7 @@ const HeaderWithButtons = () => {
           <StyledDropDown>
             <button onClick={handleAdmin}>Administrador</button>
             <div>
-              <button onClick={() => {}}>Usuário</button>
+              <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={() => {}}>Departamento</button>
               <button onClick={() => {}}>Tag</button>
             </div>
@@ -51,6 +56,7 @@ const HeaderWithButtons = () => {
             <button>Nome</button>
             <div>
               <button onClick={handleViewProfile}>Ver Perfil</button>
+              <button onClick={() => {}}>Nova Senha</button>
               <button onClick={handleClickCheckout}>Sair</button>
             </div>
           </StyledDropDown>

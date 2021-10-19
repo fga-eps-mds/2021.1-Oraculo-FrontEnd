@@ -34,7 +34,7 @@ class LoginScreen extends React.Component {
     const auth = result?.auth;
     if (auth) {
       login(result.token);
-      this.props.history.push("/admin-page");
+      this.props.history.push("/pagina-admin");
     }
   }
 
@@ -51,7 +51,8 @@ class LoginScreen extends React.Component {
               placeholderInput="Usuário"
               inputType="email"
               valueInput={this.state.email}
-              onChangeInput={(event) => this.setEmail(event.target.value)}>
+              onChangeInput={(event) => this.setEmail(event.target.value)}
+            >
               <FaUserCircle />
             </LoginInput>
             <LoginInput
@@ -60,7 +61,8 @@ class LoginScreen extends React.Component {
               placeholderInput="Senha"
               inputType="password"
               valueInput={this.state.password}
-              onChangeInput={(event) => this.setPassword(event.target.value)}>
+              onChangeInput={(event) => this.setPassword(event.target.value)}
+            >
               <FaLock />
             </LoginInput>
             <StyledDiv>
@@ -68,7 +70,8 @@ class LoginScreen extends React.Component {
                 to="/esqueci-senha"
                 onClick={() => {
                   alert("Estamos trabalhando nisso");
-                }}>
+                }}
+              >
                 Esqueci minha senha
               </Link>
               <MainButton
