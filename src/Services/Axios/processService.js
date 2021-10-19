@@ -44,3 +44,16 @@ export async function getProcessTotalNumber(ID, toast) {
     toast.error("Erro ao buscar total de registros!");
   }
 }
+
+export async function createRecord(recordInfo, toast) {
+  try {
+    const record = await APIProcess.post("/records", recordInfo);
+    toast.success(`Registro criado com sucesso sob o n° ${record.data.register_number}`);
+  } catch (err) {
+    const status = err.response?.status;
+
+    if (status === 500) {
+      toast.error("Não foi possível criar o registro");
+    }
+  }
+}
