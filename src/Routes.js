@@ -36,7 +36,7 @@ const Routes = () => (
       <Route exact path="/view-record" component={() => <ViewRecord />} />
       <PrivateRoutes path="/admin-page" component={() => <HomePage />} />
       <PrivateRoutes
-        path="/criar-processo"
+        path="/criar-registro"
         component={() => <CreateProcess />}
       />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
