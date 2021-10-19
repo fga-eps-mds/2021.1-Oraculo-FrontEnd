@@ -8,6 +8,7 @@ import ViewProfile from "./Pages/ViewProfile";
 import CreateUser from "./Pages/CreateUser";
 import { history } from "./history";
 import ViewRecord from "./Pages/ViewRecord";
+import ChangePassword from "./Pages/ChangePassword";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -40,6 +41,7 @@ const Routes = () => (
       />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/user" component={() => <ViewProfile />} />
+      <PrivateRoutes path="/change-password" component={() => <ChangePassword/>} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>
