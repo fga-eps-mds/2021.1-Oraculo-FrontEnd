@@ -33,15 +33,15 @@ const Routes = () => (
         path="/login"
         component={() => <LoginScreen history={history} />}
       />
-      <Route exact path="/view-record" component={() => <ViewRecord />} />
-      <PrivateRoutes path="/admin-page" component={() => <AdminScreen />} />
+      <Route exact path="/ver-registro" component={() => <ViewRecord />} />
+      <PrivateRoutes path="/administrador" component={() => <AdminScreen />} />
       <PrivateRoutes
-        path="/criar-processo"
+        path="/criar-registro"
         component={() => <CreateProcess />}
       />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
-      <PrivateRoutes path="/user" component={() => <ViewProfile />} />
-      <PrivateRoutes path="/change-password" component={() => <ChangePassword/>} />
+      <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
+      <PrivateRoutes path="/alterar-senha" component={() => <ChangePassword/>} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>
