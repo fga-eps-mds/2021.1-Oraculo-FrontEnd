@@ -11,7 +11,7 @@ const AdminScreen = () => {
   }
 
   function handleProcess() {
-    history.push("/criar-processo");
+    history.push("/criar-registro");
     window.location.reload();
   }
 
