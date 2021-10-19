@@ -25,6 +25,11 @@ const AdminScreen = () => {
     window.location.reload();
   }
 
+  function handleChangePassword() {
+    history.push("/change-password");
+    window.location.reload();
+  }
+
   return (
     <>
       <div>Voce esta logado como ADMIN</div>
@@ -32,6 +37,7 @@ const AdminScreen = () => {
       <MainButton title="logout" onClick={handleClickCheckout} />
       <MainButton title="ver usuario" onClick={handleViewProfile} />
       <MainButton title="criar usuario" onClick={handleViewCreateProfile} />
+      <MainButton title="alterar senha" onClick={handleChangePassword} />
     </>
   );
 };

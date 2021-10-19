@@ -37,6 +37,8 @@ const ViewRecord = (props) => {
       setUserName(user.name);
       setUserSector(user.sections[0].name);
     }
+
+    fetchRecordData();
   });
 
   const handleButtonProcess = () => {
@@ -72,7 +74,7 @@ const ViewRecord = (props) => {
           <div className="infoProcess">
             <div className="infoProcessicon">
               <p>
-                {seiNumber == "" || seiNumber == undefined
+                {seiNumber === "" || seiNumber == undefined
                   ? "153040/123"
                   : seiNumber}
               </p>
@@ -80,7 +82,7 @@ const ViewRecord = (props) => {
             </div>
             <span>
               Data de Emissão:{" "}
-              {documentDate == "" ? "15/12/1945" : documentDate}
+              {documentDate === "" ? "15/12/1945" : documentDate}
             </span>
           </div>
           <ForwardSector forward={forward} />
@@ -91,12 +93,12 @@ const ViewRecord = (props) => {
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
-          <h2>{userName == "" ? "Larissa Pureza (mock)" : userName}</h2>
+          <h2>{userName === "" ? "Larissa Pureza (mock)" : userName}</h2>
           <hr></hr>
           <span>Solicitante:</span>
           <div className="issuerIcon">
             <FaUserCircle />
-            <p>{requester == "" ? "Policia Federal (mock)" : requester}</p>
+            <p>{requester === "" ? "Policia Federal (mock)" : requester}</p>
           </div>
           <span>Divisão:</span>
 
