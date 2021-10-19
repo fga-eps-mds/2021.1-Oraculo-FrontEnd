@@ -43,7 +43,7 @@ const Routes = () => (
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/perfil" component={() => <ViewProfile />} />
       <PrivateRoutes path="/user" component={() => <ViewProfile />} />
-      <PrivateRoutes path="/change-password" component={() => <ChangePassword/>} />
+      <PrivateRoutes path="/mudar-senha" component={() => <ChangePassword />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>

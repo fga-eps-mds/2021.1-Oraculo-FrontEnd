@@ -36,6 +36,11 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleChangePassword() {
+    history.push("/mudar-senha");
+    window.location.reload();
+  }
+
   return (
     <>
       <Head>
@@ -56,7 +61,7 @@ const HeaderWithButtons = () => {
             <button>Nome</button>
             <div>
               <button onClick={handleViewProfile}>Ver Perfil</button>
-              <button onClick={() => {}}>Nova Senha</button>
+              <button onClick={handleChangePassword}>Nova Senha</button>
               <button onClick={handleClickCheckout}>Sair</button>
             </div>
           </StyledDropDown>
