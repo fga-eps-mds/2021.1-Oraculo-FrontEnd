@@ -7,6 +7,7 @@ export const Head = styled.div`
   background-color: #1f3541;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const StyledHeaderImage = styled.img`
@@ -15,6 +16,7 @@ export const StyledHeaderImage = styled.img`
 `;
 
 export const StyledOrganizeButtons = styled.div`
+  margin-right: 3rem;
   button {
     color: ${colors.white};
     font-style: normal;
@@ -31,10 +33,33 @@ export const StyledOrganizeButtons = styled.div`
   }
 `;
 
-export const StyledCircleButton = styled.button`
+export const StyledCircleButton = styled.div`
   cursor: pointer;
-  height: 30px;
-  width: 30px;
+  height: 2rem;
+  width: 2rem;
   border-radius: 50%;
-  border: 1px #ffffff;
+  border: 1px solid #ffffff;
+  background: ${colors.white};
+`;
+
+export const StyledDropDown = styled.div`
+  position: relative;
+  display: inline-block;
+
+  div {
+    display: none;
+    position: absolute;
+    background-color: #1f3541;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    button {
+      margin: 1rem 1rem;
+    }
+  }
+  :hover {
+    div {
+      display: block;
+    }
+  }
 `;

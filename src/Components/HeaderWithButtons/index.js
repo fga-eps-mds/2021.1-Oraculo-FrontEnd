@@ -1,10 +1,9 @@
 import React from "react";
-import GenericBlueButton from "../../Components/GenericBlueButton";
 import {
   Head,
+  StyledDropDown,
   StyledHeaderImage,
   StyledOrganizeButtons,
-  StyledCircleButton,
 } from "./styles";
 import Logo from "../../Assets/logo-white.svg";
 import { history } from "../../history";
@@ -40,9 +39,21 @@ const HeaderWithButtons = () => {
           <button>Registros</button>
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>
-          <button onClick={handleAdmin}>Administrador</button>
-          <button onClick={handleViewProfile}>Ver Perfil</button>
-          <button onClick={handleClickCheckout}>Sair</button>
+          <StyledDropDown>
+            <button onClick={handleAdmin}>Administrador</button>
+            <div>
+              <button onClick={() => {}}>Usuário</button>
+              <button onClick={() => {}}>Departamento</button>
+              <button onClick={() => {}}>Tag</button>
+            </div>
+          </StyledDropDown>
+          <StyledDropDown>
+            <button>Nome</button>
+            <div>
+              <button onClick={handleViewProfile}>Ver Perfil</button>
+              <button onClick={handleClickCheckout}>Sair</button>
+            </div>
+          </StyledDropDown>
         </StyledOrganizeButtons>
       </Head>
     </>

@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { isAuthenticated } from "./Auth/Auth";
-import AdminScreen from "./Pages/AdminScreen/";
+// import AdminScreen from "./Pages/AdminScreen/";
 import CreateProcess from "./Pages/CreateProcess";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
 import CreateUser from "./Pages/CreateUser";
 import { history } from "./history";
 import ViewRecord from "./Pages/ViewRecord";
+import HomePage from "./Pages/HomePage";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -33,7 +34,7 @@ const Routes = () => (
         component={() => <LoginScreen history={history} />}
       />
       <Route exact path="/view-record" component={() => <ViewRecord />} />
-      <PrivateRoutes path="/admin-page" component={() => <AdminScreen />} />
+      <PrivateRoutes path="/admin-page" component={() => <HomePage />} />
       <PrivateRoutes
         path="/criar-processo"
         component={() => <CreateProcess />}
