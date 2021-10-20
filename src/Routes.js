@@ -29,13 +29,21 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
 const Routes = () => (
   <BrowserRouter history={history}>
     <Switch>
-      <Route exact path="/login" component={() => <LoginScreen history={history} />} />
-      <Route exact path="/ver-registro" component={() => <ViewRecord />} />
-      <PrivateRoutes path="/administrador" component={() => <AdminScreen />} />
-      <PrivateRoutes path="/criar-registro" component={() => <CreateProcess />} />
+      <Route
+        exact
+        path="/login"
+        component={() => <LoginScreen history={history} />}
+      />
+      <Route exact path="/view-record" component={() => <ViewRecord />} />
+      <PrivateRoutes path="/pagina-admin" component={() => <HomePage />} />
+      <PrivateRoutes
+        path="/criar-registro"
+        component={() => <CreateProcess />}
+      />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
-      <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
-      <PrivateRoutes path="/alterar-senha" component={() => <ChangePassword/>} />
+      <PrivateRoutes path="/perfil" component={() => <ViewProfile />} />
+      <PrivateRoutes path="/user" component={() => <ViewProfile />} />
+      <PrivateRoutes path="/mudar-senha" component={() => <ChangePassword />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>
