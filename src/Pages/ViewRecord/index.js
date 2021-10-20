@@ -117,7 +117,7 @@ const ViewRecord = (props) => {
             <span></span>
           </div>
 
-          <a className="historic" href="/record-history">
+          <a className="historic" href="/historico-registro">
             Histórico de alterações
           </a>
         </StyledDivInfoProcess>
