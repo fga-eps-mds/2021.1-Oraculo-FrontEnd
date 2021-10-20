@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { isAuthenticated } from "./Auth/Auth";
-// import  from "./Pages/AdminScreen/";
 import CreateProcess from "./Pages/CreateProcess";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
@@ -31,7 +30,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/login" component={() => <LoginScreen history={history} />} />
       <Route exact path="/ver-registro" component={() => <ViewRecord />} />
-      <PrivateRoutes path="/administrador" component={() => <AdminScreen />} />
+      <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
       <PrivateRoutes path="/criar-registro" component={() => <CreateProcess />} />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
