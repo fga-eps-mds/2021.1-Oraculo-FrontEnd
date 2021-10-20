@@ -34,7 +34,7 @@ class LoginScreen extends React.Component {
     const auth = result?.auth;
     if (auth) {
       login(result.token);
-      this.props.history.push("/pagina-admin");
+      this.props.history.push("/tela-inicial");
     }
   }
 
