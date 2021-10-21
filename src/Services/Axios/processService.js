@@ -47,8 +47,11 @@ export async function getProcessTotalNumber(ID, toast) {
 
 export async function createRecord(recordInfo, toast) {
   try {
+    console.log(recordInfo);
     const record = await APIProcess.post("/records", recordInfo);
-    toast.success(`Registro criado com sucesso sob o n° ${record.data.register_number}`);
+    toast.success(
+      `Registro criado com sucesso sob o n° ${record.data.register_number}`
+    );
   } catch (err) {
     const status = err.response?.status;
 

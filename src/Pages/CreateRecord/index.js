@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import Header from "../../Components/Header";
 import MainButton from "../../Components/MainButton";
 import { createRecord } from "../../Services/Axios/processService";
+import { getInfoUser } from "../../Services/Axios/profileService";
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
@@ -28,6 +29,14 @@ const CreateRecord = () => {
   const [contactInfo, setContactInfo] = useState("");
   const [createdBy, setCreatedBy] = useState("");
 
+  useEffect(() => {
+    async function getUser() {
+      const user = await getInfoUser(toast);
+      setCreatedBy(user.id);
+    }
+    getUser();
+  });
+
   async function handleClick(event) {
     const record = {
       city: city,
@@ -35,10 +44,12 @@ const CreateRecord = () => {
       requester: requester,
       document_type: documentType,
       document_number: documentNumber,
+      document_date: documentDate,
       description: documentDescription,
       sei_number: seiNumber,
       receipt_form: receiptForm,
       contact_info: contactInfo,
+      situation: 2,
       created_by: createdBy,
     };
 
@@ -163,7 +174,7 @@ const CreateRecord = () => {
                   <input
                     id="contactInfoInput"
                     type="text"
-                    placeholder="Contato"
+                    placeholder="contato@email.com"
                     onChange={(event) => setContactInfo(event.target.value)}
                     value={contactInfo}
                   />
