@@ -57,26 +57,6 @@ const CreateRecord = () => {
             <StyledForms>
               <form>
                 <div>
-                  <h1>Número de registro</h1>
-                  <input
-                    id="registerNumberInput"
-                    type="text"
-                    placeholder="Número de registro"
-                    value={registerNumber}
-                    onChange={(event) => setRegisterNumber(event.target.value)}
-                  />
-                </div>
-                <div>
-                  <h1>Data de registro</h1>
-                  <input
-                    id="registerDate"
-                    type="text"
-                    placeholder="Data de registro"
-                    onChange={(event) => setRegisterDate(event.target.value)}
-                    value={registerDate}
-                  />
-                </div>
-                <div>
                   <h1>Órgão de origem</h1>
                   <input
                     id="originLocationInput"
@@ -91,7 +71,7 @@ const CreateRecord = () => {
                   <input
                     id="locationInput"
                     type="text"
-                    placeholder="Data de emissão"
+                    placeholder="Localidade"
                     onChange={(event) => setLocation(event.target.value)}
                     value={location}
                   />
@@ -101,7 +81,7 @@ const CreateRecord = () => {
                   <input
                     id="sourceDocumentInput"
                     type="text"
-                    placeholder="Documento de entrada"
+                    placeholder="Nº doc de entrada"
                     onChange={(event) => setSourceDocument(event.target.value)}
                     value={sourceDocument}
                   />
@@ -112,7 +92,9 @@ const CreateRecord = () => {
                     id="documentDescriptionInput"
                     type="text"
                     placeholder="Descrição do documento"
-                    onChange={(event) => setDocumentDescription(event.target.value)}
+                    onChange={(event) =>
+                      setDocumentDescription(event.target.value)
+                    }
                     value={documentDescription}
                   />
                 </div>
@@ -151,7 +133,7 @@ const CreateRecord = () => {
                   <input
                     id="responseDataInput"
                     type="text"
-                    placeholder="Data de emissão"
+                    placeholder="Dados de resposta"
                     onChange={(event) => setResponseData(event.target.value)}
                     value={responseData}
                   />
@@ -161,7 +143,7 @@ const CreateRecord = () => {
                   <input
                     id="contactInfoInput"
                     type="text"
-                    placeholder="Data de emissão"
+                    placeholder="Contato"
                     onChange={(event) => setContactInfo(event.target.value)}
                     value={contactInfo}
                   />
@@ -178,7 +160,10 @@ const CreateRecord = () => {
               <StyledCancelButton onClick={() => window.history.back()}>
                 Cancelar
               </StyledCancelButton>
-              <StyledCreateButton type="button" onClick={(event) => handleClick(event)}>
+              <StyledCreateButton
+                type="button"
+                onClick={(event) => handleClick(event)}
+              >
                 Criar
               </StyledCreateButton>
             </StyledButtonsDiv>
