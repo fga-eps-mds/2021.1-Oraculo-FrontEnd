@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Head,
-  StyledDropDown,
-  StyledHeaderImage,
-  StyledOrganizeButtons,
-} from "./styles";
+import { Head, StyledDropDown, StyledHeaderImage, StyledOrganizeButtons } from "./styles";
 import Logo from "../../Assets/logo-white.svg";
 import { history } from "../../history";
 import { logout } from "../../Auth/Auth";
@@ -27,7 +22,7 @@ const HeaderWithButtons = () => {
   }
 
   function handleViewProfile() {
-    history.push("/perfil");
+    history.push("/usuario");
     window.location.reload();
   }
 
@@ -37,7 +32,7 @@ const HeaderWithButtons = () => {
   }
 
   function handleChangePassword() {
-    history.push("/mudar-senha");
+    history.push("/alterar-senha");
     window.location.reload();
   }
 

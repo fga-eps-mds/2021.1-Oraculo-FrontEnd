@@ -8,6 +8,7 @@ export const StyledBody = styled.div`
 
   h1 {
     margin-top: 40px;
+    font-size: 22px;
   }
 `;
 
@@ -31,7 +32,7 @@ export const StyledBigButton = styled.button`
   font-family: Montserrat;
   color: #ffffff;
   font-style: normal;
-  font-size: 28px;
+  font-size: 20px;
   line-height: 20px;
   text-align: center;
   background: transparent;
