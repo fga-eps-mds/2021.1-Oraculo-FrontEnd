@@ -16,24 +16,32 @@ import {
 } from "./styles";
 
 const CreateRecord = () => {
-  const [registerNumber, setRegisterNumber] = useState("");
-  const [registerDate, setRegisterDate] = useState("");
-  const [originLocation, setOriginLocation] = useState("");
-  const [location, setLocation] = useState("");
-  const [sourceDocument, setSourceDocument] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [requester, setRequester] = useState("");
+  const [documentType, setDocumentType] = useState("");
+  const [documentNumber, setDocumentNumber] = useState("");
+  const [documentDate, setDocumentDate] = useState("");
   const [documentDescription, setDocumentDescription] = useState("");
   const [seiNumber, setSeiNumber] = useState("");
-  const [receivedBy, setReceivedBy] = useState("");
-  const [answerDocument, setAnswerDocument] = useState("");
-  const [responseData, setResponseData] = useState("");
+  const [receiptForm, setReceiptForm] = useState("");
   const [contactInfo, setContactInfo] = useState("");
+  const [createdBy, setCreatedBy] = useState("");
 
   async function handleClick(event) {
     const record = {
+      city: city,
+      state: state,
+      requester: requester,
+      document_type: documentType,
+      document_number: documentNumber,
+      description: documentDescription,
       sei_number: seiNumber,
+      receipt_form: receiptForm,
+      contact_info: contactInfo,
+      created_by: createdBy,
     };
 
-    console.log("hello");
     await createRecord(record, toast);
   }
 
@@ -57,33 +65,64 @@ const CreateRecord = () => {
             <StyledForms>
               <form>
                 <div>
-                  <h1>Órgão de origem</h1>
+                  <h1>Cidade</h1>
                   <input
-                    id="originLocationInput"
+                    id="cityInput"
                     type="text"
-                    placeholder="Órgão de origem"
-                    onChange={(event) => setOriginLocation(event.target.value)}
-                    value={originLocation}
+                    placeholder="Cidade"
+                    required
+                    onChange={(event) => setCity(event.target.value)}
+                    value={city}
                   />
                 </div>
                 <div>
-                  <h1>Localidade</h1>
+                  <h1>Estado</h1>
                   <input
-                    id="locationInput"
+                    id="stateInput"
                     type="text"
-                    placeholder="Localidade"
-                    onChange={(event) => setLocation(event.target.value)}
-                    value={location}
+                    placeholder="Estado"
+                    onChange={(event) => setState(event.target.value)}
+                    value={state}
                   />
                 </div>
                 <div>
-                  <h1>Documento entrada / Número / Data</h1>
+                  <h1>Solicitante</h1>
                   <input
-                    id="sourceDocumentInput"
+                    id="requesterInput"
                     type="text"
-                    placeholder="Nº doc de entrada"
-                    onChange={(event) => setSourceDocument(event.target.value)}
-                    value={sourceDocument}
+                    placeholder="Solicitante"
+                    onChange={(event) => setRequester(event.target.value)}
+                    value={requester}
+                  />
+                </div>
+                <div>
+                  <h1>Tido de documento</h1>
+                  <input
+                    id="documentTypeInput"
+                    type="text"
+                    placeholder="Oficio, Despacho ..."
+                    onChange={(event) => setDocumentType(event.target.value)}
+                    value={documentType}
+                  />
+                </div>
+                <div>
+                  <h1>Nº do documento </h1>
+                  <input
+                    id="documentNumberInput"
+                    type="text"
+                    placeholder="Numero do Documento"
+                    onChange={(event) => setDocumentNumber(event.target.value)}
+                    value={documentNumber}
+                  />
+                </div>
+                <div>
+                  <h1>Data do documento</h1>
+                  <input
+                    id="documentDateInput"
+                    type="text"
+                    placeholder="dd/mm/aaaa"
+                    onChange={(event) => setDocumentDate(event.target.value)}
+                    value={documentDate}
                   />
                 </div>
                 <div>
@@ -91,7 +130,8 @@ const CreateRecord = () => {
                   <input
                     id="documentDescriptionInput"
                     type="text"
-                    placeholder="Descrição do documento"
+                    placeholder="Ex: Solicita antecedentes ..."
+                    required
                     onChange={(event) =>
                       setDocumentDescription(event.target.value)
                     }
@@ -99,47 +139,27 @@ const CreateRecord = () => {
                   />
                 </div>
                 <div>
-                  <h1>Número do SEI</h1>
+                  <h1>Nº do SEI</h1>
                   <input
                     id="seiNumberInput"
                     type="text"
-                    placeholder="Número do SEI"
+                    placeholder="Nº do SEI"
                     onChange={(event) => setSeiNumber(event.target.value)}
                     value={seiNumber}
                   />
                 </div>
                 <div>
-                  <h1>Forma de recebimento</h1>
+                  <h1>Recebido via</h1>
                   <input
-                    id="receivedByInput"
+                    id="receiptFormInput"
                     type="text"
-                    placeholder="Forma de recebimento"
-                    onChange={(event) => setReceivedBy(event.target.value)}
-                    value={receivedBy}
+                    placeholder="Física, E-mail, SEI"
+                    onChange={(event) => setReceiptForm(event.target.value)}
+                    value={receiptForm}
                   />
                 </div>
                 <div>
-                  <h1>Documento de resposta / Número / Data</h1>
-                  <input
-                    id="answerDocumentInput"
-                    type="text"
-                    placeholder="Documento de resposta"
-                    onChange={(event) => setAnswerDocument(event.target.value)}
-                    value={answerDocument}
-                  />
-                </div>
-                <div>
-                  <h1>Dados de resposta</h1>
-                  <input
-                    id="responseDataInput"
-                    type="text"
-                    placeholder="Dados de resposta"
-                    onChange={(event) => setResponseData(event.target.value)}
-                    value={responseData}
-                  />
-                </div>
-                <div>
-                  <h1>Contato para envio de resposta</h1>
+                  <h1>Informação de contato</h1>
                   <input
                     id="contactInfoInput"
                     type="text"
