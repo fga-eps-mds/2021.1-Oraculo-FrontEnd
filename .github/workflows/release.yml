@@ -39,6 +39,7 @@ jobs:
         with:
           source_file: fga-eps-mds-2021_1-Oraculo-FrontEnd-${{ steps.date.outputs.date }}.json
           destination_repo: "fga-eps-mds/2021.1-Oraculo"
+          destination_branch: "master"
           destination_folder: "analytics-raw-data"
           user_email: ${{ secrets.USER_EMAIL }}
           user_name: ${{ secrets.USER_NAME }}

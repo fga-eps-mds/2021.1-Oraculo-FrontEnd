@@ -1,14 +1,36 @@
-/**
- * URL para fazer requests ao microsserviço de profiles
- */
-export const BaseUrlProfile = "http://localhost:8000";
+require("dotenv").config();
+const {
+  REACT_APP_PROD,
+  REACT_APP_PROFILE_BASE_URL,
+  REACT_APP_RECORDS_BASE_URL,
+  REACT_APP_TAGS_BASE_URL,
+} = process.env;
 
-/**
- * URL para fazer requests ao microsserviço de processos
- */
-export const BaseUrlProcess = "http://localhost:8001";
+let BaseUrlProfile = "";
+let BaseUrlProcess = "";
+let BaseUrlTags = "";
 
-/**
- * URL para fazer requests ao microsserviço de tags
- */
-export const BaseUrlTags = "http://localhost:8002";
+console.log(REACT_APP_PROD);
+console.log(REACT_APP_PROFILE_BASE_URL);
+console.log(REACT_APP_RECORDS_BASE_URL);
+console.log(REACT_APP_TAGS_BASE_URL);
+
+if (REACT_APP_PROD !== "true") {
+  /**
+   * Estamos no ambiente de desevolvimento (local), portanto
+   * não é necessário apontar para endereços externos
+   */
+  BaseUrlProfile = "http://localhost:8000";
+  BaseUrlProcess = "http://localhost:8001";
+  BaseUrlTags = "http://localhost:8002";
+} else {
+  /**
+   * Estamos no ambiente de produção, portanto devemos pegar
+   * as variáveis de ambiente definidas durante o deploy
+   */
+  BaseUrlProfile = `${REACT_APP_PROFILE_BASE_URL}`;
+  BaseUrlProcess = `${REACT_APP_RECORDS_BASE_URL}`;
+  BaseUrlTags = `${REACT_APP_TAGS_BASE_URL}`;
+}
+
+export { BaseUrlProfile, BaseUrlProcess, BaseUrlTags };

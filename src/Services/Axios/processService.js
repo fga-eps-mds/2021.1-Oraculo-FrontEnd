@@ -37,9 +37,7 @@ export async function getProcessByPage(page, toast) {
 
 export async function getProcessTotalNumber(ID, toast) {
   try {
-    const response = await APIProcess.get(
-      "http://localhost:8001/count/records"
-    );
+    const response = await APIProcess.get("/count/records");
     console.log(response.data);
     return response.data;
   } catch (error) {

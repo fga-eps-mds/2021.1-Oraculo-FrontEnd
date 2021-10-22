@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Header from "../../Components/Header";
+import React, { useEffect, useState } from "react";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import {
   StyledDivInfoProcess,
   StyledDivShowProcess,
@@ -8,73 +8,84 @@ import {
 } from "./style";
 import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
-import FowardSector from "../../Components/FowardSetor";
+import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
 import { getProcessByID } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
 
-const ViewProcess = (props) => {
+const ViewRecord = (props) => {
   const [sector, setSector] = useState("criminal");
-  const [foward, setFoward] = useState([]);
+  const [forward, setForward] = useState([]);
   const [seiNumber, setSeiNumber] = useState("");
   const [documentDate, setDocumentDate] = useState("");
   const [requester, setRequester] = useState("");
 
   const [userName, setUserName] = useState("");
-  const [userSetor, setUserSetor] = useState("");
+  const [userSector, setUserSector] = useState("");
 
-  window.onload = async function getInitInfo() {
-    const process = await getProcessByID(props.id, toast);
-    setSeiNumber(process.sei_number);
-    setDocumentDate(process.document_date);
-    setRequester(process.requester);
+  useEffect(() => {
+    async function fetchRecordData() {
+      const record = await getProcessByID(props.id, toast);
+      setSeiNumber(record.sei_number);
+      setDocumentDate(record.document_date);
+      setRequester(record.requester);
 
-    const user = await getInfoUser(toast);
+      const user = await getInfoUser(toast);
 
-    setUserName(user.name);
-    setUserSetor(user.sections[0].name);
-  };
+      setUserName(user.name);
+      setUserSector(user.sections[0].name);
+    }
+
+    fetchRecordData();
+  });
 
   const handleButtonProcess = () => {
-    alert("Função ainda nao implementada");
+    toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
   };
 
-  const handleFoward = () => {
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, "0");
-    var mes = String(data.getMonth() + 1).padStart(2, "0");
-    var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
+  const handleForward = () => {
+    let date = new Date();
+    let day = String(date.getDate()).padStart(2, "0");
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let year = date.getFullYear();
+    let currentDate = day + "/" + month + "/" + year;
 
-    const newFoward = [
-      ...foward,
+    const newForward = [
+      ...forward,
       {
         setor: sector,
-        setorOrigin: userSetor,
-        date: dataAtual,
-        dateFoward: dataAtual,
+        setorOrigin: userSector,
+        date: currentDate,
+        dateForward: currentDate,
         name: userName,
       },
     ];
-    setFoward(newFoward);
+    setForward(newForward);
   };
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
       <Toaster />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
           <div className="infoProcess">
             <div className="infoProcessicon">
-              <p>{seiNumber}</p>
+              <p>
+                {seiNumber === "" || seiNumber == undefined
+                  ? "153040/123"
+                  : seiNumber}
+              </p>
               <FaPen />
             </div>
-            <span>Data de Emissão: {documentDate}</span>
+            <span>
+              Data de Emissão:{" "}
+              {documentDate === "" ? "15/12/1945" : documentDate}
+            </span>
           </div>
-          <FowardSector foward={foward} />
+          <ForwardSector forward={forward} />
 
           <StyledDivButtons>
             <GenericWhiteButton title="voltar" onClick={handleButtonProcess} />
@@ -82,12 +93,12 @@ const ViewProcess = (props) => {
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
-          <h2>{userName}</h2>
+          <h2>{userName === "" ? "Larissa Pureza (mock)" : userName}</h2>
           <hr></hr>
           <span>Solicitante:</span>
           <div className="issuerIcon">
             <FaUserCircle />
-            <p>{requester}</p>
+            <p>{requester === "" ? "Policia Federal (mock)" : requester}</p>
           </div>
           <span>Divisão:</span>
 
@@ -96,7 +107,7 @@ const ViewProcess = (props) => {
           />
 
           <div className="fowardIcon">
-            <p onClick={handleFoward}>Encaminhar</p>
+            <p onClick={handleForward}>Encaminhar</p>
             <FaTelegramPlane />
           </div>
           <span>Tags:</span>
@@ -106,7 +117,7 @@ const ViewProcess = (props) => {
             <span></span>
           </div>
 
-          <a className="historic" href="//">
+          <a className="historic" href="/historico-registro">
             Histórico de alterações
           </a>
         </StyledDivInfoProcess>
@@ -115,4 +126,4 @@ const ViewProcess = (props) => {
   );
 };
 
-export default ViewProcess;
+export default ViewRecord;
