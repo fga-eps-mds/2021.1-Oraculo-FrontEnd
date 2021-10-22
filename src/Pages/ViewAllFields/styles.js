@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../style";
 
 export const styles = {};
 
@@ -33,6 +34,7 @@ export const StyledSearchBarSize = styled.div`
 `;
 
 export const StyledBottom = styled.div`
+  margin-bottom: 2rem;
   div {
     display: flex;
     justify-content: space-between;
@@ -68,4 +70,11 @@ export const StyledBigButton = styled.button`
 
 export const StyledScroll = styled.div`
   height: 20rem;
+`;
+
+export const StyledFooter = styled.div`
+  height: 4rem;
+  width: 100%;
+  background-color: ${colors.header};
+  border-radius: 0px 0px 10px 10px;
 `;
