@@ -11,6 +11,7 @@ export const Head = styled.div`
 `;
 
 export const StyledHeaderImage = styled.img`
+  cursor: pointer;
   width: 180px;
   margin-left: 3rem;
 `;
