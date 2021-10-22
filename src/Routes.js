@@ -9,7 +9,7 @@ import { history } from "./history";
 import ViewRecord from "./Pages/ViewRecord";
 import HomePage from "./Pages/HomePage";
 import ChangePassword from "./Pages/ChangePassword";
-import DocumentViewScreen from "./Pages/DocumentViewScreen";
+import AllRegistersScreen from "./Pages/AllRegistersScreen";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -48,7 +48,7 @@ const Routes = () => (
       />
       <PrivateRoutes
         path="/visualizar-registros"
-        component={() => <DocumentViewScreen />}
+        component={() => <AllRegistersScreen />}
       />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>

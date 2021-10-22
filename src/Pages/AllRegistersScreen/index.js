@@ -17,7 +17,7 @@ import {
 } from "../../Services/Axios/processService";
 import toast from "react-hot-toast";
 
-const DocumentViewScreen = () => {
+const AllRegistersScreen = () => {
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
@@ -55,7 +55,7 @@ const DocumentViewScreen = () => {
       <HeaderWithButtons />
 
       <StyledBody>
-        <StyledTitle>Registros</StyledTitle>
+        <StyledTitle>Registros - Todos</StyledTitle>
         <div>
           <MainButton title={"Novo Registro"} onClick={handleProcess} />
         </div>
@@ -80,4 +80,4 @@ const DocumentViewScreen = () => {
   );
 };
 
-export default DocumentViewScreen;
+export default AllRegistersScreen;
