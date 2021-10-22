@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import {
   StyledDivInfoProcess,
   StyledDivShowProcess,
@@ -67,7 +67,7 @@ const ViewRecord = (props) => {
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
       <Toaster />
       <StyledDivSupProcess>
         <StyledDivShowProcess>

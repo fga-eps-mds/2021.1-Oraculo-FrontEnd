@@ -1,6 +1,6 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
 import { FormLogin, StyledDiv } from "./styles";
 import { loginUser } from "../../Services/Axios/profileService";
@@ -32,7 +32,7 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <>
-        <Header />
+        <HeaderWithButtons />
         <FormLogin>
           <form>
             <StyledDiv>

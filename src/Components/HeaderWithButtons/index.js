@@ -1,5 +1,10 @@
 import React from "react";
-import { Head, StyledDropDown, StyledHeaderImage, StyledOrganizeButtons } from "./styles";
+import {
+  Head,
+  StyledDropDown,
+  StyledHeaderImage,
+  StyledOrganizeButtons,
+} from "./styles";
 import Logo from "../../Assets/logo-white.svg";
 import { history } from "../../history";
 import { logout } from "../../Auth/Auth";
@@ -7,11 +12,6 @@ import { logout } from "../../Auth/Auth";
 const HeaderWithButtons = () => {
   function handleRegister() {
     history.push("/criar-registro");
-    window.location.reload();
-  }
-
-  function handleAdmin() {
-    history.push("/pagina-admin");
     window.location.reload();
   }
 
@@ -45,7 +45,7 @@ const HeaderWithButtons = () => {
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>
           <StyledDropDown>
-            <button onClick={handleAdmin}>Administrador</button>
+            <button>Administrador</button>
             <div>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={() => {}}>Departamento</button>
