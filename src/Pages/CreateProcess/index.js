@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { FaPlus, FaRegFileAlt } from "react-icons/fa";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
 import {
   StyledBlueRectangle,
@@ -33,7 +33,7 @@ const CreateProcess = () => {
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
       <div>
         <StyledTitle>
           <p>Criar Registro</p>

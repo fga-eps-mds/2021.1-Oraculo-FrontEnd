@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { history } from "../../history";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
 import {
   StyledTitle,
@@ -52,7 +52,7 @@ const DocumentViewScreen = () => {
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
 
       <StyledBody>
         <StyledTitle>Registros</StyledTitle>

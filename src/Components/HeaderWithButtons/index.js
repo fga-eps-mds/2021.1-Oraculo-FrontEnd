@@ -15,11 +15,6 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
-  function handleAdmin() {
-    history.push("/pagina-admin");
-    window.location.reload();
-  }
-
   function handleClickCheckout() {
     logout();
     history.push("/login");
@@ -55,7 +50,7 @@ const HeaderWithButtons = () => {
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>
           <StyledDropDown>
-            <button onClick={handleAdmin}>Administrador</button>
+            <button>Administrador</button>
             <div>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={() => {}}>Departamento</button>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { registerUser } from "../../Services/Axios/profileService";
 import { SectionsList } from "./sections";
 
@@ -37,7 +37,7 @@ const ViewProfile = () => {
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
       <div>
         <Toaster />
         <StyledViewProfile>
