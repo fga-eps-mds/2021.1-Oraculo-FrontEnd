@@ -1,4 +1,5 @@
 import { APIProcess } from "./BaseService";
+import axios from "axios";
 
 export async function getAllProcess(toast) {
   try {
@@ -22,20 +23,25 @@ export async function getProcessByID(ID, toast) {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    toast.error("Erro ao buscar processo!");
+    toast.error("Erro ao buscar registro!");
   }
 }
 
 export async function getProcessByPage(page, toast) {
   try {
+    console.log("dentro da funcao");
     const response = await APIProcess.get(`/records/page/${page}`);
+
+    console.log(`"papapapap",${JSON.stringify(response)}`);
     return response.data;
   } catch (error) {
-    toast.error("Erro ao buscar processo!");
+    toast.error("Erro ao buscar registro!");
+
+    console.log(error);
   }
 }
 
-export async function getProcessTotalNumber(ID, toast) {
+export async function getProcessTotalNumber(toast) {
   try {
     const response = await APIProcess.get("/count/records");
     console.log(response.data);
