@@ -1,5 +1,10 @@
 import React from "react";
-import { Head, StyledDropDown, StyledHeaderImage, StyledOrganizeButtons } from "./styles";
+import {
+  Head,
+  StyledDropDown,
+  StyledHeaderImage,
+  StyledOrganizeButtons,
+} from "./styles";
 import Logo from "../../Assets/logo-white.svg";
 import { history } from "../../history";
 import { logout } from "../../Auth/Auth";
@@ -36,12 +41,17 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleViewRegisters() {
+    history.push("/visualizar-registros");
+    window.location.reload();
+  }
+
   return (
     <>
       <Head>
         <StyledHeaderImage src={Logo} />
         <StyledOrganizeButtons>
-          <button>Registros</button>
+          <button onClick={handleViewRegisters}>Registros</button>
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>
           <StyledDropDown>
