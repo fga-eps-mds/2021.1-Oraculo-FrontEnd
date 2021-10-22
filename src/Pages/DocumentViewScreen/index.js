@@ -60,14 +60,14 @@ const DocumentViewScreen = () => {
           <MainButton title={"Novo Registro"} onClick={handleProcess} />
         </div>
         <StyledOrganizeButtons>
-          <StyledBigButton class="button-left">Nº do Registro</StyledBigButton>
+          <StyledBigButton>Nº do Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
           <StyledBigButton>UF</StyledBigButton>
           <StyledBigButton>Solicitante</StyledBigButton>
           <StyledBigButton>Inclusão</StyledBigButton>
           <StyledBigButton>Nº do SEI</StyledBigButton>
           <StyledBigButton>Tag</StyledBigButton>
-          <StyledBigButton class="button-right">...</StyledBigButton>
+          <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
         <Process process={process} />
         <Pagination

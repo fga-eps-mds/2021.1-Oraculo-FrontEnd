@@ -9,11 +9,11 @@ export const StyledBody = styled.div`
   div {
     margin-top: 2rem;
     display: flex;
-    justify-content: space-between;
   }
 `;
 
 export const StyledOrganizeButtons = styled.div`
+  justify-content: space-between;
   background: #1f3541;
   display: inline-block;
   border: 0px solid #5e5e5e;
