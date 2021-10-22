@@ -8,9 +8,9 @@ const Fields = ({ process }) => {
       {process.map((post) => (
         <PocketFields
           key={post.id}
-          name={post.register_number}
-          description={post.requester}
-          creator={post.requester}
+          name={post.name}
+          description={post.description}
+          creator={post.created_by}
         ></PocketFields>
       ))}
     </StyledListGroup>
