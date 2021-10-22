@@ -35,6 +35,10 @@ const HeaderWithButtons = () => {
     history.push("/alterar-senha");
     window.location.reload();
   }
+  function handleSeeAllFields() {
+    history.push("/todos-os-campos");
+    window.location.reload();
+  }
 
   return (
     <>
@@ -42,6 +46,7 @@ const HeaderWithButtons = () => {
         <StyledHeaderImage src={Logo} />
         <StyledOrganizeButtons>
           <button>Registros</button>
+          <button onClick={handleSeeAllFields}>Campos</button>
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>
           <StyledDropDown>
