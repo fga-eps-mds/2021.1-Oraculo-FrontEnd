@@ -15,34 +15,18 @@ export const StyledBody = styled.div`
 
 export const StyledOrganizeButtons = styled.div`
   background: #1f3541;
+  display: inline-block;
   border: 0px solid #5e5e5e;
   box-sizing: border-box;
   border-radius: 10px 10px 0px 0px;
   height: 4rem;
   align-items: center;
-`;
-
-export const StyledSmallButton = styled.button`
-  width: 7%;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Montserrat;
-  color: #ffffff;
-  font-style: normal;
-  font-size: 28px;
-  line-height: 20px;
-  text-align: center;
-  background: transparent;
-  cursor: pointer;
-  border: none;
+  padding-left: 2%;
+  padding-right: 2%;
 `;
 
 export const StyledBigButton = styled.button`
-  width: 18%;
   height: 3rem;
-  display: flex;
   align-items: center;
   justify-content: center;
   font-family: Montserrat;
