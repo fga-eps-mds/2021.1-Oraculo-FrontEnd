@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyledBigDiv, StyledBigButton, StyledSmallButton } from "./styles";
+import { StyledBigDiv } from "./styles";
 
 const PocketDocument = ({
   registerNumber,
