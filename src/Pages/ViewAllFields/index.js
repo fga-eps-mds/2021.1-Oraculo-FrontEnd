@@ -3,7 +3,7 @@ import Header from "../../Components/Header";
 import MainButton from "../../Components/MainButton";
 import SearchBar from "../../Components/SearchBar";
 import Fields from "../../Components/Fields";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import {
   StyledTitle,
   StyledBottom,
@@ -12,14 +12,15 @@ import {
   StyledSearchBarSize,
   StyledPage,
   StyledTop,
+  StyledFooter,
 } from "./styles";
-import { getAllProcess } from "../../Services/Axios/processService";
+import { getAllFields } from "../../Services/Axios/processService";
 
 const ViewAllFields = () => {
   const [register, setRegister] = useState([]);
 
   const fetchProcess = async () => {
-    setRegister(await getAllProcess(toast));
+    setRegister(await getAllFields(toast));
   };
 
   window.onload = function () {
@@ -45,8 +46,10 @@ const ViewAllFields = () => {
           </StyledOrganizeButtons>
 
           <Fields process={register} />
+          <StyledFooter></StyledFooter>
         </StyledBottom>
       </StyledPage>
+      <Toaster></Toaster>
     </>
   );
 };
