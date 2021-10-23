@@ -36,10 +36,15 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleHomePage() {
+    history.push("/tela-inicial");
+    window.location.reload();
+  }
+
   return (
     <>
       <Head>
-        <StyledHeaderImage src={Logo} />
+        <StyledHeaderImage onClick={handleHomePage} src={Logo} />
         <StyledOrganizeButtons>
           <button>Registros</button>
           <button onClick={handleRegister}>Novo Registro</button>
