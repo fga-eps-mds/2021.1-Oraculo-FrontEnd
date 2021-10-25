@@ -6,6 +6,7 @@ import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
 import { createRecord } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
+import ModalShowRecordNum from "../../Components/ModalShowRecordNum";
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
@@ -30,6 +31,9 @@ const CreateRecord = () => {
   const [receiptForm, setReceiptForm] = useState("");
   const [contactInfo, setContactInfo] = useState("");
   const [createdBy, setCreatedBy] = useState("");
+  const [registerNumber, setRegisterNumber] = useState("");
+
+  const [triggerRec, setTrigger] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -58,7 +62,16 @@ const CreateRecord = () => {
       created_by: createdBy,
     };
 
-    await createRecord(record, toast);
+    const response = await createRecord(record, toast);
+
+    if(response){
+      setTrigger(true);
+      setRegisterNumber(response);
+    }
+  }
+
+  function handleModalClick(){
+    setTrigger(false);
   }
 
   return (
@@ -213,6 +226,7 @@ const CreateRecord = () => {
           </StyledProcessDiv>
         </StyledProcess>
         <Toaster />
+        <ModalShowRecordNum onclick={handleModalClick} trigger={triggerRec} record_number={registerNumber}/>
       </div>
     </>
   );
