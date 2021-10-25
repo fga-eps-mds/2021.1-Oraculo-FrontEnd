@@ -1,12 +1,12 @@
 import React from "react";
 
-import { StyledBigDiv, StyledBigButton } from "./styles";
+import { StyledBigDiv, StyledText } from "./styles";
 
 const PocketFields = ({ name, description, creator }) => (
   <StyledBigDiv>
-    <StyledBigButton>{name}</StyledBigButton>
-    <StyledBigButton>{description}</StyledBigButton>
-    <StyledBigButton>{creator}</StyledBigButton>
+    <StyledText>{name}</StyledText>
+    <StyledText>{description}</StyledText>
+    <StyledText>{creator}</StyledText>
   </StyledBigDiv>
 );
 

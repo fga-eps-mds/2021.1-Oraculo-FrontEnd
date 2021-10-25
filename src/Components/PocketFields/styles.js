@@ -11,11 +11,11 @@ export const StyledBigDiv = styled.div`
   border: 2px solid #000000;
 `;
 
-export const StyledBigButton = styled.button`
+export const StyledText = styled.p`
+  text-align: center;
   width: 33%;
   border: none;
   background: transparent;
-  cursor: pointer;
   font-family: Montserrat;
   font-style: normal;
   font-size: 26px;
