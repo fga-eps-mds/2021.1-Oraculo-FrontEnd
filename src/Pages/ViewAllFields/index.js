@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
 import SearchBar from "../../Components/SearchBar";
 import Fields from "../../Components/Fields";
@@ -29,7 +29,7 @@ const ViewAllFields = () => {
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
       <StyledPage>
         <StyledTitle>Campos</StyledTitle>
         <StyledTop>
