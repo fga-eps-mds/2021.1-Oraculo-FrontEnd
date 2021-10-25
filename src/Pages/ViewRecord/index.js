@@ -21,6 +21,9 @@ const ViewRecord = (props) => {
   const [seiNumber, setSeiNumber] = useState("");
   const [documentDate, setDocumentDate] = useState("");
   const [requester, setRequester] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [description, setDescription] = useState("");
 
   const [userName, setUserName] = useState("");
   const [userSector, setUserSector] = useState("");
@@ -31,6 +34,10 @@ const ViewRecord = (props) => {
       setSeiNumber(record.sei_number);
       setDocumentDate(record.document_date);
       setRequester(record.requester);
+      setCity(record.city);
+      setState(record.state);
+      setDescription(record.description);
+      setState(record.state);
 
       const user = await getInfoUser(toast);
 
@@ -81,9 +88,10 @@ const ViewRecord = (props) => {
               <FaPen />
             </div>
             <span>
-              Data de Emissão:{" "}
+              Data de inclusão:{" "}
               {documentDate === "" ? "15/12/1945" : documentDate}
             </span>
+            <p className="info-record"><span>{city}-{state} </span> |<span> {requester} </span>|<span> {description}</span></p>
           </div>
           <ForwardSector forward={forward} />
 
@@ -93,12 +101,10 @@ const ViewRecord = (props) => {
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
-          <h2>{userName === "" ? "Larissa Pureza (mock)" : userName}</h2>
-          <hr></hr>
-          <span>Solicitante:</span>
+          <span>Servidor:</span>
           <div className="issuerIcon">
             <FaUserCircle />
-            <p>{requester === "" ? "Policia Federal (mock)" : requester}</p>
+            <p>{userName === "" ? "Policia Federal (mock)" : userName}</p>
           </div>
           <span>Divisão:</span>
 
