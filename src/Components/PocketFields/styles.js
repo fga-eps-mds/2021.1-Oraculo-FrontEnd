@@ -11,10 +11,10 @@ export const StyledBigDiv = styled.div`
   border: 2px solid #000000;
 `;
 
-export const StyledText = styled.p`
+export const StyledText = styled.text`
+  margin: auto;
   text-align: center;
   width: 33%;
-  border: none;
   background: transparent;
   font-family: Montserrat;
   font-style: normal;
