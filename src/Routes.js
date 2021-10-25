@@ -9,6 +9,7 @@ import { history } from "./history";
 import ViewRecord from "./Pages/ViewRecord";
 import HomePage from "./Pages/HomePage";
 import ChangePassword from "./Pages/ChangePassword";
+import ViewAllFields from "./Pages/ViewAllFields";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -28,13 +29,27 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
 const Routes = () => (
   <BrowserRouter history={history}>
     <Switch>
-      <Route exact path="/login" component={() => <LoginScreen history={history} />} />
+      <Route
+        exact
+        path="/login"
+        component={() => <LoginScreen history={history} />}
+      />
       <Route exact path="/ver-registro" component={() => <ViewRecord />} />
       <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
-      <PrivateRoutes path="/criar-registro" component={() => <CreateProcess />} />
+      <PrivateRoutes
+        path="/criar-registro"
+        component={() => <CreateProcess />}
+      />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
-      <PrivateRoutes path="/alterar-senha" component={() => <ChangePassword/>} />
+      <PrivateRoutes
+        path="/alterar-senha"
+        component={() => <ChangePassword />}
+      />
+      <PrivateRoutes
+        path="/todos-os-campos"
+        component={() => <ViewAllFields />}
+      />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>
