@@ -46,7 +46,11 @@ const ViewAllFields = () => {
           </StyledOrganizeButtons>
 
           <Fields process={register} />
-          <StyledFooter></StyledFooter>
+          <StyledFooter>
+            <StyledBigButton>Nome</StyledBigButton>
+            <StyledBigButton>Descrição</StyledBigButton>
+            <StyledBigButton>Criador</StyledBigButton>
+          </StyledFooter>
         </StyledBottom>
       </StyledPage>
       <Toaster></Toaster>

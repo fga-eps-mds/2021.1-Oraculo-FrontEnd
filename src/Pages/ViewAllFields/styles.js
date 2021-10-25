@@ -77,4 +77,5 @@ export const StyledFooter = styled.div`
   width: 100%;
   background-color: ${colors.header};
   border-radius: 0px 0px 10px 10px;
+  align-items: center;
 `;
