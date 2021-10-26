@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaPlus, FaRegFileAlt } from "react-icons/fa";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
 import { createRecord } from "../../Services/Axios/processService";
@@ -63,7 +63,7 @@ const CreateRecord = () => {
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
       <div>
         <StyledTitle>
           <p>Criar Processo</p>
