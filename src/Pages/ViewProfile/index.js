@@ -1,7 +1,7 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { getInfoUser } from "../../Services/Axios/profileService";
 
 import {
@@ -43,7 +43,7 @@ class ViewProfile extends React.Component {
     } else {
       return (
         <>
-          <Header />
+          <HeaderWithButtons />
           <div>
             <StyledViewProfile>
               <StyledBlueRectangle>

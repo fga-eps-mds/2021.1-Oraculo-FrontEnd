@@ -15,11 +15,6 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
-  function handleAdmin() {
-    history.push("/pagina-admin");
-    window.location.reload();
-  }
-
   function handleClickCheckout() {
     logout();
     history.push("/login");
@@ -27,7 +22,7 @@ const HeaderWithButtons = () => {
   }
 
   function handleViewProfile() {
-    history.push("/perfil");
+    history.push("/usuario");
     window.location.reload();
   }
 
@@ -37,20 +32,30 @@ const HeaderWithButtons = () => {
   }
 
   function handleChangePassword() {
-    history.push("/mudar-senha");
+    history.push("/alterar-senha");
+    window.location.reload();
+  }
+  function handleSeeAllFields() {
+    history.push("/todos-os-campos");
+    window.location.reload();
+  }
+
+  function handleHomePage() {
+    history.push("/tela-inicial");
     window.location.reload();
   }
 
   return (
     <>
       <Head>
-        <StyledHeaderImage src={Logo} />
+        <StyledHeaderImage onClick={handleHomePage} src={Logo} />
         <StyledOrganizeButtons>
           <button>Registros</button>
+          <button onClick={handleSeeAllFields}>Campos</button>
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>
           <StyledDropDown>
-            <button onClick={handleAdmin}>Administrador</button>
+            <button>Administrador</button>
             <div>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={() => {}}>Departamento</button>

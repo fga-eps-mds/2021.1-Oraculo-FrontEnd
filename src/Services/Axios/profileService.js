@@ -31,11 +31,12 @@ async function validateUser(user) {
   }
 
   return {
+    name: user.name,
     email: user.email,
-    password: user.password,
-    sectionID: section,
     departmentID: department,
     level: level,
+    sectionID: section,
+    password: user.password,
   };
 }
 
@@ -46,11 +47,12 @@ export async function registerUser(usr, toast) {
     await APIProfile.post(
       "/register",
       {
+        name: user.name,
         email: user.email,
-        password: user.password,
         departmentID: user.departmentID,
-        sectionID: user.sectionID,
         level: user.level,
+        sectionID: user.sectionID,
+        password: user.password,
       },
       { headers: { "X-Access-Token": getToken() } }
     );
@@ -60,9 +62,13 @@ export async function registerUser(usr, toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error("Você não possui privilégios suficientes para realizar esta ação");
+      toast.error(
+        "Você não possui privilégios suficientes para realizar esta ação"
+      );
     } else if (status === 400) {
-      toast.error("Faltam algumas informações para realizar o cadastro do usuário");
+      toast.error(
+        "Faltam algumas informações para realizar o cadastro do usuário"
+      );
     } else {
       toast.error(`Erro ao cadastrar usuário!`);
     }
@@ -111,7 +117,9 @@ export async function listAllUsers(toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error("Você não possui privilégios suficientes para realizar esta ação");
+      toast.error(
+        "Você não possui privilégios suficientes para realizar esta ação"
+      );
     }
   }
 }

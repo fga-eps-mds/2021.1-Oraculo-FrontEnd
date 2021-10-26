@@ -60,3 +60,12 @@ export async function createRecord(recordInfo, toast) {
     }
   }
 }
+export async function getAllFields(toast) {
+  try {
+    const response = await APIProcess.get("/records/fields");
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar total de registros!");
+  }
+}
