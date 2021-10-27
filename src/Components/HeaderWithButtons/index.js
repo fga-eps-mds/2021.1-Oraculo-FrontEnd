@@ -45,12 +45,17 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleViewRegisters() {
+    history.push("/visualizar-registros");
+    window.location.reload();
+  }
+
   return (
     <>
       <Head>
         <StyledHeaderImage onClick={handleHomePage} src={Logo} />
         <StyledOrganizeButtons>
-          <button>Registros</button>
+          <button onClick={handleViewRegisters}>Registros</button>
           <button onClick={handleSeeAllFields}>Campos</button>
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>

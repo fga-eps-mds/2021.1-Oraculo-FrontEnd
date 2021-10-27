@@ -9,6 +9,7 @@ import { history } from "./history";
 import ViewRecord from "./Pages/ViewRecord";
 import HomePage from "./Pages/HomePage";
 import ChangePassword from "./Pages/ChangePassword";
+import AllRegistersScreen from "./Pages/AllRegistersScreen";
 import ViewAllFields from "./Pages/ViewAllFields";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
@@ -45,6 +46,10 @@ const Routes = () => (
       <PrivateRoutes
         path="/alterar-senha"
         component={() => <ChangePassword />}
+      />
+      <PrivateRoutes
+        path="/visualizar-registros"
+        component={() => <AllRegistersScreen />}
       />
       <PrivateRoutes
         path="/todos-os-campos"
