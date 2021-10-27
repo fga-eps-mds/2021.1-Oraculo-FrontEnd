@@ -58,9 +58,8 @@ export const StyledWhiteRectangle = styled.div`
 export const StyledForms = styled.div`
   padding-bottom: 4rem;
   form {
-    align-items: baseline;
     margin-left: auto;
-    div {
+    .form-div {
       box-sizing: border-box;
       h1 {
         text-align: left;
@@ -113,12 +112,11 @@ export const StyledForms = styled.div`
 `;
 
 export const StyledButtonsDiv = styled.div`
-  padding-bottom: 3rem;
-  text-align: right;
-  margin-right: 15%;
-  button {
-    margin-left: 1rem;
-  }
+  display: flex;
+  float: right;
+  width: 65%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 export const StyledCancelButton = styled.button`
@@ -129,8 +127,6 @@ export const StyledCancelButton = styled.button`
   font-style: normal;
   font-weight: bold;
   font-size: ${fonts.sizeXlg};
-  line-height: 20px;
-  text-align: center;
 
   border: 1px solid ${colors.black};
   border-radius: 15px;
@@ -142,6 +138,7 @@ export const StyledCancelButton = styled.button`
 export const StyledCreateButton = styled.button`
   width: 9.375rem;
   height: 2.5rem;
+  margin-left: 2rem;
 
   font-family: ${fonts.font};
   font-style: normal;
