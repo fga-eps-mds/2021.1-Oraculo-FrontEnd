@@ -10,10 +10,10 @@ const SectionMovBlock = ({ forwardSector }) => {
         </StyledLine>
         <div className="content">
           <p>
-            {forwardSector.originSector === "" ||
-            forwardSector.originSector == undefined
+            {forwardSector.setorOrigin === "" ||
+            forwardSector.setorOrigin == undefined
               ? "Necro (mock)"
-              : forwardSector.originSector}
+              : forwardSector.setorOrigin}
           </p>
           <p>
             {forwardSector.forwardDate == "" ||
