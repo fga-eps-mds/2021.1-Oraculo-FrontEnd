@@ -33,13 +33,12 @@ jobs:
             fga-eps-mds-2021_1-Oraculo-FrontEnd-${{ steps.date.outputs.date }}.json
 
       - name: Pushes sonar file
-        uses: dmnemec/copy_file_to_another_repo_action@main
+        uses: dmnemec/copy_file_to_another_repo_action@80732d64341473fa7165a3b2b6c7b0ee164193f8
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source_file: fga-eps-mds-2021_1-Oraculo-FrontEnd-${{ steps.date.outputs.date }}.json
           destination_repo: "fga-eps-mds/2021.1-Oraculo"
-          git_server: "github.com"
           destination_branch: "master"
           destination_folder: "analytics-raw-data"
           user_email: ${{ secrets.USER_EMAIL }}
@@ -47,13 +46,12 @@ jobs:
           commit_message: "Adding SonarCloud file - fga-eps-mds-2021_1-Oraculo-FrontEnd-${{ steps.date.outputs.date }}.json"
 
       - name: Pushes test file
-        uses: dmnemec/copy_file_to_another_repo_action@main
+        uses: dmnemec/copy_file_to_another_repo_action@80732d64341473fa7165a3b2b6c7b0ee164193f8
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source_file: fga-eps-mds-2021_1-Oraculo-FrontEnd-${{ steps.date.outputs.date }}-test.json
           destination_repo: "fga-eps-mds/2021.1-Oraculo"
-          git_server: "github.com"
           destination_branch: "master"
           destination_folder: "analytics-raw-data"
           user_email: ${{ secrets.USER_EMAIL }}
