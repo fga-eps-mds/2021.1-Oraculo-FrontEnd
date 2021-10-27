@@ -31,9 +31,8 @@ jobs:
           prerelease: false
           files: |
             fga-eps-mds-2021_1-Oraculo-FrontEnd-${{ steps.date.outputs.date }}.json
-
       - name: Pushes sonar file
-        uses: dmnemec/copy_file_to_another_repo_action@main
+        uses: dmnemec/copy_file_to_another_repo_action@80732d64341473fa7165a3b2b6c7b0ee164193f8
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
@@ -46,7 +45,7 @@ jobs:
           commit_message: "Adding SonarCloud file - fga-eps-mds-2021_1-Oraculo-FrontEnd-${{ steps.date.outputs.date }}.json"
 
       - name: Pushes test file
-        uses: dmnemec/copy_file_to_another_repo_action@main
+        uses: dmnemec/copy_file_to_another_repo_action@80732d64341473fa7165a3b2b6c7b0ee164193f8
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
