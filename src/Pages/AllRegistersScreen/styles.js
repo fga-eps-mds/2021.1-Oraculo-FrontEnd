@@ -10,6 +10,10 @@ export const StyledBody = styled.div`
     margin-top: 2rem;
     display: flex;
   }
+  .zero-registros {
+    text-align: center;
+    font-size: 3rem;
+  }
 `;
 
 export const StyledOrganizeButtons = styled.div`

@@ -69,7 +69,13 @@ const AllRegistersScreen = () => {
           <StyledBigButton>Tag</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
-        <Process process={process} />
+        {process ? (
+          <Process process={process} />
+        ) : (
+          <h1 class="zero-registros">
+            Não há registros cadastrados no sistema
+          </h1>
+        )}
         <Pagination
           processPerPage={processPerPage}
           totalProcess={allProcesses}
