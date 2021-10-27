@@ -1,4 +1,5 @@
 import { APIProcess } from "./BaseService";
+import GenericBlueButton from "../../Components/GenericBlueButton";
 
 export async function getAllProcess(toast) {
   try {
@@ -49,9 +50,16 @@ export async function createRecord(recordInfo, toast) {
   try {
     console.log(recordInfo);
     const record = await APIProcess.post("/records", recordInfo);
-    toast.success(
-      `Registro criado com sucesso sob o n° ${record.data.register_number}`
-    );
+    toast((t) => (
+      <span style={{ textAlign: "center" }}>
+        <p>Registro criado com sucesso sob o n°:</p>
+        <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
+        <GenericBlueButton
+          title="OK"
+          onClick={() => toast.dismiss(t.id)}
+        ></GenericBlueButton>
+      </span>
+    ));
   } catch (err) {
     const status = err.response?.status;
 
