@@ -59,6 +59,17 @@ const CreateRecord = () => {
     };
 
     await createRecord(record, toast);
+    setCity("");
+    setState("");
+    setRequester("");
+    setDocumentType("");
+    setDocumentNumber("");
+    setDocumentDate("");
+    setDocumentDescription("");
+    setSeiNumber("");
+    setReceiptForm("");
+    setContactInfo("");
+    setCreatedBy("");
   }
 
   return (
@@ -80,8 +91,8 @@ const CreateRecord = () => {
 
             <StyledWhiteRectangle>
               <StyledForms>
-                <form>
-                  <div>
+                <form onSubmit={(event) => handleClick(event.preventDefault())}>
+                  <div class="form-div">
                     <h1>Cidade</h1>
                     <input
                       id="cityInput"
@@ -92,7 +103,7 @@ const CreateRecord = () => {
                       value={city}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Estado</h1>
                     <input
                       id="stateInput"
@@ -103,7 +114,7 @@ const CreateRecord = () => {
                       value={state}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Solicitante</h1>
                     <input
                       id="requesterInput"
@@ -114,7 +125,7 @@ const CreateRecord = () => {
                       value={requester}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Tido de documento</h1>
                     <input
                       id="documentTypeInput"
@@ -124,7 +135,7 @@ const CreateRecord = () => {
                       value={documentType}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Nº do documento </h1>
                     <input
                       id="documentNumberInput"
@@ -136,7 +147,7 @@ const CreateRecord = () => {
                       value={documentNumber}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Data do documento</h1>
                     <input
                       id="documentDateInput"
@@ -146,7 +157,7 @@ const CreateRecord = () => {
                       value={documentDate}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Descrição do documento</h1>
                     <input
                       id="documentDescriptionInput"
@@ -159,7 +170,7 @@ const CreateRecord = () => {
                       value={documentDescription}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Nº do SEI</h1>
                     <input
                       id="seiNumberInput"
@@ -169,7 +180,7 @@ const CreateRecord = () => {
                       value={seiNumber}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Recebido via</h1>
                     <input
                       id="receiptFormInput"
@@ -180,7 +191,7 @@ const CreateRecord = () => {
                       value={receiptForm}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Informação de contato</h1>
                     <input
                       id="contactInfoInput"
@@ -190,29 +201,31 @@ const CreateRecord = () => {
                       value={contactInfo}
                     />
                   </div>
-                  <div>
+                  <div class="form-div">
                     <h1>Tags</h1>
                     <button>
                       <FaPlus />
                     </button>
                   </div>
+                  <StyledButtonsDiv>
+                    <StyledCancelButton
+                      type="button"
+                      onClick={() => window.history.back()}
+                    >
+                      Cancelar
+                    </StyledCancelButton>
+                    <StyledCreateButton type="submit">Criar</StyledCreateButton>
+                  </StyledButtonsDiv>
                 </form>
               </StyledForms>
-              <StyledButtonsDiv>
-                <StyledCancelButton onClick={() => window.history.back()}>
-                  Cancelar
-                </StyledCancelButton>
-                <StyledCreateButton
-                  type="button"
-                  onClick={(event) => handleClick(event)}
-                >
-                  Criar
-                </StyledCreateButton>
-              </StyledButtonsDiv>
             </StyledWhiteRectangle>
           </StyledProcessDiv>
         </StyledProcess>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            duration: 100000,
+          }}
+        />
       </div>
     </>
   );
