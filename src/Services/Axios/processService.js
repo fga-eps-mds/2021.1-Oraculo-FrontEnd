@@ -54,3 +54,18 @@ export async function getAllFields(toast) {
     toast.error("Erro ao buscar total de registros!");
   }
 }
+
+export async function forwardRecordInfo(toast, forwardRecInfo){
+  try{
+    const response = await APIProcess.post(`/records/${forwardRecInfo.id}/forward`,{
+        forwarded_by: forwardRecInfo.forwarded_by,
+        origin_id: forwardRecInfo.origin_id,
+        destination_id: forwardRecInfo.destination_id,
+    });
+    toast.success("Registro encaminhado com sucesso!");
+    return response.data;
+  }catch(error){
+    toast.error("Não foi possível encaminhar registro!");
+    return error;
+  }
+}

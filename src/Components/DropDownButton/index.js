@@ -4,10 +4,10 @@ const DropDownButton = ({ onChangeOpt }) => {
   return (
     <DivSelectSetor>
       <select onChange={onChangeOpt}>
-        <option value="criminal">Criminal</option>
-        <option value="tecnologia">Tecnologia</option>
-        <option value="administrativa">Administrativo</option>
-        <option value="civil">civil</option>
+        <option value="1">Criminal</option>
+        <option value="2">Tecnologia</option>
+        <option value="3">Administrativo</option>
+        <option value="4">civil</option>
       </select>
     </DivSelectSetor>
   );

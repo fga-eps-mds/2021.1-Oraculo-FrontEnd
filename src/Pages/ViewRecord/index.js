@@ -12,7 +12,7 @@ import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
-import { getProcessByID } from "../../Services/Axios/processService";
+import { forwardRecordInfo, getProcessByID } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
 
 const ViewRecord = (props) => {
@@ -27,6 +27,8 @@ const ViewRecord = (props) => {
 
   const [userName, setUserName] = useState("");
   const [userSector, setUserSector] = useState("");
+  const [userSectorNum, setUserSectorNum] = useState("");
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -40,9 +42,10 @@ const ViewRecord = (props) => {
       setState(record.state);
 
       const user = await getInfoUser(toast);
-
       setUserName(user.name);
+      setUserID(user.id);
       setUserSector(user.sections[0].name);
+      setUserSectorNum(user.sections[0].id);
     }
 
     fetchRecordData();
@@ -52,21 +55,30 @@ const ViewRecord = (props) => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
   };
 
-  const handleForward = () => {
+  const handleForward = async () => {
     let date = new Date();
     let day = String(date.getDate()).padStart(2, "0");
     let month = String(date.getMonth() + 1).padStart(2, "0");
     let year = date.getFullYear();
     let currentDate = day + "/" + month + "/" + year;
 
+    const forwardRecInfo = {
+      id: props.id,
+      forwarded_by: userID,
+      origin_id: userSectorNum,
+      destination_id: sector,
+    }
+
+    const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    
     const newForward = [
       ...forward,
       {
-        setor: sector,
-        setorOrigin: userSector,
+        setor: infoRecord.forwarded_to,
+        setorOrigin: infoRecord.forwarded_from,
         date: currentDate,
         dateForward: currentDate,
-        name: userName,
+        name: infoRecord.forwarded_by,
       },
     ];
     setForward(newForward);
@@ -75,7 +87,6 @@ const ViewRecord = (props) => {
   return (
     <>
       <HeaderWithButtons />
-      <Toaster />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
           <div className="infoProcess">
@@ -128,6 +139,7 @@ const ViewRecord = (props) => {
           </a>
         </StyledDivInfoProcess>
       </StyledDivSupProcess>
+      <Toaster/>
     </>
   );
 };
