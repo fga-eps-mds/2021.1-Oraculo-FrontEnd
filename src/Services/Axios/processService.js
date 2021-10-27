@@ -1,5 +1,6 @@
 import { APIProcess } from "./BaseService";
 import axios from "axios";
+import GenericBlueButton from "../../Components/GenericBlueButton";
 
 export async function getAllProcess(toast) {
   try {
@@ -44,6 +45,38 @@ export async function getProcessByPage(page, toast) {
 export async function getProcessTotalNumber(toast) {
   try {
     const response = await APIProcess.get("/count/records");
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar total de registros!");
+  }
+}
+
+export async function createRecord(recordInfo, toast) {
+  try {
+    console.log(recordInfo);
+    const record = await APIProcess.post("/records", recordInfo);
+    toast((t) => (
+      <span style={{ textAlign: "center" }}>
+        <p>Registro criado com sucesso sob o n°:</p>
+        <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
+        <GenericBlueButton
+          title="OK"
+          onClick={() => toast.dismiss(t.id)}
+        ></GenericBlueButton>
+      </span>
+    ));
+  } catch (err) {
+    const status = err.response?.status;
+
+    if (status === 500) {
+      toast.error("Não foi possível criar o registro");
+    }
+  }
+}
+export async function getAllFields(toast) {
+  try {
+    const response = await APIProcess.get("/records/fields");
     console.log(response.data);
     return response.data;
   } catch (error) {
