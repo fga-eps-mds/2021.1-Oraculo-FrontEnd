@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { FormLogin, StyledDiv } from "./styles";
+import { changeUserPassword } from "../../Services/Axios/profileService";
 
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  async function handleClick(event) {}
+  async function handleClick(event) {
+    password === confirmPassword
+      ? await changeUserPassword(toast, password)
+      : toast.error("As senhas devem ser iguais!");
+
+    setPassword("");
+    setConfirmPassword("");
+  }
 
   return (
     <>
