@@ -2,7 +2,7 @@ import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
-import { getInfoUser } from "../../Services/Axios/profileService";
+import { getInfoUser, updateUser } from "../../Services/Axios/profileService";
 
 import {
   StyledBlueRectangle,
@@ -31,6 +31,27 @@ class ViewProfile extends React.Component {
     });
   }
 
+  setName(newPass) {
+    this.setState({ password: newPass });
+  }
+
+  setEmail(newMail) {
+    this.setState({ email: newMail });
+  }
+
+  setDepartment(newDepartment) {
+    this.setState({ password: newDepartment });
+  }
+
+  async handleClick(event) {
+    const updatedUser = {
+      email: this.state.email,
+      name: this.state.name,
+      department: this.state.department,
+    };
+    await updateUser(updatedUser, toast);
+  }
+
   render() {
     const { user } = this.state;
 
@@ -54,12 +75,13 @@ class ViewProfile extends React.Component {
                 <StyledForms>
                   <form>
                     <div>
-                      <h1>Name</h1>
+                      <h1>Nome</h1>
                       <input
                         id="name"
                         type="text"
                         placeholder="William Cops"
-                        value={user.name != undefined ? user.name : "erro"}
+                        defaultValue={user.name}
+                        onChange={(event) => this.setName(event.target.value)}
                       />
                     </div>
                     <div>
@@ -68,20 +90,18 @@ class ViewProfile extends React.Component {
                         id="email"
                         type="text"
                         placeholder="william@pcgo.org.br"
-                        value={user.email != undefined ? user.email : "erro"}
+                        defaultValue={user.email}
+                        onChange={(event) => this.setEmail(event.target.value)}
                       />
                     </div>
                     <div>
-                      <h1>Setor</h1>
+                      <h1>Departamento</h1>
                       <input
-                        id="sectorNum"
+                        id="sectionID"
                         type="text"
                         placeholder="Setor"
-                        value={
-                          user.sections[0] != undefined
-                            ? user.sections[0].name
-                            : "erro"
-                        }
+                        defaultValue={user.sections[0].number}
+                        onChange={(event) => this.setDepartment(event.target.value)}
                       />
                     </div>
                   </form>
@@ -91,9 +111,9 @@ class ViewProfile extends React.Component {
                     Voltar
                   </StyledBackButton>
                   <StyledEditButton
-                    onClick={() =>
-                      toast.error("Essa função estará disponível em breve")
-                    }
+                    onClick={(event) => {
+                      this.handleClick(event);
+                    }}
                   >
                     Editar
                   </StyledEditButton>
