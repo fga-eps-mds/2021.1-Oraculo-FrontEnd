@@ -44,6 +44,14 @@ export async function registerUser(usr, toast) {
   try {
     const user = await validateUser(usr);
 
+    if (user.departmentID <= 7) {
+      // user belongs to a admin sector
+      user.sectionID = 0;
+    } else {
+      // user is a common user
+      user.departmentID = 0;
+    }
+
     await APIProfile.post(
       "/register",
       {
@@ -62,13 +70,9 @@ export async function registerUser(usr, toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     } else if (status === 400) {
-      toast.error(
-        "Faltam algumas informações para realizar o cadastro do usuário"
-      );
+      toast.error("Faltam algumas informações para realizar o cadastro do usuário");
     } else {
       toast.error(`Erro ao cadastrar usuário!`);
     }
@@ -117,9 +121,7 @@ export async function listAllUsers(toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     }
   }
 }
