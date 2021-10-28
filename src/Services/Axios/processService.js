@@ -1,5 +1,4 @@
 import { APIProcess } from "./BaseService";
-import axios from "axios";
 import GenericBlueButton from "../../Components/GenericBlueButton";
 
 export async function getAllProcess(toast) {
@@ -30,10 +29,8 @@ export async function getProcessByID(ID, toast) {
 
 export async function getProcessByPage(page, toast) {
   try {
-    console.log("dentro da funcao");
     const response = await APIProcess.get(`/records/page/${page}`);
 
-    console.log(`"papapapap",${JSON.stringify(response)}`);
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar registro!");
@@ -62,8 +59,7 @@ export async function createRecord(recordInfo, toast) {
         <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
         <GenericBlueButton
           title="OK"
-          onClick={() => toast.dismiss(t.id)}
-        ></GenericBlueButton>
+          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
       </span>
     ));
   } catch (err) {
