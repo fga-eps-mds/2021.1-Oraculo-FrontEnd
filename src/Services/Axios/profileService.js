@@ -151,3 +151,35 @@ export async function getUserAccessLevel(user, toast) {
     }
   }
 }
+
+export async function updateUser(usr, toast) {
+  try {
+    const user = await validateUser(usr);
+
+    const response = await APIProfile.post(
+      "/user/change-user",
+      {
+        name: user.name,
+        email: user.email,
+        sectionID: user.sectionID,
+      },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+
+    toast.sucess("Usuário editado com sucesso");
+    return response.data;
+  } catch (err) {
+    const status = err.response?.status;
+    console.log(status);
+    if (status === 404) {
+      toast.error("Departamento não encontrado");
+    } else if (status === 400) {
+      toast.error("Departamento inválido");
+    } else {
+      toast.error("Não foi possivel alterar usuário");
+    }
+
+    console.error(`erro ao editar o usuário: ${err}`);
+    return null;
+  }
+}
