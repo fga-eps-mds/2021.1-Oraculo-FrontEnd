@@ -27,7 +27,6 @@ const ChangePassword = () => {
 
             <h2>Nova senha:</h2>
             <input
-              id="newPassword"
               type="text"
               required
               placeholder="Nova senha"
@@ -37,7 +36,6 @@ const ChangePassword = () => {
 
             <h2>Confirme a senha:</h2>
             <input
-              id="confirmNewPassword"
               type="text"
               required
               placeholder="Confirme a senha"
