@@ -43,57 +43,61 @@ const ViewProfile = () => {
           <StyledBlueRectangle>
             <BiUserCircle size="20rem" color="white" />
           </StyledBlueRectangle>
-              <StyledWhiteRectangle>
-                <StyledForms>
-                  <form>
-                    <div>
-                      <h1>Nome</h1>
-                      <input
-                        id="name"
-                        type="text"
-                        placeholder="William Cops"
-                        value={user.name != undefined ? user.name : "erro"}
-                      />
-                    </div>
-                    <div>
-                      <h1>Email</h1>
-                      <input
-                        id="email"
-                        type="text"
-                        placeholder="william@pcgo.org.br"
-                        value={user.email != undefined ? user.email : "erro"}
-                      />
-                    </div>
-                    <div>
-                      <h1>Setor</h1>
-                      <input
-                        id="sectorNum"
-                        type="text"
-                        placeholder="Setor"
-                        value={
-                          user.sections[0] != undefined ? user.sections[0].name : "erro"
-                        }
-                      />
-                    </div>
-                  </form>
-                </StyledForms>
-                <StyledButtonsDiv>
-                  <StyledBackButton onClick={() => window.history.back()}>
-                    Voltar
-                  </StyledBackButton>
-                  <StyledEditButton
-                    onClick={() => toast.error("Essa função estará disponível em breve")}>
-                    Editar
-                  </StyledEditButton>
-                </StyledButtonsDiv>
-              </StyledWhiteRectangle>
-            </StyledViewProfile>
-            <Toaster />
-          </div>
-        </>
-      );
-    }
-  }
-}
+
+          <StyledWhiteRectangle>
+            <StyledForms>
+              <form>
+                <div>
+                  <h1>Nome</h1>
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="William Cops"
+                    defaultValue={name}
+                    onChange={(event) => setName(event.target.value)}
+                  />
+                </div>
+                <div>
+                  <h1>Email</h1>
+                  <input
+                    id="email"
+                    type="text"
+                    placeholder="william@pcgo.org.br"
+                    defaultValue={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
+                </div>
+                <div>
+                  <h1>Departamento</h1>
+                  <select
+                    required
+                    placeholder="Selecione o departamento"
+                    onChange={(event) => {
+                      setSectionID(event.target.selectedIndex + 1);
+                    }}>
+                    <SectionsList />
+                  </select>
+                </div>
+              </form>
+            </StyledForms>
+            <StyledButtonsDiv>
+              <StyledBackButton onClick={() => window.history.back()}>
+                Voltar
+              </StyledBackButton>
+              <StyledEditButton
+                onClick={(event) => {
+                  handleClick(event);
+                }}
+                type="submit">
+                Editar
+              </StyledEditButton>
+            </StyledButtonsDiv>
+          </StyledWhiteRectangle>
+        </StyledViewProfile>
+        <Toaster />
+      </div>
+    </>
+  );
+};
 
 export default ViewProfile;
