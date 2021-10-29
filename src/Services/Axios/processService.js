@@ -19,7 +19,6 @@ export async function getAllProcess(toast) {
 export async function getProcessByID(ID, toast) {
   try {
     const response = await APIProcess.get(`/records/${ID}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar processo!");
@@ -38,7 +37,6 @@ export async function getProcessByPage(page, toast) {
 export async function getProcessTotalNumber(ID, toast) {
   try {
     const response = await APIProcess.get("/count/records");
-    console.log(response.data);
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar total de registros!");
@@ -67,5 +65,15 @@ export async function forwardRecordInfo(toast, forwardRecInfo){
   }catch(error){
     toast.error("Não foi possível encaminhar registro!");
     return error;
+  }
+}
+
+export async function getRecordHistory(toast, id) {
+  try {
+    const response = await APIProcess.get(`/records/${id}/history`)
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    toast.error("Não foi possível buscar histórico do registro!");
   }
 }

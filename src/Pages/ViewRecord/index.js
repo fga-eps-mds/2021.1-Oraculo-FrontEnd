@@ -12,9 +12,9 @@ import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
-import { forwardRecordInfo, getProcessByID } from "../../Services/Axios/processService";
-import { getInfoUser } from "../../Services/Axios/profileService";
-
+import { forwardRecordInfo, getProcessByID, getRecordHistory } from "../../Services/Axios/processService";
+import { getInfoUser, getSections } from "../../Services/Axios/profileService";
+import { getInfoUserbyID } from "../../Services/Axios/profileService";
 const ViewRecord = (props) => {
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
@@ -29,6 +29,8 @@ const ViewRecord = (props) => {
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
   const [userID, setUserID] = useState("");
+  
+  const [sections, setSections] = useState("");
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -46,10 +48,10 @@ const ViewRecord = (props) => {
       setUserID(user.id);
       setUserSector(user.sections[0].name);
       setUserSectorNum(user.sections[0].id);
-    }
 
+    }
     fetchRecordData();
-  });
+  },[]);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
@@ -71,6 +73,41 @@ const ViewRecord = (props) => {
 
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
     
+    const responseHR = await getRecordHistory(toast, props.id);
+
+    const getNameAndOrigin = async () => {
+      return responseHR.map(async (indice) => {
+        const response = await getInfoUserbyID(indice.forwarded_by);
+        const destinationID = await indice.destination_id;
+        const data = { name:response.user.name, destination:destinationID };
+        return data;
+      });
+ 
+    }
+
+    const getDestination = async (destination) => {
+
+      const section = await getSections();
+
+      console.log("sections", section);
+      return section.filter(async(indice) => {
+        return await indice.id === destination;
+      });
+    }
+
+    const print = async () => {
+      const response = await getNameAndOrigin();
+      const result = await Promise.all(response).then((value) => {
+        return value;
+      });
+
+      return result.map(async(indice) => {
+        return await getDestination(indice.destination);
+      })
+    }
+    console.log(await print());
+    
+
     const newForward = [
       ...forward,
       {
@@ -117,13 +154,13 @@ const ViewRecord = (props) => {
             <FaUserCircle />
             <p>{userName === "" ? "Policia Federal (mock)" : userName}</p>
           </div>
-          <span>Divisão:</span>
+          <span>Departamento:</span>
 
           <DropDownButton
             onChangeOpt={(event) => setSector(event.target.value)}
           />
 
-          <div className="fowardIcon">
+          <div className="forwardIcon">
             <p onClick={handleForward}>Encaminhar</p>
             <FaTelegramPlane />
           </div>

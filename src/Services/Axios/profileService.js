@@ -151,3 +151,27 @@ export async function getUserAccessLevel(user, toast) {
     }
   }
 }
+
+export async function getInfoUserbyID(id) {
+  try {
+    const response = await APIProfile.get(`/user/${id}/info`, {
+      headers: {
+        "X-Access-Token": getToken()
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+    }
+  
+}
+
+export async function getSections() {
+  try {
+    const response = await APIProfile.get("/sections");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
