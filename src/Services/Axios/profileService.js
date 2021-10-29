@@ -169,7 +169,7 @@ export async function changeUserPassword(toast, password) {
         headers: { "X-Access-Token": getToken() },
       }
     );
-    toast.success("Usuário cadastrado com sucesso");
+    toast.success("Senha alterada com sucesso!");
   } catch (err) {
     toast.error("Ocorreu um erro ao tentar mudar a senha");
   }
