@@ -1,57 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
-import MainButton from "../../Components/MainButton";
 import { FormLogin, StyledDiv } from "./styles";
-import { loginUser } from "../../Services/Axios/profileService";
-import { login } from "../../Auth/Auth";
-import { withRouter } from "react-router";
+import { changeUserPassword } from "../../Services/Axios/profileService";
 
-class LoginScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: "",
-    };
+const ChangePassword = () => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  async function handleClick(event) {
+    password === confirmPassword
+      ? await changeUserPassword(toast, password)
+      : toast.error("As senhas devem ser iguais!");
+
+    setPassword("");
+    setConfirmPassword("");
   }
 
-  setPassword(newPass) {
-    this.setState({ password: newPass });
-  }
+  return (
+    <>
+      <HeaderWithButtons />
+      <FormLogin>
+        <form onSubmit={(event) => handleClick(event.preventDefault())}>
+          <StyledDiv>
+            <h1>Alterar Senha</h1>
 
-  async handleClick(event) {
-    const user = { password: this.state.password };
-    const result = await loginUser(user, toast);
-    const auth = result?.auth;
-    if (auth) {
-      login(result.token);
-      this.props.history.push("/tela-inicial");
-    }
-  }
+            <h2>Nova senha:</h2>
+            <input
+              type="text"
+              required
+              placeholder="Nova senha"
+              onChange={(event) => setPassword(event.target.value)}
+              value={password}
+            />
 
-  render() {
-    return (
-      <>
-        <HeaderWithButtons />
-        <FormLogin>
-          <form>
-            <StyledDiv>
-              <h1>Alterar Senha</h1>
-              <h2>Nova senha:</h2>
-              <input placeholder="Nova senha" />
-              <h2>Confirme a senha:</h2>
-              <input placeholder="Confirme a senha" />
-              <MainButton
-                onClick={() => toast.error("Não foi possivel alterar a senha")}
-                title={"Salvar"}
-              />
-            </StyledDiv>
-          </form>
-          <Toaster />
-        </FormLogin>
-      </>
-    );
-  }
-}
+            <h2>Confirme a senha:</h2>
+            <input
+              type="text"
+              required
+              placeholder="Confirme a senha"
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              value={confirmPassword}
+            />
 
-export default withRouter(LoginScreen);
+            <button class="save-button" type="submit">
+              Salvar
+            </button>
+          </StyledDiv>
+        </form>
+        <Toaster />
+      </FormLogin>
+    </>
+  );
+};
+
+export default ChangePassword;
