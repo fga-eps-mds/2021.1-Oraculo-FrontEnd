@@ -70,9 +70,13 @@ export async function registerUser(usr, toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error("Você não possui privilégios suficientes para realizar esta ação");
+      toast.error(
+        "Você não possui privilégios suficientes para realizar esta ação"
+      );
     } else if (status === 400) {
-      toast.error("Faltam algumas informações para realizar o cadastro do usuário");
+      toast.error(
+        "Faltam algumas informações para realizar o cadastro do usuário"
+      );
     } else {
       toast.error(`Erro ao cadastrar usuário!`);
     }
@@ -121,7 +125,9 @@ export async function listAllUsers(toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error("Você não possui privilégios suficientes para realizar esta ação");
+      toast.error(
+        "Você não possui privilégios suficientes para realizar esta ação"
+      );
     }
   }
 }
@@ -154,4 +160,32 @@ export async function getUserAccessLevel(user, toast) {
   }
 }
 
+export async function changeUserPassword(toast, password) {
+  try {
+    await APIProfile.post(
+      "/user/change-password",
+      { password: password },
+      {
+        headers: { "X-Access-Token": getToken() },
+      }
+    );
+    toast.success("Senha alterada com sucesso!");
+  } catch (err) {
+    toast.error("Ocorreu um erro ao tentar mudar a senha");
+  }
+}
 
+export async function changeUser(toast, name, email, sectorID) {
+  try {
+    await APIProfile.post(
+      "/user/change-user",
+      { name: name, email: email, section_id: sectorID },
+      {
+        headers: { "X-Access-Token": getToken() },
+      }
+    );
+    toast.success("Usuário alterado com sucesso!");
+  } catch (err) {
+    toast.error("Ocorreu um erro ao tentar mudar o usuário");
+  }
+}
