@@ -1,60 +1,60 @@
 export const SectionsList = () => {
   return (
     <>
-      <option>Gerência de identificação - GI</option>
-      <option>Unidade de inteligência - UI</option>
-      <option>Gerência adjunta - GA</option>
-      <option>Divisão biométrica criminal - DICRIM</option>
-      <option>Divisão de tecnologia, pesquisa e desenvolvimento - DITEC</option>
-      <option>Divisão administrativa - DIADM</option>
-      <option>Divisão biométrica civil - DICIV</option>
+      <option>Divisão Administrativa - DIADM</option>
+      <option>Divisão Biométrica Civil - DICRIM</option>
+      <option>Divisão Biométrica Criminal - DICRIM</option>
+      <option>Divisão de Tecnologia, Pesquisa e Desenvolvimento - DITEC</option>
+      <option>Gerência Adjunta - GA</option>
+      <option>Gerência de Identificação - GI</option>
+      <option>Seção AFIS - SAFIS</option>
+      <option>Seção Avançada de Serviços Papiloscópicos - SAP</option>
+      <option>Seção de Análise Cadastral - SACAD</option>
       <option>
-        Seção de cadastramento biográfico e biométrico e emissão de fac - SCBBE
+        Seção de Atendimento Interno ao Cidadão e Emissão de Certidões - SAICEC
       </option>
-      <option>Seção de inovação em identificação humana - SIIH</option>
-      <option>Seção de capacitação técnica - SCT</option>
       <option>
-        Seção de atendimento interno ao cidadão e emissão de certidões - SAICEC
+        Seção de Cadastramento Biográfico e Biométrico e Emissão de FAC - SCBBE
       </option>
-      <option>Seção de identificação criminal - SIC</option>
-      <option>Seção de comparação facial de imagens - SCFI</option>
-      <option>Seção de comunicação social e eventos - SCSE</option>
-      <option>Seção de programas sociais - SPS</option>
-      <option>Seção de identificação criminal central de flagrantes - SICCF</option>
-      <option>Seção de retrato falado - SRF</option>
-      <option>Seção de informática e manutenção - SIM</option>
-      <option>Seção de codificação e sistematização - SCSB</option>
+      <option>Seção de Capacitação Técnica - SCT</option>
+      <option>Seção de Codificação e Sistematização - SCSB</option>
+      <option>Seção de Comparação Facial de Imagens - SCFI</option>
+      <option>Seção de Comunicação Social e Eventos - SCSE</option>
+      <option>Seção de Elaboração de Relatórios Técnicos - SERT</option>
+      <option>Seção de Identificação Criminal - SIC</option>
+      <option>Seção de Identificação Criminal Central de Flagrantes - SICCF</option>
+      <option>Seção de Identificação de Pessoas Desaparecidas - SIPD</option>
+      <option>Seção de Identificação Funcional - SIF</option>
+      <option>Seção de Informática e Manutenção - SIM</option>
+      <option>Seção de Inovação em Identificação Humana - SIIH</option>
       <option>
-        Seção de laboratório de pesquisa,desenvolvimento e levantamento papiloscópico -
+        Seção de Laboratório de Pesquisa, Desenvolvimento e Levantamento Papiloscópico -
         SLPDPP
       </option>
+      <option>Seção de Malote - SMAL</option>
       <option>
-        Seção de projeção de idade, disfarce e reconstituição facial - SPIDRF
+        Seção de Material, Patrimônio, Almoxarifado e Manutenção Predial - SMPAMP
       </option>
-      <option>Seção de malote - SMAL</option>
-      <option>Seção de verificação biométrica - SVB</option>
-      <option>Seção de respostas a ofícios e atestados - SROA</option>
-      <option>Seção de identificação de pessoas desaparecidas - SIPD</option>
-      <option>Seção de protocoloe expediente - SPE</option>
-      <option>Seção de verificação biométrica online - SVBO</option>
-      <option>Seção de elaboração de relatórios técnicos - SERT</option>
-      <option>Seção de necropapiloscopia - NECRO</option>
-      <option>Seção de recursos humanos - SRH</option>
-      <option>Seção de tratamento de divergências biométricas - STDB</option>
-      <option>Seção afis - SAFIS</option>
-      <option>Seção de transportes - ST</option>
-      <option>Seção de análise cadastral - SACAD</option>
+      <option>Seção de Necropapiloscopia - NECRO</option>
+      <option>Seção de Postos de Identificação Biométrica - SPIB</option>
+      <option>Seção de Programas Sociais - SPS</option>
       <option>
-        Seção papiloscópica especializada no combate à organização criminosa e lavagem de
-        dinheiro - SCCLD
+        Seção de Projeção de Idade, Disfarce e Reconstituição Facial - SPIDRF
       </option>
+      <option>Seção de Projetos Estratégicos - SPE</option>
+      <option>Seção de Protocolo e Expediente - SPE</option>
+      <option>Seção de Recursos Humanos - SRH</option>
+      <option>Seção de Respostas a Ofícios e Atestados - SROA</option>
+      <option>Seção de Retrato Falado - SRF</option>
+      <option>Seção de Transportes - ST</option>
+      <option>Seção de Tratamento de Divergências Biométricas - STDB</option>
+      <option>Seção de Verificação Biométrica - SVB</option>
+      <option>Seção de Verificação Biométrica Online - SVBO</option>
       <option>
-        Seção de material,patrimônio,almoxarifado e manutenção predial - SMPAMP
+        Seção Papiloscópica Especializada no Combate à Organização Criminosa e Lavagem de
+        Dinheiro - SCCLD
       </option>
-      <option>Seção de identificação funcional - SIF</option>
-      <option>Seção avançada de serviços papiloscópicos - SAP</option>
-      <option>Seção de projetos estratégicos - SPE</option>
-      <option>Seção de postos de identificação biométrica - SPIB</option>
+      <option>Unidade de Inteligência - UI</option>
     </>
   );
 };
