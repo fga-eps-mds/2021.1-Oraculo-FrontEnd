@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
-import { getInfoUser } from "../../Services/Axios/profileService";
-
+import { getInfoUser, changeUser } from "../../Services/Axios/profileService";
+import { SectionsList } from "../CreateUser/sections";
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
@@ -14,42 +14,35 @@ import {
   StyledWhiteRectangle,
 } from "./styles";
 
-class ViewProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-      loaded: false,
-      newName: "",
-      newSector: "",
-    };
+const ViewProfile = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [sectionID, setSectionID] = useState("");
+
+  async function handleClick(event) {
+    changeUser(toast, name, email, sectionID);
+    const user = await getInfoUser(toast);
+    setName(user.name);
+    setEmail(user.email);
   }
 
-  componentDidMount() {
-    getInfoUser(toast).then((userInfo) => {
-      this.setState({ user: userInfo, loaded: true });
-    });
-  }
+  useEffect(() => {
+    async function fetchUserData() {
+      const user = await getInfoUser(toast);
+      setName(user.name);
+      setEmail(user.email);
+    }
+    fetchUserData();
+  });
 
-  render() {
-    const { user } = this.state;
-
-    if (!this.state.loaded) {
-      return (
-        <>
-          <p>Carregando ...</p>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <HeaderWithButtons />
-          <div>
-            <StyledViewProfile>
-              <StyledBlueRectangle>
-                <BiUserCircle size="20rem" color="white" />
-              </StyledBlueRectangle>
-
+  return (
+    <>
+      <HeaderWithButtons />
+      <div>
+        <StyledViewProfile>
+          <StyledBlueRectangle>
+            <BiUserCircle size="20rem" color="white" />
+          </StyledBlueRectangle>
               <StyledWhiteRectangle>
                 <StyledForms>
                   <form>

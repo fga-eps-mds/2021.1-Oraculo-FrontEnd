@@ -174,3 +174,18 @@ export async function changeUserPassword(toast, password) {
     toast.error("Ocorreu um erro ao tentar mudar a senha");
   }
 }
+
+export async function changeUser(toast, name, email, sectorID) {
+  try {
+    await APIProfile.post(
+      "/user/change-user",
+      { name: name, email: email, section_id: sectorID },
+      {
+        headers: { "X-Access-Token": getToken() },
+      }
+    );
+    toast.success("Usuário alterado com sucesso!");
+  } catch (err) {
+    toast.error("Ocorreu um erro ao tentar mudar o usuário");
+  }
+}
