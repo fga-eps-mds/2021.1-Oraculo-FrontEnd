@@ -77,7 +77,7 @@ const CreateRecord = () => {
       <HeaderWithButtons />
       <div>
         <StyledTitle>
-          <p>Criar Processo</p>
+          <p>Criar Registro</p>
           <div>
             <MainButton title={"Adicionar Campo"} />
           </div>
