@@ -57,23 +57,23 @@ const HeaderWithButtons = () => {
         <StyledOrganizeButtons>
           <StyledDropDown>
             <button>Registros</button>
-            <div>
+            <div style={{ textAlign: "center" }}>
               <button onClick={handleViewRegisters}>Todos os Registros</button>
               <button onClick={handleRegister}>Novo Registro</button>
             </div>
           </StyledDropDown>
           <StyledDropDown>
             <button>Administrador</button>
-            <div>
+            <div style={{ textAlign: "center" }}>
               <button onClick={handleCreateUser}>Criar Usuário</button>
-              <button onClick={() => {}}>Departamento</button>
+              <button onClick={() => {}}>Criar Departamento</button>
               <button onClick={() => {}}>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
             </div>
           </StyledDropDown>
           <StyledDropDown>
             <button>Nome</button>
-            <div>
+            <div style={{ textAlign: "center" }}>
               <button onClick={handleViewProfile}>Ver Perfil</button>
               <button onClick={handleChangePassword}>Nova Senha</button>
               <button onClick={handleClickCheckout}>Sair</button>
