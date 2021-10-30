@@ -12,7 +12,11 @@ import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
-import { forwardRecordInfo, getProcessByID, getRecordHistory } from "../../Services/Axios/processService";
+import {
+  forwardRecordInfo,
+  getProcessByID,
+  getRecordHistory,
+} from "../../Services/Axios/processService";
 import { getInfoUser, getSections } from "../../Services/Axios/profileService";
 import { getInfoUserbyID } from "../../Services/Axios/profileService";
 const ViewRecord = (props) => {
@@ -29,7 +33,7 @@ const ViewRecord = (props) => {
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
   const [userID, setUserID] = useState("");
-  
+
   const [sections, setSections] = useState("");
 
   useEffect(() => {
@@ -49,9 +53,13 @@ const ViewRecord = (props) => {
       setUserSector(user.sections[0].name);
       setUserSectorNum(user.sections[0].id);
 
+      const responseHR = await getRecordHistory(toast, props.id);
+      const arrInfoForward = await Promise.all(responseHR.map((post) => previousForward(post)));
+      setForward(arrInfoForward);
+
     }
     fetchRecordData();
-  },[]);
+  }, []);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
@@ -69,44 +77,9 @@ const ViewRecord = (props) => {
       forwarded_by: userID,
       origin_id: userSectorNum,
       destination_id: sector,
-    }
+    };
 
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
-    
-    const responseHR = await getRecordHistory(toast, props.id);
-
-    const getNameAndOrigin = async () => {
-      return responseHR.map(async (indice) => {
-        const response = await getInfoUserbyID(indice.forwarded_by);
-        const destinationID = await indice.destination_id;
-        const data = { name:response.user.name, destination:destinationID };
-        return data;
-      });
- 
-    }
-
-    const getDestination = async (destination) => {
-
-      const section = await getSections();
-
-      console.log("sections", section);
-      return section.filter(async(indice) => {
-        return await indice.id === destination;
-      });
-    }
-
-    const print = async () => {
-      const response = await getNameAndOrigin();
-      const result = await Promise.all(response).then((value) => {
-        return value;
-      });
-
-      return result.map(async(indice) => {
-        return await getDestination(indice.destination);
-      })
-    }
-    console.log(await print());
-    
 
     const newForward = [
       ...forward,
@@ -119,6 +92,36 @@ const ViewRecord = (props) => {
       },
     ];
     setForward(newForward);
+  };
+
+
+  const previousForward = async (response) => {
+    const infoUser = await getInfoUserbyID(response.forwarded_by);
+
+    const destinationID = response.destination_id;
+    const allSections2 = await getSections();
+    const destinationSection = allSections2.filter(async (indice) => {
+      if (indice.id === destinationID) {
+        console.log(indice.name);
+        return indice.name;
+      }
+    });
+
+    let date = new Date();
+    let day = String(date.getDate()).padStart(2, "0");
+    let month = String(date.getMonth() + 1).padStart(2, "0");
+    let year = date.getFullYear();
+    let currentDate = day + "/" + month + "/" + year;
+
+    const newForward =
+      {
+        setor: destinationID,
+        setorOrigin: infoUser.user.sections[0].name,
+        date: currentDate,
+        dateForward: currentDate,
+        name: infoUser.user.name,
+      };
+    return newForward;
   };
 
   return (
@@ -139,7 +142,12 @@ const ViewRecord = (props) => {
               Data de inclusão:{" "}
               {documentDate === "" ? "15/12/1945" : documentDate}
             </span>
-            <p className="info-record"><span>{city}-{state} </span> |<span> {requester} </span>|<span> {description}</span></p>
+            <p className="info-record">
+              <span>
+                {city}-{state}{" "}
+              </span>{" "}
+              |<span> {requester} </span>|<span> {description}</span>
+            </p>
           </div>
           <ForwardSector forward={forward} />
 
@@ -176,7 +184,7 @@ const ViewRecord = (props) => {
           </a>
         </StyledDivInfoProcess>
       </StyledDivSupProcess>
-      <Toaster/>
+      <Toaster />
     </>
   );
 };
