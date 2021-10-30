@@ -57,7 +57,6 @@ const HeaderWithButtons = () => {
         <StyledOrganizeButtons>
           <button onClick={handleViewRegisters}>Registros</button>
           <button onClick={handleRegister}>Novo Registro</button>
-          <button>Departamento</button>
           <StyledDropDown>
             <button>Administrador</button>
             <div>
