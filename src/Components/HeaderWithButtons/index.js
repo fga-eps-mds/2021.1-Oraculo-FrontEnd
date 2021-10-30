@@ -56,7 +56,6 @@ const HeaderWithButtons = () => {
         <StyledHeaderImage onClick={handleHomePage} src={Logo} />
         <StyledOrganizeButtons>
           <button onClick={handleViewRegisters}>Registros</button>
-          <button onClick={handleSeeAllFields}>Campos</button>
           <button onClick={handleRegister}>Novo Registro</button>
           <button>Departamento</button>
           <StyledDropDown>
@@ -65,6 +64,7 @@ const HeaderWithButtons = () => {
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={() => {}}>Departamento</button>
               <button onClick={() => {}}>Tag</button>
+              <button onClick={handleSeeAllFields}>Campos</button>
             </div>
           </StyledDropDown>
           <StyledDropDown>
