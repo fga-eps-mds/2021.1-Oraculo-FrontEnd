@@ -34,8 +34,6 @@ const ViewRecord = (props) => {
   const [userSectorNum, setUserSectorNum] = useState("");
   const [userID, setUserID] = useState("");
 
-  const [sections, setSections] = useState("");
-
   useEffect(() => {
     async function fetchRecordData() {
       const record = await getProcessByID(props.id, toast);
@@ -94,19 +92,17 @@ const ViewRecord = (props) => {
     setForward(newForward);
   };
 
-
   const previousForward = async (response) => {
     const infoUser = await getInfoUserbyID(response.forwarded_by);
 
     const destinationID = response.destination_id;
     const allSections2 = await getSections();
-    const destinationSection = allSections2.filter(async (indice) => {
-      if (indice.id === destinationID) {
-        console.log(indice.name);
-        return indice.name;
-      }
+    const destinationSection = allSections2.filter((indice) => {
+        return indice.id == destinationID;
+      
     });
 
+    console.log("destination",destinationSection[0].name);
     let date = new Date();
     let day = String(date.getDate()).padStart(2, "0");
     let month = String(date.getMonth() + 1).padStart(2, "0");
@@ -115,7 +111,7 @@ const ViewRecord = (props) => {
 
     const newForward =
       {
-        setor: destinationID,
+        setor: destinationSection[0].name,
         setorOrigin: infoUser.user.sections[0].name,
         date: currentDate,
         dateForward: currentDate,
