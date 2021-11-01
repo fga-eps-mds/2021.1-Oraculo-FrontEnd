@@ -57,19 +57,13 @@ const ViewRecord = (props) => {
 
     }
     fetchRecordData();
-  }, []);
+  }, [forward]);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
   };
 
   const handleForward = async () => {
-    let date = new Date();
-    let day = String(date.getDate()).padStart(2, "0");
-    let month = String(date.getMonth() + 1).padStart(2, "0");
-    let year = date.getFullYear();
-    let currentDate = day + "/" + month + "/" + year;
-
     const forwardRecInfo = {
       id: props.id,
       forwarded_by: userID,
@@ -78,18 +72,6 @@ const ViewRecord = (props) => {
     };
 
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
-
-    const newForward = [
-      ...forward,
-      {
-        setor: infoRecord.forwarded_to,
-        setorOrigin: infoRecord.forwarded_from,
-        date: currentDate,
-        dateForward: currentDate,
-        name: infoRecord.forwarded_by,
-      },
-    ];
-    setForward(newForward);
   };
 
   const previousForward = async (response) => {
@@ -107,8 +89,6 @@ const ViewRecord = (props) => {
     let dataFormatadaCreatedAt = ((dataCreated.getDate())) + "/" + ((dataCreated.getMonth() + 1)) + "/" + dataCreated.getFullYear();
     let dataUpdated = new Date(response.updatedAt);
     let dataFormatadaUpdatedAt = ((dataUpdated .getDate() )) + "/" + ((dataUpdated .getMonth() + 1)) + "/" + dataUpdated .getFullYear(); 
-    console.log("createdAt", dataFormatadaCreatedAt);
-    console.log("createdAt", dataFormatadaUpdatedAt);
 
     const newForward =
       {
@@ -164,7 +144,6 @@ const ViewRecord = (props) => {
           <DropDownButton
             onChangeOpt={(event) => setSector(event.target.value)}
           />
-
           <div className="forwardIcon">
             <p onClick={handleForward}>Encaminhar</p>
             <FaTelegramPlane />
