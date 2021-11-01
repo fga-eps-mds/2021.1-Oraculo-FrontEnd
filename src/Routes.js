@@ -35,7 +35,7 @@ const Routes = () => (
         path="/login"
         component={() => <LoginScreen history={history} />}
       />
-      <Route exact path="/ver-registro" component={() => <ViewRecord />} />
+      <PrivateRoutes exact path="/ver-registro/:id" component={() => <ViewRecord/>} />
       <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
       <PrivateRoutes
         path="/criar-registro"

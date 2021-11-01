@@ -19,7 +19,9 @@ import {
 } from "../../Services/Axios/processService";
 import { getInfoUser, getSections } from "../../Services/Axios/profileService";
 import { getInfoUserbyID } from "../../Services/Axios/profileService";
-const ViewRecord = (props) => {
+import { useParams } from "react-router";
+const ViewRecord = () => {
+  const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
   const [seiNumber, setSeiNumber] = useState("");
@@ -36,7 +38,7 @@ const ViewRecord = (props) => {
 
   useEffect(() => {
     async function fetchRecordData() {
-      const record = await getProcessByID(props.id, toast);
+      const record = await getProcessByID(id, toast);
       setSeiNumber(record.sei_number);
       setDocumentDate(record.document_date);
       setRequester(record.requester);
@@ -51,7 +53,7 @@ const ViewRecord = (props) => {
       setUserSector(user.sections[0].name);
       setUserSectorNum(user.sections[0].id);
 
-      const responseHR = await getRecordHistory(toast, props.id);
+      const responseHR = await getRecordHistory(toast,id);
       const arrInfoForward = await Promise.all(responseHR.map((post) => previousForward(post)));
       setForward(arrInfoForward);
 
@@ -65,7 +67,7 @@ const ViewRecord = (props) => {
 
   const handleForward = async () => {
     const forwardRecInfo = {
-      id: props.id,
+      id: id,
       forwarded_by: userID,
       origin_id: userSectorNum,
       destination_id: sector,
