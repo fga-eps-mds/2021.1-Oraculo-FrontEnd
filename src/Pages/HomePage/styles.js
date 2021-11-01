@@ -21,6 +21,7 @@ export const StyledOrganizeButtons = styled.div`
   align-items: center;
   display: flex;
   justify-items: center;
+  justify-content: space-between;
 `;
 
 export const StyledBigButton = styled.button`
@@ -38,4 +39,9 @@ export const StyledBigButton = styled.button`
   background: transparent;
   cursor: pointer;
   border: none;
+`;
+
+export const StyledNoRecords = styled.h1`
+  text-align: center;
+  font-size: 3rem;
 `;

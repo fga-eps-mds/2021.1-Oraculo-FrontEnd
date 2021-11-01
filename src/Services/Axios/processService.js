@@ -59,7 +59,8 @@ export async function createRecord(recordInfo, toast) {
         <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
         <GenericBlueButton
           title="OK"
-          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+          onClick={() => toast.dismiss(t.id)}
+        ></GenericBlueButton>
       </span>
     ));
   } catch (err) {
@@ -74,6 +75,16 @@ export async function getAllFields(toast) {
   try {
     const response = await APIProcess.get("/records/fields");
     console.log(response.data);
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar total de registros!");
+  }
+}
+
+export async function getAllDepartamentRecords(toast, id) {
+  try {
+    const response = await APIProcess.get("/records/department/" + id);
+    console.log(response.data, "hm");
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar total de registros!");

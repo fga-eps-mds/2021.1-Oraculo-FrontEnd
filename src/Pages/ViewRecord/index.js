@@ -39,7 +39,7 @@ const ViewRecord = (props) => {
     }
 
     fetchRecordData();
-  });
+  }, []);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
