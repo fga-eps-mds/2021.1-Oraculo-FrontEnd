@@ -8,6 +8,7 @@ import { createRecord } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import pt from "date-fns/locale/pt-BR";
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
@@ -157,7 +158,7 @@ const CreateRecord = () => {
                   <DatePicker
                     id="documentDateInput"
                     class="form-div"
-                    locale="pt-BR"
+                    locale={pt}
                     placeholderText="dd/mm/aaaa"
                     onChange={(event) => {
                       setDocumentDate(event.toLocaleDateString());
