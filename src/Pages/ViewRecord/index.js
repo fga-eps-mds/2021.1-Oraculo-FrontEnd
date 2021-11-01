@@ -103,18 +103,19 @@ const ViewRecord = (props) => {
       
     });
 
-    let date = new Date();
-    let day = String(date.getDate()).padStart(2, "0");
-    let month = String(date.getMonth() + 1).padStart(2, "0");
-    let year = date.getFullYear();
-    let currentDate = day + "/" + month + "/" + year;
+    let dataCreated = new Date(response.createdAt);
+    let dataFormatadaCreatedAt = ((dataCreated.getDate())) + "/" + ((dataCreated.getMonth() + 1)) + "/" + dataCreated.getFullYear();
+    let dataUpdated = new Date(response.updatedAt);
+    let dataFormatadaUpdatedAt = ((dataUpdated .getDate() )) + "/" + ((dataUpdated .getMonth() + 1)) + "/" + dataUpdated .getFullYear(); 
+    console.log("createdAt", dataFormatadaCreatedAt);
+    console.log("createdAt", dataFormatadaUpdatedAt);
 
     const newForward =
       {
         setor: destinationSection[0].name,
         setorOrigin: infoUser.user.sections[0].name,
-        date: currentDate,
-        dateForward: currentDate,
+        date: dataFormatadaCreatedAt,
+        dateForward: dataFormatadaUpdatedAt,
         name: infoUser.user.name,
       };
     return newForward;
