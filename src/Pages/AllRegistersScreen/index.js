@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { history } from "../../history";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
-import FilterButton from "../../Components/FilterButton";
 import {
   StyledTitle,
   StyledBody,
   StyledOrganizeButtons,
   StyledBigButton,
-  StyledSmallButton,
 } from "./styles";
 
 import Process from "../../Components/Process";
@@ -19,16 +17,15 @@ import {
 } from "../../Services/Axios/processService";
 import toast from "react-hot-toast";
 
-const DocumentViewScreen = () => {
+const AllRegistersScreen = () => {
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
-  const [allProcesses, setAllProcesses] = useState([]);
+  const [allProcesses, setAllProcesses] = useState(0);
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
     setAllProcesses(temp.count);
-    console.log(allProcesses);
   }
 
   function handleProcess() {
@@ -39,7 +36,9 @@ const DocumentViewScreen = () => {
   useEffect(() => {
     const fetchProcess = async () => {
       console.log(currentPage);
-      setProcess(await getProcessByPage(currentPage * processPerPage, toast));
+      const temp = await getProcessByPage(currentPage * processPerPage, toast);
+      console.log(temp);
+      setProcess(temp);
     };
     fetchProcess();
   }, [currentPage]);
@@ -56,22 +55,27 @@ const DocumentViewScreen = () => {
       <HeaderWithButtons />
 
       <StyledBody>
-        <StyledTitle>Registros</StyledTitle>
+        <StyledTitle>Registros - Todos</StyledTitle>
         <div>
-          <FilterButton />
           <MainButton title={"Novo Registro"} onClick={handleProcess} />
         </div>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº do Registro</StyledBigButton>
+          <StyledBigButton>Cidade</StyledBigButton>
+          <StyledBigButton>UF</StyledBigButton>
           <StyledBigButton>Solicitante</StyledBigButton>
           <StyledBigButton>Inclusão</StyledBigButton>
           <StyledBigButton>Nº do SEI</StyledBigButton>
-          <StyledSmallButton>Cidade</StyledSmallButton>
-          <StyledSmallButton>UF</StyledSmallButton>
-          <StyledSmallButton>Tag</StyledSmallButton>
-          <StyledSmallButton>...</StyledSmallButton>
+          <StyledBigButton>Tag</StyledBigButton>
+          <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
-        <Process process={process} />
+        {process ? (
+          <Process process={process} />
+        ) : (
+          <h1 class="zero-registros">
+            Não há registros cadastrados no sistema
+          </h1>
+        )}
         <Pagination
           processPerPage={processPerPage}
           totalProcess={allProcesses}
@@ -82,4 +86,4 @@ const DocumentViewScreen = () => {
   );
 };
 
-export default DocumentViewScreen;
+export default AllRegistersScreen;

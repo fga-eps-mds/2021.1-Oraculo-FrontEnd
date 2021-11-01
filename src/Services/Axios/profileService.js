@@ -44,6 +44,14 @@ export async function registerUser(usr, toast) {
   try {
     const user = await validateUser(usr);
 
+    if (user.departmentID <= 7) {
+      // user belongs to a admin sector
+      user.sectionID = 0;
+    } else {
+      // user is a common user
+      user.departmentID = 0;
+    }
+
     await APIProfile.post(
       "/register",
       {
@@ -173,5 +181,35 @@ export async function getSections() {
     return response.data;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function changeUserPassword(toast, password) {
+  try {
+    await APIProfile.post(
+      "/user/change-password",
+      { password: password },
+      {
+        headers: { "X-Access-Token": getToken() },
+      }
+    );
+    toast.success("Senha alterada com sucesso!");
+  } catch (err) {
+    toast.error("Ocorreu um erro ao tentar mudar a senha");
+  }
+}
+
+export async function changeUser(toast, name, email, sectorID) {
+  try {
+    await APIProfile.post(
+      "/user/change-user",
+      { name: name, email: email, section_id: sectorID },
+      {
+        headers: { "X-Access-Token": getToken() },
+      }
+    );
+    toast.success("Usuário alterado com sucesso!");
+  } catch (err) {
+    toast.error("Ocorreu um erro ao tentar mudar o usuário");
   }
 }

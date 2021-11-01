@@ -1,4 +1,5 @@
 import { APIProcess } from "./BaseService";
+import GenericBlueButton from "../../Components/GenericBlueButton";
 
 export async function getAllProcess(toast) {
   try {
@@ -21,20 +22,23 @@ export async function getProcessByID(ID, toast) {
     const response = await APIProcess.get(`/records/${ID}`);
     return response.data;
   } catch (error) {
-    toast.error("Erro ao buscar processo!");
+    toast.error("Erro ao buscar registro!");
   }
 }
 
 export async function getProcessByPage(page, toast) {
   try {
     const response = await APIProcess.get(`/records/page/${page}`);
+
     return response.data;
   } catch (error) {
-    toast.error("Erro ao buscar processo!");
+    toast.error("Erro ao buscar registro!");
+
+    console.log(error);
   }
 }
 
-export async function getProcessTotalNumber(ID, toast) {
+export async function getProcessTotalNumber(toast) {
   try {
     const response = await APIProcess.get("/count/records");
     return response.data;
@@ -43,6 +47,27 @@ export async function getProcessTotalNumber(ID, toast) {
   }
 }
 
+export async function createRecord(recordInfo, toast) {
+  try {
+    console.log(recordInfo);
+    const record = await APIProcess.post("/records", recordInfo);
+    toast((t) => (
+      <span style={{ textAlign: "center" }}>
+        <p>Registro criado com sucesso sob o n°:</p>
+        <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
+        <GenericBlueButton
+          title="OK"
+          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+      </span>
+    ));
+  } catch (err) {
+    const status = err.response?.status;
+
+    if (status === 500) {
+      toast.error("Não foi possível criar o registro");
+    }
+  }
+}
 export async function getAllFields(toast) {
   try {
     const response = await APIProcess.get("/records/fields");

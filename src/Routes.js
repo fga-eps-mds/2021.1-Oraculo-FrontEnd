@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { isAuthenticated } from "./Auth/Auth";
-import CreateProcess from "./Pages/CreateProcess";
+import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
 import CreateUser from "./Pages/CreateUser";
@@ -9,6 +9,7 @@ import { history } from "./history";
 import ViewRecord from "./Pages/ViewRecord";
 import HomePage from "./Pages/HomePage";
 import ChangePassword from "./Pages/ChangePassword";
+import AllRegistersScreen from "./Pages/AllRegistersScreen";
 import ViewAllFields from "./Pages/ViewAllFields";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
@@ -38,13 +39,17 @@ const Routes = () => (
       <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
       <PrivateRoutes
         path="/criar-registro"
-        component={() => <CreateProcess />}
+        component={() => <CreateRecord />}
       />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
       <PrivateRoutes
         path="/alterar-senha"
         component={() => <ChangePassword />}
+      />
+      <PrivateRoutes
+        path="/visualizar-registros"
+        component={() => <AllRegistersScreen />}
       />
       <PrivateRoutes
         path="/todos-os-campos"

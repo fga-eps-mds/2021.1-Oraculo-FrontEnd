@@ -74,6 +74,17 @@ export const StyledForms = styled.div`
         margin-left: 11rem;
       }
 
+      select {
+        width: 26rem;
+        height: 2.2rem;
+        background: #ffffff;
+        padding-left: 0.5rem;
+
+        border-radius: 12px;
+        border: 2px solid #000000;
+        outline: none;
+      }
+
       input {
         width: 26rem;
         height: 2rem;
