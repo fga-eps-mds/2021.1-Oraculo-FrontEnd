@@ -5,10 +5,8 @@ import { StyledListGroup } from "./style";
 const Process = ({ process }) => {
   const seiNumberLimit = (seiNumber) => {
     if (seiNumber.length < 10) {
-      console.log("True");
       return seiNumber;
     } else {
-      console.log(seiNumber.substring(0, 10), "...");
       return `${seiNumber.substring(0, 10)}...`;
     }
   };
