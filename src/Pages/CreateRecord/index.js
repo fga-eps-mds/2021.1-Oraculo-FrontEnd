@@ -161,7 +161,6 @@ const CreateRecord = () => {
                     placeholderText="dd/mm/aaaa"
                     onChange={(event) => {
                       setDocumentDate(event.toLocaleDateString());
-                      console.log("-------------------", documentDate);
                     }}
                     value={documentDate}
                     customInput={<StyledDatePicker />}
