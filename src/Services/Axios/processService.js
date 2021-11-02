@@ -106,21 +106,3 @@ export async function getRecordHistory(toast, id) {
     toast.error("Não foi possível buscar histórico do registro!");
   }
 }
-
-export async function getSections() {
-  try {
-    const response = await APIProcess.get("/departments");
-    return response.data;
-  } catch (err) {
-    console.error(`failed to get sections: ${err}`);
-  }
-}
-
-export async function getDepartments() {
-  try {
-    const response = await APIProcess.get("/sections");
-    return response.data;
-  } catch (err) {
-    console.error(`failed to get departments: ${err}`);
-  }
-}
