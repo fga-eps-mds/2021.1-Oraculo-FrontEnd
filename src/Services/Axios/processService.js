@@ -57,7 +57,8 @@ export async function createRecord(recordInfo, toast) {
         <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
         <GenericBlueButton
           title="OK"
-          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+          onClick={() => toast.dismiss(t.id)}
+        ></GenericBlueButton>
       </span>
     ));
   } catch (err) {
@@ -78,16 +79,19 @@ export async function getAllFields(toast) {
   }
 }
 
-export async function forwardRecordInfo(toast, forwardRecInfo){
-  try{
-    const response = await APIProcess.post(`/records/${forwardRecInfo.id}/forward`,{
+export async function forwardRecordInfo(toast, forwardRecInfo) {
+  try {
+    const response = await APIProcess.post(
+      `/records/${forwardRecInfo.id}/forward`,
+      {
         forwarded_by: forwardRecInfo.forwarded_by,
         origin_id: forwardRecInfo.origin_id,
         destination_id: forwardRecInfo.destination_id,
-    });
+      }
+    );
     toast.success("Registro encaminhado com sucesso!");
     return response.data;
-  }catch(error){
+  } catch (error) {
     toast.error("Não foi possível encaminhar registro!");
     return error;
   }
@@ -95,10 +99,28 @@ export async function forwardRecordInfo(toast, forwardRecInfo){
 
 export async function getRecordHistory(toast, id) {
   try {
-    const response = await APIProcess.get(`/records/${id}/history`)
+    const response = await APIProcess.get(`/records/${id}/history`);
     return response.data;
   } catch (error) {
     console.log(error);
     toast.error("Não foi possível buscar histórico do registro!");
+  }
+}
+
+export async function getSections() {
+  try {
+    const response = await APIProcess.get("/departments");
+    return response.data;
+  } catch (err) {
+    console.error(`failed to get sections: ${err}`);
+  }
+}
+
+export async function getDepartments() {
+  try {
+    const response = await APIProcess.get("/sections");
+    return response.data;
+  } catch (err) {
+    console.error(`failed to get departments: ${err}`);
   }
 }
