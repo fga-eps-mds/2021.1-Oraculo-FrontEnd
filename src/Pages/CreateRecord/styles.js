@@ -153,3 +153,22 @@ export const StyledCreateButton = styled.button`
   background: ${colors.primary};
   cursor: pointer;
 `;
+
+export const StyledDatePicker = styled.input`
+  width: 70%;
+  height: 2rem;
+  background: ${colors.white};
+  padding-left: 0.5rem;
+  border-radius: ${radius.sizeSm};
+  border: 2px solid ${colors.black};
+  outline: none;
+
+  ::placeholder {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: ${fonts.sizeLg};
+    line-height: 33px;
+    opacity: 0.7;
+  }
+`;
