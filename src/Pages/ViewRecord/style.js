@@ -12,7 +12,7 @@ const StyledDivInfoProcess = styled.div`
   color: ${colors.white};
   font-size: ${fonts.sizeMd};
   font-family: ${fonts.font};
-  padding: 0 3%;
+  padding: 3rem 3% 0;
   box-sizing: border-box;
   h2 {
     text-align: center;
@@ -41,11 +41,12 @@ const StyledDivInfoProcess = styled.div`
     }
   }
 
-  .fowardIcon {
+  .forwardIcon {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin-top: 1rem;
+    cursor: pointer;
     p {
       text-decoration: none;
       color: white;
@@ -92,11 +93,20 @@ const StyledDivShowProcess = styled.div`
   overflow-y: scroll;
   font-family: ${fonts.font};
 
+  .info-record{
+    display:flex;
+    justify-content: space-between;
+    padding:1rem 0rem 1rem;
+    margin-bottom: 0;
+    span{
+      padding: 0 1rem;
+    }
+  }
   .infoProcess {
     width: 98%;
     background: ${colors.white};
     border-radius: ${radius.sizeMd};
-    padding: 1rem 2rem 2rem;
+    padding: 1rem 2rem 0rem;
     border: 1px solid ${colors.black};
     box-sizing: border-box;
     margin-top: 2rem;

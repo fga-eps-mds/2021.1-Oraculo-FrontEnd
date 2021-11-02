@@ -12,63 +12,100 @@ import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
-import { getProcessByID } from "../../Services/Axios/processService";
-import { getInfoUser } from "../../Services/Axios/profileService";
-
-const ViewRecord = (props) => {
+import {
+  forwardRecordInfo,
+  getProcessByID,
+  getRecordHistory,
+} from "../../Services/Axios/processService";
+import { getInfoUser, getSections } from "../../Services/Axios/profileService";
+import { getInfoUserbyID } from "../../Services/Axios/profileService";
+import { useParams } from "react-router";
+const ViewRecord = () => {
+  const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
   const [seiNumber, setSeiNumber] = useState("");
   const [documentDate, setDocumentDate] = useState("");
   const [requester, setRequester] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [description, setDescription] = useState("");
 
   const [userName, setUserName] = useState("");
   const [userSector, setUserSector] = useState("");
+  const [userSectorNum, setUserSectorNum] = useState("");
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
     async function fetchRecordData() {
-      const record = await getProcessByID(props.id, toast);
+      const record = await getProcessByID(id, toast);
       setSeiNumber(record.sei_number);
       setDocumentDate(record.document_date);
       setRequester(record.requester);
+      setCity(record.city);
+      setState(record.state);
+      setDescription(record.description);
+      setState(record.state);
 
       const user = await getInfoUser(toast);
-
       setUserName(user.name);
+      setUserID(user.id);
       setUserSector(user.sections[0].name);
-    }
+      setUserSectorNum(user.sections[0].id);
 
+      const responseHR = await getRecordHistory(toast,id);
+      const arrInfoForward = await Promise.all(responseHR.map((post) => previousForward(post)));
+      setForward(arrInfoForward);
+
+    }
     fetchRecordData();
-  }, []);
+  }, [forward]);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
   };
 
-  const handleForward = () => {
-    let date = new Date();
-    let day = String(date.getDate()).padStart(2, "0");
-    let month = String(date.getMonth() + 1).padStart(2, "0");
-    let year = date.getFullYear();
-    let currentDate = day + "/" + month + "/" + year;
+  const handleForward = async () => {
+    const forwardRecInfo = {
+      id: id,
+      forwarded_by: userID,
+      origin_id: userSectorNum,
+      destination_id: sector,
+    };
 
-    const newForward = [
-      ...forward,
+    const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+  };
+
+  const previousForward = async (response) => {
+    const infoUser = await getInfoUserbyID(response.forwarded_by);
+
+    const destinationID = response.destination_id;
+    const allSections2 = await getSections();
+    console.log("Allsec", allSections2);
+    const destinationSection = allSections2.filter((indice) => {
+        return indice.id == destinationID;
+      
+    });
+
+    let dataCreated = new Date(response.createdAt);
+    let dataFormatadaCreatedAt = ((dataCreated.getDate())) + "/" + ((dataCreated.getMonth() + 1)) + "/" + dataCreated.getFullYear();
+    let dataUpdated = new Date(response.updatedAt);
+    let dataFormatadaUpdatedAt = ((dataUpdated .getDate() )) + "/" + ((dataUpdated .getMonth() + 1)) + "/" + dataUpdated .getFullYear(); 
+
+    const newForward =
       {
-        setor: sector,
-        setorOrigin: userSector,
-        date: currentDate,
-        dateForward: currentDate,
-        name: userName,
-      },
-    ];
-    setForward(newForward);
+        setor: destinationSection[0].name,
+        setorOrigin: infoUser.user.sections[0].name,
+        date: dataFormatadaCreatedAt,
+        dateForward: dataFormatadaUpdatedAt,
+        name: infoUser.user.name,
+      };
+    return newForward;
   };
 
   return (
     <>
       <HeaderWithButtons />
-      <Toaster />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
           <div className="infoProcess">
@@ -81,9 +118,15 @@ const ViewRecord = (props) => {
               <FaPen />
             </div>
             <span>
-              Data de Emissão:{" "}
+              Data de inclusão:{" "}
               {documentDate === "" ? "15/12/1945" : documentDate}
             </span>
+            <p className="info-record">
+              <span>
+                {city}-{state}{" "}
+              </span>{" "}
+              |<span> {requester} </span>|<span> {description}</span>
+            </p>
           </div>
           <ForwardSector forward={forward} />
 
@@ -93,20 +136,17 @@ const ViewRecord = (props) => {
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
-          <h2>{userName === "" ? "Larissa Pureza (mock)" : userName}</h2>
-          <hr></hr>
-          <span>Solicitante:</span>
+          <span>Servidor:</span>
           <div className="issuerIcon">
             <FaUserCircle />
-            <p>{requester === "" ? "Policia Federal (mock)" : requester}</p>
+            <p>{userName === "" ? "Policia Federal (mock)" : userName}</p>
           </div>
-          <span>Divisão:</span>
+          <span>Departamento:</span>
 
           <DropDownButton
             onChangeOpt={(event) => setSector(event.target.value)}
           />
-
-          <div className="fowardIcon">
+          <div className="forwardIcon">
             <p onClick={handleForward}>Encaminhar</p>
             <FaTelegramPlane />
           </div>
@@ -122,6 +162,7 @@ const ViewRecord = (props) => {
           </a>
         </StyledDivInfoProcess>
       </StyledDivSupProcess>
+      <Toaster />
     </>
   );
 };
