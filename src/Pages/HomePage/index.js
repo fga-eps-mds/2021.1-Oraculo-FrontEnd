@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import FieldsDepartment from "../../Components/FieldsDeparment";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import SearchBar from "../../Components/SearchBar";
-import { getAllDepartamentRecords } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
+import { getAllProcess } from "../../Services/Axios/processService";
 import {
   StyledBody,
   StyledOrganizeButtons,
@@ -12,16 +13,27 @@ import {
 } from "./styles";
 
 const HomePage = () => {
-  const [sectionsRecords, setSectionRecords] = useState([]);
   const [sectionsLoad, setSectionsLoad] = useState(true);
+  const [section, setSection] = useState("");
+  const [sectionFields, setSectionFields] = useState([]);
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const user = await getInfoUser();
+      setSection(user.sections[0].name);
+      setSectionFields(await getAllProcess(toast));
+    }
+    fetchUserData();
+  });
 
   useEffect(() => {
     async function fetchUserData() {
       const user = await getInfoUser(toast);
-      const departmentRecords = await getAllDepartamentRecords(
+      const departmentRecords = await getAllProcess(
         toast,
         JSON.stringify(user.sections[0].id)
       );
+      setSection(user.sections[0].name);
 
       if (departmentRecords !== undefined) {
         setSectionsLoad(false);
@@ -36,7 +48,7 @@ const HomePage = () => {
       <StyledBody>
         <h1>Pesquisar Registro</h1>
         <SearchBar></SearchBar>
-        <h1>Departamento: Não Implementado</h1>
+        <h1>Departamento: {section}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
@@ -47,9 +59,11 @@ const HomePage = () => {
           <StyledBigButton>Tags</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
+
+        <FieldsDepartment process={sectionFields} />
         {sectionsLoad ? (
           <StyledNoRecords>
-            Não há registros cadastrados no sistema
+            Não há registros cadastrados no seu departamento
           </StyledNoRecords>
         ) : null}
       </StyledBody>
