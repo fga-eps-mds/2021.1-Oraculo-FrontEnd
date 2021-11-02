@@ -71,6 +71,7 @@ export async function createRecord(recordInfo, toast) {
     }
   }
 }
+
 export async function getAllFields(toast) {
   try {
     const response = await APIProcess.get("/records/fields");
@@ -81,7 +82,7 @@ export async function getAllFields(toast) {
   }
 }
 
-export async function getAllDepartamentRecords(toast, id) {
+export async function getAllDepartmentRecords(toast, id) {
   try {
     const response = await APIProcess.get("/records/department/" + id);
     console.log(response.data, "hm");
