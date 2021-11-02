@@ -10,16 +10,16 @@ const SectionMovBlock = ({ forwardSector }) => {
         </StyledLine>
         <div className="content">
           <p>
-            {forwardSector.originSector === "" ||
-            forwardSector.originSector == undefined
+            {forwardSector.setorOrigin === "" ||
+            forwardSector.setorOrigin == undefined
               ? "Necro (mock)"
-              : forwardSector.originSector}
+              : forwardSector.setorOrigin}
           </p>
           <p>
-            {forwardSector.forwardDate == "" ||
-            forwardSector.forwardDate == undefined
+            {forwardSector.dateForward == "" ||
+            forwardSector.dateForward == undefined
               ? new Date().toLocaleDateString("pt-BR")
-              : forwardSector.forwardDate}
+              : forwardSector.dateForward}
           </p>
         </div>
       </DivNodeBlock>
@@ -29,7 +29,7 @@ const SectionMovBlock = ({ forwardSector }) => {
           <p>{forwardSector.name}</p>
         </div>
         <div>
-          <p>Registro encaminhado ao setor: {forwardSector.setor}</p>
+          <p>Registro encaminhado para: {forwardSector.setor}</p>
           <p>{forwardSector.date}</p>
         </div>
       </DivMovBlock>
