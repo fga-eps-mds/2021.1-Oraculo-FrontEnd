@@ -49,7 +49,7 @@ const ViewProfile = () => {
             <StyledForms>
               <form>
                 <div>
-                  <h1>Name</h1>
+                  <h1>Nome</h1>
                   <input
                     id="name"
                     type="text"
