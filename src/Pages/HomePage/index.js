@@ -23,19 +23,26 @@ const HomePage = () => {
     setAllProcesses(temp.count);
   }
 
-  useEffect(() => {
-    const fetchProcess = async () => {
+  const fetchProcess = async () => {
+    try {
       const user = await getInfoUser(toast);
-      console.log("User Data", user);
-      setSection(user.sections[0].name);
-      console.log(currentPage);
-      const temp = await getProcessByPage(currentPage * processPerPage, toast);
-      console.log(temp);
-      setProcess(temp);
-    };
+      if (user === undefined) {
+        window.location.reload();
+      } else {
+        setSection(user.sections[0].name);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(currentPage);
+    const temp = await getProcessByPage(currentPage * processPerPage, toast);
+    console.log(temp);
+    setProcess(temp);
+  };
 
-    console.log("Departamento:", section);
+  useEffect(() => {
     fetchProcess();
+    console.log("Departamento:", section);
   }, [currentPage]);
 
   window.onload = function () {
