@@ -26,13 +26,15 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProcess = async () => {
       const user = await getInfoUser(toast);
+      console.log("User Data", user);
       setSection(user.sections[0].name);
-      console.log(user);
       console.log(currentPage);
       const temp = await getProcessByPage(currentPage * processPerPage, toast);
       console.log(temp);
       setProcess(temp);
     };
+
+    console.log("Departamento:", section);
     fetchProcess();
   }, [currentPage]);
 
@@ -48,6 +50,7 @@ const HomePage = () => {
       <StyledBody>
         <h1>Pesquisar Registro</h1>
         <SearchBar></SearchBar>
+        <h1>Departamento: {section}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
