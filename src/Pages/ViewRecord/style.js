@@ -93,24 +93,16 @@ const StyledDivShowProcess = styled.div`
   overflow-y: scroll;
   font-family: ${fonts.font};
 
-  .info-record{
-    display:flex;
+  .info-record {
+    display: flex;
     justify-content: space-between;
-    padding:1rem 0rem 1rem;
+    padding: 1rem 0rem 1rem;
     margin-bottom: 0;
-    span{
+    span {
       padding: 0 1rem;
     }
   }
-  .infoProcess {
-    width: 98%;
-    background: ${colors.white};
-    border-radius: ${radius.sizeMd};
-    padding: 1rem 2rem 0rem;
-    border: 1px solid ${colors.black};
-    box-sizing: border-box;
-    margin-top: 2rem;
-  }
+
   .infoProcessicon {
     display: flex;
     align-items: center;
@@ -137,9 +129,39 @@ const StyledDivButtons = styled.div`
     margin-left: 1rem;
   }
 `;
+
+const StyledInfoSection = styled.section`
+  width: 98%;
+  background: ${colors.white};
+  border-radius: ${radius.sizeMd};
+  padding: 1rem 2rem 0rem;
+  border: 1px solid ${colors.black};
+  box-sizing: border-box;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  .info-icon {
+    margin: 1rem 0 0 auto;
+  }
+
+  div {
+    display: flex;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    text-transform: capitalize;
+  }
+`;
+
 export {
   StyledDivInfoProcess,
   StyledDivShowProcess,
   StyledDivSupProcess,
   StyledDivButtons,
+  StyledInfoSection,
 };
