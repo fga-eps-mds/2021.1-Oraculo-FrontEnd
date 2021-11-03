@@ -136,6 +136,10 @@ const ViewRecord = () => {
               <FaPen class="info-icon" />
             </div>
             <div>
+              <h3>Descrição:&nbsp;</h3>
+              <h3>{description ? description : "Erro"}</h3>
+            </div>
+            <div>
               <h3>Localidade:&nbsp;</h3>
               <h3>{city ? city : "Erro"}</h3>
               <h3>-</h3>
@@ -146,32 +150,38 @@ const ViewRecord = () => {
               <h3>{requester ? requester : "Erro"}</h3>
             </div>
             <div>
-              <h3>Descrição do documento:&nbsp;</h3>
-              <h3>{description ? description : "Erro"}</h3>
-            </div>
-            <div>
               <h3>Recebido via:&nbsp;</h3>
               <h3>{receiptForm ? receiptForm : "Erro"}</h3>
             </div>
             <div>
               <h3>Tipo de documento:&nbsp;</h3>
-              <h3>{documentType ? documentType : "Erro"}</h3>
+              <h3>
+                {documentType ? documentType : "Informação não cadastrada"}
+              </h3>
             </div>
             <div>
               <h3>Nº do documento:&nbsp;</h3>
-              <h3>{documentNumber ? documentNumber : "Erro"}</h3>
-            </div>
-            <div>
-              <h3>Data do documento:&nbsp;</h3>
-              <h3>{documentDate ? documentDate : "Erro"}</h3>
+              <h3>
+                {documentNumber ? documentNumber : "Informação não cadastrada"}
+              </h3>
             </div>
             <div>
               <h3>Nº do SEI:&nbsp;</h3>
-              <h3>{seiNumber ? seiNumber : "Erro"}</h3>
+              <h3>{seiNumber ? seiNumber : "Informação não cadastrada"}</h3>
+            </div>
+            <div>
+              <h3>Data do documento:&nbsp;</h3>
+              <h3>
+                {documentDate ? documentDate : "Informação não cadastrada"}
+              </h3>
             </div>
             <div>
               <h3>Informações de contato:&nbsp;</h3>
-              <h4>{documentContactInfo ? documentContactInfo : "Erro"}</h4>
+              <h3 id="contact-info">
+                {documentContactInfo
+                  ? documentContactInfo
+                  : "Informação não cadastrada"}
+              </h3>
             </div>
           </StyledInfoSection>
           <ForwardSector forward={forward} />
