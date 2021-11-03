@@ -49,7 +49,7 @@ const ViewProfile = () => {
             <StyledForms>
               <form>
                 <div>
-                  <h1>Name</h1>
+                  <h1>Nome</h1>
                   <input
                     id="name"
                     type="text"
@@ -69,7 +69,7 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>Setor</h1>
+                  <h1>Departamento</h1>
                   <select
                     required
                     placeholder="Selecione o departamento"

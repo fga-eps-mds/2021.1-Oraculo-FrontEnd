@@ -25,12 +25,23 @@ export const StyledTitle = styled.h1`
 export const StyledTop = styled.div`
   display: inline-flex;
   align-items: center;
+  width: 100%;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 1300px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: safe;
+    margin-top: 1rem;
+  }
 `;
 
 export const StyledSearchBarSize = styled.div`
-  box-sizing: border-box;
   width: 30rem;
-  margin-right: 36rem;
+  @media only screen and (max-width: 1300px) {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 `;
 
 export const StyledBottom = styled.div`
@@ -77,5 +88,10 @@ export const StyledFooter = styled.div`
   width: 100%;
   background-color: ${colors.header};
   border-radius: 0px 0px 10px 10px;
+  align-items: center;
+`;
+
+export const ButtonDiv = styled.div`
+  width: 19.5rem;
   align-items: center;
 `;
