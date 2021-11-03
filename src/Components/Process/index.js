@@ -26,6 +26,7 @@ const Process = ({ process }) => {
           seiNumber={
             post.sei_number === "" ? "-" : seiNumberLimit(post.sei_number)
           }
+          registerId={post.id}
         ></PocketDocument>
       ))}
     </StyledListGroup>
