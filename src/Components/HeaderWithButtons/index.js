@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Head,
   StyledDropDown,
@@ -8,6 +8,8 @@ import {
 import Logo from "../../Assets/logo-white.svg";
 import { history } from "../../history";
 import { logout } from "../../Auth/Auth";
+import { getInfoUser } from "../../Services/Axios/profileService";
+import toast from "react-hot-toast";
 
 const HeaderWithButtons = () => {
   function handleRegister() {
@@ -50,6 +52,16 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const user = await getInfoUser(toast);
+      setName(user.name);
+    }
+    fetchUserData();
+  });
+
   return (
     <>
       <Head>
@@ -72,8 +84,13 @@ const HeaderWithButtons = () => {
             </div>
           </StyledDropDown>
           <StyledDropDown>
-            <button>Nome</button>
-            <div style={{ textAlign: "center" }}>
+            <button>{name}</button>
+            <div
+              style={{
+                textAlign: "center",
+                flexDirection: "column",
+              }}
+            >
               <button onClick={handleViewProfile}>Ver Perfil</button>
               <button onClick={handleChangePassword}>Nova Senha</button>
               <button onClick={handleClickCheckout}>Sair</button>
