@@ -147,6 +147,8 @@ const StyledInfoSection = styled.section`
 
   div {
     display: flex;
+    margin: 0 2rem 0 2rem;
+    line-height: 0;
   }
 
   h2 {
@@ -155,6 +157,11 @@ const StyledInfoSection = styled.section`
 
   h3 {
     text-transform: capitalize;
+    font-size: 28px;
+  }
+
+  #contact-info {
+    text-transform: none;
   }
 `;
 
