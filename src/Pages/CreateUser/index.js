@@ -69,7 +69,7 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>Setor</h1>
+                  <h1>Departamento</h1>
                   <select
                     required
                     placeholder="Selecione o departamento"
