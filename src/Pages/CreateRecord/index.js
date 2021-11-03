@@ -44,7 +44,7 @@ const CreateRecord = () => {
       setCreatedBy(user.id);
     }
     getUser();
-  });
+  }, []);
 
   async function handleClick(event) {
     const record = {
