@@ -13,6 +13,7 @@ import {
   StyledPage,
   StyledTop,
   StyledFooter,
+  ButtonDiv,
 } from "./styles";
 import { getAllFields } from "../../Services/Axios/processService";
 
@@ -36,7 +37,9 @@ const ViewAllFields = () => {
           <StyledSearchBarSize>
             <SearchBar />
           </StyledSearchBarSize>
-          <MainButton title={"Novo Campo"} />
+          <ButtonDiv>
+            <MainButton title={"Novo Campo"} />
+          </ButtonDiv>
         </StyledTop>
         <StyledBottom>
           <StyledOrganizeButtons>
