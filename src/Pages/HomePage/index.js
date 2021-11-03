@@ -1,46 +1,46 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import FieldsDepartment from "../../Components/FieldsDeparment";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import SearchBar from "../../Components/SearchBar";
 import { getInfoUser } from "../../Services/Axios/profileService";
-import { getAllProcess } from "../../Services/Axios/processService";
+import { StyledBody, StyledOrganizeButtons, StyledBigButton } from "./styles";
+import Process from "../../Components/Process";
+import Pagination from "../../Components/Pagination/index";
 import {
-  StyledBody,
-  StyledOrganizeButtons,
-  StyledBigButton,
-  StyledNoRecords,
-} from "./styles";
+  getProcessTotalNumber,
+  getProcessByPage,
+} from "../../Services/Axios/processService";
 
 const HomePage = () => {
-  const [sectionsLoad, setSectionsLoad] = useState(true);
+  const [process, setProcess] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [processPerPage] = useState(4);
+  const [allProcesses, setAllProcesses] = useState(0);
   const [section, setSection] = useState("");
-  const [sectionFields, setSectionFields] = useState([]);
+
+  async function setAll() {
+    const temp = await getProcessTotalNumber(toast);
+    setAllProcesses(temp.count);
+  }
 
   useEffect(() => {
-    async function fetchUserData() {
-      const user = await getInfoUser();
-      setSection(user.sections[0].name);
-      setSectionFields(await getAllProcess(toast));
-    }
-    fetchUserData();
-  });
-
-  useEffect(() => {
-    async function fetchUserData() {
+    const fetchProcess = async () => {
       const user = await getInfoUser(toast);
-      const departmentRecords = await getAllProcess(
-        toast,
-        JSON.stringify(user.sections[0].id)
-      );
       setSection(user.sections[0].name);
+      console.log(user);
+      console.log(currentPage);
+      const temp = await getProcessByPage(currentPage * processPerPage, toast);
+      console.log(temp);
+      setProcess(temp);
+    };
+    fetchProcess();
+  }, [currentPage]);
 
-      if (departmentRecords !== undefined) {
-        setSectionsLoad(false);
-      }
-    }
-    fetchUserData();
-  }, []);
+  window.onload = function () {
+    setAll();
+  };
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -48,7 +48,6 @@ const HomePage = () => {
       <StyledBody>
         <h1>Pesquisar Registro</h1>
         <SearchBar></SearchBar>
-        <h1>Departamento: {section}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
@@ -59,13 +58,18 @@ const HomePage = () => {
           <StyledBigButton>Tags</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
-
-        <FieldsDepartment process={sectionFields} />
-        {sectionsLoad ? (
-          <StyledNoRecords>
-            Não há registros cadastrados no seu departamento
-          </StyledNoRecords>
-        ) : null}
+        {process ? (
+          <Process process={process} />
+        ) : (
+          <h1 class="zero-registros">
+            Não há registros cadastrados no sistema
+          </h1>
+        )}
+        <Pagination
+          processPerPage={processPerPage}
+          totalProcess={allProcesses}
+          paginate={paginate}
+        />
       </StyledBody>
     </>
   );
