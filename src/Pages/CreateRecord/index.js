@@ -6,11 +6,15 @@ import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
 import { createRecord } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import pt from "date-fns/locale/pt-BR";
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
   StyledCancelButton,
   StyledCreateButton,
+  StyledDatePicker,
   StyledForms,
   StyledProcess,
   StyledProcessDiv,
@@ -149,14 +153,19 @@ const CreateRecord = () => {
                   </div>
                   <div class="form-div">
                     <h1>Data do documento</h1>
-                    <input
-                      id="documentDateInput"
-                      type="text"
-                      placeholder="dd/mm/aaaa"
-                      onChange={(event) => setDocumentDate(event.target.value)}
-                      value={documentDate}
-                    />
                   </div>
+
+                  <DatePicker
+                    id="documentDateInput"
+                    class="form-div"
+                    locale={pt}
+                    placeholderText="dd/mm/aaaa"
+                    onChange={(event) => {
+                      setDocumentDate(event.toLocaleDateString());
+                    }}
+                    value={documentDate}
+                    customInput={<StyledDatePicker />}
+                  />
                   <div class="form-div">
                     <h1>Descrição do documento</h1>
                     <input
