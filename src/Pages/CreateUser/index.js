@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
@@ -75,8 +75,7 @@ const ViewProfile = () => {
                     placeholder="Selecione o departamento"
                     onChange={(event) => {
                       setDepartment(event.target.selectedIndex + 1);
-                    }}
-                  >
+                    }}>
                     <SectionsList />
                   </select>
                 </div>
@@ -93,16 +92,10 @@ const ViewProfile = () => {
               </form>
             </StyledForms>
             <StyledButtonsDiv>
-              <StyledBackButton
-                type="button"
-                onClick={() => window.history.back()}
-              >
+              <StyledBackButton type="button" onClick={() => window.history.back()}>
                 Voltar
               </StyledBackButton>
-              <StyledRegisterButton
-                type="button"
-                onClick={(event) => handleClick(event)}
-              >
+              <StyledRegisterButton type="button" onClick={(event) => handleClick(event)}>
                 Cadastrar
               </StyledRegisterButton>
             </StyledButtonsDiv>
