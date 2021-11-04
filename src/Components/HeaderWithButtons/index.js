@@ -52,15 +52,24 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
-  const [name, setName] = useState("");
+  const [nameUser, setName] = useState("-");
+
+  async function fetchUserData() {
+    try {
+      const user = await getInfoUser(toast);
+      if (user === undefined) {
+        window.location.reload();
+      } else {
+        setName(user?.name);
+      }
+    } catch (err) {
+      console.log(err, "goldfish");
+    }
+  }
 
   useEffect(() => {
-    async function fetchUserData() {
-      const user = await getInfoUser(toast);
-      setName(user.name);
-    }
     fetchUserData();
-  });
+  }, []);
 
   return (
     <>
@@ -84,7 +93,7 @@ const HeaderWithButtons = () => {
             </div>
           </StyledDropDown>
           <StyledDropDown>
-            <button>{name}</button>
+            <button>{nameUser}</button>
             <div
               style={{
                 textAlign: "center",
