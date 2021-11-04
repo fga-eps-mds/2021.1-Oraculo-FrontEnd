@@ -187,7 +187,7 @@ const ViewRecord = () => {
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
-            <GenericWhiteButton title="voltar" onClick={handleButtonProcess} />
+            <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
             <GenericRedButton title="concluir" onClick={handleButtonProcess} />
           </StyledDivButtons>
         </StyledDivShowProcess>
