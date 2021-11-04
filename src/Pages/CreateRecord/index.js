@@ -212,7 +212,10 @@ const CreateRecord = () => {
                   </div>
                   <div class="form-div">
                     <h1>Tags</h1>
-                    <button>
+                    <button
+                      type="button"
+                      onClick={() => toast.error("Trabalho em progresso")}
+                    >
                       <FaPlus />
                     </button>
                   </div>
