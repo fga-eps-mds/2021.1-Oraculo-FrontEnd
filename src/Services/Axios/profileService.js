@@ -221,3 +221,24 @@ export async function getDepartments() {
     console.error(`failed to get departments: ${err}`);
   }
 }
+
+export async function getDepartmentsTotalNumber(toast) {
+  try {
+    const response = await APIProfile.get("/count/departments");
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar o total de Departamentos!");
+  }
+}
+
+export async function getDepartmentsByPage(page, toast) {
+  try {
+    const response = await APIProfile.get(`/departments/page/${page}`);
+
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar departamento!");
+
+    console.log(error);
+  }
+}

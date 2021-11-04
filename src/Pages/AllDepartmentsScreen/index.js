@@ -10,38 +10,43 @@ import {
   StyledAddButtons,
 } from "./styles";
 
-import Process from "../../Components/Process";
+import Departments from "../../Components/Departments";
 import Pagination from "../../Components/Pagination/index";
 import {
-  getProcessTotalNumber,
-  getProcessByPage,
-} from "../../Services/Axios/processService";
+  getDepartmentsTotalNumber,
+  getDepartmentsByPage,
+} from "../../Services/Axios/profileService";
 import toast from "react-hot-toast";
 
 const AllDepartmentsScreen = () => {
-  const [process, setProcess] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [processPerPage] = useState(4);
-  const [allProcesses, setAllProcesses] = useState(0);
+  const [departmentsPerPage] = useState(4);
+  const [allDepartments, setAllDepartments] = useState(0);
 
   async function setAll() {
-    const temp = await getProcessTotalNumber(toast);
-    setAllProcesses(temp.count);
+    const temp = await getDepartmentsTotalNumber(toast);
+    setAllDepartments(temp.count);
   }
 
-  function handleProcess() {
-    history.push("/criar-registro");
+  function handleDepartments() {
+    history.push("/criar-departamento");
+    window.location.reload();
+  }
+
+  function handleSections() {
+    history.push("/criar-secao");
     window.location.reload();
   }
 
   useEffect(() => {
-    const fetchProcess = async () => {
+    const fetchDepartments = async () => {
       console.log(currentPage);
-      const temp = await getProcessByPage(currentPage * processPerPage, toast);
+      const temp = await getDepartmentsByPage(currentPage * departmentsPerPage, toast);
       console.log(temp);
-      setProcess(temp);
+      setDepartments(temp);
     };
-    fetchProcess();
+    fetchDepartments();
   }, [currentPage]);
 
   window.onload = function () {
@@ -58,24 +63,24 @@ const AllDepartmentsScreen = () => {
       <StyledBody>
         <StyledTitle>Seção - Todos</StyledTitle>
         <StyledAddButtons>
-          <MainButton title={"Nova Seção"} onClick={handleProcess} />
-          <MainButton title={"Novo Departamento"} onClick={handleProcess} />
+          <MainButton title={"Nova Seção"} onClick={handleSections} />
+          <MainButton title={"Novo Departamento"} onClick={handleDepartments} />
         </StyledAddButtons>
         <StyledOrganizeButtons>
           <StyledBigButton>Nome</StyledBigButton>
           <StyledBigButton>Departamento</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
-        {process ? (
-          <Process process={process} />
+        {departments ? (
+          <Departments departments={departments} />
         ) : (
           <h1 class="zero-registros">
             Não há Seções cadastradas no sistema
           </h1>
         )}
         <Pagination
-          processPerPage={processPerPage}
-          totalProcess={allProcesses}
+          departmentsPerPage={departmentsPerPage}
+          totalDepartments={allDepartments}
           paginate={paginate}
         />
       </StyledBody>
