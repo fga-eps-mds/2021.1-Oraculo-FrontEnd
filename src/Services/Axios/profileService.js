@@ -213,15 +213,6 @@ export async function changeUser(toast, name, email, sectorID) {
   }
 }
 
-export async function getSections() {
-  try {
-    const response = await APIProfile.get("/sections");
-    return response.data;
-  } catch (err) {
-    console.error(`failed to get sections: ${err}`);
-  }
-}
-
 export async function getDepartments() {
   try {
     const response = await APIProfile.get("/departments");
