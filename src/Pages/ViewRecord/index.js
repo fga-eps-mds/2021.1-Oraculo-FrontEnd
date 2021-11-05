@@ -139,7 +139,11 @@ const ViewRecord = () => {
             <div>
               <h2>Nº do registro:&nbsp;</h2>
               <h2>{registerNumber ? registerNumber : "Erro"}</h2>
-              <FaPen onClick={handleEditRegister} class="info-icon" />
+              <FaPen
+                size="2rem"
+                onClick={handleEditRegister}
+                class="info-icon"
+              />
             </div>
             <div>
               <h3>Descrição:&nbsp;</h3>
