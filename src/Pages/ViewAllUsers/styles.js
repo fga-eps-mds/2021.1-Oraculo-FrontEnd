@@ -63,7 +63,7 @@ export const StyledOrganizeButtons = styled.div`
 `;
 
 export const StyledBigButton = styled.button`
-  width: 33%;
+  width: 50%;
   height: 3rem;
   display: flex;
   align-items: center;
