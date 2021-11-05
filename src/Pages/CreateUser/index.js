@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
+import { createUser } from "../../Services/Axios/processService";
 import { registerUser } from "../../Services/Axios/profileService";
 import { SectionsList } from "./sections";
 
@@ -20,6 +21,7 @@ const ViewProfile = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState(1);
+  const [section, setSection] = useState("");
   const [level] = useState(2);
 
   async function handleClick(event) {
@@ -28,11 +30,13 @@ const ViewProfile = () => {
       email: email,
       departmentID: department,
       sectionID: department,
+      section_id: section,
       level: level,
       password: password,
     };
 
-    return registerUser(user, toast);
+    registerUser(user, toast);
+    createUser(user, toast);
   }
 
   return (
@@ -74,8 +78,9 @@ const ViewProfile = () => {
                     required
                     placeholder="Selecione o departamento"
                     onChange={(event) => {
-                      setDepartment(event.target.selectedIndex + 1);
-                    }}>
+                      setSection(event.target.selectedIndex + 1);
+                    }}
+                  >
                     <SectionsList />
                   </select>
                 </div>
@@ -92,10 +97,16 @@ const ViewProfile = () => {
               </form>
             </StyledForms>
             <StyledButtonsDiv>
-              <StyledBackButton type="button" onClick={() => window.history.back()}>
+              <StyledBackButton
+                type="button"
+                onClick={() => window.history.back()}
+              >
                 Voltar
               </StyledBackButton>
-              <StyledRegisterButton type="button" onClick={(event) => handleClick(event)}>
+              <StyledRegisterButton
+                type="button"
+                onClick={(event) => handleClick(event)}
+              >
                 Cadastrar
               </StyledRegisterButton>
             </StyledButtonsDiv>
