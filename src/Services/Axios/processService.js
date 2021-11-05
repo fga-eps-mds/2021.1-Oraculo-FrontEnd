@@ -130,7 +130,7 @@ export async function editRecord(recordInfo, id, toast) {
     const status = err.response?.status;
 
     if (status === 500) {
-      toast.error("Não foi possível criar o registro");
+      toast.error("Não foi possível editar o registro");
     }
   }
 }
