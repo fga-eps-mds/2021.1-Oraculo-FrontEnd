@@ -17,7 +17,7 @@ export const StyledBigDiv = styled.div`
 export const StyledText = styled.text`
   margin: auto;
   text-align: center;
-  width: 33%;
+  width: 50%;
   background: transparent;
   font-family: Montserrat;
   font-style: normal;
