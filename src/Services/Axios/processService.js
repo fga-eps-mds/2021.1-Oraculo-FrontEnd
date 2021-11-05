@@ -117,3 +117,20 @@ export async function getRecordHistory(toast, id) {
     toast.error("Não foi possível buscar histórico do registro!");
   }
 }
+
+export async function editRecord(recordInfo, id, toast) {
+  try {
+    await APIProcess.post(`/records/${id}/edit`, recordInfo);
+    toast.success((t) => (
+      <span style={{ textAlign: "center" }}>
+        <p>Registro editado com sucesso!</p>
+      </span>
+    ));
+  } catch (err) {
+    const status = err.response?.status;
+
+    if (status === 500) {
+      toast.error("Não foi possível criar o registro");
+    }
+  }
+}
