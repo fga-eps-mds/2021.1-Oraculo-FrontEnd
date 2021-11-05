@@ -11,6 +11,7 @@ import HomePage from "./Pages/HomePage";
 import ChangePassword from "./Pages/ChangePassword";
 import AllRegistersScreen from "./Pages/AllRegistersScreen";
 import ViewAllFields from "./Pages/ViewAllFields";
+import ViewAllUsers from "./Pages/ViewAllUsers";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -35,7 +36,11 @@ const Routes = () => (
         path="/login"
         component={() => <LoginScreen history={history} />}
       />
-      <PrivateRoutes exact path="/ver-registro/:id" component={() => <ViewRecord/>} />
+      <PrivateRoutes
+        exact
+        path="/ver-registro/:id"
+        component={() => <ViewRecord />}
+      />
       <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
       <PrivateRoutes
         path="/criar-registro"
@@ -54,6 +59,10 @@ const Routes = () => (
       <PrivateRoutes
         path="/todos-os-campos"
         component={() => <ViewAllFields />}
+      />
+      <PrivateRoutes
+        path="/visualizar-usuarios"
+        component={() => <ViewAllUsers />}
       />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>

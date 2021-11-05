@@ -52,6 +52,11 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleSeeAllUsers() {
+    history.push("/visualizar-usuarios");
+    window.location.reload();
+  }
+
   const [nameUser, setName] = useState("-");
 
   async function fetchUserData() {
@@ -90,6 +95,7 @@ const HeaderWithButtons = () => {
               <button onClick={() => {}}>Criar Departamento</button>
               <button onClick={() => {}}>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
+              <button onClick={handleSeeAllUsers}>Listar Usuários</button>
             </div>
           </StyledDropDown>
           <StyledDropDown>
