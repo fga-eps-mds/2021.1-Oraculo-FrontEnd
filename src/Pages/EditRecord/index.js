@@ -37,6 +37,7 @@ const EditRecord = () => {
   }, []);
 
   const { id } = useParams();
+  const [inclusionDate, setInclusionDate] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [requester, setRequester] = useState("");
@@ -51,53 +52,39 @@ const EditRecord = () => {
   window.onload = async function () {
     const originalRecord = await getProcessByID(id, toast);
 
-    setCity(originalRecord.city);
-    setState(originalRecord.state);
-    setRequester(originalRecord.requester);
-    setDocumentType(originalRecord.document_type);
-    setDocumentNumber(originalRecord.document_number);
-    setDocumentDate(originalRecord.document_date);
-    setDocumentDescription(originalRecord.description);
-    setSeiNumber(originalRecord.sei_number);
-    setReceiptForm(originalRecord.receipt_form);
-    setContactInfo(originalRecord.contact_info);
+    setInclusionDate(originalRecord.inclusion_date);
+
+    originalRecord.city ? setCity(originalRecord.city) : setCity("-");
+    originalRecord.state ? setState(originalRecord.state) : setState("-");
+    originalRecord.requester
+      ? setRequester(originalRecord.requester)
+      : setRequester("-");
+    originalRecord.document_type
+      ? setDocumentType(originalRecord.document_type)
+      : setDocumentType("-");
+    originalRecord.document_number
+      ? setDocumentNumber(originalRecord.document_number)
+      : setDocumentNumber("-");
+    originalRecord.document_date
+      ? setDocumentDate(originalRecord.document_date)
+      : setDocumentDate("-");
+    originalRecord.description
+      ? setDocumentDescription(originalRecord.description)
+      : setDocumentDescription("-");
+    originalRecord.sei_number
+      ? setSeiNumber(originalRecord.sei_number)
+      : setSeiNumber("-");
+    originalRecord.receipt_form
+      ? setReceiptForm(originalRecord.receipt_form)
+      : setReceiptForm("-");
+    originalRecord.contact_info
+      ? setContactInfo(originalRecord.contact_info)
+      : setContactInfo("-");
   };
 
   async function handleClick(event) {
-    const originalRecord = await getProcessByID(id, toast);
-
-    if (city === "") {
-      setCity(originalRecord.city);
-    }
-    if (state === "") {
-      setState(originalRecord.state);
-    }
-    if (requester === "") {
-      setRequester(originalRecord.requester);
-    }
-    if (documentType === "") {
-      setDocumentType(originalRecord.document_type);
-    }
-    if (documentDate === "") {
-      setDocumentDate(originalRecord.document_date);
-    }
-    if (documentNumber === "") {
-      setDocumentNumber(originalRecord.document_number);
-    }
-    if (documentDescription === "") {
-      setDocumentDescription(originalRecord.description);
-    }
-    if (seiNumber === "") {
-      setSeiNumber(originalRecord.sei_number);
-    }
-    if (receiptForm === "") {
-      setReceiptForm(originalRecord.receipt_form);
-    }
-    if (contactInfo === "") {
-      setContactInfo(originalRecord.contact_info);
-    }
     const record = {
-      inclusion_date: originalRecord.inclusion_date,
+      inclusion_date: inclusionDate,
       city: city,
       state: state,
       requester: requester,
@@ -133,6 +120,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Cidade</h1>
                     <input
+                      required
                       id="cityInput"
                       type="text"
                       placeholder="Cidade (Obrigatório)"
@@ -143,6 +131,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Estado</h1>
                     <input
+                      required
                       id="stateInput"
                       type="text"
                       placeholder="Estado (Obrigatório)"
@@ -153,6 +142,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Solicitante</h1>
                     <input
+                      required
                       id="requesterInput"
                       type="text"
                       placeholder="Solicitante (Obrigatório)"
@@ -163,6 +153,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Tido de documento</h1>
                     <input
+                      required
                       id="documentTypeInput"
                       type="text"
                       placeholder="Oficio, Despacho ..."
@@ -173,6 +164,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Nº do documento </h1>
                     <input
+                      required
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
@@ -200,6 +192,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Descrição do documento</h1>
                     <input
+                      required
                       id="documentDescriptionInput"
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
@@ -212,6 +205,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Nº do SEI</h1>
                     <input
+                      required
                       id="seiNumberInput"
                       type="text"
                       placeholder="Nº do SEI"
@@ -222,6 +216,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Recebido via</h1>
                     <input
+                      required
                       id="receiptFormInput"
                       type="text"
                       placeholder="Física, E-mail, SEI (Obrigatório)"
@@ -232,6 +227,7 @@ const EditRecord = () => {
                   <div class="form-div">
                     <h1>Informação de contato</h1>
                     <input
+                      required
                       id="contactInfoInput"
                       type="text"
                       placeholder="contato@email.com"
