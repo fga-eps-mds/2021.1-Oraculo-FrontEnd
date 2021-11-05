@@ -117,7 +117,7 @@ export async function getRecordHistory(toast, id) {
     toast.error("Não foi possível buscar histórico do registro!");
   }
 }
-export async function createUser(toast, user) {
+export async function createUser(user, toast) {
   try {
     const response = await APIProcess.post(`/user`, {
       name: user.name,
