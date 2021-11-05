@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { getSections, getDepartments } from "../../Services/Axios/profileService";
+import {
+  getSections,
+  getDepartments,
+} from "../../Services/Axios/profileService";
 
 const SectionsList = () => {
   const [sections, setSections] = useState([]);
@@ -8,10 +11,10 @@ const SectionsList = () => {
   const [hasSections, setHasSections] = useState(false);
 
   useEffect(() => {
-    function fetchSections() {
-      const sectionsList = getSections();
-      console.log(JSON.stringify(sectionsList));
+    async function fetchSections() {
+      const sectionsList = await getSections();
       setSections(sectionsList);
+      console.log("SecList", sectionsList);
     }
 
     function fetchDepartments() {
@@ -36,7 +39,8 @@ const SectionsList = () => {
       {!hasDepartments && !hasSections ? (
         <option>Loading</option>
       ) : (
-        <option>Loaded</option>
+        sections &&
+        sections.map((item) => <option value={item.id}>{item.name}</option>)
       )}
     </>
   );
