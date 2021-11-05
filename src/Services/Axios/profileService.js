@@ -113,13 +113,9 @@ export async function loginUser(user, toast) {
 
 export async function listAllUsers(toast) {
   try {
-    const response = await APIProfile.post(
-      "/users/all",
-      {},
-      {
-        headers: { "X-Access-Token": getToken() },
-      }
-    );
+    const response = await APIProfile.get("/users/all", {
+      headers: { "X-Access-Token": getToken() },
+    });
     return response.data;
   } catch (err) {
     const status = err.response?.status;
