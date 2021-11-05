@@ -54,3 +54,30 @@ export const StyledTitle = styled.div`
   text-align: left;
   color: #000000;
 `;
+
+export const ButtonDiv = styled.div`
+  width: 19.5rem;
+  align-items: center;
+`;
+
+export const StyledTop = styled.div`
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 1300px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: safe;
+    margin-top: 1rem;
+  }
+`;
+
+export const StyledSearchBarSize = styled.div`
+  width: 30rem;
+  @media only screen and (max-width: 1300px) {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+`;

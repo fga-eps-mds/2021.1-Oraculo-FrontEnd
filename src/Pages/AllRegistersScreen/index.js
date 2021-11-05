@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { history } from "../../history";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
+import SearchBar from "../../Components/SearchBar";
 import {
   StyledTitle,
   StyledBody,
   StyledOrganizeButtons,
   StyledBigButton,
+  StyledTop,
+  ButtonDiv,
+  StyledSearchBarSize,
 } from "./styles";
 
 import Process from "../../Components/Process";
@@ -56,9 +60,14 @@ const AllRegistersScreen = () => {
 
       <StyledBody>
         <StyledTitle>Registros - Todos</StyledTitle>
-        <div>
-          <MainButton title={"Novo Registro"} onClick={handleProcess} />
-        </div>
+        <StyledTop>
+          <StyledSearchBarSize>
+            <SearchBar />
+          </StyledSearchBarSize>
+          <ButtonDiv>
+            <MainButton onClick={handleProcess} title={"Novo Registro"} />
+          </ButtonDiv>
+        </StyledTop>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº do Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
