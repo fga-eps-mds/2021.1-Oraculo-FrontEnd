@@ -16,16 +16,17 @@ import {
   ButtonDiv,
 } from "./styles";
 import { listAllUsers } from "../../Services/Axios/profileService";
+import PocketUser from "../../Components/PocketUser";
 
 const ViewAllUsers = () => {
   const [users, setUsers] = useState([]);
 
-  const fetchProcess = async () => {
+  const receiveUsers = async () => {
     setUsers(await listAllUsers(toast));
   };
 
   window.onload = function () {
-    fetchProcess();
+    receiveUsers();
   };
 
   function handleCreateUser() {
@@ -51,7 +52,7 @@ const ViewAllUsers = () => {
             <StyledBigButton>Nome</StyledBigButton>
             <StyledBigButton>Email</StyledBigButton>
           </StyledOrganizeButtons>
-
+          <PocketUser user={users} />
           <StyledFooter>
             <StyledBigButton>Nome</StyledBigButton>
             <StyledBigButton>Email</StyledBigButton>
