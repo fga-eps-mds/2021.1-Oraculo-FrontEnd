@@ -3,13 +3,15 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
-import MainButton from "../../Components/MainButton";
-import { createRecord } from "../../Services/Axios/processService";
-import { getInfoUser } from "../../Services/Axios/profileService";
+import {
+  editRecord,
+  getProcessByID,
+} from "../../Services/Axios/processService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
 import { useParams } from "react-router";
+import { getInfoUser } from "../../Services/Axios/profileService";
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
@@ -24,8 +26,17 @@ import {
 } from "./styles";
 
 const EditRecord = () => {
-  const { id } = useParams();
+  useEffect(() => {
+    async function getUser() {
+      const user = await getInfoUser(toast);
+      if (!user) {
+        history.push("/login");
+      }
+    }
+    getUser();
+  }, []);
 
+  const { id } = useParams();
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [requester, setRequester] = useState("");
@@ -36,21 +47,57 @@ const EditRecord = () => {
   const [seiNumber, setSeiNumber] = useState("");
   const [receiptForm, setReceiptForm] = useState("");
   const [contactInfo, setContactInfo] = useState("");
-  const [createdBy, setCreatedBy] = useState("");
 
-  useEffect(() => {
-    async function getUser() {
-      const user = await getInfoUser(toast);
-      if (!user) {
-        history.push("/login");
-      }
-      setCreatedBy(user.id);
-    }
-    getUser();
-  }, []);
+  window.onload = async function () {
+    const originalRecord = await getProcessByID(id, toast);
+
+    setCity(originalRecord.city);
+    setState(originalRecord.state);
+    setRequester(originalRecord.requester);
+    setDocumentType(originalRecord.document_type);
+    setDocumentNumber(originalRecord.document_number);
+    setDocumentDate(originalRecord.document_date);
+    setDocumentDescription(originalRecord.description);
+    setSeiNumber(originalRecord.sei_number);
+    setReceiptForm(originalRecord.receipt_form);
+    setContactInfo(originalRecord.contact_info);
+  };
 
   async function handleClick(event) {
+    const originalRecord = await getProcessByID(id, toast);
+
+    if (city === "") {
+      setCity(originalRecord.city);
+    }
+    if (state === "") {
+      setState(originalRecord.state);
+    }
+    if (requester === "") {
+      setRequester(originalRecord.requester);
+    }
+    if (documentType === "") {
+      setDocumentType(originalRecord.document_type);
+    }
+    if (documentDate === "") {
+      setDocumentDate(originalRecord.document_date);
+    }
+    if (documentNumber === "") {
+      setDocumentNumber(originalRecord.document_number);
+    }
+    if (documentDescription === "") {
+      setDocumentDescription(originalRecord.description);
+    }
+    if (seiNumber === "") {
+      setSeiNumber(originalRecord.sei_number);
+    }
+    if (receiptForm === "") {
+      setReceiptForm(originalRecord.receipt_form);
+    }
+    if (contactInfo === "") {
+      setContactInfo(originalRecord.contact_info);
+    }
     const record = {
+      inclusion_date: originalRecord.inclusion_date,
       city: city,
       state: state,
       requester: requester,
@@ -61,22 +108,9 @@ const EditRecord = () => {
       sei_number: seiNumber,
       receipt_form: receiptForm,
       contact_info: contactInfo,
-      situation: 2,
-      created_by: createdBy,
     };
 
-    await createRecord(record, toast);
-    setCity("");
-    setState("");
-    setRequester("");
-    setDocumentType("");
-    setDocumentNumber("");
-    setDocumentDate("");
-    setDocumentDescription("");
-    setSeiNumber("");
-    setReceiptForm("");
-    setContactInfo("");
-    setCreatedBy("");
+    await editRecord(record, id, toast);
   }
 
   return (
@@ -85,9 +119,6 @@ const EditRecord = () => {
       <div>
         <StyledTitle>
           <p>Editar Registro</p>
-          <div>
-            <MainButton title={"Adicionar Campo"} />
-          </div>
         </StyledTitle>
 
         <StyledProcess>
@@ -105,7 +136,6 @@ const EditRecord = () => {
                       id="cityInput"
                       type="text"
                       placeholder="Cidade (Obrigatório)"
-                      required
                       onChange={(event) => setCity(event.target.value)}
                       value={city}
                     />
@@ -116,7 +146,6 @@ const EditRecord = () => {
                       id="stateInput"
                       type="text"
                       placeholder="Estado (Obrigatório)"
-                      required
                       onChange={(event) => setState(event.target.value)}
                       value={state}
                     />
@@ -127,7 +156,6 @@ const EditRecord = () => {
                       id="requesterInput"
                       type="text"
                       placeholder="Solicitante (Obrigatório)"
-                      required
                       onChange={(event) => setRequester(event.target.value)}
                       value={requester}
                     />
@@ -175,7 +203,6 @@ const EditRecord = () => {
                       id="documentDescriptionInput"
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
-                      required
                       onChange={(event) =>
                         setDocumentDescription(event.target.value)
                       }
@@ -198,7 +225,6 @@ const EditRecord = () => {
                       id="receiptFormInput"
                       type="text"
                       placeholder="Física, E-mail, SEI (Obrigatório)"
-                      required
                       onChange={(event) => setReceiptForm(event.target.value)}
                       value={receiptForm}
                     />
@@ -220,18 +246,16 @@ const EditRecord = () => {
                     >
                       Cancelar
                     </StyledCancelButton>
-                    <StyledCreateButton type="submit">Criar</StyledCreateButton>
+                    <StyledCreateButton type="submit">
+                      Editar
+                    </StyledCreateButton>
                   </StyledButtonsDiv>
                 </form>
               </StyledForms>
             </StyledWhiteRectangle>
           </StyledProcessDiv>
         </StyledProcess>
-        <Toaster
-          toastOptions={{
-            duration: 100000,
-          }}
-        />
+        <Toaster />
       </div>
     </>
   );
