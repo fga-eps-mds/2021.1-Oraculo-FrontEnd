@@ -52,7 +52,11 @@ const ViewAllUsers = () => {
             <StyledBigButton>Nome</StyledBigButton>
             <StyledBigButton>Email</StyledBigButton>
           </StyledOrganizeButtons>
-          <PocketUser user={users} />
+          {users ? (
+            <PocketUser user={users} />
+          ) : (
+            <StyledTitle>Não há usuários cadastrados</StyledTitle>
+          )}
           <StyledFooter>
             <StyledBigButton>Nome</StyledBigButton>
             <StyledBigButton>Email</StyledBigButton>
