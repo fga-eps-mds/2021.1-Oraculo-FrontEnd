@@ -72,6 +72,7 @@ export const StyledForms = styled.div`
         line-height: 33px;
         color: #000000;
         margin-left: 11rem;
+        cursor: default;
       }
 
       input {
@@ -83,6 +84,7 @@ export const StyledForms = styled.div`
         border-radius: 12px;
         border: 2px solid #000000;
         outline: none;
+        cursor: text;
 
         ::placeholder {
           font-family: Open Sans;
@@ -120,6 +122,13 @@ export const StyledForms = styled.div`
         border-radius: 12px;
         border: 2px solid #000000;
         outline: none;
+        cursor: pointer;
+      }
+      input[type="checkbox"] {
+        text-align: left;
+        align-self: left;
+        width: 2rem;
+        cursor: pointer;
       }
     }
   }
@@ -167,4 +176,15 @@ export const StyledRegisterButton = styled.button`
   border-radius: 15px;
   background: #5289b5;
   cursor: pointer;
+`;
+
+export const StyledCheckboxDiv = styled.div`
+  width: 100%;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  box-sizing: border-box;
+  margin-left: 15%;
+  text-align: left;
 `;

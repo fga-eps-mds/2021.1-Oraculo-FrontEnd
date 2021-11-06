@@ -14,6 +14,7 @@ import {
   StyledForms,
   StyledViewProfile,
   StyledWhiteRectangle,
+  StyledCheckboxDiv,
 } from "./styles";
 
 const ViewProfile = () => {
@@ -74,7 +75,7 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>Usuário Admin?</h1>
+                  <h1>Administrador</h1>
                   <input
                     type="checkbox"
                     onChange={(event) => {
