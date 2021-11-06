@@ -38,6 +38,7 @@ const ViewProfile = () => {
       changeUser(toast, name, email, sectionID, 0);
     }
     const user = await getInfoUser(toast);
+    console.log("Usuário atualizado", user);
     setName(user.name);
     setEmail(user.email);
     setSectionID(user.sections[0].id);
@@ -59,7 +60,7 @@ const ViewProfile = () => {
       console.log("Dados do Usuário", user);
     }
     fetchUserData();
-  }, [departmentID, sectionID, isAdmin]);
+  }, [isAdmin]);
 
   return (
     <>
@@ -78,8 +79,7 @@ const ViewProfile = () => {
                   <input
                     id="name"
                     type="text"
-                    placeholder="William Cops"
-                    defaultValue={name}
+                    placeholder={name}
                     onChange={(event) => setName(event.target.value)}
                   />
                 </div>
@@ -88,9 +88,10 @@ const ViewProfile = () => {
                   <input
                     id="email"
                     type="text"
-                    placeholder="william@pcgo.org.br"
-                    defaultValue={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder={email}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
                   />
                 </div>
                 <div>
