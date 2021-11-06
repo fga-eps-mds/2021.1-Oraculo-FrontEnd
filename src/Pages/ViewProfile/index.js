@@ -74,8 +74,7 @@ const ViewProfile = () => {
                     placeholder="Selecione o departamento"
                     onChange={(event) => {
                       setSectionID(event.target.selectedIndex + 1);
-                    }}
-                  >
+                    }}>
                     <SectionsList />
                   </select>
                 </div>
@@ -89,8 +88,7 @@ const ViewProfile = () => {
                 onClick={(event) => {
                   handleClick(event);
                 }}
-                type="submit"
-              >
+                type="submit">
                 Editar
               </StyledEditButton>
             </StyledButtonsDiv>

@@ -117,3 +117,18 @@ export async function getRecordHistory(toast, id) {
     toast.error("Não foi possível buscar histórico do registro!");
   }
 }
+export async function createUser(user, toast) {
+  if (user.sectionName !== "none") {
+    try {
+      const response = await APIProcess.post(`/users`, {
+        name: user.name,
+        email: user.email,
+        section_id: user.sectionID,
+      });
+      console.log("Usuário cadastrado no Serviço de Processos!");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
