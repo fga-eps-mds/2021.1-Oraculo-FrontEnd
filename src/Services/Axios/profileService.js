@@ -199,10 +199,10 @@ export async function changeUser(toast, name, email, sectionID, departmentID) {
         headers: { "X-Access-Token": getToken() },
       }
     );
-    console.log("Update User", response);
+    console.log("Cadastro atualizado com sucesso!", response);
     toast.success("Usuário alterado com sucesso!");
   } catch (err) {
-    console.log("Erro ao atualizar usuário", err);
+    console.log("Erro ao atualizar cadastro!", err);
     toast.error("Ocorreu um erro ao tentar mudar o usuário");
   }
 }
