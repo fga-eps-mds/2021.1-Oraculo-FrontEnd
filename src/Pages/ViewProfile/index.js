@@ -42,12 +42,7 @@ const ViewProfile = () => {
     setEmail(user.email);
     setSectionID(user.sections[0].id);
     setDepartmentID(user.departments[user.departments.length - 1].id);
-    console.log(
-      "Departamento selecionado:",
-      user.departments[user.departments.length - 1].id
-    );
     setLevel(user.levels[0].id);
-    console.log("User Updated", user);
   }
 
   useEffect(() => {
@@ -61,7 +56,7 @@ const ViewProfile = () => {
       setDepartmentName(user.departments[0].name);
       setLevel(parseInt(user.levels[0].id));
       setAdmin(level === userType.admin ? true : false);
-      console.log("User Atual", user);
+      console.log("Dados do Usuário", user);
     }
     fetchUserData();
   }, [departmentID, sectionID, isAdmin]);
@@ -105,20 +100,21 @@ const ViewProfile = () => {
                     onChange={(event) =>
                       isAdmin
                         ? (setDepartmentID(parseInt(event.target.value)),
-                          console.log(event.target.value))
+                          console.log(
+                            "Departamento Selecionado:",
+                            event.target.value
+                          ))
                         : (setSectionID(parseInt(event.target.value)),
-                          console.log(event.target.value))
+                          console.log("Seção Selecionada:", event.target.value))
                     }
                   >
                     {isAdmin ? (
                       <>
-                        {console.log("Admin?", isAdmin)}
                         <option selected>Dep. Atual - {departmentName}</option>
                         <SectionsList type={"departmens"} />
                       </>
                     ) : (
                       <>
-                        {console.log("Admin?", isAdmin)}
                         <option selected>Seção Atual - {sectionName}</option>
                         <SectionsList type={"sections"} />
                       </>
