@@ -23,6 +23,7 @@ const ViewProfile = () => {
   const [department, setDepartment] = useState(1);
   const [section, setSection] = useState("");
   const [level] = useState(2);
+  const [isAdmin, setAdmin] = useState(false);
 
   async function handleClick(event) {
     const user = {
@@ -31,7 +32,7 @@ const ViewProfile = () => {
       departmentID: department,
       sectionID: department,
       section_id: section,
-      level: level,
+      level: isAdmin,
       password: password,
     };
 
@@ -73,15 +74,28 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>Departamento</h1>
+                  <h1>Usuário Admin?</h1>
+                  <input
+                    type="checkbox"
+                    onChange={(event) => {
+                      setAdmin(event.target.checked);
+                    }}
+                  />
+                </div>
+                <div>
+                  <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
                     placeholder="Selecione o departamento"
                     onChange={(event) => {
-                      setSection(event.target.selectedIndex + 1);
+                      setSection(event.target.value);
                     }}
                   >
-                    <SectionsList />
+                    {!isAdmin ? (
+                      <SectionsList type={"sections"} />
+                    ) : (
+                      <SectionsList type={"departmens"} />
+                    )}
                   </select>
                 </div>
                 <div>

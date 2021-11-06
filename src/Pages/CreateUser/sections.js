@@ -4,7 +4,7 @@ import {
   getDepartments,
 } from "../../Services/Axios/profileService";
 
-const SectionsList = () => {
+const SectionsList = (type) => {
   const [sections, setSections] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [hasDepartments, sethasDepartments] = useState(false);
@@ -17,9 +17,10 @@ const SectionsList = () => {
       console.log("SecList", sectionsList);
     }
 
-    function fetchDepartments() {
-      const departmentsList = getDepartments();
+    async function fetchDepartments() {
+      const departmentsList = await getDepartments();
       setDepartments(departmentsList);
+      console.log("DepList", departmentsList);
     }
 
     fetchSections();
@@ -38,9 +39,12 @@ const SectionsList = () => {
     <>
       {!hasDepartments && !hasSections ? (
         <option>Loading</option>
-      ) : (
+      ) : type.type === "sections" ? (
         sections &&
         sections.map((item) => <option value={item.id}>{item.name}</option>)
+      ) : (
+        departments &&
+        departments.map((item) => <option value={item.id}>{item.name}</option>)
       )}
     </>
   );
