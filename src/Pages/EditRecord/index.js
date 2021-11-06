@@ -3,10 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
-import {
-  editRecord,
-  getProcessByID,
-} from "../../Services/Axios/processService";
+import { editRecord, getProcessByID } from "../../Services/Axios/processService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
@@ -23,7 +20,7 @@ import {
   StyledProcessDiv,
   StyledTitle,
   StyledWhiteRectangle,
-} from "./styles";
+} from "../CreateRecord/styles";
 
 const EditRecord = () => {
   useEffect(() => {
@@ -56,9 +53,7 @@ const EditRecord = () => {
 
     originalRecord.city ? setCity(originalRecord.city) : setCity("-");
     originalRecord.state ? setState(originalRecord.state) : setState("-");
-    originalRecord.requester
-      ? setRequester(originalRecord.requester)
-      : setRequester("-");
+    originalRecord.requester ? setRequester(originalRecord.requester) : setRequester("-");
     originalRecord.document_type
       ? setDocumentType(originalRecord.document_type)
       : setDocumentType("-");
@@ -168,9 +163,7 @@ const EditRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) =>
-                        setDocumentNumber(event.target.value)
-                      }
+                      onChange={(event) => setDocumentNumber(event.target.value)}
                       value={documentNumber}
                     />
                   </div>
@@ -196,9 +189,7 @@ const EditRecord = () => {
                       id="documentDescriptionInput"
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
-                      onChange={(event) =>
-                        setDocumentDescription(event.target.value)
-                      }
+                      onChange={(event) => setDocumentDescription(event.target.value)}
                       value={documentDescription}
                     />
                   </div>
@@ -238,13 +229,10 @@ const EditRecord = () => {
                   <StyledButtonsDiv>
                     <StyledCancelButton
                       type="button"
-                      onClick={() => window.history.back()}
-                    >
+                      onClick={() => window.history.back()}>
                       Cancelar
                     </StyledCancelButton>
-                    <StyledCreateButton type="submit">
-                      Editar
-                    </StyledCreateButton>
+                    <StyledCreateButton type="submit">Editar</StyledCreateButton>
                   </StyledButtonsDiv>
                 </form>
               </StyledForms>
