@@ -22,6 +22,7 @@ const ViewProfile = () => {
 
   // 1 => admin | 2 => common user
   const [level, setLevel] = useState(2);
+  const [isAdmin, setAdmin] = useState(false);
 
   async function handleClick(event) {
     changeUser(toast, name, email, sectionID);
@@ -39,11 +40,12 @@ const ViewProfile = () => {
       const user = await getInfoUser(toast);
       setName(user.name);
       setEmail(user.email);
-      setSectionID(user.sections[0].id);
-      setDepartmentID(user.departments[0].id);
-      setLevel(user.levels[0].id);
+      setSectionID(parseInt(user.sections[0].id));
+      setDepartmentID(parseInt(user.departments[0].id));
+      setLevel(parseInt(user.levels[0].id));
       console.log("User Atual", user);
     }
+    setAdmin(level === 1 ? true : false);
     fetchUserData();
   }, []);
 
@@ -80,7 +82,7 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>Departamento</h1>
+                  <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
                     placeholder="Selecione o departamento"
