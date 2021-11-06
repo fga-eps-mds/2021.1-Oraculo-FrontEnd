@@ -17,6 +17,7 @@ import {
   forwardRecordInfo,
   getProcessByID,
   getRecordHistory,
+  setStatusRecord,
 } from "../../Services/Axios/processService";
 import { getInfoUser, getSections } from "../../Services/Axios/profileService";
 import { getInfoUserbyID } from "../../Services/Axios/profileService";
@@ -46,6 +47,8 @@ const ViewRecord = () => {
   const [userID, setUserID] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
+  const [buttonModal, setButtonModal] = useState("");
+  const [buttonDone, setButtonDone] = useState(false);
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -78,8 +81,18 @@ const ViewRecord = () => {
     fetchRecordData();
   }, []);
 
+  const getDate = () => {
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    var dataAtual = dia + "/" + mes + "/" + ano;
+    return dataAtual;
+  };
+
   const handleButtonProcess = () => {
-    toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
+    setButtonModal(true);
+    //toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
   };
 
   const handleForward = async () => {
@@ -99,8 +112,27 @@ const ViewRecord = () => {
   }
 
   const handleClickModalWhite = () => {
-    //setButtonModal(false);
+    setButtonModal(false);
     setButtonModalConfirmForward(false);
+  };
+
+  const handleClickModalRed = async () => {
+    const newForward = [
+      ...forward,
+      {
+        name: userName,
+
+        defaultText: "Registro: Concluido",
+        date: getDate(),
+      },
+    ];
+
+   await setStatusRecord(id, "finished", toast);
+    setForward(newForward);
+    setButtonModal(false);
+    setButtonDone(true);
+
+    //document.querySelector(".fowardIcon").style.display = "none";
   };
 
   const previousForward = async (response) => {
@@ -202,7 +234,7 @@ const ViewRecord = () => {
 
           <StyledDivButtons>
             <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
-            <GenericRedButton title="concluir" onClick={handleButtonProcess} />
+            <GenericRedButton title={buttonDone ? "Reabrir" : "Concluir"} onClick={handleButtonProcess} />
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
@@ -231,6 +263,14 @@ const ViewRecord = () => {
             Histórico de alterações
           </a>
         </StyledDivInfoProcess>
+        <ModalDoubleCheck
+          content="Você tem certeza que quer concluir esse Registro?"
+          trigger={buttonModal}
+          titleRedButton="Concluir"
+          titleWhiteButton="Cancelar"
+          onClickRedButton={handleClickModalRed}
+          onClickWhiteButton={handleClickModalWhite}
+        />
         <ModalDoubleCheck
           content="Deseja realmente encaminhar esse registro?"
           trigger={buttonModalConfirmForward}
