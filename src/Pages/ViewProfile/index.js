@@ -104,10 +104,12 @@ const ViewProfile = () => {
                   >
                     {isAdmin ? (
                       <>
+                        <option selected>{departmentName}</option>
                         <SectionsList type={"departmens"} />
                       </>
                     ) : (
                       <>
+                        <option selected>Seção Atual - {sectionName}</option>
                         <SectionsList type={"sections"} />
                       </>
                     )}
