@@ -12,7 +12,7 @@ const StyledDivInfoProcess = styled.div`
   color: ${colors.white};
   font-size: ${fonts.sizeMd};
   font-family: ${fonts.font};
-  padding: 0 3%;
+  padding: 3rem 3% 0;
   box-sizing: border-box;
   h2 {
     text-align: center;
@@ -41,14 +41,13 @@ const StyledDivInfoProcess = styled.div`
     }
   }
 
-  .fowardIcon {
+  .forwardIcon {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin-top: 1rem;
-    button {
-      background: transparent;
-      border: none;
+    cursor: pointer;
+    p {
       text-decoration: none;
       color: white;
       font-size: ${fonts.sizeLg};
@@ -94,15 +93,16 @@ const StyledDivShowProcess = styled.div`
   overflow-y: scroll;
   font-family: ${fonts.font};
 
-  .infoProcess {
-    width: 100%;
-    background: ${colors.white};
-    border-radius: ${radius.sizeMd};
-    padding: 1rem 2rem 2rem;
-    border: 1px solid ${colors.black};
-    box-sizing: border-box;
-    margin-top: 2rem;
+  .info-record {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0rem 1rem;
+    margin-bottom: 0;
+    span {
+      padding: 0 1rem;
+    }
   }
+
   .infoProcessicon {
     display: flex;
     align-items: center;
@@ -129,9 +129,46 @@ const StyledDivButtons = styled.div`
     margin-left: 1rem;
   }
 `;
+
+const StyledInfoSection = styled.section`
+  width: 98%;
+  background: ${colors.white};
+  border-radius: ${radius.sizeMd};
+  padding: 1rem 2rem 0rem;
+  border: 1px solid ${colors.black};
+  box-sizing: border-box;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  .info-icon {
+    margin: 1rem 0 0 auto;
+  }
+
+  div {
+    display: flex;
+    margin: 0 2rem 0 2rem;
+    line-height: 0;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    text-transform: capitalize;
+    font-size: 28px;
+  }
+
+  #contact-info {
+    text-transform: none;
+  }
+`;
+
 export {
   StyledDivInfoProcess,
   StyledDivShowProcess,
   StyledDivSupProcess,
   StyledDivButtons,
+  StyledInfoSection,
 };

@@ -9,40 +9,28 @@ export const StyledBody = styled.div`
   div {
     margin-top: 2rem;
     display: flex;
-    justify-content: space-between;
+  }
+  .zero-registros {
+    text-align: center;
+    font-size: 3rem;
   }
 `;
 
 export const StyledOrganizeButtons = styled.div`
+  justify-content: space-between;
   background: #1f3541;
+  display: inline-block;
   border: 0px solid #5e5e5e;
   box-sizing: border-box;
   border-radius: 10px 10px 0px 0px;
   height: 4rem;
   align-items: center;
-`;
-
-export const StyledSmallButton = styled.button`
-  width: 7%;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Montserrat;
-  color: #ffffff;
-  font-style: normal;
-  font-size: 28px;
-  line-height: 20px;
-  text-align: center;
-  background: transparent;
-  cursor: pointer;
-  border: none;
+  padding-left: 2%;
+  padding-right: 2%;
 `;
 
 export const StyledBigButton = styled.button`
-  width: 18%;
   height: 3rem;
-  display: flex;
   align-items: center;
   justify-content: center;
   font-family: Montserrat;
@@ -65,4 +53,31 @@ export const StyledTitle = styled.div`
   display: flex;
   text-align: left;
   color: #000000;
+`;
+
+export const ButtonDiv = styled.div`
+  width: 19.5rem;
+  align-items: center;
+`;
+
+export const StyledTop = styled.div`
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 1300px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: safe;
+    margin-top: 1rem;
+  }
+`;
+
+export const StyledSearchBarSize = styled.div`
+  width: 30rem;
+  @media only screen and (max-width: 1300px) {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 `;

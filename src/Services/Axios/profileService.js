@@ -31,11 +31,12 @@ async function validateUser(user) {
   }
 
   return {
+    name: user.name,
     email: user.email,
-    password: user.password,
-    sectionID: section,
     departmentID: department,
     level: level,
+    sectionID: section,
+    password: user.password,
   };
 }
 
@@ -43,14 +44,23 @@ export async function registerUser(usr, toast) {
   try {
     const user = await validateUser(usr);
 
+    if (user.departmentID <= 7) {
+      // user belongs to a admin sector
+      user.sectionID = 0;
+    } else {
+      // user is a common user
+      user.departmentID = 0;
+    }
+
     await APIProfile.post(
       "/register",
       {
+        name: user.name,
         email: user.email,
-        password: user.password,
         departmentID: user.departmentID,
-        sectionID: user.sectionID,
         level: user.level,
+        sectionID: user.sectionID,
+        password: user.password,
       },
       { headers: { "X-Access-Token": getToken() } }
     );
@@ -60,9 +70,13 @@ export async function registerUser(usr, toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error("Você não possui privilégios suficientes para realizar esta ação");
+      toast.error(
+        "Você não possui privilégios suficientes para realizar esta ação"
+      );
     } else if (status === 400) {
-      toast.error("Faltam algumas informações para realizar o cadastro do usuário");
+      toast.error(
+        "Faltam algumas informações para realizar o cadastro do usuário"
+      );
     } else {
       toast.error(`Erro ao cadastrar usuário!`);
     }
@@ -99,19 +113,17 @@ export async function loginUser(user, toast) {
 
 export async function listAllUsers(toast) {
   try {
-    const response = await APIProfile.post(
-      "/users/all",
-      {},
-      {
-        headers: { "X-Access-Token": getToken() },
-      }
-    );
+    const response = await APIProfile.get("/users/all", {
+      headers: { "X-Access-Token": getToken() },
+    });
     return response.data;
   } catch (err) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error("Você não possui privilégios suficientes para realizar esta ação");
+      toast.error(
+        "Você não possui privilégios suficientes para realizar esta ação"
+      );
     }
   }
 }
@@ -141,5 +153,67 @@ export async function getUserAccessLevel(user, toast) {
     if (status === 500) {
       toast.error("Erro ao obter informações sobre o seu nível de acesso");
     }
+  }
+}
+
+export async function getInfoUserbyID(id) {
+  try {
+    const response = await APIProfile.get(`/user/${id}/info`, {
+      headers: {
+        "X-Access-Token": getToken(),
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function changeUserPassword(toast, password) {
+  try {
+    await APIProfile.post(
+      "/user/change-password",
+      { password: password },
+      {
+        headers: { "X-Access-Token": getToken() },
+      }
+    );
+    toast.success("Senha alterada com sucesso!");
+  } catch (err) {
+    toast.error("Ocorreu um erro ao tentar mudar a senha");
+  }
+}
+
+export async function changeUser(toast, name, email, sectorID) {
+  try {
+    await APIProfile.post(
+      "/user/change-user",
+      { name: name, email: email, section_id: sectorID },
+      {
+        headers: { "X-Access-Token": getToken() },
+      }
+    );
+    toast.success("Usuário alterado com sucesso!");
+  } catch (err) {
+    toast.error("Ocorreu um erro ao tentar mudar o usuário");
+  }
+}
+
+export async function getSections() {
+  try {
+    const response = await APIProfile.get("/sections");
+    return response.data;
+  } catch (err) {
+    console.error(`failed to get sections: ${err}`);
+  }
+}
+
+export async function getDepartments() {
+  try {
+    const response = await APIProfile.get("/departments");
+    return response.data;
+  } catch (err) {
+    console.error(`failed to get departments: ${err}`);
   }
 }
