@@ -24,6 +24,8 @@ const ViewProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sectionID, setSectionID] = useState("");
+  const [sectionName, setSectionName] = useState("");
+  const [departmentName, setDepartmentName] = useState("");
   const [departmentID, setDepartmentID] = useState("");
 
   const [level, setLevel] = useState(userType.common);
@@ -46,7 +48,9 @@ const ViewProfile = () => {
       setName(user.name);
       setEmail(user.email);
       setSectionID(parseInt(user.sections[0].id));
+      setSectionName(user.sections[0].name);
       setDepartmentID(parseInt(user.departments[0].id));
+      setDepartmentName(user.departments[0].name);
       setLevel(parseInt(user.levels[0].id));
       console.log("User Atual", user);
     }
@@ -90,14 +94,22 @@ const ViewProfile = () => {
                   <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
-                    onChange={(event) => {
-                      setSectionID(event.target.selectedIndex + 1);
-                    }}
+                    onChange={(event) =>
+                      isAdmin
+                        ? (setDepartmentID(parseInt(event.target.value)),
+                          console.log(event.target.value))
+                        : (setSectionID(parseInt(event.target.value)),
+                          console.log(event.target.value))
+                    }
                   >
                     {isAdmin ? (
-                      <SectionsList type="departmens" />
+                      <>
+                        <SectionsList type={"departmens"} />
+                      </>
                     ) : (
-                      <SectionsList type="sections" />
+                      <>
+                        <SectionsList type={"sections"} />
+                      </>
                     )}
                   </select>
                 </div>
