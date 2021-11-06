@@ -41,10 +41,16 @@ const SectionsList = (type) => {
         <option>Loading</option>
       ) : type.type === "sections" ? (
         sections &&
-        sections.map((item) => <option value={item.id}>{item.name}</option>)
+        sections.map(
+          (item) =>
+            item.name !== "none" && <option value={item.id}>{item.name}</option>
+        )
       ) : (
         departments &&
-        departments.map((item) => <option value={item.id}>{item.name}</option>)
+        departments.map(
+          (item) =>
+            item.name !== "none" && <option value={item.id}>{item.name}</option>
+        )
       )}
     </>
   );
