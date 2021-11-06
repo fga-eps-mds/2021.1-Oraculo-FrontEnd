@@ -57,8 +57,7 @@ export async function createRecord(recordInfo, toast) {
         <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
         <GenericBlueButton
           title="OK"
-          onClick={() => toast.dismiss(t.id)}
-        ></GenericBlueButton>
+          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
       </span>
     ));
   } catch (err) {
@@ -92,14 +91,11 @@ export async function getAllDepartmentRecords(toast, id) {
 
 export async function forwardRecordInfo(toast, forwardRecInfo) {
   try {
-    const response = await APIProcess.post(
-      `/records/${forwardRecInfo.id}/forward`,
-      {
-        forwarded_by: forwardRecInfo.forwarded_by,
-        origin_id: forwardRecInfo.origin_id,
-        destination_id: forwardRecInfo.destination_id,
-      }
-    );
+    const response = await APIProcess.post(`/records/${forwardRecInfo.id}/forward`, {
+      forwarded_by: forwardRecInfo.forwarded_by,
+      origin_id: forwardRecInfo.origin_id,
+      destination_id: forwardRecInfo.destination_id,
+    });
     toast.success("Registro encaminhado com sucesso!");
     return response.data;
   } catch (error) {
@@ -131,6 +127,22 @@ export async function editRecord(recordInfo, id, toast) {
 
     if (status === 500) {
       toast.error("Não foi possível editar o registro");
+    }
+  }
+}
+
+export async function createUser(user, toast) {
+  if (user.sectionName !== "none") {
+    try {
+      const response = await APIProcess.post(`/users`, {
+        name: user.name,
+        email: user.email,
+        section_id: user.sectionID,
+      });
+      console.log("Usuário cadastrado no Serviço de Processos!");
+      return response.data;
+    } catch (error) {
+      console.log(error);
     }
   }
 }
