@@ -85,7 +85,6 @@ const ViewProfile = () => {
                   <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
-                    placeholder="Selecione o departamento"
                     onChange={(event) => {
                       setSectionID(event.target.selectedIndex + 1);
                     }}
