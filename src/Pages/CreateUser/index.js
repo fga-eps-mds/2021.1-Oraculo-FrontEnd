@@ -20,9 +20,8 @@ const ViewProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [department, setDepartment] = useState(1);
-  const [section, setSection] = useState("");
-  const [level] = useState(2);
+  const [department, setDepartment] = useState(8);
+  const [section, setSection] = useState(34);
   const [isAdmin, setAdmin] = useState(false);
 
   async function handleClick(event) {
@@ -30,12 +29,11 @@ const ViewProfile = () => {
       name: name,
       email: email,
       departmentID: department,
-      sectionID: department,
-      section_id: section,
+      sectionID: section,
       level: isAdmin,
       password: password,
     };
-
+    console.log("USER", user);
     registerUser(user, toast);
     createUser(user, toast);
   }
@@ -87,9 +85,13 @@ const ViewProfile = () => {
                   <select
                     required
                     placeholder="Selecione o departamento"
-                    onChange={(event) => {
-                      setSection(event.target.value);
-                    }}
+                    onChange={(event) =>
+                      isAdmin
+                        ? (setDepartment(parseInt(event.target.value)),
+                          console.log("Admin"))
+                        : (setSection(parseInt(event.target.value)),
+                          console.log("Não é admin"))
+                    }
                   >
                     {!isAdmin ? (
                       <SectionsList type={"sections"} />

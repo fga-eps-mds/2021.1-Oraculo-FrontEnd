@@ -122,7 +122,7 @@ export async function createUser(user, toast) {
     const response = await APIProcess.post(`/user`, {
       name: user.name,
       email: user.email,
-      section_id: user.section_id,
+      section_id: user.sectionID,
     });
     return response.data;
   } catch (error) {
