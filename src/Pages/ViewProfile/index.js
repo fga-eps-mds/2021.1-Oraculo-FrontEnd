@@ -15,13 +15,18 @@ import {
 } from "./styles";
 
 const ViewProfile = () => {
+  // User Type according to database
+  const userType = {
+    admin: 1,
+    common: 2,
+  };
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sectionID, setSectionID] = useState("");
   const [departmentID, setDepartmentID] = useState("");
 
-  // 1 => admin | 2 => common user
-  const [level, setLevel] = useState(2);
+  const [level, setLevel] = useState(userType.common);
   const [isAdmin, setAdmin] = useState(false);
 
   async function handleClick(event) {
@@ -45,7 +50,7 @@ const ViewProfile = () => {
       setLevel(parseInt(user.levels[0].id));
       console.log("User Atual", user);
     }
-    setAdmin(level === 1 ? true : false);
+    setAdmin(level === userType.admin ? true : false);
     fetchUserData();
   }, []);
 
