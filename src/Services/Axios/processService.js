@@ -4,7 +4,6 @@ import GenericBlueButton from "../../Components/GenericBlueButton";
 export async function getAllProcess(toast) {
   try {
     const response = await APIProcess.get("/records", {});
-    console.log(`${JSON.stringify(response)}`);
     return response.data;
   } catch (err) {
     const status = err.response?.status;
@@ -14,6 +13,8 @@ export async function getAllProcess(toast) {
     } else {
       toast.error("Não foi possivel realizar a requisição");
     }
+
+    return err;
   }
 }
 
@@ -23,6 +24,7 @@ export async function getProcessByID(ID, toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar registro!");
+    return error;
   }
 }
 
@@ -34,7 +36,8 @@ export async function getProcessByPage(page, toast) {
   } catch (error) {
     toast.error("Erro ao buscar registro!");
 
-    console.log(error);
+    console.error(error);
+    return error;
   }
 }
 
@@ -44,6 +47,7 @@ export async function getProcessTotalNumber(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar total de registros!");
+    return error;
   }
 }
 
@@ -66,6 +70,8 @@ export async function createRecord(recordInfo, toast) {
     if (status === 500) {
       toast.error("Não foi possível criar o registro");
     }
+
+    return err;
   }
 }
 
@@ -76,6 +82,7 @@ export async function getAllFields(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar total de registros!");
+    return error;
   }
 }
 
@@ -86,6 +93,7 @@ export async function getAllDepartmentRecords(toast, id) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar total de registros!");
+    return error;
   }
 }
 
@@ -111,6 +119,7 @@ export async function getRecordHistory(toast, id) {
   } catch (error) {
     console.log(error);
     toast.error("Não foi possível buscar histórico do registro!");
+    return error;
   }
 }
 
@@ -128,6 +137,8 @@ export async function editRecord(recordInfo, id, toast) {
     if (status === 500) {
       toast.error("Não foi possível editar o registro");
     }
+
+    return err;
   }
 }
 
@@ -142,7 +153,8 @@ export async function createUser(user, toast) {
       console.log("Usuário cadastrado no Serviço de Processos!");
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      return error;
     }
   }
 }
