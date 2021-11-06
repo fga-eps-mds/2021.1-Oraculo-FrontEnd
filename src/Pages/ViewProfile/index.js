@@ -89,7 +89,11 @@ const ViewProfile = () => {
                       setSectionID(event.target.selectedIndex + 1);
                     }}
                   >
-                    <SectionsList />
+                    {isAdmin ? (
+                      <SectionsList type="departmens" />
+                    ) : (
+                      <SectionsList type="sections" />
+                    )}
                   </select>
                 </div>
               </form>
