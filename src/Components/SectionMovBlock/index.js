@@ -29,15 +29,8 @@ const SectionMovBlock = ({ forwardSector }) => {
           <p>{forwardSector.name}</p>
         </div>
         <div>
-<<<<<<< HEAD
-          <p>
-            {fowardSector.defaultText}: {fowardSector.setor}
-          </p>
-          <p>{fowardSector.date}</p>
-=======
           <p>Registro encaminhado para: {forwardSector.setor}</p>
           <p>{forwardSector.date}</p>
->>>>>>> 404118ac8fd55609e53f9f33795178a20e28790b
         </div>
       </DivMovBlock>
     </>
