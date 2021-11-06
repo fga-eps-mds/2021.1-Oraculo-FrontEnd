@@ -15,15 +15,31 @@ import {
 } from "./styles";
 
 const ViewProfile = () => {
+  // User Type according to database
+  const userType = {
+    admin: 1,
+    common: 2,
+  };
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sectionID, setSectionID] = useState("");
+  const [sectionName, setSectionName] = useState("");
+  const [departmentName, setDepartmentName] = useState("");
+  const [departmentID, setDepartmentID] = useState("");
+
+  const [level, setLevel] = useState(userType.common);
+  const [isAdmin, setAdmin] = useState(false);
 
   async function handleClick(event) {
     changeUser(toast, name, email, sectionID);
     const user = await getInfoUser(toast);
     setName(user.name);
     setEmail(user.email);
+    setSectionID(user.sections[0].id);
+    setDepartmentID(user.departments[0].id);
+    setLevel(user.levels[0].id);
+    console.log("User Updated", user);
   }
 
   useEffect(() => {
@@ -31,7 +47,14 @@ const ViewProfile = () => {
       const user = await getInfoUser(toast);
       setName(user.name);
       setEmail(user.email);
+      setSectionID(parseInt(user.sections[0].id));
+      setSectionName(user.sections[0].name);
+      setDepartmentID(parseInt(user.departments[0].id));
+      setDepartmentName(user.departments[0].name);
+      setLevel(parseInt(user.levels[0].id));
+      console.log("User Atual", user);
     }
+    setAdmin(level === userType.admin ? true : false);
     fetchUserData();
   }, []);
 
@@ -68,14 +91,28 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>Departamento</h1>
+                  <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
-                    placeholder="Selecione o departamento"
-                    onChange={(event) => {
-                      setSectionID(event.target.selectedIndex + 1);
-                    }}>
-                    <SectionsList />
+                    onChange={(event) =>
+                      isAdmin
+                        ? (setDepartmentID(parseInt(event.target.value)),
+                          console.log(event.target.value))
+                        : (setSectionID(parseInt(event.target.value)),
+                          console.log(event.target.value))
+                    }
+                  >
+                    {isAdmin ? (
+                      <>
+                        <option selected>{departmentName}</option>
+                        <SectionsList type={"departmens"} />
+                      </>
+                    ) : (
+                      <>
+                        <option selected>Seção Atual - {sectionName}</option>
+                        <SectionsList type={"sections"} />
+                      </>
+                    )}
                   </select>
                 </div>
               </form>
@@ -88,7 +125,8 @@ const ViewProfile = () => {
                 onClick={(event) => {
                   handleClick(event);
                 }}
-                type="submit">
+                type="submit"
+              >
                 Editar
               </StyledEditButton>
             </StyledButtonsDiv>
