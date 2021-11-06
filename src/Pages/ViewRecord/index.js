@@ -21,6 +21,8 @@ import {
 import { getInfoUser, getSections } from "../../Services/Axios/profileService";
 import { getInfoUserbyID } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
+import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+
 const ViewRecord = () => {
   const { id } = useParams();
   const [sector, setSector] = useState("criminal");
@@ -42,6 +44,8 @@ const ViewRecord = () => {
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
   const [userID, setUserID] = useState("");
+
+  const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -79,6 +83,10 @@ const ViewRecord = () => {
   };
 
   const handleForward = async () => {
+    setButtonModalConfirmForward(true);
+  };
+
+  const handleClickModalConfirmForward = async () => {
     const forwardRecInfo = {
       id: id,
       forwarded_by: userID,
@@ -87,6 +95,12 @@ const ViewRecord = () => {
     };
 
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    setButtonModalConfirmForward(false);
+  }
+
+  const handleClickModalWhite = () => {
+    //setButtonModal(false);
+    setButtonModalConfirmForward(false);
   };
 
   const previousForward = async (response) => {
@@ -217,6 +231,14 @@ const ViewRecord = () => {
             Histórico de alterações
           </a>
         </StyledDivInfoProcess>
+        <ModalDoubleCheck
+          content="Deseja realmente encaminhar esse registro?"
+          trigger={buttonModalConfirmForward}
+          titleRedButton="confirmar"
+          titleWhiteButton="Cancelar"
+          onClickRedButton={handleClickModalConfirmForward}
+          onClickWhiteButton={handleClickModalWhite}
+        />
       </StyledDivSupProcess>
       <Toaster />
     </>
