@@ -18,12 +18,20 @@ const ViewProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sectionID, setSectionID] = useState("");
+  const [departmentID, setDepartmentID] = useState("");
+
+  // 1 => admin | 2 => common user
+  const [level, setLevel] = useState(2);
 
   async function handleClick(event) {
     changeUser(toast, name, email, sectionID);
     const user = await getInfoUser(toast);
     setName(user.name);
     setEmail(user.email);
+    setSectionID(user.sections[0].id);
+    setDepartmentID(user.departments[0].id);
+    setLevel(user.levels[0].id);
+    console.log("User Updated", user);
   }
 
   useEffect(() => {
@@ -31,6 +39,10 @@ const ViewProfile = () => {
       const user = await getInfoUser(toast);
       setName(user.name);
       setEmail(user.email);
+      setSectionID(user.sections[0].id);
+      setDepartmentID(user.departments[0].id);
+      setLevel(user.levels[0].id);
+      console.log("User Atual", user);
     }
     fetchUserData();
   }, []);
@@ -74,7 +86,8 @@ const ViewProfile = () => {
                     placeholder="Selecione o departamento"
                     onChange={(event) => {
                       setSectionID(event.target.selectedIndex + 1);
-                    }}>
+                    }}
+                  >
                     <SectionsList />
                   </select>
                 </div>
@@ -88,7 +101,8 @@ const ViewProfile = () => {
                 onClick={(event) => {
                   handleClick(event);
                 }}
-                type="submit">
+                type="submit"
+              >
                 Editar
               </StyledEditButton>
             </StyledButtonsDiv>
