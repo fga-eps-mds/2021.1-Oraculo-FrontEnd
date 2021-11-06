@@ -118,15 +118,17 @@ export async function getRecordHistory(toast, id) {
   }
 }
 export async function createUser(user, toast) {
-  try {
-    const response = await APIProcess.post(`/users`, {
-      name: user.name,
-      email: user.email,
-      section_id: user.sectionID,
-    });
-    console.log("Usuário cadastrado no Serviço de Processos!");
-    return response.data;
-  } catch (error) {
-    console.log(error);
+  if (user.sectionName !== "none") {
+    try {
+      const response = await APIProcess.post(`/users`, {
+        name: user.name,
+        email: user.email,
+        section_id: user.sectionID,
+      });
+      console.log("Usuário cadastrado no Serviço de Processos!");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
