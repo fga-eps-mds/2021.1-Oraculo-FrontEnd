@@ -29,15 +29,23 @@ const ViewProfile = () => {
   const [departmentID, setDepartmentID] = useState("");
 
   const [level, setLevel] = useState(userType.common);
-  const [isAdmin, setAdmin] = useState(false);
+  const [isAdmin, setAdmin] = useState("");
 
-  async function handleClick(event) {
-    changeUser(toast, name, email, sectionID);
+  async function updateUser() {
+    if (isAdmin) {
+      changeUser(toast, name, email, 0, departmentID);
+    } else {
+      changeUser(toast, name, email, sectionID, 0);
+    }
     const user = await getInfoUser(toast);
     setName(user.name);
     setEmail(user.email);
     setSectionID(user.sections[0].id);
-    setDepartmentID(user.departments[0].id);
+    setDepartmentID(user.departments[user.departments.length - 1].id);
+    console.log(
+      "Departamento selecionado:",
+      user.departments[user.departments.length - 1].id
+    );
     setLevel(user.levels[0].id);
     console.log("User Updated", user);
   }
@@ -52,11 +60,11 @@ const ViewProfile = () => {
       setDepartmentID(parseInt(user.departments[0].id));
       setDepartmentName(user.departments[0].name);
       setLevel(parseInt(user.levels[0].id));
+      setAdmin(level === userType.admin ? true : false);
       console.log("User Atual", user);
     }
-    setAdmin(level === userType.admin ? true : false);
     fetchUserData();
-  }, []);
+  }, [departmentID, sectionID, isAdmin]);
 
   return (
     <>
@@ -104,11 +112,13 @@ const ViewProfile = () => {
                   >
                     {isAdmin ? (
                       <>
-                        <option selected>{departmentName}</option>
+                        {console.log("Admin?", isAdmin)}
+                        <option selected>Dep. Atual - {departmentName}</option>
                         <SectionsList type={"departmens"} />
                       </>
                     ) : (
                       <>
+                        {console.log("Admin?", isAdmin)}
                         <option selected>Seção Atual - {sectionName}</option>
                         <SectionsList type={"sections"} />
                       </>
@@ -123,7 +133,7 @@ const ViewProfile = () => {
               </StyledBackButton>
               <StyledEditButton
                 onClick={(event) => {
-                  handleClick(event);
+                  updateUser(event);
                 }}
                 type="submit"
               >
