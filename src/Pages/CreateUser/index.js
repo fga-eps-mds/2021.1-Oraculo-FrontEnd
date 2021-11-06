@@ -86,7 +86,6 @@ const ViewProfile = () => {
                   <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
-                    placeholder="Selecione o departamento"
                     onChange={(event) =>
                       isAdmin
                         ? (setDepartment(parseInt(event.target.value)),
@@ -96,9 +95,15 @@ const ViewProfile = () => {
                     }
                   >
                     {!isAdmin ? (
-                      <SectionsList type={"sections"} />
+                      <>
+                        <option value="">Selecione a seção</option>
+                        <SectionsList type={"sections"} />
+                      </>
                     ) : (
-                      <SectionsList type={"departmens"} />
+                      <>
+                        <option value="">Selecione o departamento</option>
+                        <SectionsList type={"departmens"} />
+                      </>
                     )}
                   </select>
                 </div>
