@@ -64,6 +64,8 @@ export async function createRecord(recordInfo, toast) {
           onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
       </span>
     ));
+
+    return record.data;
   } catch (err) {
     const status = err.response?.status;
 
@@ -125,12 +127,14 @@ export async function getRecordHistory(toast, id) {
 
 export async function editRecord(recordInfo, id, toast) {
   try {
-    await APIProcess.post(`/records/${id}/edit`, recordInfo);
+    const record = await APIProcess.post(`/records/${id}/edit`, recordInfo);
     toast.success((t) => (
       <span style={{ textAlign: "center" }}>
         <p>Registro editado com sucesso!</p>
       </span>
     ));
+
+    return record.data;
   } catch (err) {
     const status = err.response?.status;
 
