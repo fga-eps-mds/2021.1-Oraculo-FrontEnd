@@ -18,6 +18,7 @@ import {
   forwardRecordInfo,
   getProcessByID,
   getRecordHistory,
+  getUserByEmail,
 } from "../../Services/Axios/processService";
 import { getInfoUser, getSections } from "../../Services/Axios/profileService";
 import { getInfoUserbyID } from "../../Services/Axios/profileService";
@@ -43,6 +44,7 @@ const ViewRecord = () => {
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
   const [userID, setUserID] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -63,10 +65,12 @@ const ViewRecord = () => {
       const user = await getInfoUser(toast);
       setUserName(user.name);
       setUserID(user.id);
+      setUserEmail(user.email);
       setUserSector(user.sections[0].name);
       setUserSectorNum(user.sections[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
+      console.log("responseHR",responseHR);
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
@@ -82,7 +86,7 @@ const ViewRecord = () => {
   const handleForward = async () => {
     const forwardRecInfo = {
       id: id,
-      forwarded_by: userID,
+      forwarded_by: userEmail,
       origin_id: userSectorNum,
       destination_id: sector,
     };
@@ -91,14 +95,23 @@ const ViewRecord = () => {
   };
 
   const previousForward = async (response) => {
-    const infoUser = await getInfoUserbyID(response.forwarded_by);
-
+    const email = response.forwarded_by;
+    const infoUser = await getUserByEmail(email);
+    console.log(response);
     const destinationID = response.destination_id;
+    const originSecID = response.origin_id;
+    console.log("originsecid",originSecID);
     const allSections2 = await getSections();
     console.log("Allsec", allSections2);
+
     const destinationSection = allSections2.filter((indice) => {
       return indice.id == destinationID;
     });
+
+    const originSection = allSections2.filter((indice) => {
+      return indice.id == originSecID;
+    });
+    console.log(originSection);
 
     let dataCreated = new Date(response.createdAt);
     let dataFormatadaCreatedAt =
@@ -117,7 +130,7 @@ const ViewRecord = () => {
 
     const newForward = {
       setor: destinationSection[0].name,
-      setorOrigin: infoUser.user.sections[0].name,
+      setorOrigin: originSection[0].name,
       date: dataFormatadaCreatedAt,
       dateForward: dataFormatadaUpdatedAt,
       name: infoUser.user.name,
