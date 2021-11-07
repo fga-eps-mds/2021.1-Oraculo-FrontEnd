@@ -13,6 +13,7 @@ import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
+import { history } from "../../history";
 import {
   forwardRecordInfo,
   getProcessByID,
@@ -124,6 +125,11 @@ const ViewRecord = () => {
     return newForward;
   };
 
+  function handleEditRegister() {
+    history.push(`/editar-registro/${id}`);
+    window.location.reload();
+  }
+
   return (
     <>
       <HeaderWithButtons />
@@ -133,7 +139,11 @@ const ViewRecord = () => {
             <div>
               <h2>Nº do registro:&nbsp;</h2>
               <h2>{registerNumber ? registerNumber : "Erro"}</h2>
-              <FaPen class="info-icon" />
+              <FaPen
+                size="2rem"
+                onClick={handleEditRegister}
+                class="info-icon"
+              />
             </div>
             <div>
               <h3>Descrição:&nbsp;</h3>
@@ -187,7 +197,10 @@ const ViewRecord = () => {
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
-            <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
+            <GenericWhiteButton
+              title="voltar"
+              onClick={() => window.history.back()}
+            />
             <GenericRedButton title="concluir" onClick={handleButtonProcess} />
           </StyledDivButtons>
         </StyledDivShowProcess>

@@ -143,6 +143,7 @@ const StyledInfoSection = styled.section`
 
   .info-icon {
     margin: 1rem 0 0 auto;
+    cursor: pointer;
   }
 
   div {
