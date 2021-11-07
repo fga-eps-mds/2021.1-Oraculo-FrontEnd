@@ -162,3 +162,17 @@ export async function createUser(user, toast) {
     }
   }
 }
+
+export async function getUserByEmail(email) {
+  try {
+    console.log("email",email);
+    const response = await APIProcess.get(`/user/by-mail`, {
+      email: email,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
