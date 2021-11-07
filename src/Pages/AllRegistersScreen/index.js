@@ -11,6 +11,7 @@ import {
   StyledTop,
   ButtonDiv,
   StyledSearchBarSize,
+  StyledSearchBar,
 } from "./styles";
 
 import Process from "../../Components/Process";
@@ -20,12 +21,15 @@ import {
   getProcessByPage,
 } from "../../Services/Axios/processService";
 import toast from "react-hot-toast";
+import { GrFormSearch } from "react-icons/gr";
 
 const AllRegistersScreen = () => {
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
   const [allProcesses, setAllProcesses] = useState(0);
+  // Acrescentando termo para busca
+  const [searchTerm, setSearchTerm] = useState("");
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
@@ -62,7 +66,17 @@ const AllRegistersScreen = () => {
         <StyledTitle>Registros - Todos</StyledTitle>
         <StyledTop>
           <StyledSearchBarSize>
-            <SearchBar />
+            {/* área para pesquisa */}
+            <StyledSearchBar>
+              <button>
+                <GrFormSearch size="3rem" />
+              </button>
+              <input
+                id="searchText"
+                type="text"
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+            </StyledSearchBar>
           </StyledSearchBarSize>
           <ButtonDiv>
             <MainButton onClick={handleProcess} title={"Novo Registro"} />
@@ -79,7 +93,7 @@ const AllRegistersScreen = () => {
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
         {process ? (
-          <Process process={process} />
+          <Process searchTerm={searchTerm} process={process} />
         ) : (
           <h1 class="zero-registros">
             Não há registros cadastrados no sistema

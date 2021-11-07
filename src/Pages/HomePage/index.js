@@ -14,6 +14,9 @@ import { StyledSearchBar } from "../../Components/SearchBar/styles";
 import { GrFormSearch } from "react-icons/gr";
 
 const HomePage = () => {
+  {
+    /* Setar estados de processos e paginação */
+  }
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
@@ -61,6 +64,7 @@ const HomePage = () => {
       <HeaderWithButtons />
       <StyledBody>
         <h1>Pesquisar Registro</h1>
+        {/* Fazer botão atualizar com processos */}
         <StyledSearchBar>
           <button>
             <GrFormSearch size="3rem" />
@@ -82,6 +86,7 @@ const HomePage = () => {
           <StyledBigButton>Tags</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
+        {/* fazer processo atualizar com SearchTerm */}
         {process ? (
           <Process searchTerm={searchTerm} process={process} />
         ) : (
