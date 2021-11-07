@@ -12,6 +12,7 @@ import ChangePassword from "./Pages/ChangePassword";
 import AllRegistersScreen from "./Pages/AllRegistersScreen";
 import ViewAllFields from "./Pages/ViewAllFields";
 import ViewAllUsers from "./Pages/ViewAllUsers";
+import EditRecord from "./Pages/EditRecord";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -63,6 +64,10 @@ const Routes = () => (
       <PrivateRoutes
         path="/visualizar-usuarios"
         component={() => <ViewAllUsers />}
+      />
+      <PrivateRoutes
+        path="/editar-registro/:id"
+        component={() => <EditRecord />}
       />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
