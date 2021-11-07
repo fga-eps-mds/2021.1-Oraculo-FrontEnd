@@ -185,17 +185,24 @@ export async function changeUserPassword(toast, password) {
   }
 }
 
-export async function changeUser(toast, name, email, sectorID) {
+export async function changeUser(toast, name, email, sectionID, departmentID) {
   try {
-    await APIProfile.post(
-      "/user/change-user",
-      { name: name, email: email, section_id: sectorID },
+    const response = await APIProfile.post(
+      "/user/edit",
+      {
+        name: name,
+        email: email,
+        section_id: sectionID,
+        department_id: departmentID,
+      },
       {
         headers: { "X-Access-Token": getToken() },
       }
     );
+    console.log("Cadastro atualizado com sucesso!", response);
     toast.success("Usuário alterado com sucesso!");
   } catch (err) {
+    console.log("Erro ao atualizar cadastro!", err);
     toast.error("Ocorreu um erro ao tentar mudar o usuário");
   }
 }

@@ -68,7 +68,7 @@ const HeaderWithButtons = () => {
         setName(user?.name);
       }
     } catch (err) {
-      console.log(err, "goldfish");
+      console.log("Erro ao carregar os dados do usuário!", err);
     }
   }
 

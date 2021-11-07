@@ -37,7 +37,11 @@ const ViewProfile = () => {
       sectionName: sectionName,
     };
     console.log("USER", user);
+
+    // Register User to Profile
     registerUser(user, toast);
+
+    //Register User to Process
     createUser(user, toast);
   }
 
