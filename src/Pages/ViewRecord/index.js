@@ -132,7 +132,7 @@ const ViewRecord = () => {
     setButtonModal(false);
     setButtonDone(true);
 
-    //document.querySelector(".fowardIcon").style.display = "none";
+    document.querySelector(".forwardIcon").style.display = "none";
   };
 
   const previousForward = async (response) => {
