@@ -66,7 +66,7 @@ const AllRegistersScreen = () => {
         <StyledTitle>Registros - Todos</StyledTitle>
         <StyledTop>
           <StyledSearchBarSize>
-            {/* área para pesquisa */}
+            {/* área para procurar registros */}
             <StyledSearchBar>
               <button>
                 <GrFormSearch size="3rem" />
@@ -92,6 +92,7 @@ const AllRegistersScreen = () => {
           <StyledBigButton>Tag</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
+        {/* Procurar registros com base no termo procurado*/}
         {process ? (
           <Process searchTerm={searchTerm} process={process} />
         ) : (
@@ -99,6 +100,7 @@ const AllRegistersScreen = () => {
             Não há registros cadastrados no sistema
           </h1>
         )}
+        {/* Paginação dos registros*/}
         <Pagination
           processPerPage={processPerPage}
           totalProcess={allProcesses}

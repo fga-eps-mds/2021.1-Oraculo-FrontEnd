@@ -64,7 +64,7 @@ const HomePage = () => {
       <HeaderWithButtons />
       <StyledBody>
         <h1>Pesquisar Registro</h1>
-        {/* Fazer botão atualizar com processos */}
+        {/* Fazer botão atualizar com registros */}
         <StyledSearchBar>
           <button>
             <GrFormSearch size="3rem" />
@@ -86,7 +86,7 @@ const HomePage = () => {
           <StyledBigButton>Tags</StyledBigButton>
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
-        {/* fazer processo atualizar com SearchTerm */}
+        {/* fazer registro atualizar com SearchTerm */}
         {process ? (
           <Process searchTerm={searchTerm} process={process} />
         ) : (
@@ -94,6 +94,7 @@ const HomePage = () => {
             Não há registros cadastrados no sistema
           </h1>
         )}
+        {/* paginar registros */}
         <Pagination
           processPerPage={processPerPage}
           totalProcess={allProcesses}
