@@ -18,9 +18,15 @@ const Process = ({ process, searchTerm }) => {
           if (searchTerm === "") {
             return val;
           } else if (
-            val.state.toLowerCase().includes(searchTerm.toLowerCase())
+            val.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            val.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            val.document_date
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            val.requester.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            val.sei_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            val.register_number.toLowerCase().includes(searchTerm.toLowerCase())
           ) {
-            console.log(val, "teste");
             return val;
           }
         })
