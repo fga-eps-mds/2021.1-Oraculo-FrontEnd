@@ -129,8 +129,8 @@ const ViewProfile = () => {
                 Voltar
               </StyledBackButton>
               <StyledEditButton
-                onClick={(event) => {
-                  updateUser(event);
+                onClick={() => {
+                  updateUser();
                 }}
                 type="submit"
               >
