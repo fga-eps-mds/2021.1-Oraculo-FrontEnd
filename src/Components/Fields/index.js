@@ -10,17 +10,13 @@ const Fields = ({ process, searchTerm }) => {
       {/* ADicionando lógica que filtra campos */}
       {process
         .filter((val) => {
-          if (val === undefined) {
+          if (searchTerm === "") {
             return val;
-          } else {
-            if (searchTerm === "") {
-              return val;
-            } else if (
-              val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              val.description.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return val;
-            }
+          } else if (
+            val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            val.description.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+            return val;
           }
         })
         .map((post) => (
