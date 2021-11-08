@@ -65,7 +65,10 @@ const Routes = () => (
         path="/todos-os-campos"
         component={() => <ViewAllFields />}
       />
-
+      <PrivateRoutes
+        path="/visualizar-secoes"
+        component={() => <CreateDepartment />}
+      />
       <PrivateRoutes
         path="/criar-departamento"
         component={() => <CreateDepartment />}
