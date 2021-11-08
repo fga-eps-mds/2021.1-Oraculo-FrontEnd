@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
+import { createUser } from "../../Services/Axios/processService";
 import { registerUser } from "../../Services/Axios/profileService";
 import { SectionsList } from "./sections";
 
@@ -13,26 +14,35 @@ import {
   StyledForms,
   StyledViewProfile,
   StyledWhiteRectangle,
+  StyledCheckboxDiv,
 } from "./styles";
 
 const ViewProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [department, setDepartment] = useState(1);
-  const [level] = useState(2);
+  const [department, setDepartment] = useState(8);
+  const [section, setSection] = useState(34);
+  const [sectionName, setSectionName] = useState("");
+  const [isAdmin, setAdmin] = useState(false);
 
   async function handleClick(event) {
     const user = {
       name: name,
       email: email,
       departmentID: department,
-      sectionID: department,
-      level: level,
+      sectionID: section,
+      level: isAdmin,
       password: password,
+      sectionName: sectionName,
     };
+    console.log("USER", user);
 
-    return registerUser(user, toast);
+    // Register User to Profile
+    registerUser(user, toast);
+
+    //Register User to Process
+    createUser(user, toast);
   }
 
   return (
@@ -49,7 +59,7 @@ const ViewProfile = () => {
             <StyledForms>
               <form>
                 <div>
-                  <h1>Name</h1>
+                  <h1>Nome</h1>
                   <input
                     id="name"
                     type="text"
@@ -69,15 +79,37 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>Setor</h1>
+                  <h1>Administrador</h1>
+                  <input
+                    type="checkbox"
+                    onChange={(event) => {
+                      setAdmin(event.target.checked);
+                    }}
+                  />
+                </div>
+                <div>
+                  <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
-                    placeholder="Selecione o departamento"
-                    onChange={(event) => {
-                      setDepartment(event.target.selectedIndex + 1);
-                    }}
+                    onChange={(event) =>
+                      isAdmin
+                        ? (setDepartment(parseInt(event.target.value)),
+                          setSectionName("none"))
+                        : (setSection(parseInt(event.target.value)),
+                          setSectionName(event.target.selectedOptions[0].text))
+                    }
                   >
-                    <SectionsList />
+                    {!isAdmin ? (
+                      <>
+                        <option value="">Selecione a seção</option>
+                        <SectionsList type={"sections"} />
+                      </>
+                    ) : (
+                      <>
+                        <option value="">Selecione o departamento</option>
+                        <SectionsList type={"departmens"} />
+                      </>
+                    )}
                   </select>
                 </div>
                 <div>

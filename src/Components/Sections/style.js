@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const StyledListGroup = styled.ul`
+  display: contents;
+  list-style-type: none;
+`;
+export const StyledListGroupItem = styled.li``;
+
 export const styles = {};
 
 export const StyledBigDiv = styled.div`
@@ -10,7 +16,6 @@ export const StyledBigDiv = styled.div`
   border: 2px solid #000000;
   display: inline-block;
   align-items: center;
-  text-align: center;
   .registerNumber {
     width: 16%;
   }
@@ -36,16 +41,6 @@ export const StyledBigDiv = styled.div`
     width: 7%;
     padding-left: 1.8rem;
   }
-  a {
-    text-decoration: none;
-    color: black;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-family: Montserrat;
-    font-style: normal;
-    font-size: 26px;
-  }
   button {
     border: none;
     background: transparent;
@@ -54,9 +49,4 @@ export const StyledBigDiv = styled.div`
     font-style: normal;
     font-size: 26px;
   }
-`;
-
-export const StyledA = styled.a`
-  text-decoration: none;
-  color: black;
 `;

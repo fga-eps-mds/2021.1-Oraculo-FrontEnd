@@ -13,6 +13,9 @@ import AllRegistersScreen from "./Pages/AllRegistersScreen";
 import AllDepartmentsScreen from "./Pages/AllDepartmentsScreen";
 import ViewAllFields from "./Pages/ViewAllFields";
 import CreateDepartment from "./Pages/CreateDepartment";
+import ViewAllUsers from "./Pages/ViewAllUsers";
+import EditRecord from "./Pages/EditRecord";
+import AllSections from "./Pages/AllSections";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -67,11 +70,17 @@ const Routes = () => (
       />
       <PrivateRoutes
         path="/visualizar-secoes"
-        component={() => <CreateDepartment />}
+        component={() => <AllSections />}
       />
       <PrivateRoutes
         path="/criar-departamento"
         component={() => <CreateDepartment />}
+        path="/visualizar-usuarios"
+        component={() => <ViewAllUsers />}
+      />
+      <PrivateRoutes
+        path="/editar-registro/:id"
+        component={() => <EditRecord />}
       />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>

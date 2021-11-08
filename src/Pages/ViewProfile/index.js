@@ -15,15 +15,35 @@ import {
 } from "./styles";
 
 const ViewProfile = () => {
+  // User Type according to database
+  const userType = {
+    admin: 1,
+    common: 2,
+  };
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [sectionID, setSectionID] = useState("");
+  const [sectionName, setSectionName] = useState("");
+  const [departmentName, setDepartmentName] = useState("");
+  const [departmentID, setDepartmentID] = useState("");
 
-  async function handleClick(event) {
-    changeUser(toast, name, email, sectionID);
+  const [level, setLevel] = useState(userType.common);
+  const [isAdmin, setAdmin] = useState("");
+
+  async function updateUser() {
+    if (isAdmin) {
+      changeUser(toast, name, email, 0, departmentID);
+    } else {
+      changeUser(toast, name, email, sectionID, 0);
+    }
     const user = await getInfoUser(toast);
+    console.log("Usuário atualizado", user);
     setName(user.name);
     setEmail(user.email);
+    setSectionID(user.sections[0].id);
+    setDepartmentID(user.departments[user.departments.length - 1].id);
+    setLevel(user.levels[0].id);
   }
 
   useEffect(() => {
@@ -31,9 +51,16 @@ const ViewProfile = () => {
       const user = await getInfoUser(toast);
       setName(user.name);
       setEmail(user.email);
+      setSectionID(parseInt(user.sections[0].id));
+      setSectionName(user.sections[0].name);
+      setDepartmentID(parseInt(user.departments[0].id));
+      setDepartmentName(user.departments[0].name);
+      setLevel(parseInt(user.levels[0].id));
+      setAdmin(level === userType.admin ? true : false);
+      console.log("Dados do Usuário", user);
     }
     fetchUserData();
-  });
+  }, [isAdmin]);
 
   return (
     <>
@@ -52,8 +79,7 @@ const ViewProfile = () => {
                   <input
                     id="name"
                     type="text"
-                    placeholder="William Cops"
-                    defaultValue={name}
+                    placeholder={name}
                     onChange={(event) => setName(event.target.value)}
                   />
                 </div>
@@ -62,20 +88,38 @@ const ViewProfile = () => {
                   <input
                     id="email"
                     type="text"
-                    placeholder="william@pcgo.org.br"
-                    defaultValue={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder={email}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
                   />
                 </div>
                 <div>
-                  <h1>Departamento</h1>
+                  <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
                   <select
                     required
-                    placeholder="Selecione o departamento"
-                    onChange={(event) => {
-                      setSectionID(event.target.selectedIndex + 1);
-                    }}>
-                    <SectionsList />
+                    onChange={(event) =>
+                      isAdmin
+                        ? (setDepartmentID(parseInt(event.target.value)),
+                          console.log(
+                            "Departamento Selecionado:",
+                            event.target.value
+                          ))
+                        : (setSectionID(parseInt(event.target.value)),
+                          console.log("Seção Selecionada:", event.target.value))
+                    }
+                  >
+                    {isAdmin ? (
+                      <>
+                        <option selected>Dep. Atual - {departmentName}</option>
+                        <SectionsList type={"departmens"} />
+                      </>
+                    ) : (
+                      <>
+                        <option selected>Seção Atual - {sectionName}</option>
+                        <SectionsList type={"sections"} />
+                      </>
+                    )}
                   </select>
                 </div>
               </form>
@@ -85,10 +129,11 @@ const ViewProfile = () => {
                 Voltar
               </StyledBackButton>
               <StyledEditButton
-                onClick={(event) => {
-                  handleClick(event);
+                onClick={() => {
+                  updateUser();
                 }}
-                type="submit">
+                type="submit"
+              >
                 Editar
               </StyledEditButton>
             </StyledButtonsDiv>

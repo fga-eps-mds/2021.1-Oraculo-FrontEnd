@@ -113,13 +113,9 @@ export async function loginUser(user, toast) {
 
 export async function listAllUsers(toast) {
   try {
-    const response = await APIProfile.post(
-      "/users/all",
-      {},
-      {
-        headers: { "X-Access-Token": getToken() },
-      }
-    );
+    const response = await APIProfile.get("/users/all", {
+      headers: { "X-Access-Token": getToken() },
+    });
     return response.data;
   } catch (err) {
     const status = err.response?.status;
@@ -174,15 +170,6 @@ export async function getInfoUserbyID(id) {
   }
 }
 
-export async function getSections() {
-  try {
-    const response = await APIProfile.get("/sections");
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export async function changeUserPassword(toast, password) {
   try {
     await APIProfile.post(
@@ -198,17 +185,24 @@ export async function changeUserPassword(toast, password) {
   }
 }
 
-export async function changeUser(toast, name, email, sectorID) {
+export async function changeUser(toast, name, email, sectionID, departmentID) {
   try {
-    await APIProfile.post(
-      "/user/change-user",
-      { name: name, email: email, section_id: sectorID },
+    const response = await APIProfile.post(
+      "/user/edit",
+      {
+        name: name,
+        email: email,
+        section_id: sectionID,
+        department_id: departmentID,
+      },
       {
         headers: { "X-Access-Token": getToken() },
       }
     );
+    console.log("Cadastro atualizado com sucesso!", response);
     toast.success("Usuário alterado com sucesso!");
   } catch (err) {
+    console.log("Erro ao atualizar cadastro!", err);
     toast.error("Ocorreu um erro ao tentar mudar o usuário");
   }
 }
@@ -223,6 +217,7 @@ export async function getDepartments() {
 }
 
 export async function getDepartmentsTotalNumber(toast) {
+  // Count department
   try {
     const response = await APIProfile.get("/count/departments");
     return response.data;
@@ -231,7 +226,18 @@ export async function getDepartmentsTotalNumber(toast) {
   }
 }
 
+export async function getSections() {
+  // See all sections
+  try {
+    const response = await APIProfile.get("/sections");
+    return response.data;
+  } catch (err) {
+    console.error(`failed to get sections: ${err}`);
+  }
+}
+
 export async function getDepartmentsByPage(toast) {
+  // See all department
   try {
     const response = await APIProfile.get(`/departments`);
 

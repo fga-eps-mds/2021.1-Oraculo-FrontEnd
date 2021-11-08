@@ -92,7 +92,9 @@ const AllDepartmentsScreen = () => {
         {departments ? (
           <Departments searchTerm={searchTerm} departments={departments} />
         ) : (
-          <h1 class="zero-registros">Não há Seções cadastradas no sistema</h1>
+          <h1 class="zero-registros">
+            Não há departamentos cadastrados no sistema
+          </h1>
         )}
         <Pagination
           departmentsPerPage={departmentsPerPage}

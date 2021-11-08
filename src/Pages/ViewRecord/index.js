@@ -5,6 +5,7 @@ import {
   StyledDivShowProcess,
   StyledDivSupProcess,
   StyledDivButtons,
+  StyledInfoSection,
 } from "./style";
 import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
@@ -12,6 +13,7 @@ import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
+import { history } from "../../history";
 import {
   forwardRecordInfo,
   getProcessByID,
@@ -24,12 +26,18 @@ const ViewRecord = () => {
   const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
-  const [seiNumber, setSeiNumber] = useState("");
-  const [documentDate, setDocumentDate] = useState("");
+
+  const [registerNumber, setRegisterNumber] = useState("");
   const [requester, setRequester] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [description, setDescription] = useState("");
+  const [receiptForm, setReceiptForm] = useState("");
+  const [seiNumber, setSeiNumber] = useState("");
+  const [documentDate, setDocumentDate] = useState("");
+  const [documentNumber, setDocumentNumber] = useState("");
+  const [documentContactInfo, setDocumentContactInfo] = useState("");
+  const [documentType, setDocumentType] = useState("");
 
   const [userName, setUserName] = useState("");
   const [userSector, setUserSector] = useState("");
@@ -39,6 +47,7 @@ const ViewRecord = () => {
   useEffect(() => {
     async function fetchRecordData() {
       const record = await getProcessByID(id, toast);
+      setRegisterNumber(record.register_number);
       setSeiNumber(record.sei_number);
       setDocumentDate(record.document_date);
       setRequester(record.requester);
@@ -46,6 +55,10 @@ const ViewRecord = () => {
       setState(record.state);
       setDescription(record.description);
       setState(record.state);
+      setReceiptForm(record.receipt_form);
+      setDocumentNumber(record.document_number);
+      setDocumentContactInfo(record.contact_info);
+      setDocumentType(record.document_type);
 
       const user = await getInfoUser(toast);
       setUserName(user.name);
@@ -53,13 +66,14 @@ const ViewRecord = () => {
       setUserSector(user.sections[0].name);
       setUserSectorNum(user.sections[0].id);
 
-      const responseHR = await getRecordHistory(toast,id);
-      const arrInfoForward = await Promise.all(responseHR.map((post) => previousForward(post)));
+      const responseHR = await getRecordHistory(toast, id);
+      const arrInfoForward = await Promise.all(
+        responseHR.map((post) => previousForward(post))
+      );
       setForward(arrInfoForward);
-
     }
     fetchRecordData();
-  }, [forward]);
+  }, []);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
@@ -83,55 +97,110 @@ const ViewRecord = () => {
     const allSections2 = await getSections();
     console.log("Allsec", allSections2);
     const destinationSection = allSections2.filter((indice) => {
-        return indice.id == destinationID;
-      
+      return indice.id == destinationID;
     });
 
     let dataCreated = new Date(response.createdAt);
-    let dataFormatadaCreatedAt = ((dataCreated.getDate())) + "/" + ((dataCreated.getMonth() + 1)) + "/" + dataCreated.getFullYear();
+    let dataFormatadaCreatedAt =
+      dataCreated.getDate() +
+      "/" +
+      (dataCreated.getMonth() + 1) +
+      "/" +
+      dataCreated.getFullYear();
     let dataUpdated = new Date(response.updatedAt);
-    let dataFormatadaUpdatedAt = ((dataUpdated .getDate() )) + "/" + ((dataUpdated .getMonth() + 1)) + "/" + dataUpdated .getFullYear(); 
+    let dataFormatadaUpdatedAt =
+      dataUpdated.getDate() +
+      "/" +
+      (dataUpdated.getMonth() + 1) +
+      "/" +
+      dataUpdated.getFullYear();
 
-    const newForward =
-      {
-        setor: destinationSection[0].name,
-        setorOrigin: infoUser.user.sections[0].name,
-        date: dataFormatadaCreatedAt,
-        dateForward: dataFormatadaUpdatedAt,
-        name: infoUser.user.name,
-      };
+    const newForward = {
+      setor: destinationSection[0].name,
+      setorOrigin: infoUser.user.sections[0].name,
+      date: dataFormatadaCreatedAt,
+      dateForward: dataFormatadaUpdatedAt,
+      name: infoUser.user.name,
+    };
     return newForward;
   };
+
+  function handleEditRegister() {
+    history.push(`/editar-registro/${id}`);
+    window.location.reload();
+  }
 
   return (
     <>
       <HeaderWithButtons />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
-          <div className="infoProcess">
-            <div className="infoProcessicon">
-              <p>
-                {seiNumber === "" || seiNumber == undefined
-                  ? "153040/123"
-                  : seiNumber}
-              </p>
-              <FaPen />
+          <StyledInfoSection>
+            <div>
+              <h2>Nº do registro:&nbsp;</h2>
+              <h2>{registerNumber ? registerNumber : "Erro"}</h2>
+              <FaPen
+                size="2rem"
+                onClick={handleEditRegister}
+                class="info-icon"
+              />
             </div>
-            <span>
-              Data de inclusão:{" "}
-              {documentDate === "" ? "15/12/1945" : documentDate}
-            </span>
-            <p className="info-record">
-              <span>
-                {city}-{state}{" "}
-              </span>{" "}
-              |<span> {requester} </span>|<span> {description}</span>
-            </p>
-          </div>
+            <div>
+              <h3>Descrição:&nbsp;</h3>
+              <h3>{description ? description : "Erro"}</h3>
+            </div>
+            <div>
+              <h3>Localidade:&nbsp;</h3>
+              <h3>{city ? city : "Erro"}</h3>
+              <h3>-</h3>
+              <h3>{state ? state : "Erro"}</h3>
+            </div>
+            <div>
+              <h3>Solicitante:&nbsp;</h3>
+              <h3>{requester ? requester : "Erro"}</h3>
+            </div>
+            <div>
+              <h3>Recebido via:&nbsp;</h3>
+              <h3>{receiptForm ? receiptForm : "Erro"}</h3>
+            </div>
+            <div>
+              <h3>Tipo de documento:&nbsp;</h3>
+              <h3>
+                {documentType ? documentType : "Informação não cadastrada"}
+              </h3>
+            </div>
+            <div>
+              <h3>Nº do documento:&nbsp;</h3>
+              <h3>
+                {documentNumber ? documentNumber : "Informação não cadastrada"}
+              </h3>
+            </div>
+            <div>
+              <h3>Nº do SEI:&nbsp;</h3>
+              <h3>{seiNumber ? seiNumber : "Informação não cadastrada"}</h3>
+            </div>
+            <div>
+              <h3>Data do documento:&nbsp;</h3>
+              <h3>
+                {documentDate ? documentDate : "Informação não cadastrada"}
+              </h3>
+            </div>
+            <div>
+              <h3>Informações de contato:&nbsp;</h3>
+              <h3 id="contact-info">
+                {documentContactInfo
+                  ? documentContactInfo
+                  : "Informação não cadastrada"}
+              </h3>
+            </div>
+          </StyledInfoSection>
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
-            <GenericWhiteButton title="voltar" onClick={handleButtonProcess} />
+            <GenericWhiteButton
+              title="voltar"
+              onClick={() => window.history.back()}
+            />
             <GenericRedButton title="concluir" onClick={handleButtonProcess} />
           </StyledDivButtons>
         </StyledDivShowProcess>

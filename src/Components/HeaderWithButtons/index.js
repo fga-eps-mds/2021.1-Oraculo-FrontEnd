@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Head,
   StyledDropDown,
@@ -8,6 +8,8 @@ import {
 import Logo from "../../Assets/logo-white.svg";
 import { history } from "../../history";
 import { logout } from "../../Auth/Auth";
+import { getInfoUser } from "../../Services/Axios/profileService";
+import toast from "react-hot-toast";
 
 const HeaderWithButtons = () => {
   function handleRegister() {
@@ -59,6 +61,31 @@ const HeaderWithButtons = () => {
     history.push("/visualizar-secoes");
     window.location.reload();
   }
+
+  function handleSeeAllUsers() {
+    history.push("/visualizar-usuarios");
+    window.location.reload();
+  }
+
+  const [nameUser, setName] = useState("-");
+
+  async function fetchUserData() {
+    try {
+      const user = await getInfoUser(toast);
+      if (user === undefined) {
+        window.location.reload();
+      } else {
+        setName(user?.name);
+      }
+    } catch (err) {
+      console.log("Erro ao carregar os dados do usuário!", err);
+    }
+  }
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -80,11 +107,17 @@ const HeaderWithButtons = () => {
               <button onClick={handleSeeSections}>Ver Seções</button>
               <button onClick={() => {}}>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
+              <button onClick={handleSeeAllUsers}>Listar Usuários</button>
             </div>
           </StyledDropDown>
           <StyledDropDown>
-            <button>Nome</button>
-            <div style={{ textAlign: "center" }}>
+            <button>{nameUser}</button>
+            <div
+              style={{
+                textAlign: "center",
+                flexDirection: "column",
+              }}
+            >
               <button onClick={handleViewProfile}>Ver Perfil</button>
               <button onClick={handleChangePassword}>Nova Senha</button>
               <button onClick={handleClickCheckout}>Sair</button>

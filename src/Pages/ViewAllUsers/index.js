@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
 import SearchBar from "../../Components/SearchBar";
-import Fields from "../../Components/Fields";
 import toast, { Toaster } from "react-hot-toast";
+import { history } from "../../history";
 import {
   StyledTitle,
   StyledBottom,
@@ -15,44 +15,51 @@ import {
   StyledFooter,
   ButtonDiv,
 } from "./styles";
-import { getAllFields } from "../../Services/Axios/processService";
+import { listAllUsers } from "../../Services/Axios/profileService";
+import PocketUser from "../../Components/PocketUser";
 
-const ViewAllFields = () => {
-  const [register, setRegister] = useState([]);
+const ViewAllUsers = () => {
+  const [users, setUsers] = useState([]);
 
-  const fetchProcess = async () => {
-    setRegister(await getAllFields(toast));
+  const receiveUsers = async () => {
+    setUsers(await listAllUsers(toast));
   };
 
   window.onload = function () {
-    fetchProcess();
+    receiveUsers();
   };
+
+  function handleCreateUser() {
+    history.push("/criar-usuario");
+    window.location.reload();
+  }
 
   return (
     <>
       <HeaderWithButtons />
       <StyledPage>
-        <StyledTitle>Campos</StyledTitle>
+        <StyledTitle>Usuários</StyledTitle>
         <StyledTop>
           <StyledSearchBarSize>
             <SearchBar />
           </StyledSearchBarSize>
           <ButtonDiv>
-            <MainButton title={"Novo Campo"} />
+            <MainButton onClick={handleCreateUser} title={"Criar Usuário"} />
           </ButtonDiv>
         </StyledTop>
         <StyledBottom>
           <StyledOrganizeButtons>
             <StyledBigButton>Nome</StyledBigButton>
-            <StyledBigButton>Descrição</StyledBigButton>
-            <StyledBigButton>Criador</StyledBigButton>
+            <StyledBigButton>Email</StyledBigButton>
           </StyledOrganizeButtons>
-
-          <Fields process={register} />
+          {users ? (
+            <PocketUser user={users} />
+          ) : (
+            <StyledTitle>Não há usuários cadastrados</StyledTitle>
+          )}
           <StyledFooter>
             <StyledBigButton>Nome</StyledBigButton>
-            <StyledBigButton>Descrição</StyledBigButton>
-            <StyledBigButton>Criador</StyledBigButton>
+            <StyledBigButton>Email</StyledBigButton>
           </StyledFooter>
         </StyledBottom>
       </StyledPage>
@@ -61,4 +68,4 @@ const ViewAllFields = () => {
   );
 };
 
-export default ViewAllFields;
+export default ViewAllUsers;
