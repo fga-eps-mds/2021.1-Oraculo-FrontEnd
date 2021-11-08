@@ -41,7 +41,7 @@ const CreateRecord = () => {
       if (!user) {
         history.push("/login");
       }
-      setCreatedBy(user.id);
+      setCreatedBy(user.email);
     }
     getUser();
   }, []);
