@@ -20,14 +20,16 @@ class LoginScreen extends React.Component {
     };
   }
 
+  // Refatorar
+
   // Checks if user is logged
   // if user is logged, he's redirected to homescreen
-  componentDidMount() {
-    const auth = isAuthenticated();
-    if (auth) {
-      this.props.history.push("/tela-inicial");
-    }
-  }
+  // componentDidMount() {
+  //   const auth = isAuthenticated();
+  //   if (auth) {
+  //     this.props.history.push("/tela-inicial");
+  //   }
+  // }
 
   setPassword(newPass) {
     this.setState({ password: newPass });
