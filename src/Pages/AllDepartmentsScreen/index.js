@@ -38,8 +38,8 @@ const AllDepartmentsScreen = () => {
 
   useEffect(() => {
     const fetchDepartments = async () => {
-      const temp = await getDepartmentsByPage(toast);
-      setDepartments(temp);
+      const depList = await getDepartmentsByPage(toast);
+      setDepartments(depList);
     };
     fetchDepartments();
   }, [currentPage]);
