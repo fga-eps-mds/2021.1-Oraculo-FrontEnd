@@ -185,27 +185,25 @@ export async function changeUserPassword(toast, password) {
   }
 }
 
-export async function changeUser(toast, name, email, sectorID) {
+export async function changeUser(toast, name, email, sectionID, departmentID) {
   try {
-    await APIProfile.post(
-      "/user/change-user",
-      { name: name, email: email, section_id: sectorID },
+    const response = await APIProfile.post(
+      "/user/edit",
+      {
+        name: name,
+        email: email,
+        section_id: sectionID,
+        department_id: departmentID,
+      },
       {
         headers: { "X-Access-Token": getToken() },
       }
     );
+    console.log("Cadastro atualizado com sucesso!", response);
     toast.success("Usuário alterado com sucesso!");
   } catch (err) {
+    console.log("Erro ao atualizar cadastro!", err);
     toast.error("Ocorreu um erro ao tentar mudar o usuário");
-  }
-}
-
-export async function getSections() {
-  try {
-    const response = await APIProfile.get("/sections");
-    return response.data;
-  } catch (err) {
-    console.error(`failed to get sections: ${err}`);
   }
 }
 
@@ -215,5 +213,70 @@ export async function getDepartments() {
     return response.data;
   } catch (err) {
     console.error(`failed to get departments: ${err}`);
+  }
+}
+
+export async function getDepartmentsTotalNumber(toast) {
+  // Count department
+  try {
+    const response = await APIProfile.get("/count/departments");
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar o total de Departamentos!");
+  }
+}
+
+export async function getSections() {
+  // See all sections
+  try {
+    const response = await APIProfile.get("/sections");
+    return response.data;
+  } catch (err) {
+    console.error(`failed to get sections: ${err}`);
+  }
+}
+
+export async function getDepartmentsByPage(toast) {
+  // See all department
+  try {
+    const response = await APIProfile.get(`/departments`);
+
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar departamento!");
+
+    console.log(error);
+  }
+}
+
+export async function registerDepartment(name, toast) {
+  // Add post to create a new department
+  try {
+    const response = await APIProfile.post(
+      `/departments`,
+      { name: name },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+    toast.success("Departamento cadastrado com sucesso!");
+
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível cadastrar o departamento!");
+  }
+}
+
+export async function registerSection(name, toast) {
+  // Add post to create a new department
+  try {
+    const response = await APIProfile.post(
+      `/sections`,
+      { name: name },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+    toast.success("Seção cadastrado com sucesso!");
+
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível cadastrar o departamento!");
   }
 }

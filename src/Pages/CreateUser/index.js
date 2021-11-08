@@ -3,7 +3,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { createUser } from "../../Services/Axios/processService";
-import { registerUser } from "../../Services/Axios/profileService";
+import {
+  getDepartments,
+  getSections,
+  registerUser,
+} from "../../Services/Axios/profileService";
 import { SectionsList } from "./sections";
 
 import {
@@ -21,12 +25,13 @@ const ViewProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [department, setDepartment] = useState(8);
-  const [section, setSection] = useState(34);
-  const [sectionName, setSectionName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [section, setSection] = useState("");
   const [isAdmin, setAdmin] = useState(false);
+  const [noneDepartment, setNoneDepartment] = useState({});
+  const [noneSection, setNoneSection] = useState({});
 
-  async function handleClick(event) {
+  async function handleClick() {
     const user = {
       name: name,
       email: email,
@@ -34,12 +39,33 @@ const ViewProfile = () => {
       sectionID: section,
       level: isAdmin,
       password: password,
-      sectionName: sectionName,
     };
     console.log("USER", user);
+
+    // Register User to Profile
     registerUser(user, toast);
+
+    //Register User to Process
     createUser(user, toast);
   }
+
+  //Fetch, find and set the default section and departments
+  async function fetchData() {
+    const secList = await getSections();
+    const depList = await getDepartments();
+    const noneSectionItem = secList.find(
+      (sectionItem) => sectionItem.name === "none"
+    );
+    setNoneSection(noneSectionItem);
+    const noneDepartmentItem = depList.find(
+      (departmentItem) => departmentItem.name === "none"
+    );
+    setNoneDepartment(noneDepartmentItem);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [isAdmin]);
 
   return (
     <>
@@ -90,9 +116,9 @@ const ViewProfile = () => {
                     onChange={(event) =>
                       isAdmin
                         ? (setDepartment(parseInt(event.target.value)),
-                          setSectionName("none"))
+                          setSection(noneSection.id))
                         : (setSection(parseInt(event.target.value)),
-                          setSectionName(event.target.selectedOptions[0].text))
+                          setDepartment(noneDepartment.id))
                     }
                   >
                     {!isAdmin ? (
