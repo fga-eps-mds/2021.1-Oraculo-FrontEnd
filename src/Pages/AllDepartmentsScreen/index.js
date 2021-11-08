@@ -38,7 +38,8 @@ const AllDepartmentsScreen = () => {
 
   useEffect(() => {
     const fetchDepartments = async () => {
-      const depList = await getDepartmentsByPage(toast);
+      let depList = await getDepartmentsByPage(toast);
+      depList = depList.filter((dep) => dep.name !== "none");
       setDepartments(depList);
     };
     fetchDepartments();
