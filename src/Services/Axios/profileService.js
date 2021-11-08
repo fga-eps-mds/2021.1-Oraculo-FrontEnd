@@ -273,7 +273,7 @@ export async function registerSection(name, toast) {
       { name: name },
       { headers: { "X-Access-Token": getToken() } }
     );
-    toast.success("Departamento cadastrado com sucesso!");
+    toast.success("Seção cadastrado com sucesso!");
 
     return response.data;
   } catch (error) {
