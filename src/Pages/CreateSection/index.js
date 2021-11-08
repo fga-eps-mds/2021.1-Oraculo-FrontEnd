@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { BiUserCircle } from "react-icons/bi";
+import { BiBuildings } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { registerSection } from "../../Services/Axios/profileService";
 
@@ -27,8 +27,9 @@ const CreateSection = () => {
       <div>
         <Toaster />
         <StyledViewProfile>
+          {/* Create Section image */}
           <StyledBlueRectangle>
-            <BiUserCircle size="20rem" color="white" />
+            <BiBuildings size="20rem" color="white" />
           </StyledBlueRectangle>
 
           <StyledWhiteRectangle>
