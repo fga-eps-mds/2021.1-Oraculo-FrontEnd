@@ -17,12 +17,16 @@ import Sections from "../../Components/Sections";
 
 const AllSections = () => {
   const [sections, setSections] = useState([]);
+
+  // Fetch all Departments
+  const fetchDepartments = async () => {
+    let secList = await getSections();
+    //Remove default "none" Department
+    secList = secList.filter((sec) => sec.name !== "none");
+    setSections(secList);
+  };
+
   useEffect(() => {
-    const fetchDepartments = async () => {
-      let secList = await getSections();
-      secList = secList.filter((sec) => sec.name !== "none");
-      setSections(secList);
-    };
     fetchDepartments();
   }, []);
 
@@ -32,7 +36,7 @@ const AllSections = () => {
     window.location.reload();
   }
 
-  // Acrescentando termo para busca
+  // Adding search term
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -40,9 +44,9 @@ const AllSections = () => {
       <HeaderWithButtons />
 
       <StyledBody>
-        {/* Titulo para listagem de departamentos */}
+        {/* List Department title */}
         <StyledTitle>Seções - Todos</StyledTitle>
-        {/* Adicionando barra de pesquisa */}
+        {/* adding search bar */}
         <div
           style={{
             display: "flex",
