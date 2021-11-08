@@ -76,6 +76,8 @@ const Routes = () => (
       <PrivateRoutes
         path="/criar-departamento"
         component={() => <CreateDepartment />}
+      />
+      <PrivateRoutes
         path="/visualizar-usuarios"
         component={() => <ViewAllUsers />}
       />
