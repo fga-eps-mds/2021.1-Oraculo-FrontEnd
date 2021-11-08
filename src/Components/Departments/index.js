@@ -1,33 +1,23 @@
 import React from "react";
-import PocketDocument from "../PocketDocument";
+import PocketDepartment from "../PocketDepartment";
 import { StyledListGroup } from "./style";
 
-const Departments = ({ departments }) => {
-  const seiNumberLimit = (seiNumber) => {
-    if (seiNumber.length < 10) {
-      return seiNumber;
-    } else {
-      return `${seiNumber.substring(0, 10)}...`;
-    }
-  };
-
+const Departments = ({ departments, searchTerm }) => {
   return (
     <StyledListGroup>
-      {departments.map((post) => (
-        <PocketDocument
-          key={post.id}
-          registerNumber={
-            post.register_number === "" ? "-" : post.register_number
+      {departments
+        .filter((val) => {
+          if (val === "") {
+            return val;
+          } else if (
+            val.name.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+            return val;
           }
-          requester={post.requester === "" ? "-" : post.requester}
-          inclusionDate={post.document_date === "" ? "-" : post.document_date}
-          city={post.city === "" ? "-" : post.city}
-          state={post.state === "" ? "-" : post.state}
-          seiNumber={
-            post.sei_number === "" ? "-" : seiNumberLimit(post.sei_number)
-          }
-        ></PocketDocument>
-      ))}
+        })
+        .map((post) => (
+          <PocketDepartment key={post.id} name={post.name} />
+        ))}
     </StyledListGroup>
   );
 };

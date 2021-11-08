@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { history } from "../../history";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
+import { GrFormSearch } from "react-icons/gr";
 import {
   StyledTitle,
   StyledBody,
   StyledOrganizeButtons,
   StyledBigButton,
   StyledAddButtons,
+  StyledSearchBar,
 } from "./styles";
 
 import Departments from "../../Components/Departments";
@@ -26,7 +28,7 @@ const AllDepartmentsScreen = () => {
 
   async function setAll() {
     const temp = await getDepartmentsTotalNumber(toast);
-    setAllDepartments(temp.count);
+    setAllDepartments(temp?.count);
   }
 
   function handleDepartments() {
@@ -34,16 +36,9 @@ const AllDepartmentsScreen = () => {
     window.location.reload();
   }
 
-  function handleSections() {
-    history.push("/criar-secao");
-    window.location.reload();
-  }
-
   useEffect(() => {
     const fetchDepartments = async () => {
-      console.log(currentPage);
-      const temp = await getDepartmentsByPage(currentPage * departmentsPerPage, toast);
-      console.log(temp);
+      const temp = await getDepartmentsByPage(toast);
       setDepartments(temp);
     };
     fetchDepartments();
@@ -56,27 +51,48 @@ const AllDepartmentsScreen = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  // Acrescentando termo para busca
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <>
       <HeaderWithButtons />
 
       <StyledBody>
-        <StyledTitle>Seção - Todos</StyledTitle>
-        <StyledAddButtons>
-          <MainButton title={"Nova Seção"} onClick={handleSections} />
-          <MainButton title={"Novo Departamento"} onClick={handleDepartments} />
-        </StyledAddButtons>
+        {/* Titulo para listagem de departamentos */}
+        <StyledTitle>Departamentos - Todos</StyledTitle>
+        {/* Adicionando barra de pesquisa */}
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
+          <StyledSearchBar>
+            <button>
+              <GrFormSearch size="3rem" />
+            </button>
+            <input
+              id="searchText"
+              type="text"
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+          </StyledSearchBar>
+          <StyledAddButtons>
+            <MainButton
+              title={"Novo Departamento"}
+              onClick={handleDepartments}
+            />
+          </StyledAddButtons>
+        </div>
         <StyledOrganizeButtons>
-          <StyledBigButton>Nome</StyledBigButton>
-          <StyledBigButton>Departamento</StyledBigButton>
-          <StyledBigButton>...</StyledBigButton>
+          <StyledBigButton>Nome do departamento</StyledBigButton>
         </StyledOrganizeButtons>
         {departments ? (
-          <Departments departments={departments} />
+          <Departments searchTerm={searchTerm} departments={departments} />
         ) : (
-          <h1 class="zero-registros">
-            Não há Seções cadastradas no sistema
-          </h1>
+          <h1 class="zero-registros">Não há Seções cadastradas no sistema</h1>
         )}
         <Pagination
           departmentsPerPage={departmentsPerPage}

@@ -231,9 +231,9 @@ export async function getDepartmentsTotalNumber(toast) {
   }
 }
 
-export async function getDepartmentsByPage(page, toast) {
+export async function getDepartmentsByPage(toast) {
   try {
-    const response = await APIProfile.get(`/departments/page/${page}`);
+    const response = await APIProfile.get(`/departments`);
 
     return response.data;
   } catch (error) {

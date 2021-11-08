@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors, fonts, radius } from "../../style";
 
 export const styles = {};
 
@@ -19,7 +20,7 @@ export const StyledBody = styled.div`
 export const StyledAddButtons = styled.div`
   display: flex;
   justify-content: space-around;
-  background: #FFFFFF;
+  background: #ffffff;
   display: inline-block;
   border: 0px solid #5e5e5e;
   box-sizing: border-box;
@@ -67,4 +68,31 @@ export const StyledTitle = styled.div`
   display: flex;
   text-align: left;
   color: #000000;
+`;
+
+export const StyledSearchBar = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  button {
+    margin: 0.4rem 0 0 0.2rem;
+    position: absolute;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+  input {
+    width: 60rem;
+    height: 3rem;
+    background: ${colors.white};
+    padding-left: 4rem;
+    border-radius: ${radius.sizeSm};
+    border: 2px solid ${colors.black};
+    outline: none;
+    font-style: normal;
+    font-weight: bold;
+    font-family: ${fonts.font};
+    font-size: ${fonts.sizeXlg};
+  }
 `;
