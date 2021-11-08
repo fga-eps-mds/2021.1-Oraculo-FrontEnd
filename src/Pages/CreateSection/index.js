@@ -41,7 +41,7 @@ const CreateSection = () => {
                     id="email"
                     type="text"
                     required
-                    placeholder="´Nome da seção"
+                    placeholder="Nome da seção"
                     value={section}
                     onChange={(event) => setSection(event.target.value)}
                   />
