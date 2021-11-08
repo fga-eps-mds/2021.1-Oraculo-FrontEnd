@@ -31,9 +31,13 @@ const HomePage = () => {
   };
 
   const fetchProcess = async () => {
+    // Fetch user info
     const user = await getInfoUser(toast);
+    //Check if user is admin
     setAdmin(userType.admin === user.levels[0].id);
+    //Set the name of user's department
     setDepartment(user.departments[0].name);
+    //Set the name of user's section
     setSection(user.sections[0].name);
     console.log(currentPage);
     const temp = await getProcessByPage(currentPage * processPerPage, toast);
