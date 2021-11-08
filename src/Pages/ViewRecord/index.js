@@ -91,8 +91,8 @@ const ViewRecord = () => {
   };
 
   const previousForward = async (response) => {
-    const infoUser = await getInfoUserbyID(response.forwarded_by);
-
+    const infoUser = await getInfoUserbyID();
+    console.log(infoUser);
     const destinationID = response.destination_id;
     const allSections2 = await getSections();
     console.log("Allsec", allSections2);
@@ -117,10 +117,10 @@ const ViewRecord = () => {
 
     const newForward = {
       setor: destinationSection[0].name,
-      setorOrigin: infoUser.user.sections[0].name,
+      setorOrigin: infoUser.sections[0].name,
       date: dataFormatadaCreatedAt,
       dateForward: dataFormatadaUpdatedAt,
-      name: infoUser.user.name,
+      name: infoUser.name,
     };
     return newForward;
   };

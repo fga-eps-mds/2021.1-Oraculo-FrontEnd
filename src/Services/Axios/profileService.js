@@ -158,7 +158,7 @@ export async function getUserAccessLevel(user, toast) {
 
 export async function getInfoUserbyID(id) {
   try {
-    const response = await APIProfile.get(`/user/${id}/info`, {
+    const response = await APIProfile.get(`/user/info`, {
       headers: {
         "X-Access-Token": getToken(),
       },
