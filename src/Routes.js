@@ -12,6 +12,7 @@ import ChangePassword from "./Pages/ChangePassword";
 import AllRegistersScreen from "./Pages/AllRegistersScreen";
 import AllDepartmentsScreen from "./Pages/AllDepartmentsScreen";
 import ViewAllFields from "./Pages/ViewAllFields";
+import CreateDepartment from "./Pages/CreateDepartment";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -36,7 +37,11 @@ const Routes = () => (
         path="/login"
         component={() => <LoginScreen history={history} />}
       />
-      <PrivateRoutes exact path="/ver-registro/:id" component={() => <ViewRecord/>} />
+      <PrivateRoutes
+        exact
+        path="/ver-registro/:id"
+        component={() => <ViewRecord />}
+      />
       <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
       <PrivateRoutes
         path="/criar-registro"
@@ -59,6 +64,11 @@ const Routes = () => (
       <PrivateRoutes
         path="/todos-os-campos"
         component={() => <ViewAllFields />}
+      />
+
+      <PrivateRoutes
+        path="/criar-departamento"
+        component={() => <CreateDepartment />}
       />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>

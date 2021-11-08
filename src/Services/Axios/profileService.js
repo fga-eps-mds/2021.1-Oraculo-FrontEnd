@@ -242,3 +242,18 @@ export async function getDepartmentsByPage(toast) {
     console.log(error);
   }
 }
+
+export async function registerDepartment(name, toast) {
+  try {
+    const response = await APIProfile.post(
+      `/departments`,
+      { name: name },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+    toast.success("Departamento cadastrado com sucesso!");
+
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível cadastrar o departamento!");
+  }
+}

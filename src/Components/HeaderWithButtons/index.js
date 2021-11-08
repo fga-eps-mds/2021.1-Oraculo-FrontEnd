@@ -50,6 +50,11 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleSeeDepartment() {
+    history.push("/visualizar-departamentos");
+    window.location.reload();
+  }
+
   return (
     <>
       <Head>
@@ -66,7 +71,7 @@ const HeaderWithButtons = () => {
             <button>Administrador</button>
             <div style={{ textAlign: "center" }}>
               <button onClick={handleCreateUser}>Criar Usuário</button>
-              <button onClick={() => {}}>Criar Departamento</button>
+              <button onClick={handleSeeDepartment}>Ver Departamentos</button>
               <button onClick={() => {}}>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
             </div>
