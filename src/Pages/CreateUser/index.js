@@ -48,6 +48,8 @@ const ViewProfile = () => {
     //Register User to Process
     createUser(user, toast);
   }
+
+  //Fetch, find and set the default section and departments
   async function fetchData() {
     const secList = await getSections();
     const depList = await getDepartments();
