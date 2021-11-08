@@ -61,7 +61,9 @@ const HomePage = () => {
       <StyledBody>
         <h1>Pesquisar Registro</h1>
         <SearchBar></SearchBar>
-        <h1>Departamento: {admin ? department : section}</h1>
+        <h1>
+          {admin ? "Departamento" : "Seção"}: {admin ? department : section}
+        </h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
