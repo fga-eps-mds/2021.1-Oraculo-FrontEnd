@@ -17,11 +17,6 @@ import Sections from "../../Components/Sections";
 
 const AllSections = () => {
   const [sections, setSections] = useState([]);
-  function handleDepartments() {
-    history.push("/criar-departamento");
-    window.location.reload();
-  }
-
   useEffect(() => {
     const fetchDepartments = async () => {
       const temp = await getSections();
@@ -29,6 +24,12 @@ const AllSections = () => {
     };
     fetchDepartments();
   }, []);
+
+  // Function to send to create section
+  function handleSections() {
+    history.push("/criar-secao");
+    window.location.reload();
+  }
 
   // Acrescentando termo para busca
   const [searchTerm, setSearchTerm] = useState("");
@@ -59,7 +60,7 @@ const AllSections = () => {
             />
           </StyledSearchBar>
           <StyledAddButtons>
-            <MainButton title={"Nova Seção"} onClick={handleDepartments} />
+            <MainButton title={"Nova Seção"} onClick={handleSections} />
           </StyledAddButtons>
         </div>
         <StyledOrganizeButtons>

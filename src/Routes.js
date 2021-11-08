@@ -82,6 +82,7 @@ const Routes = () => (
         path="/editar-registro/:id"
         component={() => <EditRecord />}
       />
+      <PrivateRoutes path="/criar-secao" component={() => <EditRecord />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>

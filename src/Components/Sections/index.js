@@ -5,6 +5,7 @@ import { StyledListGroup } from "./style";
 const Sections = ({ sections, searchTerm }) => {
   return (
     <StyledListGroup>
+      {/* Filter all sections */}
       {sections
         .filter((val) => {
           if (val === "") {
@@ -16,6 +17,7 @@ const Sections = ({ sections, searchTerm }) => {
           }
         })
         .map((post) => (
+          // Component to repeat
           <PocketSection key={post.id} name={post.name} />
         ))}
     </StyledListGroup>
