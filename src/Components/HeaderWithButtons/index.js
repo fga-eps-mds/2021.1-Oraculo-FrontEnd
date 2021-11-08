@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  AdminDiv,
   Head,
   StyledDropDown,
   StyledHeaderImage,
@@ -101,7 +102,7 @@ const HeaderWithButtons = () => {
           </StyledDropDown>
           <StyledDropDown>
             <button>Administrador</button>
-            <div style={{ textAlign: "center" }}>
+            <div>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={handleSeeDepartment}>Ver Departamentos</button>
               <button onClick={handleSeeSections}>Ver Seções</button>
