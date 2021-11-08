@@ -36,12 +36,15 @@ const AllDepartmentsScreen = () => {
     window.location.reload();
   }
 
+  const fetchDepartments = async () => {
+    //Fetch department from API
+    let depList = await getDepartmentsByPage(toast);
+    // Filter to remove department none from the screen
+    depList = depList.filter((dep) => dep.name !== "none");
+    setDepartments(depList);
+  };
+
   useEffect(() => {
-    const fetchDepartments = async () => {
-      let depList = await getDepartmentsByPage(toast);
-      depList = depList.filter((dep) => dep.name !== "none");
-      setDepartments(depList);
-    };
     fetchDepartments();
   }, [currentPage]);
 
