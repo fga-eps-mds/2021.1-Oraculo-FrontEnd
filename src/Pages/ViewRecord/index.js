@@ -77,7 +77,24 @@ const ViewRecord = () => {
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
-      setForward(arrInfoForward);
+
+      await setForward(arrInfoForward);
+      if (record.situation == "finished") {
+        const newForwardDone = [
+          ...forward,
+          {
+            setor: " ",
+            setorOrigin: " ",
+            date: " ",
+            dateForward: " ",
+            name: " ",
+            defaultText: "Registro: Concluido",
+          },
+        ];
+        setForward(newForwardDone);
+        document.querySelector(".forwardIcon").style.display = "none";
+        
+      }
     }
     fetchRecordData();
   }, []);

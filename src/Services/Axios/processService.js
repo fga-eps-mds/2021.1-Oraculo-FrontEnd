@@ -46,7 +46,7 @@ export async function fowardRegisterDep(section_id, id, toast) {
 export async function setStatusRecord(id, situation_record, toast) {
   try {
     const response = await APIProcess.post(`/records/${id}/status`, {
-      situation_record: situation_record,
+      situation: situation_record,
     });
     if(response){
       toast.success("Registro concluido!");
