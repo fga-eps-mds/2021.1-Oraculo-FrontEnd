@@ -32,7 +32,6 @@ const HomePage = () => {
 
   const fetchProcess = async () => {
     const user = await getInfoUser(toast);
-    console.log("User", user);
     setAdmin(userType.admin === user.levels[0].id);
     setDepartment(user.departments[0].name);
     setSection(user.sections[0].name);
