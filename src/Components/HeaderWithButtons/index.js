@@ -55,6 +55,10 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleSeeSections() {
+    history.push("/visualizar-secoes");
+    window.location.reload();
+  }
   return (
     <>
       <Head>
@@ -73,7 +77,7 @@ const HeaderWithButtons = () => {
             <div style={{ textAlign: "center" }}>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={handleSeeDepartment}>Ver Departamentos</button>
-              <button onClick={handleSeeDepartment}>Ver Seções</button>
+              <button onClick={handleSeeSections}>Ver Seções</button>
               <button onClick={() => {}}>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
             </div>
