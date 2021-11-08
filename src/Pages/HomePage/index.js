@@ -17,23 +17,25 @@ const HomePage = () => {
   const [processPerPage] = useState(4);
   const [allProcesses, setAllProcesses] = useState(0);
   const [section, setSection] = useState("");
+  const [department, setDepartment] = useState("");
+  const [admin, setAdmin] = useState("");
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
     setAllProcesses(temp.count);
   }
 
+  const userType = {
+    admin: 1,
+    common: 2,
+  };
+
   const fetchProcess = async () => {
-    try {
-      const user = await getInfoUser(toast);
-      if (user === undefined) {
-        window.location.reload();
-      } else {
-        setSection(user.sections[0].name);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    const user = await getInfoUser(toast);
+    console.log("User", user);
+    setAdmin(userType.admin === user.levels[0].id);
+    setDepartment(user.departments[0].name);
+    setSection(user.sections[0].name);
     console.log(currentPage);
     const temp = await getProcessByPage(currentPage * processPerPage, toast);
     console.log(temp);
@@ -42,8 +44,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchProcess();
-    console.log("Departamento:", section);
-  }, [currentPage]);
+  }, [currentPage, admin]);
 
   window.onload = function () {
     setAll();
@@ -57,7 +58,7 @@ const HomePage = () => {
       <StyledBody>
         <h1>Pesquisar Registro</h1>
         <SearchBar></SearchBar>
-        <h1>Departamento: {section}</h1>
+        <h1>Departamento: {admin ? department : section}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
