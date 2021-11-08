@@ -19,8 +19,9 @@ const AllSections = () => {
   const [sections, setSections] = useState([]);
   useEffect(() => {
     const fetchDepartments = async () => {
-      const temp = await getSections();
-      setSections(temp);
+      let secList = await getSections();
+      secList = secList.filter((sec) => sec.name !== "none");
+      setSections(secList);
     };
     fetchDepartments();
   }, []);
