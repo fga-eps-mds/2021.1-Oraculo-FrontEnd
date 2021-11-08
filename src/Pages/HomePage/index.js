@@ -14,9 +14,8 @@ import { StyledSearchBar } from "../../Components/SearchBar/styles";
 import { GrFormSearch } from "react-icons/gr";
 
 const HomePage = () => {
-  {
-    /* Setar estados de processos e paginação */
-  }
+  // Setar estados de processos e paginação
+
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(4);
@@ -25,7 +24,6 @@ const HomePage = () => {
   const [department, setDepartment] = useState("");
   const [admin, setAdmin] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
