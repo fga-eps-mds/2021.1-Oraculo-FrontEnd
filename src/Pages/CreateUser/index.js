@@ -27,7 +27,6 @@ const ViewProfile = () => {
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [section, setSection] = useState("");
-  const [sectionName, setSectionName] = useState("");
   const [isAdmin, setAdmin] = useState(false);
   const [noneDepartment, setNoneDepartment] = useState({});
   const [noneSection, setNoneSection] = useState({});
@@ -40,7 +39,6 @@ const ViewProfile = () => {
       sectionID: section,
       level: isAdmin,
       password: password,
-      sectionName: sectionName,
     };
     console.log("USER", user);
 
