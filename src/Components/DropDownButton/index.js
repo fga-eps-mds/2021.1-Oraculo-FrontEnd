@@ -18,9 +18,10 @@ const DropDownButton = ({ onChangeOpt }) => {
   return (
     <DivSelectSetor>
       <select onChange={onChangeOpt}>
-        {sections.map((item) => (
-          <option value={item.id}>{item.name}</option>
-        ))}
+        {sections.map(
+          (item) =>
+            item.name !== "none" && <option value={item.id}>{item.name}</option>
+        )}
       </select>
     </DivSelectSetor>
   );
