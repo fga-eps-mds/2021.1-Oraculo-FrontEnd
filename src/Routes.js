@@ -16,6 +16,7 @@ import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
 import AllSections from "./Pages/AllSections";
+import CreateSection from "./Pages/CreateSection";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -82,7 +83,7 @@ const Routes = () => (
         path="/editar-registro/:id"
         component={() => <EditRecord />}
       />
-      <PrivateRoutes path="/criar-secao" component={() => <EditRecord />} />
+      <PrivateRoutes path="/criar-secao" component={() => <CreateSection />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>

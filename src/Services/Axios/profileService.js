@@ -264,3 +264,19 @@ export async function registerDepartment(name, toast) {
     toast.error("Não foi possível cadastrar o departamento!");
   }
 }
+
+export async function registerSection(name, toast) {
+  // Add post to create a new department
+  try {
+    const response = await APIProfile.post(
+      `/sections`,
+      { name: name },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+    toast.success("Departamento cadastrado com sucesso!");
+
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível cadastrar o departamento!");
+  }
+}
