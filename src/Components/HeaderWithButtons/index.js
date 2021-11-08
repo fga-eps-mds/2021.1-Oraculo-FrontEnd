@@ -60,6 +60,7 @@ const HeaderWithButtons = () => {
       <Head>
         <StyledHeaderImage onClick={handleHomePage} src={Logo} />
         <StyledOrganizeButtons>
+          {/* Buttons to redirect in web app */}
           <StyledDropDown>
             <button>Registros</button>
             <div style={{ textAlign: "center" }}>

@@ -244,6 +244,7 @@ export async function getDepartmentsByPage(toast) {
 }
 
 export async function registerDepartment(name, toast) {
+  // Add post to create a new department
   try {
     const response = await APIProfile.post(
       `/departments`,
