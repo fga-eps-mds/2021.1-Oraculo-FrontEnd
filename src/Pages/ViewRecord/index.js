@@ -80,9 +80,10 @@ const ViewRecord = () => {
   };
 
   const handleForward = async () => {
+    const infoUser = await getInfoUserbyID();
     const forwardRecInfo = {
       id: id,
-      forwarded_by: userID,
+      forwarded_by: infoUser.email,
       origin_id: userSectorNum,
       destination_id: sector,
     };
@@ -91,11 +92,10 @@ const ViewRecord = () => {
   };
 
   const previousForward = async (response) => {
+    // Get user data to send record
     const infoUser = await getInfoUserbyID();
-    console.log(infoUser);
     const destinationID = response.destination_id;
     const allSections2 = await getSections();
-    console.log("Allsec", allSections2);
     const destinationSection = allSections2.filter((indice) => {
       return indice.id == destinationID;
     });
