@@ -52,6 +52,16 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleSeeDepartment() {
+    history.push("/visualizar-departamentos");
+    window.location.reload();
+  }
+
+  function handleSeeSections() {
+    history.push("/visualizar-secoes");
+    window.location.reload();
+  }
+
   function handleSeeAllUsers() {
     history.push("/visualizar-usuarios");
     window.location.reload();
@@ -81,6 +91,7 @@ const HeaderWithButtons = () => {
       <Head>
         <StyledHeaderImage onClick={handleHomePage} src={Logo} />
         <StyledOrganizeButtons>
+          {/* Buttons to redirect in web app */}
           <StyledDropDown>
             <button>Registros</button>
             <div style={{ textAlign: "center" }}>
@@ -92,7 +103,8 @@ const HeaderWithButtons = () => {
             <button>Administrador</button>
             <div style={{ textAlign: "center" }}>
               <button onClick={handleCreateUser}>Criar Usuário</button>
-              <button onClick={() => {}}>Criar Departamento</button>
+              <button onClick={handleSeeDepartment}>Ver Departamentos</button>
+              <button onClick={handleSeeSections}>Ver Seções</button>
               <button onClick={() => {}}>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
               <button onClick={handleSeeAllUsers}>Listar Usuários</button>

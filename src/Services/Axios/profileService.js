@@ -207,7 +207,27 @@ export async function changeUser(toast, name, email, sectionID, departmentID) {
   }
 }
 
+export async function getDepartments() {
+  try {
+    const response = await APIProfile.get("/departments");
+    return response.data;
+  } catch (err) {
+    console.error(`failed to get departments: ${err}`);
+  }
+}
+
+export async function getDepartmentsTotalNumber(toast) {
+  // Count department
+  try {
+    const response = await APIProfile.get("/count/departments");
+    return response.data;
+  } catch (error) {
+    toast.error("Erro ao buscar o total de Departamentos!");
+  }
+}
+
 export async function getSections() {
+  // See all sections
   try {
     const response = await APIProfile.get("/sections");
     return response.data;
@@ -216,11 +236,47 @@ export async function getSections() {
   }
 }
 
-export async function getDepartments() {
+export async function getDepartmentsByPage(toast) {
+  // See all department
   try {
-    const response = await APIProfile.get("/departments");
+    const response = await APIProfile.get(`/departments`);
+
     return response.data;
-  } catch (err) {
-    console.error(`failed to get departments: ${err}`);
+  } catch (error) {
+    toast.error("Erro ao buscar departamento!");
+
+    console.log(error);
+  }
+}
+
+export async function registerDepartment(name, toast) {
+  // Add post to create a new department
+  try {
+    const response = await APIProfile.post(
+      `/departments`,
+      { name: name },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+    toast.success("Departamento cadastrado com sucesso!");
+
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível cadastrar o departamento!");
+  }
+}
+
+export async function registerSection(name, toast) {
+  // Add post to create a new department
+  try {
+    const response = await APIProfile.post(
+      `/sections`,
+      { name: name },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+    toast.success("Seção cadastrado com sucesso!");
+
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível cadastrar o departamento!");
   }
 }
