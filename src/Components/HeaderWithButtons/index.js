@@ -73,6 +73,7 @@ const HeaderWithButtons = () => {
             <div style={{ textAlign: "center" }}>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={handleSeeDepartment}>Ver Departamentos</button>
+              <button onClick={handleSeeDepartment}>Ver Seções</button>
               <button onClick={() => {}}>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
             </div>
