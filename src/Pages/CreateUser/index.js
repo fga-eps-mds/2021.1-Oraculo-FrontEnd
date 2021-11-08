@@ -31,7 +31,7 @@ const ViewProfile = () => {
   const [noneDepartment, setNoneDepartment] = useState({});
   const [noneSection, setNoneSection] = useState({});
 
-  async function handleClick(event) {
+  async function handleClick() {
     const user = {
       name: name,
       email: email,
