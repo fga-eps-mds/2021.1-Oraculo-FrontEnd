@@ -4,7 +4,10 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import { createRecord, findRecordWithSei } from "../../Services/Axios/processService";
+import {
+  createRecord,
+  findRecordWithSei,
+} from "../../Services/Axios/processService";
 import GenericBlueButton from "../../Components/GenericBlueButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import { getInfoUser } from "../../Services/Axios/profileService";
@@ -83,7 +86,6 @@ const CreateRecord = () => {
     setSeiNumber("");
     setReceiptForm("");
     setContactInfo("");
-    setCreatedBy("");
   }
 
   return (
@@ -105,30 +107,7 @@ const CreateRecord = () => {
 
             <StyledWhiteRectangle>
               <StyledForms>
-                <form
-                  onSubmit={(event) => {
-                    // verifica se um registro com o número do sei especificado já existe
-                    const [data, status] = checkRecordSei(seiNumber);
-                    if (status === 200 && data.found === true) {
-                      // Exibe mensagem de alerta
-                      toast((t) => (
-                        <span style={{ textAlign: "center" }}>
-                          <p>Um registro com o SEI </p>
-                          <p style={{ fontSize: "22px" }}>{seiNumber} já existe</p>
-                          <GenericRedButton
-                            title="Cancelar"
-                            onClick={() => toast.dismiss(t.id)}></GenericRedButton>
-                          <GenericBlueButton
-                            title="OK"
-                            onClick={() =>
-                              handleClick(event.preventDefault())
-                            }></GenericBlueButton>
-                        </span>
-                      ));
-                    } else {
-                      handleClick(event.preventDefault());
-                    }
-                  }}>
+                <form onSubmit>
                   <div class="form-div">
                     <h1>Cidade</h1>
                     <input
@@ -178,7 +157,9 @@ const CreateRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) => setDocumentNumber(event.target.value)}
+                      onChange={(event) =>
+                        setDocumentNumber(event.target.value)
+                      }
                       value={documentNumber}
                     />
                   </div>
@@ -204,7 +185,9 @@ const CreateRecord = () => {
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
                       required
-                      onChange={(event) => setDocumentDescription(event.target.value)}
+                      onChange={(event) =>
+                        setDocumentDescription(event.target.value)
+                      }
                       value={documentDescription}
                     />
                   </div>
@@ -243,17 +226,59 @@ const CreateRecord = () => {
                     <h1>Tags</h1>
                     <button
                       type="button"
-                      onClick={() => toast.error("Trabalho em progresso")}>
+                      onClick={() => toast.error("Trabalho em progresso")}
+                    >
                       <FaPlus />
                     </button>
                   </div>
                   <StyledButtonsDiv>
                     <StyledCancelButton
                       type="button"
-                      onClick={() => window.history.back()}>
+                      onClick={() => window.history.back()}
+                    >
                       Cancelar
                     </StyledCancelButton>
-                    <StyledCreateButton type="submit">Criar</StyledCreateButton>
+                    <StyledCreateButton
+                      type="button"
+                      onClick={async (event) => {
+                        const [data, status] = await checkRecordSei(seiNumber);
+
+                        if (status === 400) {
+                          toast.error(
+                            "Erro ao buscar número do sei no banco de dados"
+                          );
+                          return;
+                        }
+                        console.error(`info ${data}, ${status}`);
+                        if (status === 200 && data.found === false) {
+                          // Exibe mensagem de alerta
+                          toast((t) => (
+                            <span style={{ textAlign: "center" }}>
+                              <p>Um registro com o SEI </p>
+                              <p style={{ fontSize: "18px" }}>
+                                {seiNumber} já existe. Deseja continuar?
+                              </p>
+                              <GenericBlueButton
+                                title="Prosseguir"
+                                onClick={() => {
+                                  handleClick(event.preventDefault());
+                                  toast.dismiss(t.id);
+                                }}
+                              ></GenericBlueButton>
+                              <p></p>
+                              <GenericRedButton
+                                title="Cancelar"
+                                onClick={() => toast.dismiss(t.id)}
+                              ></GenericRedButton>
+                            </span>
+                          ));
+                        } else {
+                          handleClick(event.preventDefault());
+                        }
+                      }}
+                    >
+                      Criar
+                    </StyledCreateButton>
                   </StyledButtonsDiv>
                 </form>
               </StyledForms>
