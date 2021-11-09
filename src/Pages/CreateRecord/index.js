@@ -241,7 +241,7 @@ const CreateRecord = () => {
                           return;
                         }
                         console.error(`info ${data}, ${status}`);
-                        if (status === 200 && data.found === false) {
+                        if (status === 200 && data.found === true) {
                           // Exibe mensagem de alerta
                           toast((t) => (
                             <span style={{ textAlign: "center" }}>
