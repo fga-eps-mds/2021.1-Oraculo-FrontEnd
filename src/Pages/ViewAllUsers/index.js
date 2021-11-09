@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
-import SearchBar from "../../Components/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import { history } from "../../history";
 import {
