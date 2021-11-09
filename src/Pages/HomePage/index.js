@@ -18,7 +18,7 @@ const HomePage = () => {
 
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [processPerPage] = useState(4);
+  const [processPerPage] = useState(30);
   const [allProcesses, setAllProcesses] = useState(0);
   const [section, setSection] = useState("");
   const [department, setDepartment] = useState("");
