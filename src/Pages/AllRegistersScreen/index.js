@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { history } from "../../history";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
-import SearchBar from "../../Components/SearchBar";
 import {
   StyledTitle,
   StyledBody,
