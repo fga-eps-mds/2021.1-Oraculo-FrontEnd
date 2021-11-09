@@ -84,18 +84,7 @@ const ViewRecord = () => {
       await setForward(arrInfoForward);
 
       if (record.situation == "finished") {
-        const newForwardDone = [
-          ...forward,
-          {
-            setor: " ",
-            setorOrigin: " ",
-            date: " ",
-            dateForward: " ",
-            name: " ",
-            defaultText: "Registro: Concluido",
-          },
-        ];
-        setForward(newForwardDone);
+        setButtonDone(true);
         document.querySelector(".forwardIcon").style.display = "none";
       }
     }
@@ -111,9 +100,12 @@ const ViewRecord = () => {
     return dataAtual;
   };
 
-  const handleButtonProcess = () => {
+  const handleButtonProcessDone = () => {
     setButtonModal(true);
-    //toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
+  };
+
+  const handleButtonProcessReopen = () => {
+    toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
   };
 
   const handleForward = async () => {
@@ -139,10 +131,11 @@ const ViewRecord = () => {
   };
 
   const handleClickModalRed = async () => {
-    
+
     const infoRecord = {
       id: id,
       closed_by: userEmail,
+      reason: " ",
     }
 
     //setando dados de quem encaminhou o registro
@@ -168,8 +161,9 @@ const ViewRecord = () => {
   };
 
   const previousForward = async (response) => {
-    // Get user data to send record
+    //buscando usuário que encaminhou o registro
     const infoUser = await getInfoUserbyID();
+
     const destinationID = response.destination_id;
     const allSections2 = await getSections();
     const destinationSection = allSections2.filter((indice) => {
@@ -191,14 +185,30 @@ const ViewRecord = () => {
       "/" +
       dataUpdated.getFullYear();
 
-    const newForward = {
-      setor: destinationSection[0].name,
-      setorOrigin: infoUser.sections[0].name,
-      date: dataFormatadaCreatedAt,
-      dateForward: dataFormatadaUpdatedAt,
-      name: infoUser.name,
-    };
-    return newForward;
+    //verifican se o registro foi concluido e mudar renderização
+    if (response.closed_by === null) {
+      const newForward = {
+        setor: destinationSection[0].name,
+        setorOrigin: infoUser.sections[0].name,
+        date: dataFormatadaCreatedAt,
+        dateForward: dataFormatadaUpdatedAt,
+        name: infoUser.name,
+      };
+      return newForward;
+
+    } else {
+
+      const newForward = {
+        setor: " ",
+        setorOrigin: infoUser.sections[0].name,
+        date: dataFormatadaCreatedAt,
+        dateForward: dataFormatadaUpdatedAt,
+        name: infoUser.name,
+        defaultText: "Registro: Concluido",
+      };
+      return newForward;
+
+    }
   };
 
   function handleEditRegister() {
@@ -274,7 +284,8 @@ const ViewRecord = () => {
 
           <StyledDivButtons>
             <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
-            <GenericRedButton title={buttonDone ? "Reabrir" : "Concluir"} onClick={handleButtonProcess} />
+            <GenericRedButton title={buttonDone ? "Reabrir" : "Concluir"}
+              onClick={buttonDone ? handleButtonProcessReopen : handleButtonProcessDone} />
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
