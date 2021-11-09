@@ -44,6 +44,7 @@ const ViewRecord = () => {
   const [documentType, setDocumentType] = useState("");
 
   const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
   const [userID, setUserID] = useState("");
@@ -70,6 +71,7 @@ const ViewRecord = () => {
 
       const user = await getInfoUser(toast);
       setUserName(user.name);
+      setUserEmail(user.email);
       setUserID(user.id);
       setUserSector(user.sections[0].name);
       setUserSectorNum(user.sections[0].id);
@@ -137,14 +139,16 @@ const ViewRecord = () => {
   };
 
   const handleClickModalRed = async () => {
+    
     const infoRecord = {
       id: id,
-      closed_by: userName,
-      reason: " ",
+      closed_by: userEmail,
     }
+
+    //setando dados de quem encaminhou o registro
     const response = await closeRecord(infoRecord, toast);
     console.log(response);
-    
+
     const newForward = [
       ...forward,
       {
