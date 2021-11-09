@@ -19,8 +19,11 @@ import {
   getProcessByID,
   getRecordHistory,
 } from "../../Services/Axios/processService";
-import { getInfoUser, getSections } from "../../Services/Axios/profileService";
-import { getInfoUserbyID } from "../../Services/Axios/profileService";
+import {
+  getInfoUser,
+  getSections,
+  getInfoUserbyID,
+} from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
   const { id } = useParams();
@@ -40,9 +43,7 @@ const ViewRecord = () => {
   const [documentType, setDocumentType] = useState("");
 
   const [userName, setUserName] = useState("");
-  const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
-  const [userID, setUserID] = useState("");
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -62,8 +63,7 @@ const ViewRecord = () => {
 
       const user = await getInfoUser(toast);
       setUserName(user.name);
-      setUserID(user.id);
-      setUserSector(user.sections[0].name);
+
       setUserSectorNum(user.sections[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
@@ -88,7 +88,7 @@ const ViewRecord = () => {
       destination_id: sector,
     };
 
-    const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    await forwardRecordInfo(toast, forwardRecInfo);
   };
 
   const previousForward = async (response) => {
@@ -101,28 +101,25 @@ const ViewRecord = () => {
     });
 
     let dataCreated = new Date(response.createdAt);
-    let dataFormatadaCreatedAt =
-      dataCreated.getDate() +
-      "/" +
-      (dataCreated.getMonth() + 1) +
-      "/" +
-      dataCreated.getFullYear();
-    let dataUpdated = new Date(response.updatedAt);
-    let dataFormatadaUpdatedAt =
-      dataUpdated.getDate() +
-      "/" +
-      (dataUpdated.getMonth() + 1) +
-      "/" +
-      dataUpdated.getFullYear();
+    let dataFormatadaCreatedAt = `
+      ${dataCreated.getDate()}/${
+      dataCreated.getMonth() + 1
+    }/${dataCreated.getFullYear()}`;
 
-    const newForward = {
+    let dataUpdated = new Date(response.updatedAt);
+
+    let dataFormatadaUpdatedAt = `
+      ${dataUpdated.getDate()}/${
+      dataUpdated.getMonth() + 1
+    }/${dataUpdated.getFullYear()}`;
+
+    return {
       setor: destinationSection[0].name,
       setorOrigin: infoUser.sections[0].name,
       date: dataFormatadaCreatedAt,
       dateForward: dataFormatadaUpdatedAt,
       name: infoUser.name,
     };
-    return newForward;
   };
 
   function handleEditRegister() {
