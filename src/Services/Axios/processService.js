@@ -189,3 +189,16 @@ export async function createUser(user, toast) {
     }
   }
 }
+
+export async function closeRecord(infoRecord, toast) {
+  try {
+    const response = await APIProcess.post(`/records/${infoRecord.id}/close`, {
+      closed_by: infoRecord.closed_by,
+      reason: infoRecord.reason
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
