@@ -154,7 +154,7 @@ const ViewProfile = () => {
               </StyledBackButton>
               <StyledRegisterButton
                 type="button"
-                onClick={(event) => handleClick(event)}
+                onClick={(event) => handleClick()}
               >
                 Cadastrar
               </StyledRegisterButton>
