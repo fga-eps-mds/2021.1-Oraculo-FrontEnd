@@ -26,6 +26,7 @@ const ViewRecord = () => {
   const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
+  const [forwardData, setForwardData] = useState("");
 
   const [registerNumber, setRegisterNumber] = useState("");
   const [requester, setRequester] = useState("");
@@ -73,7 +74,7 @@ const ViewRecord = () => {
       setForward(arrInfoForward);
     }
     fetchRecordData();
-  }, []);
+  }, [forwardData]);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
@@ -89,6 +90,7 @@ const ViewRecord = () => {
     };
 
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    setForwardData(infoRecord);
   };
 
   const previousForward = async (response) => {
