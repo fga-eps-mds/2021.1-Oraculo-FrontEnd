@@ -58,7 +58,6 @@ const CreateRecord = () => {
       sei_number: seiNumber,
       receipt_form: receiptForm,
       contact_info: contactInfo,
-      situation: 2,
       created_by: createdBy,
     };
 

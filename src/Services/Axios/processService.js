@@ -154,10 +154,11 @@ export async function editRecord(recordInfo, id, toast) {
 export async function createUser(user, toast) {
   if (user.sectionName !== "none") {
     try {
+      console.log(user, "teste");
       const response = await APIProcess.post(`/users`, {
         name: user.name,
         email: user.email,
-        section_id: user.sectionID,
+        section_id: user.departmentID,
       });
       console.log("Usuário cadastrado no Serviço de Processos!");
       return response.data;
