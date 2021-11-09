@@ -1,29 +1,17 @@
 import { useEffect, useState } from "react";
-import {
-  getSections,
-  getDepartments,
-} from "../../Services/Axios/profileService";
+import { getDepartments } from "../../Services/Axios/profileService";
 
 const SectionsList = (type) => {
-  const [sections, setSections] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [hasDepartments, sethasDepartments] = useState(false);
-  const [hasSections, setHasSections] = useState(false);
 
   useEffect(() => {
-    async function fetchSections() {
-      const sectionsList = await getSections();
-      setSections(sectionsList);
-      console.log("SecList", sectionsList);
-    }
-
     async function fetchDepartments() {
       const departmentsList = await getDepartments();
       setDepartments(departmentsList);
       console.log("DepList", departmentsList);
     }
 
-    fetchSections();
     fetchDepartments();
   }, []);
 
@@ -31,20 +19,10 @@ const SectionsList = (type) => {
     sethasDepartments(true);
   }, [departments]);
 
-  useEffect(() => {
-    setHasSections(true);
-  }, [sections]);
-
   return (
     <>
-      {!hasDepartments && !hasSections ? (
+      {!hasDepartments ? (
         <option>Loading</option>
-      ) : type.type === "sections" ? (
-        sections &&
-        sections.map(
-          (item) =>
-            item.name !== "none" && <option value={item.id}>{item.name}</option>
-        )
       ) : (
         departments &&
         departments.map(

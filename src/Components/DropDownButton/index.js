@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSections } from "../../Services/Axios/profileService";
+import { getDepartments } from "../../Services/Axios/profileService";
 import DivSelectSetor from "./DivSelectSetor";
 
 const DropDownButton = ({ onChangeOpt }) => {
@@ -7,7 +7,7 @@ const DropDownButton = ({ onChangeOpt }) => {
 
   useEffect(() => {
     async function fetchSections() {
-      const sectionsList = await getSections();
+      const sectionsList = await getDepartments();
       setSections(sectionsList);
       console.log("SecList", sectionsList);
     }

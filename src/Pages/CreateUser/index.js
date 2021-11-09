@@ -5,7 +5,6 @@ import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { createUser } from "../../Services/Axios/processService";
 import {
   getDepartments,
-  getSections,
   registerUser,
 } from "../../Services/Axios/profileService";
 import { SectionsList } from "./sections";
@@ -26,17 +25,14 @@ const ViewProfile = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
-  const [section, setSection] = useState("");
   const [isAdmin, setAdmin] = useState(false);
   const [noneDepartment, setNoneDepartment] = useState({});
-  const [noneSection, setNoneSection] = useState({});
 
   async function handleClick() {
     const user = {
       name: name,
       email: email,
       departmentID: department,
-      sectionID: section,
       level: isAdmin,
       password: password,
     };
@@ -49,14 +45,9 @@ const ViewProfile = () => {
     createUser(user, toast);
   }
 
-  //Fetch, find and set the default section and departments
+  //Fetch, find and set the default departments
   async function fetchData() {
-    const secList = await getSections();
     const depList = await getDepartments();
-    const noneSectionItem = secList.find(
-      (sectionItem) => sectionItem.name === "none"
-    );
-    setNoneSection(noneSectionItem);
     const noneDepartmentItem = depList.find(
       (departmentItem) => departmentItem.name === "none"
     );
@@ -110,28 +101,17 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
+                  <h1>"Departamento"</h1>
                   <select
                     required
                     onChange={(event) =>
-                      isAdmin
-                        ? (setDepartment(parseInt(event.target.value)),
-                          setSection(noneSection.id))
-                        : (setSection(parseInt(event.target.value)),
-                          setDepartment(noneDepartment.id))
+                      setDepartment(parseInt(event.target.value))
                     }
                   >
-                    {!isAdmin ? (
-                      <>
-                        <option value="">Selecione a seção</option>
-                        <SectionsList type={"sections"} />
-                      </>
-                    ) : (
-                      <>
-                        <option value="">Selecione o departamento</option>
-                        <SectionsList type={"departmens"} />
-                      </>
-                    )}
+                    <>
+                      <option value="">Selecione o departamento</option>
+                      <SectionsList type={"departmens"} />
+                    </>
                   </select>
                 </div>
                 <div>

@@ -19,7 +19,7 @@ import {
   getProcessByID,
   getRecordHistory,
 } from "../../Services/Axios/processService";
-import { getInfoUser, getSections } from "../../Services/Axios/profileService";
+import { getDepartments, getInfoUser } from "../../Services/Axios/profileService";
 import { getInfoUserbyID } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
@@ -95,7 +95,7 @@ const ViewRecord = () => {
     // Get user data to send record
     const infoUser = await getInfoUserbyID();
     const destinationID = response.destination_id;
-    const allSections2 = await getSections();
+    const allSections2 = await getDepartments();
     const destinationSection = allSections2.filter((indice) => {
       return indice.id == destinationID;
     });
