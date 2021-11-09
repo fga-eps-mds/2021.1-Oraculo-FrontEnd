@@ -17,7 +17,6 @@ import {
   StyledForms,
   StyledViewProfile,
   StyledWhiteRectangle,
-  StyledCheckboxDiv,
 } from "./styles";
 
 const ViewProfile = () => {
@@ -135,7 +134,7 @@ const ViewProfile = () => {
               </StyledBackButton>
               <StyledRegisterButton
                 type="button"
-                onClick={(event) => handleClick(event)}
+                onClick={(event) => handleClick()}
               >
                 Cadastrar
               </StyledRegisterButton>

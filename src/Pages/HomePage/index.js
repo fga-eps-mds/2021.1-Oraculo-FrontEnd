@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
-import SearchBar from "../../Components/SearchBar";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import { StyledBody, StyledOrganizeButtons, StyledBigButton } from "./styles";
 import Process from "../../Components/Process";
