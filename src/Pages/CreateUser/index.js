@@ -32,7 +32,6 @@ const ViewProfile = () => {
       name: name,
       email: email,
       departmentID: department,
-      sectionID: {},
       level: isAdmin,
       password: password,
     };
