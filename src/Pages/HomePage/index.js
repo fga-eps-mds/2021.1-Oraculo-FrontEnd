@@ -73,7 +73,7 @@ const HomePage = () => {
             onChange={(event) => setSearchTerm(event.target.value)}
           />
         </StyledSearchBar>
-        <h1>Departamento</h1>
+        <h1>Departamento: {department}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>
