@@ -48,9 +48,9 @@ const CreateRecord = () => {
     getUser();
   }, []);
 
-  async function checkRecordSei(seiNumber) {
+  async function checkRecordSei(sei) {
     // verifica se já existe um registro com o número do SEI especificado
-    return findRecordWithSei(seiNumber);
+    return findRecordWithSei(sei);
   }
 
   async function handleClick(event) {
