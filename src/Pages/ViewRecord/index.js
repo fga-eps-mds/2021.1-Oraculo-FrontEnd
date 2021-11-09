@@ -15,6 +15,7 @@ import GenericRedButton from "../../Components/GenericRedButton";
 import toast, { Toaster } from "react-hot-toast";
 import { history } from "../../history";
 import {
+  closeRecord,
   forwardRecordInfo,
   getProcessByID,
   getRecordHistory,
@@ -79,6 +80,7 @@ const ViewRecord = () => {
       );
 
       await setForward(arrInfoForward);
+
       if (record.situation == "finished") {
         const newForwardDone = [
           ...forward,
@@ -93,7 +95,6 @@ const ViewRecord = () => {
         ];
         setForward(newForwardDone);
         document.querySelector(".forwardIcon").style.display = "none";
-        
       }
     }
     fetchRecordData();
@@ -136,6 +137,14 @@ const ViewRecord = () => {
   };
 
   const handleClickModalRed = async () => {
+    const infoRecord = {
+      id: id,
+      closed_by: userName,
+      reason: " ",
+    }
+    const response = await closeRecord(infoRecord, toast);
+    console.log(response);
+    
     const newForward = [
       ...forward,
       {
@@ -146,7 +155,7 @@ const ViewRecord = () => {
       },
     ];
 
-   await setStatusRecord(id, "finished", toast);
+    await setStatusRecord(id, "finished", toast);
     setForward(newForward);
     setButtonModal(false);
     setButtonDone(true);
