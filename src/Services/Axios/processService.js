@@ -62,7 +62,8 @@ export async function createRecord(recordInfo, toast) {
         <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
         <GenericBlueButton
           title="OK"
-          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+          onClick={() => toast.dismiss(t.id)}
+        ></GenericBlueButton>
       </span>
     ));
 
@@ -102,11 +103,14 @@ export async function getAllDepartmentRecords(toast, id) {
 
 export async function forwardRecordInfo(toast, forwardRecInfo) {
   try {
-    const response = await APIProcess.post(`/records/${forwardRecInfo.id}/forward`, {
-      forwarded_by: forwardRecInfo.forwarded_by,
-      origin_id: forwardRecInfo.origin_id,
-      destination_id: forwardRecInfo.destination_id,
-    });
+    const response = await APIProcess.post(
+      `/records/${forwardRecInfo.id}/forward`,
+      {
+        forwarded_by: forwardRecInfo.forwarded_by,
+        origin_id: forwardRecInfo.origin_id,
+        destination_id: forwardRecInfo.destination_id,
+      }
+    );
     toast.success("Registro encaminhado com sucesso!");
     return response.data;
   } catch (error) {
@@ -167,13 +171,17 @@ export async function createUser(user, toast) {
 
 export async function findRecordWithSei(sei_number) {
   try {
-    const response = await APIProcess.post(`/records/with-sei`, {
+    const response = await APIProcess.get(`/records/with-sei`, {
       sei_number,
     });
 
     return [response.data, response.status];
   } catch (err) {
-    console.error(`could not check with a record with sei ${sei_number} exists`);
-    return err;
+    let statusCode = err.response?.status;
+
+    console.error(
+      `could not check with a record with sei ${sei_number} exists: ${statusCode}`
+    );
+    return [err, statusCode];
   }
 }
