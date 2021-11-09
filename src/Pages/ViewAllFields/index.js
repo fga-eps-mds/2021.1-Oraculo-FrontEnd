@@ -16,9 +16,13 @@ import {
   ButtonDiv,
 } from "./styles";
 import { getAllFields } from "../../Services/Axios/processService";
+import { GrFormSearch } from "react-icons/gr";
+import { StyledSearchBar } from "../HomePage/styles";
 
 const ViewAllFields = () => {
   const [register, setRegister] = useState([]);
+  /* Estadi para termo de procura */
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchProcess = async () => {
     setRegister(await getAllFields(toast));
@@ -35,7 +39,17 @@ const ViewAllFields = () => {
         <StyledTitle>Campos</StyledTitle>
         <StyledTop>
           <StyledSearchBarSize>
-            <SearchBar />
+            {/* Fazer botão atualizar com registros */}
+            <StyledSearchBar>
+              <button>
+                <GrFormSearch size="3rem" />
+              </button>
+              <input
+                id="searchText"
+                type="text"
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+            </StyledSearchBar>
           </StyledSearchBarSize>
           <ButtonDiv>
             <MainButton title={"Novo Campo"} />
@@ -47,8 +61,8 @@ const ViewAllFields = () => {
             <StyledBigButton>Descrição</StyledBigButton>
             <StyledBigButton>Criador</StyledBigButton>
           </StyledOrganizeButtons>
-
-          <Fields process={register} />
+          {/* Adicionar termo no map de campos */}
+          <Fields searchTerm={searchTerm} process={register} />
           <StyledFooter>
             <StyledBigButton>Nome</StyledBigButton>
             <StyledBigButton>Descrição</StyledBigButton>

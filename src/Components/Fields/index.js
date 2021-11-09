@@ -2,19 +2,32 @@ import React, { useState } from "react";
 import PocketFields from "../PocketFields";
 import { StyledListGroup } from "./style";
 
-const Fields = ({ process }) => {
+const Fields = ({ process, searchTerm }) => {
   const [creator, setCreator] = useState("Padrão");
 
   return (
     <StyledListGroup>
-      {process.map((post) => (
-        <PocketFields
-          key={post.id}
-          name={post.name}
-          description={post.description}
-          creator={creator}
-        ></PocketFields>
-      ))}
+      {/* ADicionando lógica que filtra campos */}
+      {process
+        .filter((val) => {
+          if (searchTerm === "") {
+            return val;
+          } else if (
+            val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            val.description.toLowerCase().includes(searchTerm.toLowerCase())
+          ) {
+            return val;
+          }
+        })
+        .map((post) => (
+          // Campo individual de campos
+          <PocketFields
+            key={post.id}
+            name={post.name}
+            description={post.description}
+            creator={creator}
+          ></PocketFields>
+        ))}
     </StyledListGroup>
   );
 };

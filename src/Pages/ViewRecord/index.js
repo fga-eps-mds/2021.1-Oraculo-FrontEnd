@@ -118,9 +118,10 @@ const ViewRecord = () => {
   };
 
   const handleClickModalConfirmForward = async () => {
+    const infoUser = await getInfoUserbyID();
     const forwardRecInfo = {
       id: id,
-      forwarded_by: userID,
+      forwarded_by: infoUser.email,
       origin_id: userSectorNum,
       destination_id: sector,
     };
@@ -154,11 +155,10 @@ const ViewRecord = () => {
   };
 
   const previousForward = async (response) => {
-    const infoUser = await getInfoUserbyID(response.forwarded_by);
-
+    // Get user data to send record
+    const infoUser = await getInfoUserbyID();
     const destinationID = response.destination_id;
     const allSections2 = await getSections();
-    console.log("Allsec", allSections2);
     const destinationSection = allSections2.filter((indice) => {
       return indice.id == destinationID;
     });
@@ -180,10 +180,10 @@ const ViewRecord = () => {
 
     const newForward = {
       setor: destinationSection[0].name,
-      setorOrigin: infoUser.user.sections[0].name,
+      setorOrigin: infoUser.sections[0].name,
       date: dataFormatadaCreatedAt,
       dateForward: dataFormatadaUpdatedAt,
-      name: infoUser.user.name,
+      name: infoUser.name,
     };
     return newForward;
   };

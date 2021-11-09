@@ -29,17 +29,21 @@ const ViewProfile = () => {
   const [departmentID, setDepartmentID] = useState("");
 
   const [level, setLevel] = useState(userType.common);
-  const [isAdmin, setAdmin] = useState(false);
+  const [isAdmin, setAdmin] = useState("");
 
-  async function handleClick(event) {
-    changeUser(toast, name, email, sectionID);
+  async function updateUser() {
+    if (isAdmin) {
+      changeUser(toast, name, email, 0, departmentID);
+    } else {
+      changeUser(toast, name, email, sectionID, 0);
+    }
     const user = await getInfoUser(toast);
+    console.log("Usuário atualizado", user);
     setName(user.name);
     setEmail(user.email);
     setSectionID(user.sections[0].id);
-    setDepartmentID(user.departments[0].id);
+    setDepartmentID(user.departments[user.departments.length - 1].id);
     setLevel(user.levels[0].id);
-    console.log("User Updated", user);
   }
 
   useEffect(() => {
@@ -52,11 +56,11 @@ const ViewProfile = () => {
       setDepartmentID(parseInt(user.departments[0].id));
       setDepartmentName(user.departments[0].name);
       setLevel(parseInt(user.levels[0].id));
-      console.log("User Atual", user);
+      setAdmin(level === userType.admin ? true : false);
+      console.log("Dados do Usuário", user);
     }
-    setAdmin(level === userType.admin ? true : false);
     fetchUserData();
-  }, []);
+  }, [isAdmin]);
 
   return (
     <>
@@ -75,8 +79,7 @@ const ViewProfile = () => {
                   <input
                     id="name"
                     type="text"
-                    placeholder="William Cops"
-                    defaultValue={name}
+                    placeholder={name}
                     onChange={(event) => setName(event.target.value)}
                   />
                 </div>
@@ -85,9 +88,10 @@ const ViewProfile = () => {
                   <input
                     id="email"
                     type="text"
-                    placeholder="william@pcgo.org.br"
-                    defaultValue={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder={email}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
                   />
                 </div>
                 <div>
@@ -97,14 +101,17 @@ const ViewProfile = () => {
                     onChange={(event) =>
                       isAdmin
                         ? (setDepartmentID(parseInt(event.target.value)),
-                          console.log(event.target.value))
+                          console.log(
+                            "Departamento Selecionado:",
+                            event.target.value
+                          ))
                         : (setSectionID(parseInt(event.target.value)),
-                          console.log(event.target.value))
+                          console.log("Seção Selecionada:", event.target.value))
                     }
                   >
                     {isAdmin ? (
                       <>
-                        <option selected>{departmentName}</option>
+                        <option selected>Dep. Atual - {departmentName}</option>
                         <SectionsList type={"departmens"} />
                       </>
                     ) : (
@@ -122,8 +129,8 @@ const ViewProfile = () => {
                 Voltar
               </StyledBackButton>
               <StyledEditButton
-                onClick={(event) => {
-                  handleClick(event);
+                onClick={() => {
+                  updateUser();
                 }}
                 type="submit"
               >

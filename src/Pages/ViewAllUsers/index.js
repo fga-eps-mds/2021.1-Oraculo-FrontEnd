@@ -17,9 +17,13 @@ import {
 } from "./styles";
 import { listAllUsers } from "../../Services/Axios/profileService";
 import PocketUser from "../../Components/PocketUser";
+import { GrFormSearch } from "react-icons/gr";
+import { StyledSearchBar } from "../HomePage/styles";
 
 const ViewAllUsers = () => {
   const [users, setUsers] = useState([]);
+  /* Estadi para termo de procura */
+  const [searchTerm, setSearchTerm] = useState("");
 
   const receiveUsers = async () => {
     setUsers(await listAllUsers(toast));
@@ -41,7 +45,17 @@ const ViewAllUsers = () => {
         <StyledTitle>Usuários</StyledTitle>
         <StyledTop>
           <StyledSearchBarSize>
-            <SearchBar />
+            {/* Fazer botão atualizar ver todos usuarios */}
+            <StyledSearchBar>
+              <button>
+                <GrFormSearch size="3rem" />
+              </button>
+              <input
+                id="searchText"
+                type="text"
+                onChange={(event) => setSearchTerm(event.target.value)}
+              />
+            </StyledSearchBar>
           </StyledSearchBarSize>
           <ButtonDiv>
             <MainButton onClick={handleCreateUser} title={"Criar Usuário"} />
@@ -53,7 +67,8 @@ const ViewAllUsers = () => {
             <StyledBigButton>Email</StyledBigButton>
           </StyledOrganizeButtons>
           {users ? (
-            <PocketUser user={users} />
+            // Termo de pesquisa e lista de usuários para mapa
+            <PocketUser searchTerm={searchTerm} user={users} />
           ) : (
             <StyledTitle>Não há usuários cadastrados</StyledTitle>
           )}

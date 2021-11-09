@@ -17,7 +17,7 @@ export const StyledHeaderImage = styled.img`
 `;
 
 export const StyledOrganizeButtons = styled.div`
-  margin-right: 3rem;
+  margin-right: 5rem;
   button {
     color: ${colors.white};
     font-style: normal;
@@ -30,7 +30,7 @@ export const StyledOrganizeButtons = styled.div`
     text-align: center;
 
     cursor: pointer;
-    margin: 0 0 0 40px;
+    margin: 0 20px;
   }
 `;
 
@@ -60,7 +60,8 @@ export const StyledDropDown = styled.div`
   }
   :hover {
     div {
-      display: block;
+      display: flex;
+      flex-direction: column;
     }
   }
 `;
