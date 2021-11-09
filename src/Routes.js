@@ -15,6 +15,7 @@ import ViewAllFields from "./Pages/ViewAllFields";
 import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
+import EditDepartment from "./Pages/EditDepartment";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -78,6 +79,11 @@ const Routes = () => (
       <PrivateRoutes
         path="/editar-registro/:id"
         component={() => <EditRecord />}
+      />
+      <PrivateRoutes
+        exact
+        path="/editar-departamento/:id"
+        component={() => <EditDepartment />}
       />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
