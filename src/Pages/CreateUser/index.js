@@ -18,7 +18,6 @@ import {
   StyledForms,
   StyledViewProfile,
   StyledWhiteRectangle,
-  StyledCheckboxDiv,
 } from "./styles";
 
 const ViewProfile = () => {
