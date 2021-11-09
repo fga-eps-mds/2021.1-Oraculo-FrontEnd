@@ -272,10 +272,9 @@ export async function registerSection(name, toast) {
 export async function editDepartmentById(departmentInfo, id, toast) {
   try {
     // Edit record with the id and the new information
-    await APIProfile.post(
-      `/departments/change-department/${id}`,
-      departmentInfo
-    );
+    await APIProfile.post(`/departments/change-department/${id}`, {
+      name: departmentInfo,
+    });
     toast.success((t) => (
       <span style={{ textAlign: "center" }}>
         <p>Departamento editado com sucesso!</p>
