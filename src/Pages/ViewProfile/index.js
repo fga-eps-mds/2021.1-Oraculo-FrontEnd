@@ -23,8 +23,6 @@ const ViewProfile = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [sectionID, setSectionID] = useState("");
-  const [sectionName, setSectionName] = useState("");
   const [departmentName, setDepartmentName] = useState("");
   const [departmentID, setDepartmentID] = useState("");
 
@@ -34,14 +32,11 @@ const ViewProfile = () => {
   async function updateUser() {
     if (isAdmin) {
       changeUser(toast, name, email, 0, departmentID);
-    } else {
-      changeUser(toast, name, email, sectionID, 0);
     }
     const user = await getInfoUser(toast);
     console.log("Usuário atualizado", user);
     setName(user.name);
     setEmail(user.email);
-    setSectionID(user.sections[0].id);
     setDepartmentID(user.departments[user.departments.length - 1].id);
     setLevel(user.levels[0].id);
   }
@@ -51,8 +46,6 @@ const ViewProfile = () => {
       const user = await getInfoUser(toast);
       setName(user.name);
       setEmail(user.email);
-      setSectionID(parseInt(user.sections[0].id));
-      setSectionName(user.sections[0].name);
       setDepartmentID(parseInt(user.departments[0].id));
       setDepartmentName(user.departments[0].name);
       setLevel(parseInt(user.levels[0].id));
@@ -95,31 +88,19 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>{isAdmin ? "Departamento" : "Seção"}</h1>
+                  <h1>Departamento</h1>
                   <select
                     required
-                    onChange={(event) =>
-                      isAdmin
-                        ? (setDepartmentID(parseInt(event.target.value)),
-                          console.log(
-                            "Departamento Selecionado:",
-                            event.target.value
-                          ))
-                        : (setSectionID(parseInt(event.target.value)),
-                          console.log("Seção Selecionada:", event.target.value))
-                    }
-                  >
-                    {isAdmin ? (
-                      <>
-                        <option selected>Dep. Atual - {departmentName}</option>
-                        <SectionsList type={"departmens"} />
-                      </>
-                    ) : (
-                      <>
-                        <option selected>Seção Atual - {sectionName}</option>
-                        <SectionsList type={"sections"} />
-                      </>
+                    onChange={(event) => (
+                      setDepartmentID(parseInt(event.target.value)),
+                      console.log(
+                        "Departamento Selecionado:",
+                        event.target.value
+                      )
                     )}
+                  >
+                    <option selected>Dep. Atual - {departmentName}</option>
+                    <SectionsList type={"departmens"} />
                   </select>
                 </div>
               </form>

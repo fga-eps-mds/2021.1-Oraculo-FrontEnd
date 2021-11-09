@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
-import SearchBar from "../../Components/SearchBar";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import { StyledBody, StyledOrganizeButtons, StyledBigButton } from "./styles";
 import Process from "../../Components/Process";
@@ -18,9 +17,8 @@ const HomePage = () => {
 
   const [process, setProcess] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [processPerPage] = useState(4);
+  const [processPerPage] = useState(30);
   const [allProcesses, setAllProcesses] = useState(0);
-  const [section, setSection] = useState("");
   const [department, setDepartment] = useState("");
   const [admin, setAdmin] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,8 +40,6 @@ const HomePage = () => {
     setAdmin(userType.admin === user.levels[0].id);
     //Set the name of user's department
     setDepartment(user.departments[0].name);
-    //Set the name of user's section
-    setSection(user.sections[0].name);
     console.log(currentPage);
     const temp = await getProcessByPage(currentPage * processPerPage, toast);
     console.log(temp);
@@ -77,9 +73,7 @@ const HomePage = () => {
             onChange={(event) => setSearchTerm(event.target.value)}
           />
         </StyledSearchBar>
-        <h1>
-          {admin ? "Departamento" : "Seção"}: {admin ? department : section}
-        </h1>
+        <h1>Departamento: {department}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
           <StyledBigButton>Cidade</StyledBigButton>

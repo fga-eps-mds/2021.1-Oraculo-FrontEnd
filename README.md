@@ -39,5 +39,5 @@ Se `DEV` for true então as variáveis `PROFILE_BASE_URL`, `RECORDS_BASE_URL` e
 Esta aplicação faz conexão e é dependente das APIs para funcionar corretamente. As APIs correspondentes são:
 
 - [API de Profile](https://github.com/fga-eps-mds/2021.1-Oraculo-Profile)
-- [API de Processos](https://github.com/fga-eps-mds/2021.1-Oraculo-Processos)
+- [API de Registros](https://github.com/fga-eps-mds/2021.1-Oraculo-Registros)
 - [API de Tags](https://github.com/fga-eps-mds/2021.1-Oraculo-Tags)

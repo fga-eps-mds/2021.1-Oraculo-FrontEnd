@@ -47,6 +47,8 @@ const CreateRecord = () => {
   }, []);
 
   async function handleClick(event) {
+    // Body request to post in
+    // record api
     const record = {
       city: city,
       state: state,
@@ -58,7 +60,6 @@ const CreateRecord = () => {
       sei_number: seiNumber,
       receipt_form: receiptForm,
       contact_info: contactInfo,
-      situation: 2,
       created_by: createdBy,
     };
 

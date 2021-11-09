@@ -21,15 +21,20 @@ import {
   getRecordHistory,
   setStatusRecord,
 } from "../../Services/Axios/processService";
-import { getInfoUser, getSections } from "../../Services/Axios/profileService";
-import { getInfoUserbyID } from "../../Services/Axios/profileService";
+import {
+  getDepartments,
+  getInfoUser,
+  getInfoUserbyID,
+} from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
 
 const ViewRecord = () => {
+  const naoCadastrada = "Informação não cadastrada";
   const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
+  const [forwardData, setForwardData] = useState("");
 
   const [registerNumber, setRegisterNumber] = useState("");
   const [requester, setRequester] = useState("");
@@ -42,12 +47,10 @@ const ViewRecord = () => {
   const [documentNumber, setDocumentNumber] = useState("");
   const [documentContactInfo, setDocumentContactInfo] = useState("");
   const [documentType, setDocumentType] = useState("");
-
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
-  const [userID, setUserID] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
   const [buttonModal, setButtonModal] = useState("");
@@ -55,6 +58,7 @@ const ViewRecord = () => {
 
   useEffect(() => {
     async function fetchRecordData() {
+      // get all records data by process by id
       const record = await getProcessByID(id, toast);
       setRegisterNumber(record.register_number);
       setSeiNumber(record.sei_number);
@@ -70,6 +74,7 @@ const ViewRecord = () => {
       setDocumentType(record.document_type);
 
       const user = await getInfoUser(toast);
+      console.log(user, "teste");
       setUserName(user.name);
       setUserEmail(user.email);
       setUserID(user.id);
@@ -89,7 +94,7 @@ const ViewRecord = () => {
       }
     }
     fetchRecordData();
-  }, []);
+  }, [forwardData]);
 
   const getDate = () => {
     var data = new Date();
@@ -158,6 +163,7 @@ const ViewRecord = () => {
     setButtonDone(true);
 
     document.querySelector(".forwardIcon").style.display = "none";
+    setForwardData(infoRecord);
   };
 
   const previousForward = async (response) => {
@@ -165,9 +171,9 @@ const ViewRecord = () => {
     const infoUser = await getInfoUserbyID();
 
     const destinationID = response.destination_id;
-    const allSections2 = await getSections();
+    const allSections2 = await getDepartments();
     const destinationSection = allSections2.filter((indice) => {
-      return indice.id == destinationID;
+      return indice.id === destinationID;
     });
 
     let dataCreated = new Date(response.createdAt);
@@ -185,7 +191,7 @@ const ViewRecord = () => {
       "/" +
       dataUpdated.getFullYear();
 
-    //verifican se o registro foi concluido e mudar renderização
+    //verifica se o registro foi concluido e mudar renderização
     if (response.closed_by === null) {
       const newForward = {
         setor: destinationSection[0].name,
@@ -251,32 +257,24 @@ const ViewRecord = () => {
             </div>
             <div>
               <h3>Tipo de documento:&nbsp;</h3>
-              <h3>
-                {documentType ? documentType : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentType ? documentType : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Nº do documento:&nbsp;</h3>
-              <h3>
-                {documentNumber ? documentNumber : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentNumber ? documentNumber : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Nº do SEI:&nbsp;</h3>
-              <h3>{seiNumber ? seiNumber : "Informação não cadastrada"}</h3>
+              <h3>{seiNumber ? seiNumber : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Data do documento:&nbsp;</h3>
-              <h3>
-                {documentDate ? documentDate : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentDate ? documentDate : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Informações de contato:&nbsp;</h3>
               <h3 id="contact-info">
-                {documentContactInfo
-                  ? documentContactInfo
-                  : "Informação não cadastrada"}
+                {documentContactInfo ? documentContactInfo : naoCadastrada}
               </h3>
             </div>
           </StyledInfoSection>

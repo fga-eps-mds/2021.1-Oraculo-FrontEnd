@@ -11,13 +11,13 @@ const SectionMovBlock = ({ forwardSector }) => {
         <div className="content">
           <p>
             {forwardSector.setorOrigin === "" ||
-            forwardSector.setorOrigin == undefined
+            forwardSector.setorOrigin === undefined
               ? "Necro (mock)"
               : forwardSector.setorOrigin}
           </p>
           <p>
-            {forwardSector.dateForward == "" ||
-            forwardSector.dateForward == undefined
+            {forwardSector.dateForward === "" ||
+            forwardSector.dateForward === undefined
               ? new Date().toLocaleDateString("pt-BR")
               : forwardSector.dateForward}
           </p>

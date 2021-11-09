@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  AdminDiv,
   Head,
   StyledDropDown,
   StyledHeaderImage,
@@ -58,11 +57,6 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
-  function handleSeeSections() {
-    history.push("/visualizar-secoes");
-    window.location.reload();
-  }
-
   function handleSeeAllUsers() {
     history.push("/visualizar-usuarios");
     window.location.reload();
@@ -105,8 +99,7 @@ const HeaderWithButtons = () => {
             <div>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={handleSeeDepartment}>Ver Departamentos</button>
-              <button onClick={handleSeeSections}>Ver Seções</button>
-              <button onClick={() => {}}>Tag</button>
+              <button>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
               <button onClick={handleSeeAllUsers}>Listar Usuários</button>
             </div>
