@@ -10,11 +10,6 @@ let BaseUrlProfile = "";
 let BaseUrlProcess = "";
 let BaseUrlTags = "";
 
-console.log(REACT_APP_PROD);
-console.log(REACT_APP_PROFILE_BASE_URL);
-console.log(REACT_APP_RECORDS_BASE_URL);
-console.log(REACT_APP_TAGS_BASE_URL);
-
 if (REACT_APP_PROD !== "true") {
   /**
    * Estamos no ambiente de desevolvimento (local), portanto
