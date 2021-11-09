@@ -54,6 +54,8 @@ const CreateRecord = () => {
   }
 
   async function handleClick(event) {
+    // Body request to post in
+    // record api
     const record = {
       city: city,
       state: state,

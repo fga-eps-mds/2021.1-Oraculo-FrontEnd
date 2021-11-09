@@ -1,7 +1,7 @@
 import { STORAGE_KEY } from "../../Auth/Auth";
 import { APIProfile } from "./BaseService/index";
 
-function getToken() {
+export function getToken() {
   return String(localStorage.getItem(STORAGE_KEY));
 }
 
@@ -41,11 +41,6 @@ async function validateUser(user) {
 export async function registerUser(usr, toast) {
   try {
     const user = await validateUser(usr);
-
-    if (user.departmentID <= 7) {
-      // user is a common user
-      user.departmentID = 0;
-    }
 
     await APIProfile.post(
       "/register",
@@ -204,9 +199,8 @@ export async function getDepartments() {
   try {
     const response = await APIProfile.get("/departments");
     return response.data;
-  } catch (error) {
-    console.error(`failed to get departments: ${error}`);
-    return error;
+  } catch (err) {
+    console.error(`failed to get departments: ${err}`);
   }
 }
 
@@ -217,7 +211,6 @@ export async function getDepartmentsTotalNumber(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar o total de Departamentos!");
-    return error;
   }
 }
 
@@ -226,9 +219,8 @@ export async function getSections() {
   try {
     const response = await APIProfile.get("/sections");
     return response.data;
-  } catch (error) {
-    console.error(`failed to get sections: ${error}`);
-    return error;
+  } catch (err) {
+    console.error(`failed to get sections: ${err}`);
   }
 }
 
@@ -240,7 +232,8 @@ export async function getDepartmentsByPage(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar departamento!");
-    return error;
+
+    console.log(error);
   }
 }
 
@@ -257,7 +250,6 @@ export async function registerDepartment(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
-    return error;
   }
 }
 
@@ -274,6 +266,5 @@ export async function registerSection(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
-    return error;
   }
 }
