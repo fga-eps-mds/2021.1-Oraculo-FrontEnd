@@ -105,7 +105,7 @@ const HeaderWithButtons = () => {
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={handleSeeDepartment}>Ver Departamentos</button>
               <button onClick={handleSeeSections}>Ver Seções</button>
-              <button onClick={() => {}}>Tag</button>
+              <button>Tag</button>
               <button onClick={handleSeeAllFields}>Campos</button>
               <button onClick={handleSeeAllUsers}>Listar Usuários</button>
             </div>
