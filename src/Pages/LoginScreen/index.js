@@ -6,7 +6,13 @@ import Header from "../../Components/Header";
 import LoginInput from "../../Components/LoginInput/index";
 import MainButton from "../../Components/MainButton";
 import { FormLogin, StyledDiv } from "./styles";
-import { getInfoUser, loginUser } from "../../Services/Axios/profileService";
+import jwt_decode from "jwt-decode";
+import {
+  getInfoUser,
+  getToken,
+  loginUser,
+  verifyToken,
+} from "../../Services/Axios/profileService";
 import { isAuthenticated, login } from "../../Auth/Auth";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
@@ -20,16 +26,23 @@ class LoginScreen extends React.Component {
     };
   }
 
-  // Refatorar
+  componentDidMount() {
+    // Checks if the local storage has a token
+    if (isAuthenticated()) {
+      const token = getToken();
+      console.log("Token =>", token);
+      const decoded = jwt_decode(token);
+      let expTime = decoded.exp * 1000;
+      expTime = new Date(expTime);
+      const now = new Date();
 
-  // Checks if user is logged
-  // if user is logged, he's redirected to homescreen
-  // componentDidMount() {
-  //   const auth = isAuthenticated();
-  //   if (auth) {
-  //     this.props.history.push("/tela-inicial");
-  //   }
-  // }
+      // if the token is not expired
+      if (expTime > now) {
+        // if user is logged, he's redirected to homescreen
+        this.props.history.push("/tela-inicial");
+      }
+    }
+  }
 
   setPassword(newPass) {
     this.setState({ password: newPass });
