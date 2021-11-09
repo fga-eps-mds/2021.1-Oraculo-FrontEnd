@@ -4,7 +4,9 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import { createRecord } from "../../Services/Axios/processService";
+import { createRecord, findRecordWithSei } from "../../Services/Axios/processService";
+import GenericBlueButton from "../../Components/GenericBlueButton";
+import GenericRedButton from "../../Components/GenericRedButton";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -46,6 +48,11 @@ const CreateRecord = () => {
     getUser();
   }, []);
 
+  async function checkRecordSei(sei_number) {
+    // verifica se já existe um registro com o número do SEI especificado
+    return await findRecordWithSei(sei_number);
+  }
+
   async function handleClick(event) {
     const record = {
       city: city,
@@ -58,11 +65,12 @@ const CreateRecord = () => {
       sei_number: seiNumber,
       receipt_form: receiptForm,
       contact_info: contactInfo,
-      situation: 2,
       created_by: createdBy,
     };
 
+    // envia request para criar registro no banco
     await createRecord(record, toast);
+
     setCity("");
     setState("");
     setRequester("");
@@ -95,7 +103,28 @@ const CreateRecord = () => {
 
             <StyledWhiteRectangle>
               <StyledForms>
-                <form onSubmit={(event) => handleClick(event.preventDefault())}>
+                <form
+                  onSubmit={(event) => {
+                    // verifica se um registro com o número do sei especificado já existe
+                    const [data, status] = checkRecordSei(seiNumber);
+                    if (status === 200 && data.found === true) {
+                      // Exibe mensagem de alerta
+                      toast((t) => (
+                        <span style={{ textAlign: "center" }}>
+                          <p>Um registro com o SEI </p>
+                          <p style={{ fontSize: "22px" }}>{seiNumber} já existe</p>
+                          <GenericRedButton
+                            title="Cancelar"
+                            onClick={() => toast.dismiss(t.id)}></GenericRedButton>
+                          <GenericBlueButton
+                            title="OK"
+                            onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+                        </span>
+                      ));
+                    }
+
+                    handleClick(event.preventDefault());
+                  }}>
                   <div class="form-div">
                     <h1>Cidade</h1>
                     <input
@@ -145,9 +174,7 @@ const CreateRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) =>
-                        setDocumentNumber(event.target.value)
-                      }
+                      onChange={(event) => setDocumentNumber(event.target.value)}
                       value={documentNumber}
                     />
                   </div>
@@ -173,9 +200,7 @@ const CreateRecord = () => {
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
                       required
-                      onChange={(event) =>
-                        setDocumentDescription(event.target.value)
-                      }
+                      onChange={(event) => setDocumentDescription(event.target.value)}
                       value={documentDescription}
                     />
                   </div>
@@ -214,16 +239,14 @@ const CreateRecord = () => {
                     <h1>Tags</h1>
                     <button
                       type="button"
-                      onClick={() => toast.error("Trabalho em progresso")}
-                    >
+                      onClick={() => toast.error("Trabalho em progresso")}>
                       <FaPlus />
                     </button>
                   </div>
                   <StyledButtonsDiv>
                     <StyledCancelButton
                       type="button"
-                      onClick={() => window.history.back()}
-                    >
+                      onClick={() => window.history.back()}>
                       Cancelar
                     </StyledCancelButton>
                     <StyledCreateButton type="submit">Criar</StyledCreateButton>
