@@ -118,12 +118,12 @@ const CreateRecord = () => {
                             onClick={() => toast.dismiss(t.id)}></GenericRedButton>
                           <GenericBlueButton
                             title="OK"
-                            onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+                            onClick={() =>
+                              handleClick(event.preventDefault())
+                            }></GenericBlueButton>
                         </span>
                       ));
                     }
-
-                    handleClick(event.preventDefault());
                   }}>
                   <div class="form-div">
                     <h1>Cidade</h1>
