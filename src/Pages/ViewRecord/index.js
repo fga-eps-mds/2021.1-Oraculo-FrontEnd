@@ -26,10 +26,10 @@ import {
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
+  const naoCadastrada = "Informação não cadastrada";
   const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
-
   const [registerNumber, setRegisterNumber] = useState("");
   const [requester, setRequester] = useState("");
   const [city, setCity] = useState("");
@@ -41,7 +41,6 @@ const ViewRecord = () => {
   const [documentNumber, setDocumentNumber] = useState("");
   const [documentContactInfo, setDocumentContactInfo] = useState("");
   const [documentType, setDocumentType] = useState("");
-
   const [userName, setUserName] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
 
@@ -100,15 +99,15 @@ const ViewRecord = () => {
       return indice.id == destinationID;
     });
 
-    let dataCreated = new Date(response.createdAt);
-    let dataFormatadaCreatedAt = `
+    const dataCreated = new Date(response.createdAt);
+    const dataFormatadaCreatedAt = `
       ${dataCreated.getDate()}/${
       dataCreated.getMonth() + 1
     }/${dataCreated.getFullYear()}`;
 
-    let dataUpdated = new Date(response.updatedAt);
+    const dataUpdated = new Date(response.updatedAt);
 
-    let dataFormatadaUpdatedAt = `
+    const dataFormatadaUpdatedAt = `
       ${dataUpdated.getDate()}/${
       dataUpdated.getMonth() + 1
     }/${dataUpdated.getFullYear()}`;
@@ -162,32 +161,24 @@ const ViewRecord = () => {
             </div>
             <div>
               <h3>Tipo de documento:&nbsp;</h3>
-              <h3>
-                {documentType ? documentType : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentType ? documentType : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Nº do documento:&nbsp;</h3>
-              <h3>
-                {documentNumber ? documentNumber : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentNumber ? documentNumber : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Nº do SEI:&nbsp;</h3>
-              <h3>{seiNumber ? seiNumber : "Informação não cadastrada"}</h3>
+              <h3>{seiNumber ? seiNumber : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Data do documento:&nbsp;</h3>
-              <h3>
-                {documentDate ? documentDate : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentDate ? documentDate : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Informações de contato:&nbsp;</h3>
               <h3 id="contact-info">
-                {documentContactInfo
-                  ? documentContactInfo
-                  : "Informação não cadastrada"}
+                {documentContactInfo ? documentContactInfo : naoCadastrada}
               </h3>
             </div>
           </StyledInfoSection>
