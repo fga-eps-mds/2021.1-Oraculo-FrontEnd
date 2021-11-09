@@ -136,6 +136,7 @@ export async function getInfoUser(toast) {
     return response.data;
   } catch (error) {
     toast.error("Falha ao obter dados do usuário");
+    return error;
   }
 }
 
@@ -213,6 +214,7 @@ export async function getDepartments() {
     return response.data;
   } catch (err) {
     console.error(`failed to get departments: ${err}`);
+    return error;
   }
 }
 
@@ -223,6 +225,7 @@ export async function getDepartmentsTotalNumber(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar o total de Departamentos!");
+    return error;
   }
 }
 
@@ -233,6 +236,7 @@ export async function getSections() {
     return response.data;
   } catch (err) {
     console.error(`failed to get sections: ${err}`);
+    return error;
   }
 }
 
@@ -244,8 +248,7 @@ export async function getDepartmentsByPage(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar departamento!");
-
-    console.log(error);
+    return error;
   }
 }
 
@@ -262,6 +265,7 @@ export async function registerDepartment(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
+    return error;
   }
 }
 
@@ -278,5 +282,6 @@ export async function registerSection(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
+    return error;
   }
 }
