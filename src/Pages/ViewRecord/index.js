@@ -24,7 +24,7 @@ import { getInfoUserbyID } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
   const { id } = useParams();
-  const [sector, setSector] = useState("criminal");
+  const [sector, setSector] = useState("");
   const [forward, setForward] = useState([]);
   const [forwardData, setForwardData] = useState("");
 
