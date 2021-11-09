@@ -125,6 +125,8 @@ const CreateRecord = () => {
                             }></GenericBlueButton>
                         </span>
                       ));
+                    } else {
+                      handleClick(event.preventDefault());
                     }
                   }}>
                   <div class="form-div">
