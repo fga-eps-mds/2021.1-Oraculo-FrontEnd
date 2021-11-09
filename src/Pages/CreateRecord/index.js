@@ -4,10 +4,7 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import {
-  createRecord,
-  findRecordWithSei,
-} from "../../Services/Axios/processService";
+import { createRecord, findRecordWithSei } from "../../Services/Axios/processService";
 import GenericBlueButton from "../../Components/GenericBlueButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import { getInfoUser } from "../../Services/Axios/profileService";
@@ -51,9 +48,9 @@ const CreateRecord = () => {
     getUser();
   }, []);
 
-  async function checkRecordSei(sei_number) {
+  async function checkRecordSei(seiNumber) {
     // verifica se já existe um registro com o número do SEI especificado
-    return await findRecordWithSei(sei_number);
+    return findRecordWithSei(seiNumber);
   }
 
   async function handleClick(event) {
@@ -157,9 +154,7 @@ const CreateRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) =>
-                        setDocumentNumber(event.target.value)
-                      }
+                      onChange={(event) => setDocumentNumber(event.target.value)}
                       value={documentNumber}
                     />
                   </div>
@@ -185,9 +180,7 @@ const CreateRecord = () => {
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
                       required
-                      onChange={(event) =>
-                        setDocumentDescription(event.target.value)
-                      }
+                      onChange={(event) => setDocumentDescription(event.target.value)}
                       value={documentDescription}
                     />
                   </div>
@@ -244,9 +237,7 @@ const CreateRecord = () => {
                         const [data, status] = await checkRecordSei(seiNumber);
 
                         if (status === 400) {
-                          toast.error(
-                            "Erro ao buscar número do sei no banco de dados"
-                          );
+                          toast.error("Erro ao buscar número do sei no banco de dados");
                           return;
                         }
                         console.error(`info ${data}, ${status}`);
