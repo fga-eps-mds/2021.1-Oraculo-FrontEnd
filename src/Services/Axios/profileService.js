@@ -130,7 +130,6 @@ export async function getInfoUser(toast) {
     return response.data;
   } catch (error) {
     toast.error("Falha ao obter dados do usuário");
-    return error;
   }
 }
 
