@@ -3,7 +3,7 @@ import PocketFields from "../PocketFields";
 import { StyledListGroup } from "./style";
 
 const Fields = ({ process, searchTerm }) => {
-  const [creator, setCreator] = useState("Padrão");
+  const [creator] = useState("Padrão");
 
   return (
     <StyledListGroup>
