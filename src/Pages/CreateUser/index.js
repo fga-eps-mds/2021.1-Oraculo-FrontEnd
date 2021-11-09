@@ -32,6 +32,7 @@ const ViewProfile = () => {
       name: name,
       email: email,
       departmentID: department,
+      sectionID: {},
       level: isAdmin,
       password: password,
     };
@@ -100,7 +101,7 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>"Departamento"</h1>
+                  <h1>Departamento</h1>
                   <select
                     required
                     onChange={(event) =>

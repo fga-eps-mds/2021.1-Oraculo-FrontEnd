@@ -17,6 +17,7 @@ const userLevels = [
 ];
 
 async function validateUser(user) {
+  const section = Number.parseInt(user.sectionID);
   const department = Number.parseInt(user.departmentID);
   let level = Number.parseInt(user.level);
 
@@ -25,8 +26,8 @@ async function validateUser(user) {
       ? userLevels[1].level
       : level;
 
-  if (department <= 0) {
-    throw new Error("invalid department");
+  if (section <= 0 || department <= 0) {
+    throw new Error("invalid department or section");
   }
 
   return {
@@ -34,6 +35,7 @@ async function validateUser(user) {
     email: user.email,
     departmentID: department,
     level: level,
+    sectionID: section,
     password: user.password,
   };
 }
@@ -43,6 +45,9 @@ export async function registerUser(usr, toast) {
     const user = await validateUser(usr);
 
     if (user.departmentID <= 7) {
+      // user belongs to a admin sector
+      user.sectionID = 0;
+    } else {
       // user is a common user
       user.departmentID = 0;
     }
@@ -54,6 +59,7 @@ export async function registerUser(usr, toast) {
         email: user.email,
         departmentID: user.departmentID,
         level: user.level,
+        sectionID: user.sectionID,
         password: user.password,
       },
       { headers: { "X-Access-Token": getToken() } }
@@ -179,13 +185,14 @@ export async function changeUserPassword(toast, password) {
   }
 }
 
-export async function changeUser(toast, name, email, departmentID) {
+export async function changeUser(toast, name, email, sectionID, departmentID) {
   try {
     const response = await APIProfile.post(
       "/user/edit",
       {
         name: name,
         email: email,
+        section_id: sectionID,
         department_id: departmentID,
       },
       {
@@ -204,9 +211,8 @@ export async function getDepartments() {
   try {
     const response = await APIProfile.get("/departments");
     return response.data;
-  } catch (error) {
-    console.error(`failed to get departments: ${error}`);
-    return error;
+  } catch (err) {
+    console.error(`failed to get departments: ${err}`);
   }
 }
 
@@ -217,7 +223,6 @@ export async function getDepartmentsTotalNumber(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar o total de Departamentos!");
-    return error;
   }
 }
 
@@ -226,9 +231,8 @@ export async function getSections() {
   try {
     const response = await APIProfile.get("/sections");
     return response.data;
-  } catch (error) {
-    console.error(`failed to get sections: ${error}`);
-    return error;
+  } catch (err) {
+    console.error(`failed to get sections: ${err}`);
   }
 }
 
@@ -240,7 +244,8 @@ export async function getDepartmentsByPage(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar departamento!");
-    return error;
+
+    console.log(error);
   }
 }
 
@@ -257,7 +262,6 @@ export async function registerDepartment(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
-    return error;
   }
 }
 
@@ -274,6 +278,5 @@ export async function registerSection(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
-    return error;
   }
 }
