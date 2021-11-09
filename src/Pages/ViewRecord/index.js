@@ -96,7 +96,7 @@ const ViewRecord = () => {
     const destinationID = response.destination_id;
     const allSections2 = await getSections();
     const destinationSection = allSections2.filter((indice) => {
-      return indice.id == destinationID;
+      return indice.id === destinationID;
     });
 
     const dataCreated = new Date(response.createdAt);
