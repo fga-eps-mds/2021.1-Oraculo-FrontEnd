@@ -48,6 +48,7 @@ const ViewRecord = () => {
 
   useEffect(() => {
     async function fetchRecordData() {
+      // get all records data by process by id
       const record = await getProcessByID(id, toast);
       setRegisterNumber(record.register_number);
       setSeiNumber(record.sei_number);
@@ -63,9 +64,10 @@ const ViewRecord = () => {
       setDocumentType(record.document_type);
 
       const user = await getInfoUser(toast);
+      console.log(user, "teste");
       setUserName(user.name);
 
-      setUserSectorNum(user.sections[0].id);
+      setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
       const arrInfoForward = await Promise.all(
@@ -117,7 +119,7 @@ const ViewRecord = () => {
 
     return {
       setor: destinationSection[0].name,
-      setorOrigin: infoUser.sections[0].name,
+      setorOrigin: infoUser.departments[0].name,
       date: dataFormatadaCreatedAt,
       dateForward: dataFormatadaUpdatedAt,
       name: infoUser.name,
