@@ -10,9 +10,8 @@ const Fields = ({ process, searchTerm }) => {
       {/* ADicionando lógica que filtra campos */}
       {process
         .filter((val) => {
-          if (searchTerm === "") {
-            return val;
-          } else if (
+          if (
+            searchTerm === "" ||
             val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             val.description.toLowerCase().includes(searchTerm.toLowerCase())
           ) {
