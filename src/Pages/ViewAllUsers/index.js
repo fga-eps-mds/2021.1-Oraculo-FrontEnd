@@ -13,7 +13,7 @@ import {
   StyledTop,
   StyledFooter,
   ButtonDiv,
-} from "./styles";
+} from "../ViewAllFields/styles";
 import { listAllUsers } from "../../Services/Axios/profileService";
 import PocketUser from "../../Components/PocketUser";
 import { GrFormSearch } from "react-icons/gr";
@@ -21,7 +21,7 @@ import { StyledSearchBar } from "../HomePage/styles";
 
 const ViewAllUsers = () => {
   const [users, setUsers] = useState([]);
-  /* Estadi para termo de procura */
+  /* Estado para termo de procura */
   const [searchTerm, setSearchTerm] = useState("");
 
   const receiveUsers = async () => {
@@ -62,8 +62,8 @@ const ViewAllUsers = () => {
         </StyledTop>
         <StyledBottom>
           <StyledOrganizeButtons>
-            <StyledBigButton>Nome</StyledBigButton>
-            <StyledBigButton>Email</StyledBigButton>
+            <StyledBigButton style={{ width: "50%" }}>Nome</StyledBigButton>
+            <StyledBigButton style={{ width: "50%" }}>Email</StyledBigButton>
           </StyledOrganizeButtons>
           {users ? (
             // Termo de pesquisa e lista de usuários para mapa
@@ -72,8 +72,8 @@ const ViewAllUsers = () => {
             <StyledTitle>Não há usuários cadastrados</StyledTitle>
           )}
           <StyledFooter>
-            <StyledBigButton>Nome</StyledBigButton>
-            <StyledBigButton>Email</StyledBigButton>
+            <StyledBigButton style={{ width: "50%" }}>Nome</StyledBigButton>
+            <StyledBigButton style={{ width: "50%" }}>Email</StyledBigButton>
           </StyledFooter>
         </StyledBottom>
       </StyledPage>
