@@ -1,7 +1,7 @@
 import { STORAGE_KEY } from "../../Auth/Auth";
 import { APIProfile } from "./BaseService/index";
 
-function getToken() {
+export function getToken() {
   return String(localStorage.getItem(STORAGE_KEY));
 }
 
