@@ -6,8 +6,8 @@ import Header from "../../Components/Header";
 import LoginInput from "../../Components/LoginInput/index";
 import MainButton from "../../Components/MainButton";
 import { FormLogin, StyledDiv } from "./styles";
-import { getInfoUser, loginUser } from "../../Services/Axios/profileService";
-import { isAuthenticated, login } from "../../Auth/Auth";
+import { loginUser } from "../../Services/Axios/profileService";
+import { login } from "../../Auth/Auth";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
