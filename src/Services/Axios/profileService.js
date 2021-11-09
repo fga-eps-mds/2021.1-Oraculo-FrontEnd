@@ -212,8 +212,8 @@ export async function getDepartments() {
   try {
     const response = await APIProfile.get("/departments");
     return response.data;
-  } catch (err) {
-    console.error(`failed to get departments: ${err}`);
+  } catch (error) {
+    console.error(`failed to get departments: ${error}`);
     return error;
   }
 }
@@ -234,8 +234,8 @@ export async function getSections() {
   try {
     const response = await APIProfile.get("/sections");
     return response.data;
-  } catch (err) {
-    console.error(`failed to get sections: ${err}`);
+  } catch (error) {
+    console.error(`failed to get sections: ${error}`);
     return error;
   }
 }
