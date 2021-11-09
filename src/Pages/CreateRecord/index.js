@@ -4,7 +4,9 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import { createRecord } from "../../Services/Axios/processService";
+import { createRecord, findRecordWithSei } from "../../Services/Axios/processService";
+import GenericBlueButton from "../../Components/GenericBlueButton";
+import GenericRedButton from "../../Components/GenericRedButton";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -46,6 +48,11 @@ const CreateRecord = () => {
     getUser();
   }, []);
 
+  async function checkRecordSei(sei) {
+    // verifica se já existe um registro com o número do SEI especificado
+    return findRecordWithSei(sei);
+  }
+
   async function handleClick(event) {
     // Body request to post in
     // record api
@@ -63,7 +70,9 @@ const CreateRecord = () => {
       created_by: createdBy,
     };
 
+    // envia request para criar registro no banco
     await createRecord(record, toast);
+
     setCity("");
     setState("");
     setRequester("");
@@ -74,7 +83,6 @@ const CreateRecord = () => {
     setSeiNumber("");
     setReceiptForm("");
     setContactInfo("");
-    setCreatedBy("");
   }
 
   return (
@@ -96,7 +104,7 @@ const CreateRecord = () => {
 
             <StyledWhiteRectangle>
               <StyledForms>
-                <form onSubmit={(event) => handleClick(event.preventDefault())}>
+                <form onSubmit>
                   <div class="form-div">
                     <h1>Cidade</h1>
                     <input
@@ -146,9 +154,7 @@ const CreateRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) =>
-                        setDocumentNumber(event.target.value)
-                      }
+                      onChange={(event) => setDocumentNumber(event.target.value)}
                       value={documentNumber}
                     />
                   </div>
@@ -174,9 +180,7 @@ const CreateRecord = () => {
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
                       required
-                      onChange={(event) =>
-                        setDocumentDescription(event.target.value)
-                      }
+                      onChange={(event) => setDocumentDescription(event.target.value)}
                       value={documentDescription}
                     />
                   </div>
@@ -227,7 +231,45 @@ const CreateRecord = () => {
                     >
                       Cancelar
                     </StyledCancelButton>
-                    <StyledCreateButton type="submit">Criar</StyledCreateButton>
+                    <StyledCreateButton
+                      type="button"
+                      onClick={async (event) => {
+                        const [data, status] = await checkRecordSei(seiNumber);
+
+                        if (status === 400) {
+                          toast.error("Erro ao buscar número do sei no banco de dados");
+                          return;
+                        }
+                        console.error(`info ${data}, ${status}`);
+                        if (status === 200 && data.found === true) {
+                          // Exibe mensagem de alerta
+                          toast((t) => (
+                            <span style={{ textAlign: "center" }}>
+                              <p>Um registro com o SEI </p>
+                              <p style={{ fontSize: "18px" }}>
+                                {seiNumber} já existe. Deseja continuar?
+                              </p>
+                              <GenericBlueButton
+                                title="Prosseguir"
+                                onClick={() => {
+                                  handleClick(event.preventDefault());
+                                  toast.dismiss(t.id);
+                                }}
+                              ></GenericBlueButton>
+                              <p></p>
+                              <GenericRedButton
+                                title="Cancelar"
+                                onClick={() => toast.dismiss(t.id)}
+                              ></GenericRedButton>
+                            </span>
+                          ));
+                        } else {
+                          handleClick(event.preventDefault());
+                        }
+                      }}
+                    >
+                      Criar
+                    </StyledCreateButton>
                   </StyledButtonsDiv>
                 </form>
               </StyledForms>
