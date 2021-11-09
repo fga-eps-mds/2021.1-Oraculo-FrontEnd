@@ -132,6 +132,7 @@ export async function getRecordHistory(toast, id) {
 
 export async function editRecord(recordInfo, id, toast) {
   try {
+    // Edit record with the id and the new information
     const record = await APIProcess.post(`/records/${id}/edit`, recordInfo);
     toast.success((t) => (
       <span style={{ textAlign: "center" }}>
@@ -153,13 +154,13 @@ export async function editRecord(recordInfo, id, toast) {
 
 export async function createUser(user, toast) {
   if (user.sectionName !== "none") {
+    //Add user to record api
     try {
       const response = await APIProcess.post(`/users`, {
         name: user.name,
         email: user.email,
-        section_id: user.sectionID,
+        section_id: user.departmentID,
       });
-      console.log("Usuário cadastrado no Serviço de Processos!");
       return response.data;
     } catch (error) {
       console.error(error);
