@@ -100,7 +100,7 @@ const ViewProfile = () => {
                   />
                 </div>
                 <div>
-                  <h1>"Departamento"</h1>
+                  <h1>Departamento</h1>
                   <select
                     required
                     onChange={(event) =>
