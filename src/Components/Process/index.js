@@ -15,9 +15,8 @@ const Process = ({ process, searchTerm }) => {
     <StyledListGroup>
       {process
         .filter((val) => {
-          if (searchTerm === "") {
-            return val;
-          } else if (
+          if (
+            searchTerm === "" ||
             val.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
             val.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
             val.document_date

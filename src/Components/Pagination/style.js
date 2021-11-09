@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, fonts, radius } from "../../style";
+import { colors } from "../../style";
 
 export const StyledNavigation = styled.nav``;
 export const StyledPagination = styled.ul`

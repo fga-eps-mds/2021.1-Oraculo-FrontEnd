@@ -8,9 +8,8 @@ const Sections = ({ sections, searchTerm }) => {
       {/* Filter all sections */}
       {sections
         .filter((val) => {
-          if (val === "") {
-            return val;
-          } else if (
+          if (
+            val === "" ||
             val.name.toLowerCase().includes(searchTerm.toLowerCase())
           ) {
             return val;

@@ -1,5 +1,6 @@
 import { APIProcess } from "./BaseService";
 import GenericBlueButton from "../../Components/GenericBlueButton";
+const erroTotal = "Erro ao buscar total de registros!";
 
 export async function getAllProcess(toast) {
   try {
@@ -46,7 +47,7 @@ export async function getProcessTotalNumber(toast) {
     const response = await APIProcess.get("/count/records");
     return response.data;
   } catch (error) {
-    toast.error("Erro ao buscar total de registros!");
+    toast.error(erroTotal);
     return error;
   }
 }
@@ -61,7 +62,8 @@ export async function createRecord(recordInfo, toast) {
         <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
         <GenericBlueButton
           title="OK"
-          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+          onClick={() => toast.dismiss(t.id)}
+        ></GenericBlueButton>
       </span>
     ));
 
@@ -83,7 +85,7 @@ export async function getAllFields(toast) {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    toast.error("Erro ao buscar total de registros!");
+    toast.error(erroTotal);
     return error;
   }
 }
@@ -94,18 +96,21 @@ export async function getAllDepartmentRecords(toast, id) {
     console.log(response.data, "hm");
     return response.data;
   } catch (error) {
-    toast.error("Erro ao buscar total de registros!");
+    toast.error(erroTotal);
     return error;
   }
 }
 
 export async function forwardRecordInfo(toast, forwardRecInfo) {
   try {
-    const response = await APIProcess.post(`/records/${forwardRecInfo.id}/forward`, {
-      forwarded_by: forwardRecInfo.forwarded_by,
-      origin_id: forwardRecInfo.origin_id,
-      destination_id: forwardRecInfo.destination_id,
-    });
+    const response = await APIProcess.post(
+      `/records/${forwardRecInfo.id}/forward`,
+      {
+        forwarded_by: forwardRecInfo.forwarded_by,
+        origin_id: forwardRecInfo.origin_id,
+        destination_id: forwardRecInfo.destination_id,
+      }
+    );
     toast.success("Registro encaminhado com sucesso!");
     return response.data;
   } catch (error) {

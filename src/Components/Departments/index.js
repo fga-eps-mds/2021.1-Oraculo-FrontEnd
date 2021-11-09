@@ -7,9 +7,8 @@ const Departments = ({ departments, searchTerm }) => {
     <StyledListGroup>
       {departments
         .filter((val) => {
-          if (val === "") {
-            return val;
-          } else if (
+          if (
+            val === "" ||
             val.name.toLowerCase().includes(searchTerm.toLowerCase())
           ) {
             return val;

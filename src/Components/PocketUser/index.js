@@ -6,9 +6,8 @@ const PocketUser = ({ user, searchTerm }) => {
     <StyledListGroup>
       {user
         .filter((val) => {
-          if (searchTerm === "") {
-            return val;
-          } else if (
+          if (
+            searchTerm === "" ||
             val.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             val.email.toLowerCase().includes(searchTerm.toLowerCase())
           ) {

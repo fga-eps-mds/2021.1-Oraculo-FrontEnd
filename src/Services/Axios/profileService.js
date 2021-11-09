@@ -204,8 +204,9 @@ export async function getDepartments() {
   try {
     const response = await APIProfile.get("/departments");
     return response.data;
-  } catch (err) {
-    console.error(`failed to get departments: ${err}`);
+  } catch (error) {
+    console.error(`failed to get departments: ${error}`);
+    return error;
   }
 }
 
@@ -216,6 +217,18 @@ export async function getDepartmentsTotalNumber(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar o total de Departamentos!");
+    return error;
+  }
+}
+
+export async function getSections() {
+  // See all sections
+  try {
+    const response = await APIProfile.get("/sections");
+    return response.data;
+  } catch (error) {
+    console.error(`failed to get sections: ${error}`);
+    return error;
   }
 }
 
@@ -227,8 +240,7 @@ export async function getDepartmentsByPage(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar departamento!");
-
-    console.log(error);
+    return error;
   }
 }
 
@@ -245,5 +257,23 @@ export async function registerDepartment(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
+    return error;
+  }
+}
+
+export async function registerSection(name, toast) {
+  // Add post to create a new department
+  try {
+    const response = await APIProfile.post(
+      `/sections`,
+      { name: name },
+      { headers: { "X-Access-Token": getToken() } }
+    );
+    toast.success("Seção cadastrado com sucesso!");
+
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível cadastrar o departamento!");
+    return error;
   }
 }
