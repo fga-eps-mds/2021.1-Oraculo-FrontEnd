@@ -57,11 +57,6 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
-  function handleSeeSections() {
-    history.push("/visualizar-secoes");
-    window.location.reload();
-  }
-
   function handleSeeAllUsers() {
     history.push("/visualizar-usuarios");
     window.location.reload();
@@ -104,8 +99,12 @@ const HeaderWithButtons = () => {
             <div>
               <button onClick={handleCreateUser}>Criar Usuário</button>
               <button onClick={handleSeeDepartment}>Ver Departamentos</button>
+<<<<<<< HEAD
               <button onClick={handleSeeSections}>Ver Seções</button>
               <button>Tag</button>
+=======
+              <button onClick={() => {}}>Tag</button>
+>>>>>>> 6b2e90059ea93f02ded225d2950d37c9a2c60d4e
               <button onClick={handleSeeAllFields}>Campos</button>
               <button onClick={handleSeeAllUsers}>Listar Usuários</button>
             </div>

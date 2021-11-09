@@ -17,7 +17,6 @@ const userLevels = [
 ];
 
 async function validateUser(user) {
-  const section = Number.parseInt(user.sectionID);
   const department = Number.parseInt(user.departmentID);
   let level = Number.parseInt(user.level);
 
@@ -26,8 +25,8 @@ async function validateUser(user) {
       ? userLevels[1].level
       : level;
 
-  if (section <= 0 || department <= 0) {
-    throw new Error("invalid department or section");
+  if (department <= 0) {
+    throw new Error("invalid department");
   }
 
   return {
@@ -35,7 +34,6 @@ async function validateUser(user) {
     email: user.email,
     departmentID: department,
     level: level,
-    sectionID: section,
     password: user.password,
   };
 }
@@ -45,9 +43,6 @@ export async function registerUser(usr, toast) {
     const user = await validateUser(usr);
 
     if (user.departmentID <= 7) {
-      // user belongs to a admin sector
-      user.sectionID = 0;
-    } else {
       // user is a common user
       user.departmentID = 0;
     }
@@ -59,7 +54,6 @@ export async function registerUser(usr, toast) {
         email: user.email,
         departmentID: user.departmentID,
         level: user.level,
-        sectionID: user.sectionID,
         password: user.password,
       },
       { headers: { "X-Access-Token": getToken() } }
@@ -186,14 +180,13 @@ export async function changeUserPassword(toast, password) {
   }
 }
 
-export async function changeUser(toast, name, email, sectionID, departmentID) {
+export async function changeUser(toast, name, email, departmentID) {
   try {
     const response = await APIProfile.post(
       "/user/edit",
       {
         name: name,
         email: email,
-        section_id: sectionID,
         department_id: departmentID,
       },
       {

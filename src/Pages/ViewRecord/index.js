@@ -20,8 +20,8 @@ import {
   getRecordHistory,
 } from "../../Services/Axios/processService";
 import {
+  getDepartments,
   getInfoUser,
-  getSections,
   getInfoUserbyID,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
@@ -30,6 +30,8 @@ const ViewRecord = () => {
   const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
+  const [forwardData, setForwardData] = useState("");
+
   const [registerNumber, setRegisterNumber] = useState("");
   const [requester, setRequester] = useState("");
   const [city, setCity] = useState("");
@@ -72,7 +74,7 @@ const ViewRecord = () => {
       setForward(arrInfoForward);
     }
     fetchRecordData();
-  }, []);
+  }, [forwardData]);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
@@ -87,14 +89,15 @@ const ViewRecord = () => {
       destination_id: sector,
     };
 
-    await forwardRecordInfo(toast, forwardRecInfo);
+    const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    setForwardData(infoRecord);
   };
 
   const previousForward = async (response) => {
     // Get user data to send record
     const infoUser = await getInfoUserbyID();
     const destinationID = response.destination_id;
-    const allSections2 = await getSections();
+    const allSections2 = await getDepartments();
     const destinationSection = allSections2.filter((indice) => {
       return indice.id === destinationID;
     });
