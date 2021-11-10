@@ -36,6 +36,12 @@ const HomePage = () => {
   const fetchProcess = async () => {
     // Fetch user info
     const user = await getInfoUser(toast);
+
+    if (user.levels == undefined) {
+      this.props.history.push("/");
+      return;
+    }
+
     //Check if user is admin
     setAdmin(userType.admin === user.levels[0].id);
     //Set the name of user's department
