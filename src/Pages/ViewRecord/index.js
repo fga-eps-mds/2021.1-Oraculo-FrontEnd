@@ -167,6 +167,17 @@ const ViewRecord = () => {
     setForwardData(infoRecord);
   };
 
+  const formatedDate = (infoDate) => {
+    const dataDone = new Date(infoDate);
+    const formatDate =
+      dataDone.getDate() +
+      "/" +
+      (dataDone.getMonth() + 1) +
+      "/" +
+      dataDone.getFullYear();
+    return formatDate;
+  }
+
   const previousForward = async (response) => {
     let newForward = {};
     const email = response.forwarded_by;
@@ -187,20 +198,8 @@ const ViewRecord = () => {
         return indice.id === originSecID;
       });
 
-      const dataCreated = new Date(response.createdAt);
-      const dataFormatadaCreatedAt =
-        dataCreated.getDate() +
-        "/" +
-        (dataCreated.getMonth() + 1) +
-        "/" +
-        dataCreated.getFullYear();
-      const dataUpdated = new Date(response.updatedAt);
-      const dataFormatadaUpdatedAt =
-        dataUpdated.getDate() +
-        "/" +
-        (dataUpdated.getMonth() + 1) +
-        "/" +
-        dataUpdated.getFullYear();
+      const dataFormatadaCreatedAt = formatedDate(response.createdAt);
+      const dataFormatadaUpdatedAt = formatedDate(response.updatedAt);
 
       newForward = {
         setor: destinationSection[0].name,
@@ -210,20 +209,25 @@ const ViewRecord = () => {
         name:infoUser.name,
       };
     } else if (response.closed_by != null) {
-      const dataDone = new Date(response.closed_at);
-      const dataDoneReg =
-        dataDone.getDate() +
-        "/" +
-        (dataDone.getMonth() + 1) +
-        "/" +
-        dataDone.getFullYear();
-
-      const infoUser = await getUserByEmail(response.closed_by);
+      const dateDoneReg = formatedDate(response.closed_at);
+      const infoUserDone = await getUserByEmail(response.closed_by);
+      newForward = {
+        setor: " ",
+        setorOrigin: response.origin_name,
+        defaultText: "Registro Concluído",
+        date: dateDoneReg,
+        dateForward: " ",
+        name: infoUserDone.name,
+      }
+    } else {
+      const infoUser = await getUserByEmail(email);
+      const createDate = formatedDate(response.created_at);
+      
       newForward = {
         setor: " ",
         setorOrigin: " ",
-        defaultText: "Registro Concluído",
-        date: dataDoneReg,
+        defaultText: "Registro criado em: ",
+        date: createDate,
         dateForward: " ",
         name: infoUser.name,
       }
