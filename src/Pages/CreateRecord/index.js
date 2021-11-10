@@ -75,7 +75,7 @@ const CreateRecord = () => {
 
     // envia request para criar registro no banco
     await createRecord(record, toast);
-    console.log("passou por aqui");
+
     setCity("");
     setState("");
     setRequester("");
@@ -109,7 +109,10 @@ const CreateRecord = () => {
               <StyledForms>
                 <form
                   onSubmit={async (event) => {
+                    //prevent default to not reload page
                     event.preventDefault();
+                    // if sei number is empty, do not access
+                    // to sei number verification
                     if (seiNumber === "") {
                       toast((t) => (
                         <span style={{ textAlign: "center" }}>

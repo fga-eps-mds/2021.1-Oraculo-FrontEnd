@@ -171,10 +171,11 @@ export async function createUser(user, toast) {
 
 export async function findRecordWithSei(seiNumber) {
   try {
-    const response = await APIProcess.get(`/records/with-sei`, {
-      seiNumber,
+    console.log(seiNumber);
+    const response = await APIProcess.post(`/records/with-sei`, {
+      sei_number: seiNumber,
     });
-
+    console.log(response);
     return [response.data, response.status];
   } catch (err) {
     const statusCode = err.response?.status;
