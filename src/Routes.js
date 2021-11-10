@@ -54,9 +54,7 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
             )
           }
           {/* Redirect the user to login-screen if it's not logged */}
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
+          <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
           <Toaster />
         </>
       )
@@ -67,27 +65,20 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
 const Routes = () => (
   <BrowserRouter history={history}>
     <Switch>
-      <Route
-        exact
-        path="/login"
-        component={() => <LoginScreen history={history} />}
-      />
+      <Route exact path="/login" component={() => <LoginScreen history={history} />} />
       <PrivateRoutes
         exact
         path="/ver-registro/:id"
-        component={() => <ViewRecord />}
+        component={() => <ViewRecord history={history} />}
       />
-      <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
       <PrivateRoutes
-        path="/criar-registro"
-        component={() => <CreateRecord />}
+        path="/tela-inicial"
+        component={() => <HomePage history={history} />}
       />
+      <PrivateRoutes path="/criar-registro" component={() => <CreateRecord />} />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
-      <PrivateRoutes
-        path="/alterar-senha"
-        component={() => <ChangePassword />}
-      />
+      <PrivateRoutes path="/alterar-senha" component={() => <ChangePassword />} />
       <PrivateRoutes
         path="/visualizar-registros"
         component={() => <AllRegistersScreen />}
@@ -96,22 +87,10 @@ const Routes = () => (
         path="/visualizar-departamentos"
         component={() => <AllDepartmentsScreen />}
       />
-      <PrivateRoutes
-        path="/todos-os-campos"
-        component={() => <ViewAllFields />}
-      />
-      <PrivateRoutes
-        path="/criar-departamento"
-        component={() => <CreateDepartment />}
-      />
-      <PrivateRoutes
-        path="/visualizar-usuarios"
-        component={() => <ViewAllUsers />}
-      />
-      <PrivateRoutes
-        path="/editar-registro/:id"
-        component={() => <EditRecord />}
-      />
+      <PrivateRoutes path="/todos-os-campos" component={() => <ViewAllFields />} />
+      <PrivateRoutes path="/criar-departamento" component={() => <CreateDepartment />} />
+      <PrivateRoutes path="/visualizar-usuarios" component={() => <ViewAllUsers />} />
+      <PrivateRoutes path="/editar-registro/:id" component={() => <EditRecord />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>

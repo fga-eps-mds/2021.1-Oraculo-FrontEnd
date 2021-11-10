@@ -17,7 +17,7 @@ if (REACT_APP_PROD !== "true") {
    */
   BaseUrlProfile = "http://localhost:8000";
   BaseUrlProcess = "http://localhost:8001";
-  BaseUrlTags = "http://localhost:8002";
+  BaseUrlTags = "http://localhost:8001";
 } else {
   /**
    * Estamos no ambiente de produção, portanto devemos pegar
