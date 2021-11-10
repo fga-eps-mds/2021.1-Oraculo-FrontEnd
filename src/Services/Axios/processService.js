@@ -169,6 +169,15 @@ export async function createUser(user, toast) {
   }
 }
 
+export async function getUserByEmail(email) {
+  try {
+    const response = await APIProcess.post(`/user/by-mail/`, {email});
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
 export async function findRecordWithSei(seiNumber) {
   try {
     console.log(seiNumber);

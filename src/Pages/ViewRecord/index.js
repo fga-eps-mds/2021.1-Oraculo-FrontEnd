@@ -18,11 +18,11 @@ import {
   forwardRecordInfo,
   getProcessByID,
   getRecordHistory,
+  getUserByEmail,
 } from "../../Services/Axios/processService";
 import {
   getDepartments,
   getInfoUser,
-  getInfoUserbyID,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
@@ -45,6 +45,7 @@ const ViewRecord = () => {
   const [documentType, setDocumentType] = useState("");
   const [userName, setUserName] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -66,10 +67,11 @@ const ViewRecord = () => {
       const user = await getInfoUser(toast);
       console.log(user, "teste");
       setUserName(user.name);
-
+      setUserEmail(user.email);
       setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
+      console.log("responseHR",responseHR);
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
@@ -83,48 +85,61 @@ const ViewRecord = () => {
   };
 
   const handleForward = async () => {
-    const infoUser = await getInfoUserbyID();
     const forwardRecInfo = {
       id: id,
-      forwarded_by: infoUser.email,
+      forwarded_by: userEmail,
       origin_id: userSectorNum,
       destination_id: sector,
     };
-
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
     setForwardData(infoRecord);
   };
 
   const previousForward = async (response) => {
-    // Get user data to send record
-    const infoUser = await getInfoUserbyID();
-    const destinationID = response.destination_id;
-    const allSections2 = await getDepartments();
-    const destinationSection = allSections2.filter((indice) => {
-      return indice.id === destinationID;
-    });
+    let newForward = {};
+    const email = response.forwarded_by;
 
-    const dataCreated = new Date(response.createdAt);
-    const dataFormatadaCreatedAt = `
-      ${dataCreated.getDate()}/${
-      dataCreated.getMonth() + 1
-    }/${dataCreated.getFullYear()}`;
+    if (email != null) {
+      const infoUser = await getUserByEmail(email);
+      const destinationID = response.destination_id;
+      const originSecID = response.origin_id;
+      console.log("originsecid",originSecID);
+      const allDepartments2 = await getDepartments();
+      console.log("Allsec", allDepartments2);
 
-    const dataUpdated = new Date(response.updatedAt);
+      const destinationSection = allDepartments2.filter((indice) => {
+        return indice.id === destinationID;
+      });
 
-    const dataFormatadaUpdatedAt = `
-      ${dataUpdated.getDate()}/${
-      dataUpdated.getMonth() + 1
-    }/${dataUpdated.getFullYear()}`;
+      const originSection = allDepartments2.filter((indice) => {
+        return indice.id === originSecID;
+      });
 
-    return {
-      setor: destinationSection[0].name,
-      setorOrigin: infoUser.departments[0].name,
-      date: dataFormatadaCreatedAt,
-      dateForward: dataFormatadaUpdatedAt,
-      name: infoUser.name,
-    };
-  };
+      const dataCreated = new Date(response.createdAt);
+      const dataFormatadaCreatedAt =
+        dataCreated.getDate() +
+        "/" +
+        (dataCreated.getMonth() + 1) +
+        "/" +
+        dataCreated.getFullYear();
+      const dataUpdated = new Date(response.updatedAt);
+      const dataFormatadaUpdatedAt =
+        dataUpdated.getDate() +
+        "/" +
+        (dataUpdated.getMonth() + 1) +
+        "/" +
+        dataUpdated.getFullYear();
+
+      newForward = {
+        setor: destinationSection[0].name,
+        setorOrigin: originSection[0].name,
+        date: dataFormatadaCreatedAt,
+        dateForward: dataFormatadaUpdatedAt,
+        name:infoUser.name,
+      };
+    }
+      return newForward;
+};
 
   function handleEditRegister() {
     history.push(`/editar-registro/${id}`);
