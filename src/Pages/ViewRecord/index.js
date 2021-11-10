@@ -20,11 +20,11 @@ import {
   getProcessByID,
   getRecordHistory,
   setStatusRecord,
+  getUserByEmail,
 } from "../../Services/Axios/processService";
 import {
   getDepartments,
   getInfoUser,
-  getInfoUserbyID,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
@@ -51,6 +51,7 @@ const ViewRecord = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
+  const [userID, setUserID] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
   const [buttonModal, setButtonModal] = useState("");
@@ -78,10 +79,11 @@ const ViewRecord = () => {
       setUserName(user.name);
       setUserEmail(user.email);
       setUserID(user.id);
-      setUserSector(user.sections[0].name);
-      setUserSectorNum(user.sections[0].id);
+      setUserSector(user.departments[0].name);
+      setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
+      console.log("responseHR",responseHR);
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
@@ -118,14 +120,12 @@ const ViewRecord = () => {
   };
 
   const handleClickModalConfirmForward = async () => {
-    const infoUser = await getInfoUserbyID();
     const forwardRecInfo = {
       id: id,
-      forwarded_by: infoUser.email,
+      forwarded_by: userEmail,
       origin_id: userSectorNum,
       destination_id: sector,
     };
-
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
     setButtonModalConfirmForward(false);
   }
@@ -167,55 +167,50 @@ const ViewRecord = () => {
   };
 
   const previousForward = async (response) => {
-    //buscando usuário que encaminhou o registro
-    const infoUser = await getInfoUserbyID();
+    let newForward = {};
+    const email = response.forwarded_by;
 
-    const destinationID = response.destination_id;
-    const allSections2 = await getDepartments();
-    const destinationSection = allSections2.filter((indice) => {
-      return indice.id === destinationID;
-    });
+    if (email != null) {
+      const infoUser = await getUserByEmail(email);
+      const destinationID = response.destination_id;
+      const originSecID = response.origin_id;
+      console.log("originsecid",originSecID);
+      const allDepartments2 = await getDepartments();
+      console.log("Allsec", allDepartments2);
 
-    let dataCreated = new Date(response.createdAt);
-    let dataFormatadaCreatedAt =
-      dataCreated.getDate() +
-      "/" +
-      (dataCreated.getMonth() + 1) +
-      "/" +
-      dataCreated.getFullYear();
-    let dataUpdated = new Date(response.updatedAt);
-    let dataFormatadaUpdatedAt =
-      dataUpdated.getDate() +
-      "/" +
-      (dataUpdated.getMonth() + 1) +
-      "/" +
-      dataUpdated.getFullYear();
+      const destinationSection = allDepartments2.filter((indice) => {
+        return indice.id === destinationID;
+      });
 
-    //verifica se o registro foi concluido e mudar renderização
-    if (response.closed_by === null) {
-      const newForward = {
+      const originSection = allDepartments2.filter((indice) => {
+        return indice.id === originSecID;
+      });
+
+      const dataCreated = new Date(response.createdAt);
+      const dataFormatadaCreatedAt =
+        dataCreated.getDate() +
+        "/" +
+        (dataCreated.getMonth() + 1) +
+        "/" +
+        dataCreated.getFullYear();
+      const dataUpdated = new Date(response.updatedAt);
+      const dataFormatadaUpdatedAt =
+        dataUpdated.getDate() +
+        "/" +
+        (dataUpdated.getMonth() + 1) +
+        "/" +
+        dataUpdated.getFullYear();
+
+      newForward = {
         setor: destinationSection[0].name,
-        setorOrigin: infoUser.sections[0].name,
+        setorOrigin: originSection[0].name,
         date: dataFormatadaCreatedAt,
         dateForward: dataFormatadaUpdatedAt,
-        name: infoUser.name,
+        name:infoUser.name,
       };
-      return newForward;
-
-    } else {
-
-      const newForward = {
-        setor: " ",
-        setorOrigin: infoUser.sections[0].name,
-        date: dataFormatadaCreatedAt,
-        dateForward: dataFormatadaUpdatedAt,
-        name: infoUser.name,
-        defaultText: "Registro: Concluido",
-      };
-      return newForward;
-
     }
-  };
+      return newForward;
+};
 
   function handleEditRegister() {
     history.push(`/editar-registro/${id}`);

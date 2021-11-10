@@ -12,6 +12,7 @@ import { getInfoUser } from "../../Services/Axios/profileService";
 import toast from "react-hot-toast";
 
 const HeaderWithButtons = () => {
+  const [isAdmin, setAdmin] = useState(false);
   function handleRegister() {
     history.push("/criar-registro");
     window.location.reload();
@@ -70,6 +71,13 @@ const HeaderWithButtons = () => {
       if (user === undefined) {
         window.location.reload();
       } else {
+        // if user is admin, show some things
+        // only admins can see
+        if (user?.levels[0].name === "admin") {
+          setAdmin(true);
+        }
+        // set the name of user to
+        //show on the header
         setName(user?.name);
       }
     } catch (err) {
@@ -94,16 +102,20 @@ const HeaderWithButtons = () => {
               <button onClick={handleRegister}>Novo Registro</button>
             </div>
           </StyledDropDown>
-          <StyledDropDown>
-            <button>Administrador</button>
-            <div>
-              <button onClick={handleCreateUser}>Criar Usuário</button>
-              <button onClick={handleSeeDepartment}>Ver Departamentos</button>
-              <button>Tag</button>
-              <button onClick={handleSeeAllFields}>Campos</button>
-              <button onClick={handleSeeAllUsers}>Listar Usuários</button>
-            </div>
-          </StyledDropDown>
+          {/* show this button only 
+          for admin users */}
+          {isAdmin ? (
+            <StyledDropDown>
+              <button>Administrador</button>
+              <div>
+                <button onClick={handleCreateUser}>Criar Usuário</button>
+                <button onClick={handleSeeDepartment}>Ver Departamentos</button>
+                <button>Tag</button>
+                <button onClick={handleSeeAllFields}>Campos</button>
+                <button onClick={handleSeeAllUsers}>Listar Usuários</button>
+              </div>
+            </StyledDropDown>
+          ) : null}
           <StyledDropDown>
             <button>{nameUser}</button>
             <div

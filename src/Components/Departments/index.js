@@ -15,7 +15,7 @@ const Departments = ({ departments, searchTerm }) => {
           }
         })
         .map((post) => (
-          <PocketDepartment key={post.id} name={post.name} />
+          <PocketDepartment key={post.id} id={post.id} name={post.name} />
         ))}
     </StyledListGroup>
   );

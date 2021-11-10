@@ -186,7 +186,7 @@ export async function createUser(user, toast) {
       const response = await APIProcess.post(`/users`, {
         name: user.name,
         email: user.email,
-        section_id: user.departmentID,
+        department_id: user.departmentID,
       });
       return response.data;
     } catch (error) {
@@ -205,5 +205,27 @@ export async function closeRecord(infoRecord, toast) {
   } catch (error) {
     console.log(error);
     return error;
+  }
+}
+export async function getUserByEmail(email) {
+  try {
+    const response = await APIProcess.post(`/user/by-mail/`, {email});
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+export async function findRecordWithSei(seiNumber) {
+  try {
+    console.log(seiNumber);
+    const response = await APIProcess.post(`/records/with-sei`, {
+      sei_number: seiNumber,
+    });
+    console.log(response);
+    return [response.data, response.status];
+  } catch (err) {
+    const statusCode = err.response?.status;
+    return [err, statusCode];
   }
 }

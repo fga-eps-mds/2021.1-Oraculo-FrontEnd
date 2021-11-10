@@ -36,15 +36,19 @@ const HomePage = () => {
   const fetchProcess = async () => {
     // Fetch user info
     const user = await getInfoUser(toast);
+
+    if (user.levels == undefined) {
+      this.props.history.push("/");
+      return;
+    }
+
     //Check if user is admin
     setAdmin(userType.admin === user.levels[0].id);
     //Set the name of user's department
     setDepartment(user.departments[0].name);
-    console.log(currentPage);
+
     const temp = await getProcessByPage(currentPage * processPerPage, toast);
-    console.log(temp);
     setProcess(temp);
-    console.log(process, "process");
   };
 
   useEffect(() => {
@@ -85,12 +89,10 @@ const HomePage = () => {
           <StyledBigButton>...</StyledBigButton>
         </StyledOrganizeButtons>
         {/* fazer registro atualizar com SearchTerm */}
-        {process ? (
+        {process.length > 0 ? (
           <Process searchTerm={searchTerm} process={process} />
         ) : (
-          <h1 class="zero-registros">
-            Não há registros cadastrados no sistema
-          </h1>
+          <h1 class="zero-registros">Não há registros cadastrados no sistema</h1>
         )}
         {/* paginar registros */}
         <Pagination
