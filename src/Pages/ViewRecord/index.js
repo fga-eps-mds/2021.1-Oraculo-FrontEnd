@@ -19,16 +19,20 @@ import {
   getProcessByID,
   getRecordHistory,
 } from "../../Services/Axios/processService";
+import { getRecordTagColors } from "../../Services/Axios/tagsService";
 import {
   getDepartments,
   getInfoUser,
   getInfoUserbyID,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
+import { TagsList } from "./tags";
+
+// Componente para visualizar registro
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
   const { id } = useParams();
-  const [sector, setSector] = useState("criminal");
+  const [sector, setSector] = useState("");
   const [forward, setForward] = useState([]);
   const [forwardData, setForwardData] = useState("");
 
@@ -45,11 +49,13 @@ const ViewRecord = () => {
   const [documentType, setDocumentType] = useState("");
   const [userName, setUserName] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     async function fetchRecordData() {
       // get all records data by process by id
       const record = await getProcessByID(id, toast);
+
       setRegisterNumber(record.register_number);
       setSeiNumber(record.sei_number);
       setDocumentDate(record.document_date);
@@ -67,6 +73,8 @@ const ViewRecord = () => {
       console.log(user, "teste");
       setUserName(user.name);
 
+      console.log(user.departments);
+
       setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
@@ -75,6 +83,15 @@ const ViewRecord = () => {
       );
       setForward(arrInfoForward);
     }
+
+    async function fetchTagsData() {
+      const [httpCode, recordTags] = await getRecordTagColors(id);
+      if (httpCode === 200 && recordTags.length > 0) {
+        setTags(recordTags);
+      }
+    }
+
+    fetchTagsData();
     fetchRecordData();
   }, [forwardData]);
 
@@ -117,6 +134,12 @@ const ViewRecord = () => {
       dataUpdated.getMonth() + 1
     }/${dataUpdated.getFullYear()}`;
 
+    if (infoUser.departments[0] == undefined) {
+      return {};
+    }
+
+    return {};
+
     return {
       setor: destinationSection[0].name,
       setorOrigin: infoUser.departments[0].name,
@@ -140,11 +163,7 @@ const ViewRecord = () => {
             <div>
               <h2>Nº do registro:&nbsp;</h2>
               <h2>{registerNumber ? registerNumber : "Erro"}</h2>
-              <FaPen
-                size="2rem"
-                onClick={handleEditRegister}
-                class="info-icon"
-              />
+              <FaPen size="2rem" onClick={handleEditRegister} class="info-icon" />
             </div>
             <div>
               <h3>Descrição:&nbsp;</h3>
@@ -190,10 +209,7 @@ const ViewRecord = () => {
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
-            <GenericWhiteButton
-              title="voltar"
-              onClick={() => window.history.back()}
-            />
+            <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
             <GenericRedButton title="concluir" onClick={handleButtonProcess} />
           </StyledDivButtons>
         </StyledDivShowProcess>
@@ -205,18 +221,14 @@ const ViewRecord = () => {
           </div>
           <span>Departamento:</span>
 
-          <DropDownButton
-            onChangeOpt={(event) => setSector(event.target.value)}
-          />
+          <DropDownButton onChangeOpt={(event) => setSector(event.target.value)} />
           <div className="forwardIcon">
             <p onClick={handleForward}>Encaminhar</p>
             <FaTelegramPlane />
           </div>
           <span>Tags:</span>
           <div className="tagsTest">
-            <span></span>
-            <span></span>
-            <span></span>
+            <TagsList id={id} />
           </div>
 
           <a className="historic" href="/historico-registro">
