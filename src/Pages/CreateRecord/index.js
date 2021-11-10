@@ -56,7 +56,7 @@ const CreateRecord = () => {
     return findRecordWithSei(sei);
   }
 
-  async function handleClick(event) {
+  async function handleClick() {
     // Body request to post in
     // record api
     const record = {
@@ -122,7 +122,7 @@ const CreateRecord = () => {
                           <GenericBlueButton
                             title="Prosseguir"
                             onClick={() => {
-                              handleClick(event.preventDefault());
+                              handleClick();
                               toast.dismiss(t.id);
                             }}
                           />
@@ -154,7 +154,7 @@ const CreateRecord = () => {
                             <GenericBlueButton
                               title="Prosseguir"
                               onClick={() => {
-                                handleClick(event.preventDefault());
+                                handleClick();
                                 toast.dismiss(t.id);
                               }}
                             ></GenericBlueButton>
@@ -166,7 +166,7 @@ const CreateRecord = () => {
                           </span>
                         ));
                       } else {
-                        handleClick(event.preventDefault());
+                        handleClick();
                       }
                     }
                   }}
