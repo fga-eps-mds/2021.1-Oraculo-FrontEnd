@@ -156,7 +156,7 @@ export async function createUser(user, toast) {
       const response = await APIProcess.post(`/users`, {
         name: user.name,
         email: user.email,
-        section_id: user.departmentID,
+        department_id: user.departmentID,
       });
       return response.data;
     } catch (error) {
@@ -168,7 +168,7 @@ export async function createUser(user, toast) {
 
 export async function findRecordWithSei(seiNumber) {
   try {
-    const response = await APIProcess.get(`/records/with-sei`, {
+    const response = await APIProcess.post(`/records/with-sei`, {
       seiNumber,
     });
 
