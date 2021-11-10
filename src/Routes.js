@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import { isAuthenticated, tokenCheck } from "./Auth/Auth";
 import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
@@ -15,6 +16,7 @@ import ViewAllFields from "./Pages/ViewAllFields";
 import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
+import GenericBlueButton from "./Components/GenericBlueButton";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -23,9 +25,30 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
       tokenCheck() ? (
         <Component {...props} />
       ) : (
-        <Redirect
-          to={{ pathname: "/login", state: { from: props.location } }}
-        />
+        <>
+          {toast(
+            (t) => (
+              <span style={{ textAlign: "center" }}>
+                <p style={{ fontSize: "18px" }}>Sessão Encerrada!</p>
+                <p>Para continuar realize login!</p>
+                <GenericBlueButton
+                  title="Ok"
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                  }}
+                ></GenericBlueButton>
+              </span>
+            ),
+            {
+              duration: 10000000,
+            }
+          )}
+
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+          <Toaster />
+        </>
       )
     }
   />
