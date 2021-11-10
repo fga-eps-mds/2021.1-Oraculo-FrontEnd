@@ -10,9 +10,13 @@ import ViewRecord from "./Pages/ViewRecord";
 import HomePage from "./Pages/HomePage";
 import ChangePassword from "./Pages/ChangePassword";
 import AllRegistersScreen from "./Pages/AllRegistersScreen";
+import AllDepartmentsScreen from "./Pages/AllDepartmentsScreen";
 import ViewAllFields from "./Pages/ViewAllFields";
+import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
+import AllSections from "./Pages/AllSections";
+import CreateSection from "./Pages/CreateSection";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -58,8 +62,20 @@ const Routes = () => (
         component={() => <AllRegistersScreen />}
       />
       <PrivateRoutes
+        path="/visualizar-departamentos"
+        component={() => <AllDepartmentsScreen />}
+      />
+      <PrivateRoutes
         path="/todos-os-campos"
         component={() => <ViewAllFields />}
+      />
+      <PrivateRoutes
+        path="/visualizar-secoes"
+        component={() => <AllSections />}
+      />
+      <PrivateRoutes
+        path="/criar-departamento"
+        component={() => <CreateDepartment />}
       />
       <PrivateRoutes
         path="/visualizar-usuarios"
@@ -69,6 +85,7 @@ const Routes = () => (
         path="/editar-registro/:id"
         component={() => <EditRecord />}
       />
+      <PrivateRoutes path="/criar-secao" component={() => <CreateSection />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>
