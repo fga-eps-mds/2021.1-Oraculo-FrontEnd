@@ -285,6 +285,9 @@ export async function editDepartmentById(departmentInfo, id, toast) {
     if (status === 500) {
       toast.error("Não foi possível editar o departamento");
     }
+    if (status === 400) {
+      toast.error("Nome de departamento inválido");
+    }
     return err;
   }
 }
