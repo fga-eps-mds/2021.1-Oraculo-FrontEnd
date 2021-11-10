@@ -59,13 +59,9 @@ export async function registerUser(usr, toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     } else if (status === 400) {
-      toast.error(
-        "Faltam algumas informações para realizar o cadastro do usuário"
-      );
+      toast.error("Faltam algumas informações para realizar o cadastro do usuário");
     } else {
       toast.error(`Erro ao cadastrar usuário!`);
     }
@@ -110,10 +106,10 @@ export async function listAllUsers(toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     }
+
+    return err;
   }
 }
 
@@ -125,6 +121,7 @@ export async function getInfoUser(toast) {
     return response.data;
   } catch (error) {
     toast.error("Falha ao obter dados do usuário");
+    return error;
   }
 }
 
@@ -142,6 +139,8 @@ export async function getUserAccessLevel(user, toast) {
     if (status === 500) {
       toast.error("Erro ao obter informações sobre o seu nível de acesso");
     }
+
+    return err;
   }
 }
 
@@ -172,6 +171,8 @@ export async function changeUserPassword(toast, password) {
   } catch (err) {
     toast.error("Ocorreu um erro ao tentar mudar a senha");
   }
+
+  return;
 }
 
 export async function changeUser(toast, name, email, departmentID) {
@@ -189,9 +190,12 @@ export async function changeUser(toast, name, email, departmentID) {
     );
     console.log("Cadastro atualizado com sucesso!", response);
     toast.success("Usuário alterado com sucesso!");
+
+    return response.data;
   } catch (err) {
     console.log("Erro ao atualizar cadastro!", err);
     toast.error("Ocorreu um erro ao tentar mudar o usuário");
+    return err;
   }
 }
 
@@ -201,6 +205,7 @@ export async function getDepartments() {
     return response.data;
   } catch (err) {
     console.error(`failed to get departments: ${err}`);
+    return err;
   }
 }
 
@@ -211,6 +216,7 @@ export async function getDepartmentsTotalNumber(toast) {
     return response.data;
   } catch (error) {
     toast.error("Erro ao buscar o total de Departamentos!");
+    return error;
   }
 }
 
@@ -221,6 +227,7 @@ export async function getSections() {
     return response.data;
   } catch (err) {
     console.error(`failed to get sections: ${err}`);
+    return err;
   }
 }
 
