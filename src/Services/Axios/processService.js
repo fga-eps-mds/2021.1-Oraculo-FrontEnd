@@ -103,11 +103,14 @@ export async function getAllDepartmentRecords(toast, id) {
 
 export async function forwardRecordInfo(toast, forwardRecInfo) {
   try {
-    const response = await APIProcess.post(`/records/${forwardRecInfo.id}/forward`, {
-      forwarded_by: forwardRecInfo.forwarded_by,
-      origin_id: forwardRecInfo.origin_id,
-      destination_id: forwardRecInfo.destination_id,
-    });
+    const response = await APIProcess.post(
+      `/records/${forwardRecInfo.id}/forward`,
+      {
+        forwarded_by: forwardRecInfo.forwarded_by,
+        origin_id: forwardRecInfo.origin_id,
+        destination_id: forwardRecInfo.destination_id,
+      }
+    );
     toast.success("Registro encaminhado com sucesso!");
     return response.data;
   } catch (error) {
@@ -156,7 +159,7 @@ export async function createUser(user, toast) {
       const response = await APIProcess.post(`/users`, {
         name: user.name,
         email: user.email,
-        section_id: user.departmentID,
+        department_id: user.departmentID,
       });
       return response.data;
     } catch (error) {
@@ -168,10 +171,11 @@ export async function createUser(user, toast) {
 
 export async function findRecordWithSei(seiNumber) {
   try {
-    const response = await APIProcess.get(`/records/with-sei`, {
-      seiNumber,
+    console.log(seiNumber);
+    const response = await APIProcess.post(`/records/with-sei`, {
+      sei_number: seiNumber,
     });
-
+    console.log(response);
     return [response.data, response.status];
   } catch (err) {
     const statusCode = err.response?.status;
