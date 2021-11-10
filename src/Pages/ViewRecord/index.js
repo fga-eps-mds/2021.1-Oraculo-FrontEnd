@@ -152,7 +152,6 @@ const ViewRecord = () => {
       ...forward,
       {
         name: userName,
-
         defaultText: "Registro: Concluido",
         date: getDate(),
       },
@@ -220,12 +219,13 @@ const ViewRecord = () => {
         name: infoUserDone.name,
       }
     } else {
-      const infoUser = await getUserByEmail(email);
+      const infoUser = await getUserByEmail(response.created_by);
+      console.log("info user",infoUser);
       const createDate = formatedDate(response.created_at);
       
       newForward = {
         setor: " ",
-        setorOrigin: " ",
+        setorOrigin: response.origin_name,
         defaultText: "Registro criado em: ",
         date: createDate,
         dateForward: " ",
