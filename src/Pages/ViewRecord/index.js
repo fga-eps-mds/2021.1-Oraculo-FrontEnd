@@ -11,13 +11,15 @@ import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
 import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
-import GenericRedButton from "../../Components/GenericRedButton";
+import GenericBlueButton from "../../Components/GenericBlueButton";
 import toast, { Toaster } from "react-hot-toast";
 import { history } from "../../history";
 import {
+  closeRecord,
   forwardRecordInfo,
   getProcessByID,
   getRecordHistory,
+  setStatusRecord,
   getUserByEmail,
 } from "../../Services/Axios/processService";
 import {
@@ -25,6 +27,8 @@ import {
   getInfoUser,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
+import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
   const { id } = useParams();
@@ -44,8 +48,12 @@ const ViewRecord = () => {
   const [documentContactInfo, setDocumentContactInfo] = useState("");
   const [documentType, setDocumentType] = useState("");
   const [userName, setUserName] = useState("");
-  const [userSectorNum, setUserSectorNum] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userSectorNum, setUserSectorNum] = useState("");
+
+  const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
+  const [buttonModal, setButtonModal] = useState("");
+  const [buttonDone, setButtonDone] = useState(false);
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -75,25 +83,88 @@ const ViewRecord = () => {
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
-      setForward(arrInfoForward);
+
+      await setForward(arrInfoForward);
+
+      if (record.situation === "finished") {
+        setButtonDone(true);
+        document.querySelector(".forwardIcon").style.display = "none";
+      }
     }
     fetchRecordData();
   }, [forwardData]);
 
-  const handleButtonProcess = () => {
+  const getDate = () => {
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, "0");
+    var mes = String(data.getMonth() + 1).padStart(2, "0");
+    var ano = data.getFullYear();
+    return dia + "/" + mes + "/" + ano;
+  };
+
+  const handleButtonProcessDone = () => {
+    setButtonModal(true);
+  };
+
+  const handleButtonProcessReopen = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
   };
 
   const handleForward = async () => {
+    setButtonModalConfirmForward(true);
+  };
+
+  const handleClickModalConfirmForward = async () => {
     const forwardRecInfo = {
       id: id,
       forwarded_by: userEmail,
       origin_id: userSectorNum,
       destination_id: sector,
     };
-    const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    await forwardRecordInfo(toast, forwardRecInfo);
+    setButtonModalConfirmForward(false);
+  }
+
+  const handleClickModalWhite = () => {
+    setButtonModal(false);
+    setButtonModalConfirmForward(false);
+  };
+
+  const handleClickModalBlue= async () => {
+
+    //setting data of who forwarded the record
+    const infoRecord = {
+      id: id,
+      closed_by: userEmail,
+      reason: " ",
+    }
+
+    //send request to close record
+    const response = await closeRecord(infoRecord, toast);
+    console.log(response);
+
+    const newForward = [
+      ...forward,
+      {
+        name: userName,
+        defaultText: "Registro: Concluido",
+        date: getDate(),
+      },
+    ];
+
+    await setStatusRecord(id, "finished", toast);
+    setForward(newForward);
+    setButtonModal(false);
+    setButtonDone(true);
+
+    document.querySelector(".forwardIcon").style.display = "none";
     setForwardData(infoRecord);
   };
+
+  const formatedDate = (infoDate) => {
+    const dataDone = new Date(infoDate);
+    return dataDone.getDate() + "/" + (dataDone.getMonth() + 1) + "/" + dataDone.getFullYear(); 
+  }
 
   const previousForward = async (response) => {
     let newForward = {};
@@ -115,20 +186,8 @@ const ViewRecord = () => {
         return indice.id === originSecID;
       });
 
-      const dataCreated = new Date(response.createdAt);
-      const dataFormatadaCreatedAt =
-        dataCreated.getDate() +
-        "/" +
-        (dataCreated.getMonth() + 1) +
-        "/" +
-        dataCreated.getFullYear();
-      const dataUpdated = new Date(response.updatedAt);
-      const dataFormatadaUpdatedAt =
-        dataUpdated.getDate() +
-        "/" +
-        (dataUpdated.getMonth() + 1) +
-        "/" +
-        dataUpdated.getFullYear();
+      const dataFormatadaCreatedAt = formatedDate(response.createdAt);
+      const dataFormatadaUpdatedAt = formatedDate(response.updatedAt);
 
       newForward = {
         setor: destinationSection[0].name,
@@ -137,6 +196,29 @@ const ViewRecord = () => {
         dateForward: dataFormatadaUpdatedAt,
         name:infoUser.name,
       };
+    } else if (response.closed_by != null) {
+      const dateDoneReg = formatedDate(response.closed_at);
+      const infoUserDone = await getUserByEmail(response.closed_by);
+      newForward = {
+        setor: " ",
+        setorOrigin: response.origin_name,
+        defaultText: "Registro Concluído",
+        date: dateDoneReg,
+        dateForward: " ",
+        name: infoUserDone.name,
+      }
+    } else {
+      const infoUser = await getUserByEmail(response.created_by);
+      console.log("info user",infoUser);
+      const createDate = formatedDate(response.created_at);
+      newForward = {
+        setor: " ",
+        setorOrigin: response.origin_name,
+        defaultText: "Registro criado em: ",
+        date: createDate,
+        dateForward: " ",
+        name: infoUser.name,
+      }
     }
       return newForward;
 };
@@ -205,11 +287,9 @@ const ViewRecord = () => {
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
-            <GenericWhiteButton
-              title="voltar"
-              onClick={() => window.history.back()}
-            />
-            <GenericRedButton title="concluir" onClick={handleButtonProcess} />
+            <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
+            <GenericBlueButton title={buttonDone ? "Reabrir" : "Concluir"}
+              onClick={buttonDone ? handleButtonProcessReopen : handleButtonProcessDone} />
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
@@ -238,6 +318,22 @@ const ViewRecord = () => {
             Histórico de alterações
           </a>
         </StyledDivInfoProcess>
+        <ModalDoubleCheck
+          content="Você tem certeza que quer concluir esse Registro?"
+          trigger={buttonModal}
+          titleBlueButton="Concluir"
+          titleWhiteButton="Cancelar"
+          onClickBlueButton={handleClickModalBlue}
+          onClickWhiteButton={handleClickModalWhite}
+        />
+        <ModalDoubleCheck
+          content="Deseja realmente encaminhar esse registro?"
+          trigger={buttonModalConfirmForward}
+          titleBlueButton="confirmar"
+          titleWhiteButton="Cancelar"
+          onClickBlueButton={handleClickModalConfirmForward}
+          onClickWhiteButton={handleClickModalWhite}
+        />
       </StyledDivSupProcess>
       <Toaster />
     </>

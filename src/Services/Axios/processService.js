@@ -29,6 +29,33 @@ export async function getProcessByID(ID, toast) {
   }
 }
 
+export async function fowardRegisterDep(section_id, id, toast) {
+  try {
+    console.log(id);
+    console.log(section_id);
+    await APIProcess.post(`/records/${id}/forward`, {
+      section_id: section_id,
+    });
+    toast.success("Registro encaminhado com sucesso!");
+    return true;
+  } catch (error) {
+    toast.error("Erro ao encaminhar processo!");
+    return false;
+  }
+}
+
+export async function setStatusRecord(id, situation_record, toast) {
+  try {
+    const response = await APIProcess.post(`/records/${id}/status`, {
+      situation: situation_record,
+    });
+    if(response){
+      toast.success("Registro concluido!");
+    }
+  } catch (error) {
+    toast.error("Erro ao tentar concluir registro");
+  }
+}
 export async function getProcessByPage(page, toast) {
   try {
     const response = await APIProcess.get(`/records/page/${page}`);
@@ -169,6 +196,18 @@ export async function createUser(user, toast) {
   }
 }
 
+export async function closeRecord(infoRecord, toast) {
+  try {
+    const response = await APIProcess.post(`/records/${infoRecord.id}/close`, {
+      closed_by: infoRecord.closed_by,
+      reason: infoRecord.reason,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
 export async function getUserByEmail(email) {
   try {
     const response = await APIProcess.post(`/user/by-mail/`, {email});
