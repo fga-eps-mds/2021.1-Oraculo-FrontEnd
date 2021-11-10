@@ -205,7 +205,7 @@ const CreateRecord = () => {
                     />
                   </div>
                   <div className="form-div">
-                    <h1>Tido de documento</h1>
+                    <h1>Tipo de documento</h1>
                     <input
                       id="documentTypeInput"
                       type="text"
