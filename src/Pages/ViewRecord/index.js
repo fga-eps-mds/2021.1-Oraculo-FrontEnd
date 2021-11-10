@@ -23,7 +23,6 @@ import {
 import {
   getDepartments,
   getInfoUser,
-  getInfoUserbyID,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
@@ -45,9 +44,7 @@ const ViewRecord = () => {
   const [documentContactInfo, setDocumentContactInfo] = useState("");
   const [documentType, setDocumentType] = useState("");
   const [userName, setUserName] = useState("");
-  const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
-  const [userID, setUserID] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
@@ -70,9 +67,7 @@ const ViewRecord = () => {
       const user = await getInfoUser(toast);
       console.log(user, "teste");
       setUserName(user.name);
-      setUserID(user.id);
       setUserEmail(user.email);
-      setUserSector(user.departments[0].name);
       setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
@@ -96,7 +91,6 @@ const ViewRecord = () => {
       origin_id: userSectorNum,
       destination_id: sector,
     };
-
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
     setForwardData(infoRecord);
   };
@@ -104,8 +98,8 @@ const ViewRecord = () => {
   const previousForward = async (response) => {
     let newForward = {};
     const email = response.forwarded_by;
+
     if (email != null) {
-      
       const infoUser = await getUserByEmail(email);
       const destinationID = response.destination_id;
       const originSecID = response.origin_id;
@@ -114,22 +108,22 @@ const ViewRecord = () => {
       console.log("Allsec", allDepartments2);
 
       const destinationSection = allDepartments2.filter((indice) => {
-        return indice.id == destinationID;
+        return indice.id === destinationID;
       });
 
       const originSection = allDepartments2.filter((indice) => {
-        return indice.id == originSecID;
+        return indice.id === originSecID;
       });
 
-      let dataCreated = new Date(response.createdAt);
-      let dataFormatadaCreatedAt =
+      const dataCreated = new Date(response.createdAt);
+      const dataFormatadaCreatedAt =
         dataCreated.getDate() +
         "/" +
         (dataCreated.getMonth() + 1) +
         "/" +
         dataCreated.getFullYear();
-      let dataUpdated = new Date(response.updatedAt);
-      let dataFormatadaUpdatedAt =
+      const dataUpdated = new Date(response.updatedAt);
+      const dataFormatadaUpdatedAt =
         dataUpdated.getDate() +
         "/" +
         (dataUpdated.getMonth() + 1) +
