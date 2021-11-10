@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import { isAuthenticated, tokenCheck } from "./Auth/Auth";
 import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
@@ -15,17 +16,49 @@ import ViewAllFields from "./Pages/ViewAllFields";
 import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
+import GenericBlueButton from "./Components/GenericBlueButton";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
     {...prop}
     render={(props) =>
+      // Check if the user has a valid token on his browser
       tokenCheck() ? (
         <Component {...props} />
       ) : (
-        <Redirect
-          to={{ pathname: "/login", state: { from: props.location } }}
-        />
+        <>
+          {
+            //Show a pop-up to inform user that his session is expired
+            toast(
+              (t) => (
+                <span style={{ textAlign: "center" }}>
+                  <p style={{ fontSize: "18px" }}>
+                    {
+                      // Check if user has a token in storage
+                      isAuthenticated() ? "Sessão Expirada!" : "Acesso negado!"
+                    }
+                  </p>
+                  <p>Para continuar realize login!</p>
+                  <GenericBlueButton
+                    title="Ok"
+                    onClick={() => {
+                      toast.dismiss(t.id);
+                    }}
+                  ></GenericBlueButton>
+                </span>
+              ),
+              {
+                //Set the duration of the pop-up
+                duration: 10000000,
+              }
+            )
+          }
+          {/* Redirect the user to login-screen if it's not logged */}
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+          <Toaster />
+        </>
       )
     }
   />
