@@ -1,12 +1,12 @@
 import React from "react";
-import GenericRedButton from "../GenericRedButton";
+import GenericBlueButton from "../GenericBlueButton";
 import GenericWhiteButton from "../GenericWhiteButton";
 import { StyledContainerModal } from "./styles";
 
 const ModalDoubleCheck = ({
   content,
-  titleRedButton,
-  onClickRedButton,
+  titleBlueButton,
+  onClickBlueButton,
   titleWhiteButton,
   onClickWhiteButton,
   trigger,
@@ -20,7 +20,7 @@ const ModalDoubleCheck = ({
             title={titleWhiteButton}
             onClick={onClickWhiteButton}
           />
-          <GenericRedButton title={titleRedButton} onClick={onClickRedButton} />
+          <GenericBlueButton title={titleBlueButton} onClick={onClickBlueButton} />
         </div>
       </StyledContainerModal>
     </>

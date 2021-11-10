@@ -11,7 +11,7 @@ import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
 import ForwardSector from "../../Components/ForwardSector";
 import GenericWhiteButton from "../../Components/GenericWhiteButton";
-import GenericRedButton from "../../Components/GenericRedButton";
+import GenericBlueButton from "../../Components/GenericBlueButton";
 import toast, { Toaster } from "react-hot-toast";
 import { history } from "../../history";
 import {
@@ -135,7 +135,7 @@ const ViewRecord = () => {
     setButtonModalConfirmForward(false);
   };
 
-  const handleClickModalRed = async () => {
+  const handleClickModalBlue= async () => {
 
     const infoRecord = {
       id: id,
@@ -277,7 +277,7 @@ const ViewRecord = () => {
 
           <StyledDivButtons>
             <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
-            <GenericRedButton title={buttonDone ? "Reabrir" : "Concluir"}
+            <GenericBlueButton title={buttonDone ? "Reabrir" : "Concluir"}
               onClick={buttonDone ? handleButtonProcessReopen : handleButtonProcessDone} />
           </StyledDivButtons>
         </StyledDivShowProcess>
@@ -310,17 +310,17 @@ const ViewRecord = () => {
         <ModalDoubleCheck
           content="Você tem certeza que quer concluir esse Registro?"
           trigger={buttonModal}
-          titleRedButton="Concluir"
+          titleBlueButton="Concluir"
           titleWhiteButton="Cancelar"
-          onClickRedButton={handleClickModalRed}
+          onClickBlueButton={handleClickModalBlue}
           onClickWhiteButton={handleClickModalWhite}
         />
         <ModalDoubleCheck
           content="Deseja realmente encaminhar esse registro?"
           trigger={buttonModalConfirmForward}
-          titleRedButton="confirmar"
+          titleBlueButton="confirmar"
           titleWhiteButton="Cancelar"
-          onClickRedButton={handleClickModalConfirmForward}
+          onClickBlueButton={handleClickModalConfirmForward}
           onClickWhiteButton={handleClickModalWhite}
         />
       </StyledDivSupProcess>
