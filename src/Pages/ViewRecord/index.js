@@ -95,48 +95,50 @@ const ViewRecord = () => {
   };
 
   const previousForward = async (response) => {
+    let newForward = {};
     const email = response.forwarded_by;
-    const infoUser = await getUserByEmail(email);
-    console.log(response);
-    const destinationID = response.destination_id;
-    const originSecID = response.origin_id;
-    console.log("originsecid",originSecID);
-    const allSections2 = await getSections();
-    console.log("Allsec", allSections2);
+    if (email != null) {
+      
+      const infoUser = await getUserByEmail(email);
+      const destinationID = response.destination_id;
+      const originSecID = response.origin_id;
+      console.log("originsecid",originSecID);
+      const allSections2 = await getSections();
+      console.log("Allsec", allSections2);
 
-    const destinationSection = allSections2.filter((indice) => {
-      return indice.id == destinationID;
-    });
+      const destinationSection = allSections2.filter((indice) => {
+        return indice.id == destinationID;
+      });
 
-    const originSection = allSections2.filter((indice) => {
-      return indice.id == originSecID;
-    });
-    console.log(originSection);
+      const originSection = allSections2.filter((indice) => {
+        return indice.id == originSecID;
+      });
 
-    let dataCreated = new Date(response.createdAt);
-    let dataFormatadaCreatedAt =
-      dataCreated.getDate() +
-      "/" +
-      (dataCreated.getMonth() + 1) +
-      "/" +
-      dataCreated.getFullYear();
-    let dataUpdated = new Date(response.updatedAt);
-    let dataFormatadaUpdatedAt =
-      dataUpdated.getDate() +
-      "/" +
-      (dataUpdated.getMonth() + 1) +
-      "/" +
-      dataUpdated.getFullYear();
+      let dataCreated = new Date(response.createdAt);
+      let dataFormatadaCreatedAt =
+        dataCreated.getDate() +
+        "/" +
+        (dataCreated.getMonth() + 1) +
+        "/" +
+        dataCreated.getFullYear();
+      let dataUpdated = new Date(response.updatedAt);
+      let dataFormatadaUpdatedAt =
+        dataUpdated.getDate() +
+        "/" +
+        (dataUpdated.getMonth() + 1) +
+        "/" +
+        dataUpdated.getFullYear();
 
-    const newForward = {
-      setor: destinationSection[0].name,
-      setorOrigin: originSection[0].name,
-      date: dataFormatadaCreatedAt,
-      dateForward: dataFormatadaUpdatedAt,
-      name: infoUser.user.name,
-    };
-    return newForward;
-  };
+      newForward = {
+        setor: destinationSection[0].name,
+        setorOrigin: originSection[0].name,
+        date: dataFormatadaCreatedAt,
+        dateForward: dataFormatadaUpdatedAt,
+        name:infoUser.name,
+      };
+    }
+      return newForward;
+};
 
   function handleEditRegister() {
     history.push(`/editar-registro/${id}`);
