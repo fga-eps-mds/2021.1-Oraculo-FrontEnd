@@ -32,9 +32,9 @@ const SectionMovBlock = ({ forwardSector }) => {
           <p> {forwardSector.defaultText ? forwardSector.defaultText : "Registro encaminhado para:"} {forwardSector.setor}</p>
           <p>{forwardSector.date}</p>
         </div>
-        <p>{fowardSector.department}</p>
+        <p>{forwardSector.department}</p>
         <p>
-          {fowardSector.reason} {fowardSector.reasonText}
+          {forwardSector.reason} {forwardSector.reasonText}
         </p>
       </DivMovBlock>
     </>
