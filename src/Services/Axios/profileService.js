@@ -275,3 +275,27 @@ export async function registerSection(name, toast) {
     toast.error("Não foi possível cadastrar o departamento!");
   }
 }
+
+export async function editDepartmentById(departmentInfo, id, toast) {
+  try {
+    // Edit record with the id and the new information
+    const temp = await APIProfile.post(`/departments/change-department/${id}`, {
+      name: departmentInfo,
+    });
+    toast.success((t) => (
+      <span style={{ textAlign: "center" }}>
+        <p>Departamento editado com sucesso!</p>
+      </span>
+    ));
+    return temp;
+  } catch (err) {
+    const status = err.response?.status;
+    if (status === 500) {
+      toast.error("Não foi possível editar o departamento");
+    }
+    if (status === 400) {
+      toast.error("Nome de departamento inválido");
+    }
+    return err;
+  }
+}

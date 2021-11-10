@@ -13,7 +13,7 @@ services:
       - processos-network
 
 volumes:
-  node_modules:
+  node_modules_frontend:
 
 networks:
   processos-network:

@@ -16,6 +16,7 @@ import ViewAllFields from "./Pages/ViewAllFields";
 import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
+import EditDepartment from "./Pages/EditDepartment";
 import GenericBlueButton from "./Components/GenericBlueButton";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
@@ -43,8 +44,7 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
                     title="Ok"
                     onClick={() => {
                       toast.dismiss(t.id);
-                    }}
-                  ></GenericBlueButton>
+                    }}></GenericBlueButton>
                 </span>
               ),
               {
@@ -91,6 +91,11 @@ const Routes = () => (
       <PrivateRoutes path="/criar-departamento" component={() => <CreateDepartment />} />
       <PrivateRoutes path="/visualizar-usuarios" component={() => <ViewAllUsers />} />
       <PrivateRoutes path="/editar-registro/:id" component={() => <EditRecord />} />
+      <PrivateRoutes
+        exact
+        path="/editar-departamento/:id"
+        component={() => <EditDepartment />}
+      />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>
