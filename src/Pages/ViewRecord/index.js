@@ -20,7 +20,7 @@ import {
   getRecordHistory,
   getUserByEmail,
 } from "../../Services/Axios/processService";
-import { getInfoUser, getSections } from "../../Services/Axios/profileService";
+import { getDepartments, getInfoUser } from "../../Services/Axios/profileService";
 import { getInfoUserbyID } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
@@ -66,8 +66,8 @@ const ViewRecord = () => {
       setUserName(user.name);
       setUserID(user.id);
       setUserEmail(user.email);
-      setUserSector(user.sections[0].name);
-      setUserSectorNum(user.sections[0].id);
+      setUserSector(user.departments[0].name);
+      setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
       console.log("responseHR",responseHR);
@@ -103,14 +103,14 @@ const ViewRecord = () => {
       const destinationID = response.destination_id;
       const originSecID = response.origin_id;
       console.log("originsecid",originSecID);
-      const allSections2 = await getSections();
-      console.log("Allsec", allSections2);
+      const allDepartments2 = await getDepartments();
+      console.log("Allsec", allDepartments2);
 
-      const destinationSection = allSections2.filter((indice) => {
+      const destinationSection = allDepartments2.filter((indice) => {
         return indice.id == destinationID;
       });
 
-      const originSection = allSections2.filter((indice) => {
+      const originSection = allDepartments2.filter((indice) => {
         return indice.id == originSecID;
       });
 

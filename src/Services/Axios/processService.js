@@ -165,9 +165,7 @@ export async function createUser(user, toast) {
 
 export async function getUserByEmail(email) {
   try {
-    console.log("email", email);
-    const response = await APIProcess.get(`/user/by-mail/${email}`);
-    console.log(response.data);
+    const response = await APIProcess.post(`/user/by-mail/`, {email});
     return response.data;
   } catch (error) {
     console.error(error);
