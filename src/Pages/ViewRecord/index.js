@@ -49,9 +49,7 @@ const ViewRecord = () => {
   const [documentType, setDocumentType] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
-  const [userID, setUserID] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
   const [buttonModal, setButtonModal] = useState("");
@@ -78,8 +76,6 @@ const ViewRecord = () => {
       console.log(user, "teste");
       setUserName(user.name);
       setUserEmail(user.email);
-      setUserID(user.id);
-      setUserSector(user.departments[0].name);
       setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
@@ -90,7 +86,7 @@ const ViewRecord = () => {
 
       await setForward(arrInfoForward);
 
-      if (record.situation == "finished") {
+      if (record.situation === "finished") {
         setButtonDone(true);
         document.querySelector(".forwardIcon").style.display = "none";
       }
@@ -103,8 +99,7 @@ const ViewRecord = () => {
     var dia = String(data.getDate()).padStart(2, "0");
     var mes = String(data.getMonth() + 1).padStart(2, "0");
     var ano = data.getFullYear();
-    var dataAtual = dia + "/" + mes + "/" + ano;
-    return dataAtual;
+    return dia + "/" + mes + "/" + ano;
   };
 
   const handleButtonProcessDone = () => {
@@ -126,7 +121,7 @@ const ViewRecord = () => {
       origin_id: userSectorNum,
       destination_id: sector,
     };
-    const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    await forwardRecordInfo(toast, forwardRecInfo);
     setButtonModalConfirmForward(false);
   }
 
@@ -168,13 +163,7 @@ const ViewRecord = () => {
 
   const formatedDate = (infoDate) => {
     const dataDone = new Date(infoDate);
-    const formatDate =
-      dataDone.getDate() +
-      "/" +
-      (dataDone.getMonth() + 1) +
-      "/" +
-      dataDone.getFullYear();
-    return formatDate;
+    return dataDone.getDate() + "/" + (dataDone.getMonth() + 1) + "/" + dataDone.getFullYear(); 
   }
 
   const previousForward = async (response) => {
@@ -222,7 +211,6 @@ const ViewRecord = () => {
       const infoUser = await getUserByEmail(response.created_by);
       console.log("info user",infoUser);
       const createDate = formatedDate(response.created_at);
-      
       newForward = {
         setor: " ",
         setorOrigin: response.origin_name,
