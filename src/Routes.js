@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import { isAuthenticated, tokenCheck } from "./Auth/Auth";
+import { hasToken, isAuthenticated, tokenExpired } from "./Auth/Auth";
 import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
