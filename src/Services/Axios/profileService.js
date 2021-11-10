@@ -272,7 +272,7 @@ export async function registerSection(name, toast) {
 export async function editDepartmentById(departmentInfo, id, toast) {
   try {
     // Edit record with the id and the new information
-    await APIProfile.post(`/departments/change-department/${id}`, {
+    const temp = await APIProfile.post(`/departments/change-department/${id}`, {
       name: departmentInfo,
     });
     toast.success((t) => (
@@ -280,6 +280,7 @@ export async function editDepartmentById(departmentInfo, id, toast) {
         <p>Departamento editado com sucesso!</p>
       </span>
     ));
+    return temp;
   } catch (err) {
     const status = err.response?.status;
     if (status === 500) {

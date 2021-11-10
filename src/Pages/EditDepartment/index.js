@@ -5,7 +5,6 @@ import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import {
   editDepartmentById,
   getDepartments,
-  getDepartmentsTotalNumber,
 } from "../../Services/Axios/profileService";
 
 import {
