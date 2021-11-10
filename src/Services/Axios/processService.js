@@ -163,14 +163,10 @@ export async function createUser(user, toast) {
   }
 }
 
-export async function getUserByEmail(userEmail) {
+export async function getUserByEmail(email) {
   try {
-    console.log("email", userEmail);
-    const response = await APIProcess.get(`/user/by-mail`, {
-      params:{
-        email: userEmail,
-      }
-    });
+    console.log("email", email);
+    const response = await APIProcess.get(`/user/by-mail/${email}`);
     console.log(response.data);
     return response.data;
   } catch (error) {
