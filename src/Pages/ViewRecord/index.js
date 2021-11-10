@@ -137,13 +137,14 @@ const ViewRecord = () => {
 
   const handleClickModalBlue= async () => {
 
+    //setting data of who forwarded the record
     const infoRecord = {
       id: id,
       closed_by: userEmail,
       reason: " ",
     }
 
-    //setando dados de quem encaminhou o registro
+    //send request to close record
     const response = await closeRecord(infoRecord, toast);
     console.log(response);
 
@@ -208,6 +209,24 @@ const ViewRecord = () => {
         dateForward: dataFormatadaUpdatedAt,
         name:infoUser.name,
       };
+    } else if (response.closed_by != null) {
+      const dataDone = new Date(response.closed_at);
+      const dataDoneReg =
+        dataDone.getDate() +
+        "/" +
+        (dataDone.getMonth() + 1) +
+        "/" +
+        dataDone.getFullYear();
+
+      const infoUser = await getUserByEmail(response.closed_by);
+      newForward = {
+        setor: " ",
+        setorOrigin: " ",
+        defaultText: "Registro Concluído",
+        date: dataDoneReg,
+        dateForward: " ",
+        name: infoUser.name,
+      }
     }
       return newForward;
 };
