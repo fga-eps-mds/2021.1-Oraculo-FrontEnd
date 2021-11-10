@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { isAuthenticated } from "./Auth/Auth";
+import { isAuthenticated, tokenCheck } from "./Auth/Auth";
 import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
@@ -20,7 +20,7 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
     {...prop}
     render={(props) =>
-      isAuthenticated() ? (
+      tokenCheck() ? (
         <Component {...props} />
       ) : (
         <Redirect
