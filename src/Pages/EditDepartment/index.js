@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiBuildings } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
-import { registerDepartment } from "../../Services/Axios/profileService";
+import {
+  editDepartmentById,
+  getDepartments,
+  getDepartmentsTotalNumber,
+} from "../../Services/Axios/profileService";
 
 import {
   StyledBlueRectangle,
@@ -19,8 +23,24 @@ const EditDepartment = () => {
   const { id } = useParams();
   const [department, setDepartment] = useState("");
 
+  async function setAll() {
+    const allDepart = await getDepartments();
+
+    for (const element of allDepart) {
+      console.log(element);
+      if (element.id == id) {
+        setDepartment(element.name);
+        break;
+      }
+    }
+  }
+
+  window.onload = function () {
+    setAll();
+  };
+
   async function handleClick(event) {
-    return registerDepartment(department, toast);
+    return editDepartmentById(department, id, toast);
   }
 
   return (
