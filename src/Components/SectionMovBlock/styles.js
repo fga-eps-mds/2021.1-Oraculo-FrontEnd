@@ -9,6 +9,7 @@ const DivNodeBlock = styled.div`
     display: flex;
     p {
       margin-left: 2rem;
+      margin-right: 2rem;
     }
     align-items: center;
   }
@@ -35,12 +36,14 @@ const DivMovBlock = styled.div`
   background: ${colors.white};
   border-radius: ${radius.sizeMd};
   border: 1px solid ${colors.black};
+  width: 92%;
   padding: 0rem 2rem 0.5rem;
   div {
     display: flex;
     align-items: center;
     svg {
       margin-right: 1rem;
+      margin-top: 1rem;
       width: 2rem;
       height: 2rem;
     }

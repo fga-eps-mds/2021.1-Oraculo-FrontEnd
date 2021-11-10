@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { DivMovBlock, DivNodeBlock, StyledLine } from "./styles";
 
-const SectionMovBlock = ({ fowardSector }) => {
+const SectionMovBlock = ({ forwardSector }) => {
   return (
     <>
       <DivNodeBlock>
@@ -9,20 +9,28 @@ const SectionMovBlock = ({ fowardSector }) => {
           <div></div>
         </StyledLine>
         <div className="content">
-          <p>Setor: {fowardSector.setorOrigin} </p>
-          <p>{fowardSector.dateFoward}</p>
+          <p>
+            {forwardSector.setorOrigin === "" ||
+            forwardSector.setorOrigin === undefined
+              ? "Necro (mock)"
+              : forwardSector.setorOrigin}
+          </p>
+          <p>
+            {forwardSector.dateForward === "" ||
+            forwardSector.dateForward === undefined
+              ? new Date().toLocaleDateString("pt-BR")
+              : forwardSector.dateForward}
+          </p>
         </div>
       </DivNodeBlock>
       <DivMovBlock>
         <div>
           <FaUserCircle />
-          <p>{fowardSector.name}</p>
+          <p>{forwardSector.name}</p>
         </div>
-        <div className="infoSetor">
-          <p>
-            {fowardSector.defaultText}: {fowardSector.setor}
-          </p>
-          <p>{fowardSector.date}</p>
+        <div>
+          <p> {forwardSector.defaultText ? forwardSector.defaultText : "Registro encaminhado para:"} {forwardSector.setor}</p>
+          <p>{forwardSector.date}</p>
         </div>
         <p>{fowardSector.department}</p>
         <p>
