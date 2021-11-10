@@ -28,6 +28,7 @@ import {
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+import { ModalReopenProcess } from "../../Components/ModalDoubleCheck";
 
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
@@ -50,10 +51,12 @@ const ViewRecord = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
+  const [reason, setReason] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
   const [buttonModal, setButtonModal] = useState("");
   const [buttonDone, setButtonDone] = useState(false);
+  const [buttonModalReopen, setbuttonModalReopen] = useState(false);
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -107,7 +110,7 @@ const ViewRecord = () => {
   };
 
   const handleButtonProcessReopen = () => {
-    toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
+    setbuttonModalReopen(true);
   };
 
   const handleForward = async () => {
@@ -333,6 +336,14 @@ const ViewRecord = () => {
           titleWhiteButton="Cancelar"
           onClickBlueButton={handleClickModalConfirmForward}
           onClickWhiteButton={handleClickModalWhite}
+        />
+         <ModalReopenProcess
+          trigger={buttonModalReopen}
+          titleBlueButton="Reabrir"
+          titleWhiteButton="Cancelar"
+          onClickBlueButton={handleClickModalBlue}
+          onClickWhiteButton={handleClickModalWhite}
+          onChange={(event) => setReason(event.target.value)}
         />
       </StyledDivSupProcess>
       <Toaster />
