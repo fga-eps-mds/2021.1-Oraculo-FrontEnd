@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiBuildings } from "react-icons/bi";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
-import { registerSection } from "../../Services/Axios/profileService";
+import {
+  editDepartmentById,
+  getDepartments,
+} from "../../Services/Axios/profileService";
 
 import {
   StyledBlueRectangle,
@@ -12,13 +15,31 @@ import {
   StyledForms,
   StyledViewProfile,
   StyledWhiteRectangle,
-} from "./styles";
+} from "../CreateDepartment/styles.js";
+import { useParams } from "react-router";
 
-const CreateSection = () => {
-  const [section, setSection] = useState("");
+const EditDepartment = () => {
+  const { id } = useParams();
+  const [department, setDepartment] = useState("");
+
+  async function setAll() {
+    const allDepart = await getDepartments();
+
+    for (const element of allDepart) {
+      console.log(element);
+      if (element.id == id) {
+        setDepartment(element.name);
+        break;
+      }
+    }
+  }
+
+  window.onload = function () {
+    setAll();
+  };
 
   async function handleClick(event) {
-    return registerSection(section, toast);
+    return editDepartmentById(department, id, toast);
   }
 
   return (
@@ -27,7 +48,7 @@ const CreateSection = () => {
       <div>
         <Toaster />
         <StyledViewProfile>
-          {/* Create Section image */}
+          {/* Create Department image */}
           <StyledBlueRectangle>
             <BiBuildings size="20rem" color="white" />
           </StyledBlueRectangle>
@@ -36,14 +57,14 @@ const CreateSection = () => {
             <StyledForms>
               <form>
                 <div>
-                  <h1>Nome da seção</h1>
+                  <h1>Editar Departamento</h1>
                   <input
                     id="email"
                     type="text"
                     required
-                    placeholder="Nome da seção"
-                    value={section}
-                    onChange={(event) => setSection(event.target.value)}
+                    placeholder="Nome do departamento"
+                    value={department}
+                    onChange={(event) => setDepartment(event.target.value)}
                   />
                 </div>
               </form>
@@ -59,7 +80,7 @@ const CreateSection = () => {
                 type="button"
                 onClick={(event) => handleClick(event)}
               >
-                Cadastrar
+                Editar
               </StyledRegisterButton>
             </StyledButtonsDiv>
           </StyledWhiteRectangle>
@@ -69,4 +90,4 @@ const CreateSection = () => {
   );
 };
 
-export default CreateSection;
+export default EditDepartment;

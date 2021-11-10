@@ -7,16 +7,15 @@ const Departments = ({ departments, searchTerm }) => {
     <StyledListGroup>
       {departments
         .filter((val) => {
-          if (val === "") {
-            return val;
-          } else if (
+          if (
+            val === "" ||
             val.name.toLowerCase().includes(searchTerm.toLowerCase())
           ) {
             return val;
           }
         })
         .map((post) => (
-          <PocketDepartment key={post.id} name={post.name} />
+          <PocketDepartment key={post.id} id={post.id} name={post.name} />
         ))}
     </StyledListGroup>
   );

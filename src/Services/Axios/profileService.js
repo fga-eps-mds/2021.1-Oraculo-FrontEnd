@@ -1,7 +1,7 @@
 import { STORAGE_KEY } from "../../Auth/Auth";
 import { APIProfile } from "./BaseService/index";
 
-function getToken() {
+export function getToken() {
   return String(localStorage.getItem(STORAGE_KEY));
 }
 
@@ -17,7 +17,6 @@ const userLevels = [
 ];
 
 async function validateUser(user) {
-  const section = Number.parseInt(user.sectionID);
   const department = Number.parseInt(user.departmentID);
   let level = Number.parseInt(user.level);
 
@@ -26,8 +25,8 @@ async function validateUser(user) {
       ? userLevels[1].level
       : level;
 
-  if (section <= 0 || department <= 0) {
-    throw new Error("invalid department or section");
+  if (department <= 0) {
+    throw new Error("invalid department");
   }
 
   return {
@@ -35,7 +34,6 @@ async function validateUser(user) {
     email: user.email,
     departmentID: department,
     level: level,
-    sectionID: section,
     password: user.password,
   };
 }
@@ -44,14 +42,6 @@ export async function registerUser(usr, toast) {
   try {
     const user = await validateUser(usr);
 
-    if (user.departmentID <= 7) {
-      // user belongs to a admin sector
-      user.sectionID = 0;
-    } else {
-      // user is a common user
-      user.departmentID = 0;
-    }
-
     await APIProfile.post(
       "/register",
       {
@@ -59,7 +49,6 @@ export async function registerUser(usr, toast) {
         email: user.email,
         departmentID: user.departmentID,
         level: user.level,
-        sectionID: user.sectionID,
         password: user.password,
       },
       { headers: { "X-Access-Token": getToken() } }
@@ -158,7 +147,7 @@ export async function getUserAccessLevel(user, toast) {
 
 export async function getInfoUserbyID(id) {
   try {
-    const response = await APIProfile.get(`/user/${id}/info`, {
+    const response = await APIProfile.get(`/user/info`, {
       headers: {
         "X-Access-Token": getToken(),
       },
@@ -185,14 +174,13 @@ export async function changeUserPassword(toast, password) {
   }
 }
 
-export async function changeUser(toast, name, email, sectionID, departmentID) {
+export async function changeUser(toast, name, email, departmentID) {
   try {
     const response = await APIProfile.post(
       "/user/edit",
       {
         name: name,
         email: email,
-        section_id: sectionID,
         department_id: departmentID,
       },
       {
@@ -278,5 +266,29 @@ export async function registerSection(name, toast) {
     return response.data;
   } catch (error) {
     toast.error("Não foi possível cadastrar o departamento!");
+  }
+}
+
+export async function editDepartmentById(departmentInfo, id, toast) {
+  try {
+    // Edit record with the id and the new information
+    const temp = await APIProfile.post(`/departments/change-department/${id}`, {
+      name: departmentInfo,
+    });
+    toast.success((t) => (
+      <span style={{ textAlign: "center" }}>
+        <p>Departamento editado com sucesso!</p>
+      </span>
+    ));
+    return temp;
+  } catch (err) {
+    const status = err.response?.status;
+    if (status === 500) {
+      toast.error("Não foi possível editar o departamento");
+    }
+    if (status === 400) {
+      toast.error("Nome de departamento inválido");
+    }
+    return err;
   }
 }

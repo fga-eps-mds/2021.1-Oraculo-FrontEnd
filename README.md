@@ -26,18 +26,24 @@ O frontend estará rodando na [porta 3000](http://localhost:3000).
 
 Configure as variáveis de ambiente
 
-```
-export DEV=true
-export PROFILE_BASE_URL=""
-export RECORDS_BASE_URL=""
-export TAGS_BASE_URL=""
+- Deploy local
+
+```bash
+export REACT_APP_PROD=false
 ```
 
-Se `DEV` for true então as variáveis `PROFILE_BASE_URL`, `RECORDS_BASE_URL` e
-`TAGS_BASE_URL`serão ignoradas.
+- Deploy em ambiente em nuvem
+
+```bash
+export REACT_APP_PROD=true
+export REACT_APP_PROFILE_BASE_URL=""
+export REACT_APP_RECORDS_BASE_URL=""
+```
+
+**Importante**: as variáveis `REACT_APP_PROFILE_BASE_URL` e `REACT_APP_RECORDS_BASE_URL` deverão possuir
+a URL completa (host e porta) dos microsserviços de profile e de registros, respectivamente.
 
 Esta aplicação faz conexão e é dependente das APIs para funcionar corretamente. As APIs correspondentes são:
 
 - [API de Profile](https://github.com/fga-eps-mds/2021.1-Oraculo-Profile)
-- [API de Processos](https://github.com/fga-eps-mds/2021.1-Oraculo-Processos)
-- [API de Tags](https://github.com/fga-eps-mds/2021.1-Oraculo-Tags)
+- [API de Registros](https://github.com/fga-eps-mds/2021.1-Oraculo-Registros)

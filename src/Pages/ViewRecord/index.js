@@ -20,13 +20,18 @@ import {
   getRecordHistory,
   getUserByEmail,
 } from "../../Services/Axios/processService";
-import { getDepartments, getInfoUser } from "../../Services/Axios/profileService";
-import { getInfoUserbyID } from "../../Services/Axios/profileService";
+import {
+  getDepartments,
+  getInfoUser,
+  getInfoUserbyID,
+} from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 const ViewRecord = () => {
+  const naoCadastrada = "Informação não cadastrada";
   const { id } = useParams();
   const [sector, setSector] = useState("criminal");
   const [forward, setForward] = useState([]);
+  const [forwardData, setForwardData] = useState("");
 
   const [registerNumber, setRegisterNumber] = useState("");
   const [requester, setRequester] = useState("");
@@ -39,7 +44,6 @@ const ViewRecord = () => {
   const [documentNumber, setDocumentNumber] = useState("");
   const [documentContactInfo, setDocumentContactInfo] = useState("");
   const [documentType, setDocumentType] = useState("");
-
   const [userName, setUserName] = useState("");
   const [userSector, setUserSector] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
@@ -48,6 +52,7 @@ const ViewRecord = () => {
 
   useEffect(() => {
     async function fetchRecordData() {
+      // get all records data by process by id
       const record = await getProcessByID(id, toast);
       setRegisterNumber(record.register_number);
       setSeiNumber(record.sei_number);
@@ -63,6 +68,7 @@ const ViewRecord = () => {
       setDocumentType(record.document_type);
 
       const user = await getInfoUser(toast);
+      console.log(user, "teste");
       setUserName(user.name);
       setUserID(user.id);
       setUserEmail(user.email);
@@ -77,7 +83,7 @@ const ViewRecord = () => {
       setForward(arrInfoForward);
     }
     fetchRecordData();
-  }, []);
+  }, [forwardData]);
 
   const handleButtonProcess = () => {
     toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
@@ -92,6 +98,7 @@ const ViewRecord = () => {
     };
 
     const infoRecord = await forwardRecordInfo(toast, forwardRecInfo);
+    setForwardData(infoRecord);
   };
 
   const previousForward = async (response) => {
@@ -180,32 +187,24 @@ const ViewRecord = () => {
             </div>
             <div>
               <h3>Tipo de documento:&nbsp;</h3>
-              <h3>
-                {documentType ? documentType : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentType ? documentType : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Nº do documento:&nbsp;</h3>
-              <h3>
-                {documentNumber ? documentNumber : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentNumber ? documentNumber : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Nº do SEI:&nbsp;</h3>
-              <h3>{seiNumber ? seiNumber : "Informação não cadastrada"}</h3>
+              <h3>{seiNumber ? seiNumber : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Data do documento:&nbsp;</h3>
-              <h3>
-                {documentDate ? documentDate : "Informação não cadastrada"}
-              </h3>
+              <h3>{documentDate ? documentDate : naoCadastrada}</h3>
             </div>
             <div>
               <h3>Informações de contato:&nbsp;</h3>
               <h3 id="contact-info">
-                {documentContactInfo
-                  ? documentContactInfo
-                  : "Informação não cadastrada"}
+                {documentContactInfo ? documentContactInfo : naoCadastrada}
               </h3>
             </div>
           </StyledInfoSection>

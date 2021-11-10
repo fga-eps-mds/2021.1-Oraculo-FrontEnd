@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { isAuthenticated } from "./Auth/Auth";
+import toast, { Toaster } from "react-hot-toast";
+import { hasToken, isAuthenticated, tokenExpired } from "./Auth/Auth";
 import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
@@ -15,19 +16,22 @@ import ViewAllFields from "./Pages/ViewAllFields";
 import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
-import AllSections from "./Pages/AllSections";
-import CreateSection from "./Pages/CreateSection";
+import EditDepartment from "./Pages/EditDepartment";
+import GenericBlueButton from "./Components/GenericBlueButton";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
     {...prop}
     render={(props) =>
+      // Check if the user has a valid token on his browser
       isAuthenticated() ? (
         <Component {...props} />
       ) : (
-        <Redirect
-          to={{ pathname: "/login", state: { from: props.location } }}
-        />
+        <>
+          {/* Redirect the user to login-screen if it's not logged */}
+          <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+          <Toaster />
+        </>
       )
     }
   />
@@ -36,27 +40,13 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
 const Routes = () => (
   <BrowserRouter history={history}>
     <Switch>
-      <Route
-        exact
-        path="/login"
-        component={() => <LoginScreen history={history} />}
-      />
-      <PrivateRoutes
-        exact
-        path="/ver-registro/:id"
-        component={() => <ViewRecord />}
-      />
+      <Route exact path="/login" component={() => <LoginScreen history={history} />} />
+      <PrivateRoutes exact path="/ver-registro/:id" component={() => <ViewRecord />} />
       <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
-      <PrivateRoutes
-        path="/criar-registro"
-        component={() => <CreateRecord />}
-      />
+      <PrivateRoutes path="/criar-registro" component={() => <CreateRecord />} />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />
-      <PrivateRoutes
-        path="/alterar-senha"
-        component={() => <ChangePassword />}
-      />
+      <PrivateRoutes path="/alterar-senha" component={() => <ChangePassword />} />
       <PrivateRoutes
         path="/visualizar-registros"
         component={() => <AllRegistersScreen />}
@@ -65,27 +55,15 @@ const Routes = () => (
         path="/visualizar-departamentos"
         component={() => <AllDepartmentsScreen />}
       />
+      <PrivateRoutes path="/todos-os-campos" component={() => <ViewAllFields />} />
+      <PrivateRoutes path="/criar-departamento" component={() => <CreateDepartment />} />
+      <PrivateRoutes path="/visualizar-usuarios" component={() => <ViewAllUsers />} />
+      <PrivateRoutes path="/editar-registro/:id" component={() => <EditRecord />} />
       <PrivateRoutes
-        path="/todos-os-campos"
-        component={() => <ViewAllFields />}
+        exact
+        path="/editar-departamento/:id"
+        component={() => <EditDepartment />}
       />
-      <PrivateRoutes
-        path="/visualizar-secoes"
-        component={() => <AllSections />}
-      />
-      <PrivateRoutes
-        path="/criar-departamento"
-        component={() => <CreateDepartment />}
-      />
-      <PrivateRoutes
-        path="/visualizar-usuarios"
-        component={() => <ViewAllUsers />}
-      />
-      <PrivateRoutes
-        path="/editar-registro/:id"
-        component={() => <EditRecord />}
-      />
-      <PrivateRoutes path="/criar-secao" component={() => <CreateSection />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>

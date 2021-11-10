@@ -4,7 +4,12 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import { createRecord } from "../../Services/Axios/processService";
+import {
+  createRecord,
+  findRecordWithSei,
+} from "../../Services/Axios/processService";
+import GenericBlueButton from "../../Components/GenericBlueButton";
+import GenericRedButton from "../../Components/GenericRedButton";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -46,7 +51,14 @@ const CreateRecord = () => {
     getUser();
   }, []);
 
-  async function handleClick(event) {
+  async function checkRecordSei(sei) {
+    // verifica se já existe um registro com o número do SEI especificado
+    return findRecordWithSei(sei);
+  }
+
+  async function handleClick() {
+    // Body request to post in
+    // record api
     const record = {
       city: city,
       state: state,
@@ -58,11 +70,12 @@ const CreateRecord = () => {
       sei_number: seiNumber,
       receipt_form: receiptForm,
       contact_info: contactInfo,
-      situation: 2,
       created_by: createdBy,
     };
 
+    // envia request para criar registro no banco
     await createRecord(record, toast);
+
     setCity("");
     setState("");
     setRequester("");
@@ -73,7 +86,6 @@ const CreateRecord = () => {
     setSeiNumber("");
     setReceiptForm("");
     setContactInfo("");
-    setCreatedBy("");
   }
 
   return (
@@ -95,8 +107,71 @@ const CreateRecord = () => {
 
             <StyledWhiteRectangle>
               <StyledForms>
-                <form onSubmit={(event) => handleClick(event.preventDefault())}>
-                  <div class="form-div">
+                <form
+                  onSubmit={async (event) => {
+                    //prevent default to not reload page
+                    event.preventDefault();
+                    // if sei number is empty, do not access
+                    // to sei number verification
+                    if (seiNumber === "") {
+                      toast((t) => (
+                        <span style={{ textAlign: "center" }}>
+                          <p style={{ fontSize: "18px" }}>
+                            N° de SEI vazio. Deseja continuar?
+                          </p>
+                          <GenericBlueButton
+                            title="Prosseguir"
+                            onClick={() => {
+                              handleClick();
+                              toast.dismiss(t.id);
+                            }}
+                          />
+                          <p></p>
+                          <GenericRedButton
+                            title="Cancelar"
+                            onClick={() => toast.dismiss(t.id)}
+                          />
+                        </span>
+                      ));
+                    } else {
+                      const [data, status] = await checkRecordSei(seiNumber);
+
+                      if (status === 400) {
+                        toast.error(
+                          "Erro ao buscar número do sei no banco de dados"
+                        );
+                        return;
+                      }
+                      console.error(`info ${data}, ${status}`);
+                      if (status === 200 && data.found === true) {
+                        // Exibe mensagem de alerta
+                        toast((t) => (
+                          <span style={{ textAlign: "center" }}>
+                            <p>Um registro com o SEI </p>
+                            <p style={{ fontSize: "18px" }}>
+                              {seiNumber} já existe. Deseja continuar?
+                            </p>
+                            <GenericBlueButton
+                              title="Prosseguir"
+                              onClick={() => {
+                                handleClick();
+                                toast.dismiss(t.id);
+                              }}
+                            ></GenericBlueButton>
+                            <p></p>
+                            <GenericRedButton
+                              title="Cancelar"
+                              onClick={() => toast.dismiss(t.id)}
+                            ></GenericRedButton>
+                          </span>
+                        ));
+                      } else {
+                        handleClick();
+                      }
+                    }
+                  }}
+                >
+                  <div className="form-div">
                     <h1>Cidade</h1>
                     <input
                       id="cityInput"
@@ -107,7 +182,7 @@ const CreateRecord = () => {
                       value={city}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Estado</h1>
                     <input
                       id="stateInput"
@@ -118,7 +193,7 @@ const CreateRecord = () => {
                       value={state}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Solicitante</h1>
                     <input
                       id="requesterInput"
@@ -129,7 +204,7 @@ const CreateRecord = () => {
                       value={requester}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Tido de documento</h1>
                     <input
                       id="documentTypeInput"
@@ -139,7 +214,7 @@ const CreateRecord = () => {
                       value={documentType}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Nº do documento </h1>
                     <input
                       id="documentNumberInput"
@@ -151,13 +226,13 @@ const CreateRecord = () => {
                       value={documentNumber}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Data do documento</h1>
                   </div>
 
                   <DatePicker
                     id="documentDateInput"
-                    class="form-div"
+                    className="form-div"
                     locale={pt}
                     placeholderText="dd/mm/aaaa"
                     onChange={(event) => {
@@ -166,7 +241,7 @@ const CreateRecord = () => {
                     value={documentDate}
                     customInput={<StyledDatePicker />}
                   />
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Descrição do documento</h1>
                     <input
                       id="documentDescriptionInput"
@@ -179,7 +254,7 @@ const CreateRecord = () => {
                       value={documentDescription}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Nº do SEI</h1>
                     <input
                       id="seiNumberInput"
@@ -189,7 +264,7 @@ const CreateRecord = () => {
                       value={seiNumber}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Recebido via</h1>
                     <input
                       id="receiptFormInput"
@@ -200,7 +275,7 @@ const CreateRecord = () => {
                       value={receiptForm}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Informação de contato</h1>
                     <input
                       id="contactInfoInput"
@@ -210,7 +285,7 @@ const CreateRecord = () => {
                       value={contactInfo}
                     />
                   </div>
-                  <div class="form-div">
+                  <div className="form-div">
                     <h1>Tags</h1>
                     <button
                       type="button"
