@@ -11,7 +11,7 @@ import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
-import AddTagDialog from "../../Components/AddTagDialog";
+import AddTagDialog, { TagModal } from "../../Components/AddTagDialog";
 
 import {
   StyledBlueRectangle,
@@ -91,8 +91,8 @@ const CreateRecord = () => {
   return (
     <>
       <HeaderWithButtons />
-      {showTagModal && <AddTagDialog onVisibleChanged={setShowTagModal} />}
       <div>
+        {showTagModal && <TagModal onVisibleChanged={setShowTagModal} />}
         <StyledTitle>
           <p>Criar Registro</p>
           <div>
@@ -154,18 +154,21 @@ const CreateRecord = () => {
                               onClick={() => {
                                 handleClick();
                                 toast.dismiss(t.id);
-                              }}></GenericBlueButton>
+                              }}
+                            ></GenericBlueButton>
                             <p></p>
                             <GenericRedButton
                               title="Cancelar"
-                              onClick={() => toast.dismiss(t.id)}></GenericRedButton>
+                              onClick={() => toast.dismiss(t.id)}
+                            ></GenericRedButton>
                           </span>
                         ));
                       } else {
                         handleClick();
                       }
                     }
-                  }}>
+                  }}
+                >
                   <div className="form-div">
                     <h1>Cidade</h1>
                     <input
@@ -288,7 +291,8 @@ const CreateRecord = () => {
                   <StyledButtonsDiv>
                     <StyledCancelButton
                       type="button"
-                      onClick={() => window.history.back()}>
+                      onClick={() => window.history.back()}
+                    >
                       Cancelar
                     </StyledCancelButton>
                     <StyledCreateButton type="submit">Criar</StyledCreateButton>
@@ -298,6 +302,7 @@ const CreateRecord = () => {
             </StyledWhiteRectangle>
           </StyledProcessDiv>
         </StyledProcess>
+
         <Toaster
           toastOptions={{
             duration: 100000,
