@@ -50,9 +50,7 @@ const ViewAllFields = () => {
               />
             </StyledSearchBar>
           </StyledSearchBarSize>
-          <ButtonDiv>
-            <MainButton title={"Novo Campo"} />
-          </ButtonDiv>
+          <ButtonDiv></ButtonDiv>
         </StyledTop>
         <StyledBottom>
           <StyledOrganizeButtons>

@@ -95,9 +95,7 @@ const CreateRecord = () => {
       <div>
         <StyledTitle>
           <p>Criar Registro</p>
-          <div>
-            <MainButton title={"Adicionar Campo"} />
-          </div>
+          <div></div>
         </StyledTitle>
 
         <StyledProcess>
