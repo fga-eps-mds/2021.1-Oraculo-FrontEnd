@@ -50,7 +50,7 @@ export async function setStatusRecord(id, situation_record, toast) {
       situation: situation_record,
     });
     if(response){
-      toast.success("Registro concluido!");
+      toast.success("Sucesso!");
     }
   } catch (error) {
     toast.error("Erro ao tentar concluir registro");
@@ -211,7 +211,7 @@ export async function closeRecord(infoRecord) {
 
 export async function reopenRecord(infoRecord) {
   try {
-    const response = await APIProcess.post(`/records/${infoRecord}/reopen`, {
+    const response = await APIProcess.post(`/records/${infoRecord.id}/reopen`, {
       reopened_by: infoRecord.reopened_by,
       reason: infoRecord.reason,
     });
