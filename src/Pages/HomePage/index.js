@@ -9,8 +9,7 @@ import {
   getProcessTotalNumber,
   getProcessByPage,
 } from "../../Services/Axios/processService";
-import { StyledSearchBar } from "../../Components/SearchBar/styles";
-import { GrFormSearch } from "react-icons/gr";
+import RenderFilters from "../../Components/Filters";
 
 const HomePage = () => {
   // Setar estados de processos e paginação
@@ -21,7 +20,7 @@ const HomePage = () => {
   const [allProcesses, setAllProcesses] = useState(0);
   const [department, setDepartment] = useState("");
   const [admin, setAdmin] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [where, setWhere] = useState({});
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
@@ -47,13 +46,13 @@ const HomePage = () => {
     //Set the name of user's department
     setDepartment(user.departments[0].name);
 
-    const temp = await getProcessByPage(currentPage * processPerPage, toast);
+    const temp = await getProcessByPage(currentPage, toast, { department_id: user.departments[0].id, where });
     setProcess(temp);
   };
-
+  
   useEffect(() => {
     fetchProcess();
-  }, [currentPage, admin]);
+  }, [currentPage, admin, where]);
 
   window.onload = function () {
     setAll();
@@ -67,16 +66,7 @@ const HomePage = () => {
       <StyledBody>
         <h1>Pesquisar Registro</h1>
         {/* Fazer botão atualizar com registros */}
-        <StyledSearchBar>
-          <button>
-            <GrFormSearch size="3rem" />
-          </button>
-          <input
-            id="searchText"
-            type="text"
-            onChange={(event) => setSearchTerm(event.target.value)}
-          />
-        </StyledSearchBar>
+        <RenderFilters handleWhere={{ where, setWhere }} />
         <h1>Departamento: {department}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
@@ -90,9 +80,11 @@ const HomePage = () => {
         </StyledOrganizeButtons>
         {/* fazer registro atualizar com SearchTerm */}
         {process.length > 0 ? (
-          <Process searchTerm={searchTerm} process={process} />
+          <Process process={process} />
         ) : (
-          <h1 class="zero-registros">Não há registros cadastrados no sistema</h1>
+          <h1 class="zero-registros">
+            Não há registros cadastrados no sistema
+          </h1>
         )}
         {/* paginar registros */}
         <Pagination

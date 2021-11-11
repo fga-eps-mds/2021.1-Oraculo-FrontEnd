@@ -56,9 +56,11 @@ export async function setStatusRecord(id, situation_record, toast) {
     toast.error("Erro ao tentar concluir registro");
   }
 }
-export async function getProcessByPage(page, toast) {
+export async function getProcessByPage(page, toast, body) {
   try {
-    const response = await APIProcess.get(`/records/page/${page}`);
+    const response = await APIProcess.post(`/records/page/${page}`, {
+      ...body
+    });
 
     return response.data;
   } catch (error) {

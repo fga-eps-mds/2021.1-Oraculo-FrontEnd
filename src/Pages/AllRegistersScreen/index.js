@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { history } from "../../history";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import MainButton from "../../Components/MainButton";
+import RenderFilters from "../../Components/Filters";
+
 import {
   StyledTitle,
   StyledBody,
@@ -20,7 +22,6 @@ import {
   getProcessByPage,
 } from "../../Services/Axios/processService";
 import toast from "react-hot-toast";
-import { GrFormSearch } from "react-icons/gr";
 
 const AllRegistersScreen = () => {
   const [process, setProcess] = useState([]);
@@ -28,7 +29,7 @@ const AllRegistersScreen = () => {
   const [processPerPage] = useState(30);
   const [allProcesses, setAllProcesses] = useState(0);
   // Acrescentando termo para busca
-  const [searchTerm, setSearchTerm] = useState("");
+  const [where, setWhere] = useState({});
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
@@ -43,12 +44,12 @@ const AllRegistersScreen = () => {
   useEffect(() => {
     const fetchProcess = async () => {
       console.log(currentPage);
-      const temp = await getProcessByPage(currentPage * processPerPage, toast);
+      const temp = await getProcessByPage(currentPage, toast, { where });
       console.log(temp);
       setProcess(temp);
     };
     fetchProcess();
-  }, [currentPage]);
+  }, [currentPage, where]);
 
   window.onload = function () {
     setAll();
@@ -66,16 +67,7 @@ const AllRegistersScreen = () => {
         <StyledTop>
           <StyledSearchBarSize>
             {/* área para procurar registros */}
-            <StyledSearchBar>
-              <button>
-                <GrFormSearch size="3rem" />
-              </button>
-              <input
-                id="searchText"
-                type="text"
-                onChange={(event) => setSearchTerm(event.target.value)}
-              />
-            </StyledSearchBar>
+            <RenderFilters handleWhere={{ where, setWhere }} />
           </StyledSearchBarSize>
           <ButtonDiv>
             <MainButton onClick={handleProcess} title={"Novo Registro"} />
@@ -93,7 +85,7 @@ const AllRegistersScreen = () => {
         </StyledOrganizeButtons>
         {/* Procurar registros com base no termo procurado*/}
         {process ? (
-          <Process searchTerm={searchTerm} process={process} />
+          <Process process={process} />
         ) : (
           <h1 class="zero-registros">
             Não há registros cadastrados no sistema
