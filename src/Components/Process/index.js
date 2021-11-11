@@ -2,7 +2,7 @@ import React from "react";
 import PocketDocument from "../PocketDocument";
 import { StyledListGroup } from "./style";
 
-const Process = ({ process, searchTerm }) => {
+const Process = ({ process }) => {
   const seiNumberLimit = (seiNumber) => {
     if (seiNumber.length < 10) {
       return seiNumber;
@@ -14,19 +14,6 @@ const Process = ({ process, searchTerm }) => {
   return process.length > 0 ? (
     <StyledListGroup>
       {process
-        .filter((val) => {
-          if (
-            searchTerm === "" ||
-            val.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            val.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            val.document_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            val.requester.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            val.sei_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            val.register_number.toLowerCase().includes(searchTerm.toLowerCase())
-          ) {
-            return val;
-          }
-        })
         .map((post) => (
           <PocketDocument
             key={post.id}
