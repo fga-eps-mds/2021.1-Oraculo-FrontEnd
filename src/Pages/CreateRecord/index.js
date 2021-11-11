@@ -14,6 +14,7 @@ import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
+
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
@@ -33,7 +34,7 @@ const CreateRecord = () => {
   const [requester, setRequester] = useState("");
   const [documentType, setDocumentType] = useState("");
   const [documentNumber, setDocumentNumber] = useState("");
-  const [documentDate, setDocumentDate] = useState("");
+  const [documentDate, setDocumentDate] = useState(new Date());
   const [documentDescription, setDocumentDescription] = useState("");
   const [seiNumber, setSeiNumber] = useState("");
   const [receiptForm, setReceiptForm] = useState("");
@@ -65,7 +66,7 @@ const CreateRecord = () => {
       requester: requester,
       document_type: documentType,
       document_number: documentNumber,
-      document_date: documentDate,
+      document_date: documentDate.toLocaleDateString(),
       description: documentDescription,
       sei_number: seiNumber,
       receipt_form: receiptForm,
@@ -232,14 +233,17 @@ const CreateRecord = () => {
 
                   <DatePicker
                     id="documentDateInput"
+                    selected={documentDate}
                     className="form-div"
                     locale={pt}
                     placeholderText="dd/mm/aaaa"
-                    onChange={(event) => {
-                      setDocumentDate(event.toLocaleDateString());
+                    disabledKeyboardNavigation
+                    dateFormat="dd/MM/yyyy"
+                    strictParsing
+                    onChange={(date) => {
+                      setDocumentDate(date);
                     }}
-                    value={documentDate}
-                    customInput={<StyledDatePicker />}
+                    customInput={<StyledDatePicker lang={"pt-BR"} />}
                   />
                   <div className="form-div">
                     <h1>Descrição do documento</h1>
