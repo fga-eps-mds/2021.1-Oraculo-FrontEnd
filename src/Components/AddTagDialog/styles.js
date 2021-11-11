@@ -2,61 +2,72 @@ import styled from "styled-components";
 import { colors, fonts, radius } from "../../style";
 
 export const StyledAlertDialog = styled.div`
-  position: fixed;
-  display: grid;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  align-self: center;
-  backdrop-filter: initial;
-
-  div {
-    .buttonsDiv {
-      background: #00ff22;
-      width: fit-content;
-      height: fit-content;
+  box-shadow: black;
+  .headerDiv {
+    a {
       text-align: left;
-      margin-right: 2rem;
-      padding-top: 52vh;
-      bottom: 0;
-    }
-
-    .headerDiv {
-      height: fit-content;
-      background: #00ffaa;
-      text-align: right;
-
-      p {
-        width: fit-content;
-        font-size: ${fonts.sizeXXlg};
-        text-align: left;
-        background: #aaffff;
-      }
-    }
-
-    .checkBoxDiv {
-      height: fit-content;
       width: fit-content;
-      left: 0;
-      top: 0;
-      text-align: left;
-      background: #aaffaa;
-      margin-bottom: 10rem;
-
-      input {
-        color: red;
-        background: #a2b3f4;
-      }
     }
 
+    button {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+    }
+  }
+
+  .checkBoxDiv {
+    position: absolute;
+    padding-top: 5rem;
+    input {
+    }
+  }
+
+  .endOfPageDiv {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    align-content: center;
+    justify-content: space-between;
+    button {
+      margin-left: 0.5rem;
+    }
+  }
+
+  input[type="checkbox"] {
+    position: absolute;
     text-align: center;
-    background: ${colors.white};
-    color: ${colors.black};
-    border-radius: ${radius.sizeMd};
-    margin: auto;
-    width: 50vw;
-    height: 80vh;
+    appearance: none;
+    background-color: #ffffff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 2rem;
+    height: 2rem;
+    border: 0.15rem solid currentColor;
+    border-radius: 0.4rem;
+    transform: translateY(-0.075rem);
+    display: grid;
+    place-content: right;
+  }
+
+  input[type="checkbox"]::before {
+    content: "";
+    width: 1.5rem;
+    height: 1.5rem;
+    transform: scale(0);
+    transition: 80ms transform ease-in-out;
+    box-shadow: inset 1rem 1rem var(--form-control-color);
+    background-color: ${colors.blue};
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+
+  input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+
+  input[type="checkbox"]:after {
+    content: attr(value);
   }
 `;
