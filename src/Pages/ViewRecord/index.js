@@ -115,32 +115,35 @@ const ViewRecord = () => {
   };
 
   const handleClickModalBlueReopen = async () => {
-    //setting data of who reopened the record
-    const infoRecord = {
-      id: id,
-      reopened_by: userEmail,
-      reason: " ",
-    }
+    //check if the reason has been added
+    if (reason) {
+      //setting data of who reopened the record
+      const infoRecord = {
+        id: id,
+        reopened_by: userEmail,
+        reason: reason,
+      }
 
-    //send request to reopen the record
-    await reopenRecord(infoRecord);
+      //send request to reopen the record
+      await reopenRecord(infoRecord);
 
-    const newForward = [
-      ...forward,
-      {
-        name: userName,
-        defaultText: "Registro: Reaberto",
-        date: getDate(),
-      },
-    ];
+      const newForward = [
+        ...forward,
+        {
+          name: userName,
+          defaultText: "Registro: Reaberto",
+          date: getDate(),
+        },
+      ];
 
-    await setStatusRecord(id, "pending", toast);
-    setForward(newForward);
-    setbuttonModalReopen(false);
-    setButtonDone(true);
+      await setStatusRecord(id, "pending", toast);
+      setForward(newForward);
+      setbuttonModalReopen(false);
+      setButtonDone(false);
 
-    document.querySelector(".forwardIcon").style.display = "visible";
-    setForwardData(infoRecord);
+      document.querySelector(".forwardIcon").style.display = "visible";
+      setForwardData(infoRecord);
+    } else toast.error("É obrigatorio inserir o motivo");
 
   }
 
