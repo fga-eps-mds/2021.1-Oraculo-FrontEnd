@@ -48,6 +48,9 @@ const DivMovBlock = styled.div`
       height: 2rem;
     }
   }
+  .forwardInfoBlock{
+   justify-content: space-between;
+  }
   .infoSetor {
     display: flex;
     justify-content: space-between;

@@ -28,7 +28,7 @@ const SectionMovBlock = ({ forwardSector }) => {
           <FaUserCircle />
           <p>{forwardSector.name}</p>
         </div>
-        <div>
+        <div className="forwardInfoBlock">
           <p> {forwardSector.defaultText ? forwardSector.defaultText : "Registro encaminhado para:"} {forwardSector.setor}</p>
           <p>{forwardSector.date}</p>
         </div>
