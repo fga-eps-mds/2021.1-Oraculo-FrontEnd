@@ -49,10 +49,10 @@ const HomePage = () => {
     const temp = await getProcessByPage(currentPage, toast, { department_id: user.departments[0].id, where });
     setProcess(temp);
   };
-
+  
   useEffect(() => {
     fetchProcess();
-  }, [currentPage, admin]);
+  }, [currentPage, admin, where]);
 
   window.onload = function () {
     setAll();
