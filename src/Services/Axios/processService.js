@@ -196,7 +196,7 @@ export async function createUser(user, toast) {
   }
 }
 
-export async function closeRecord(infoRecord, toast) {
+export async function closeRecord(infoRecord) {
   try {
     const response = await APIProcess.post(`/records/${infoRecord.id}/close`, {
       closed_by: infoRecord.closed_by,
@@ -208,6 +208,20 @@ export async function closeRecord(infoRecord, toast) {
     return error;
   }
 }
+
+export async function reopenRecord(infoRecord) {
+  try {
+    const response = await APIProcess.post(`/records/${infoRecord}/reopen`, {
+      reopened_by: infoRecord.reopened_by,
+      reason: infoRecord.reason,
+    });
+    
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 export async function getUserByEmail(email) {
   try {
     const response = await APIProcess.post(`/user/by-mail/`, {email});
