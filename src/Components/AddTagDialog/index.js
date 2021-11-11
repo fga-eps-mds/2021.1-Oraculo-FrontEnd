@@ -1,34 +1,52 @@
-import { useState, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import GenericBlueButton from "../GenericBlueButton";
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Checkbox } from "antd";
+import { StyledAlertDialog } from "./styles";
 import GenericRedButton from "../GenericRedButton";
+import GenericBlueButton from "../GenericBlueButton";
+import toast from "react-hot-toast";
 
-function AddTagDialog(props) {
-  const confirmButtonText = props.cancelButtonTitle;
-  const cancelButtonText = props.confirmButtonTitle;
+const AddTagDialog = ({ onVisibleChanged }) => {
+  const [isModalVisible, setIsModalVisible] = useState(true);
 
-  return toast(
-    (t) => (
-      <div>
-        <span style={{ textAlign: "center" }}>
-          <p>Um registro com o SEI </p>
-          <p style={{ fontSize: "18px" }}>30 já existe. Deseja continuar?</p>
-          <GenericBlueButton
-            title={confirmButtonText}
-            onClick={() => {
-              toast.dismiss(t.id);
-            }}></GenericBlueButton>
-          <p></p>
-          <GenericRedButton
-            title={cancelButtonText}
-            onClick={() => toast.dismiss(t.id)}></GenericRedButton>
-        </span>
-      </div>
-    ),
-    {
-      position: "bottom-right",
-    }
+  const handleOk = () => {
+    setIsModalVisible(false);
+    onVisibleChanged(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    onVisibleChanged(false);
+  };
+
+  return (
+    <>
+      <StyledAlertDialog>
+        <div>
+          <div className="headerDiv">
+            <p>Escolha a tag</p>
+            <GenericBlueButton
+              title="Criar Tag"
+              onClick={() =>
+                toast.loading("Em progresso ...", { duration: 2000 })
+              }></GenericBlueButton>
+          </div>
+          <div className="buttonsDiv">
+            <span>
+              <GenericRedButton
+                title="Cancelar"
+                onClick={() => onVisibleChanged(false)}></GenericRedButton>
+              <GenericBlueButton title="Adicionar"></GenericBlueButton>
+            </span>
+          </div>
+          <div className="checkBoxDiv">
+            <Checkbox>Tag 1</Checkbox>
+            <Checkbox>Tag 2</Checkbox>
+            <Checkbox>Tag 3</Checkbox>
+          </div>
+        </div>
+      </StyledAlertDialog>
+    </>
   );
-}
+};
 
 export default AddTagDialog;
