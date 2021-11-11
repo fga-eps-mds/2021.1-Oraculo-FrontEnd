@@ -134,7 +134,9 @@ const ViewRecord = () => {
           setor: " ",
           setorOrigin: " ",
           name: userName,
-          defaultText: "Registro reaberto" + reason,
+          defaultText: "Registro reaberto",
+          reason: "Motivo:",
+          reasonText: reason,
           date: getDate(),
         },
       ];
@@ -255,7 +257,9 @@ const ViewRecord = () => {
       newForward = {
         setor: " ",
         setorOrigin: " ",
-        defaultText: "Registro reaberto: " + response.reason,
+        defaultText: "Registro reaberto",
+        reason: "Motivo:",
+        reasonText: response.reason,
         date: dateReopenReg,
         dateForward: " ",
         name: infoUserDone.name,
