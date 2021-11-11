@@ -35,6 +35,7 @@ export const StyledSearchBar = styled.div`
   margin: 0;
 
   select {
+    text-align: center;
     width: 24rem;
     margin-right: 2rem;
     height: 3.38rem;
