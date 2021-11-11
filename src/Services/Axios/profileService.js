@@ -5,16 +5,10 @@ export function getToken() {
   return String(localStorage.getItem(STORAGE_KEY));
 }
 
-const userLevels = [
-  {
-    level: 1,
-    description: "admin",
-  },
-  {
-    level: 2,
-    description: "common",
-  },
-];
+const userLevel = {
+  admin: 1,
+  common: 2,
+};
 
 async function validateUser(user) {
   const department = Number.parseInt(user.departmentID);
@@ -23,12 +17,11 @@ async function validateUser(user) {
     throw new Error("invalid department");
   }
 
-  // UserLevel vai vir true ou false, 1 eh admin, 2 common
   return {
     name: user.name,
     email: user.email,
     departmentID: department,
-    level: user.level ? 1 : 2,
+    level: user.level ? userLevel.admin : userLevel.common,
     password: user.password,
   };
 }
@@ -53,13 +46,9 @@ export async function registerUser(usr, toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     } else if (status === 400) {
-      toast.error(
-        "Faltam algumas informações para realizar o cadastro do usuário"
-      );
+      toast.error("Faltam algumas informações para realizar o cadastro do usuário");
     } else {
       toast.error(`Erro ao cadastrar usuário!`);
     }
@@ -104,9 +93,7 @@ export async function listAllUsers(toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     }
   }
 }
