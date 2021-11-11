@@ -46,7 +46,7 @@ const HomePage = () => {
     //Set the name of user's department
     setDepartment(user.departments[0].name);
 
-    const temp = await getProcessByPage(currentPage, toast, { where });
+    const temp = await getProcessByPage(currentPage, toast, { department_id: user.departments[0].id, where });
     setProcess(temp);
   };
 
