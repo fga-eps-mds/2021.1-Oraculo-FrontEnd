@@ -1,0 +1,133 @@
+import React, { useState } from "react";
+
+import {
+  StyledSearchBar,
+} from "./styles";
+
+import { GrFormSearch } from "react-icons/gr";
+// inclusion_date ,
+
+const recordFields = {
+  register_number: {
+    label: 'Numero de registro',
+    value: '',
+    selected: true
+  },
+  city: {
+    label: 'Cidade',
+    value: ''
+  },
+  state: {
+    label: 'Estado',
+    value: ''
+  },
+  requester: {
+    label: 'Solicitante',
+    value: ''
+  },
+  document_type: {
+    label: 'Tipo do documento',
+    value: ''
+  },
+  document_number: {
+    label: 'Numero do documento',
+    value: ''
+  },
+  description: {
+    label: 'Descrição',
+    value: ''
+  },
+  sei_number: {
+    label: 'Numero do SEI',
+    value: ''
+  },
+  receipt_form: {
+    label: 'Forma de recebimento',
+    value: ''
+  },
+  contact_info: {
+    label: 'Informações de contato',
+    value: ''
+  },
+  situation: {
+    label: 'Status',
+    value: ''
+  },
+  created_by: {
+    label: 'Criador',
+    value: ''
+  },
+  assigned_to: {
+    label: 'Responsável',
+    value: ''
+  },
+};
+
+const RenderFilters = ({ handleWhere }) => {
+  // Acrescentando termo para busca
+  const [options, setOptions] = useState(recordFields);
+  const { where, setWhere } = handleWhere;
+
+  function onChange(event) {
+    setOptions(prev => ({ ...prev, [event.target.id]: { ...prev[event.target.id], value: event.target.value } }))
+    setWhere(prev => ({ ...prev, [event.target.id]: event.target.value }));
+  }
+
+  function changeOption(event, key) {
+    const oldOpt = {
+      [key]: {
+        label: options[key].label,
+        value: '',
+        selected: false
+      }
+    }
+    const newOpt = {
+      [event.target.value]: {
+        label: options[event.target.value].label,
+        value: options[key].value,
+        selected: true
+      }
+    }
+    setOptions(prev => ({ ...prev, ...oldOpt, ...newOpt }));
+
+    if (where[key]) {
+      delete where[key];
+      setWhere({ ...where, [event.target.value]: options[key].value });
+    }
+  };
+        
+return (
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    {Object.entries(options).map(([key, { selected }]) => {
+      return selected && (
+        <StyledSearchBar>
+          <select onChange={event => changeOption(event, key)}>
+            {Object.entries(options).map(([optKey, { label, selected: optSelected }]) => (
+              !optSelected || key === optKey ?
+                <option selected={key === optKey} value={optKey}>{label}</option>
+                : null
+            ))}
+          </select>
+          <button>
+            <GrFormSearch size="3rem" />
+          </button>
+          <input
+            id={key}
+            type="text"
+            value={options[key].value}
+            onChange={event => onChange(event)}
+          />
+        </StyledSearchBar>)
+    })}
+    <button onClick={() => {
+      const nextNotSelected = Object.entries(options).find(([, { selected }]) => !selected);
+      if (nextNotSelected) setOptions(prev => ({ ...prev, [nextNotSelected[0]]: { ...nextNotSelected[1], selected: true } }));
+    }}>
+      adicionar filtro
+    </button>
+  </div>
+
+);
+  }
+
+export default RenderFilters;
