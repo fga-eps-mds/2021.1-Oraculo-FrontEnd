@@ -59,6 +59,10 @@ const recordFields = {
     label: "Responsável",
     value: "",
   },
+  history: {
+    label: "Histórico",
+    value: ""
+  }
 };
 
 const RenderFilters = ({ handleWhere }) => {
@@ -100,6 +104,19 @@ const RenderFilters = ({ handleWhere }) => {
     }
   }
 
+  const removeFilter = (key) => {
+    delete where[key];
+    const newOpt = {
+      [key]: {
+        label: options[key].label,
+        value: "",
+        selected: false,
+      },
+    };
+    setWhere({ ...where });
+    setOptions((prev) => ({ ...prev, ...newOpt }));
+  }
+
   return (
     <StyledFilterDiv>
       {Object.entries(options).map(([key, { selected }]) => {
@@ -125,7 +142,7 @@ const RenderFilters = ({ handleWhere }) => {
                 value={options[key].value}
                 onChange={(event) => onChange(event)}
               />
-              <button class="x-button">X</button>
+              <button class="x-button" onClick={() => removeFilter(key)}>X</button>
             </StyledSearchBar>
           )
         );

@@ -11,7 +11,6 @@ export const StyledFilterDiv = styled.div`
     width: 24rem;
     margin: 2rem 2rem 0 0;
     height: 3.38rem;
-    cursor: pointer;
   }
 
   .add-filter,
@@ -39,12 +38,12 @@ export const StyledSearchBar = styled.div`
     width: 24rem;
     margin-right: 2rem;
     height: 3.38rem;
+    cursor: pointer;
   }
 
   .search-icon {
     margin: 0.4rem 0 0 26rem;
     position: absolute;
-    cursor: pointer;
     background: transparent;
     border: none;
   }
@@ -58,5 +57,6 @@ export const StyledSearchBar = styled.div`
     width: 3.38rem;
     margin-left: 2rem;
     height: 3.38rem;
+    cursor: pointer;
   }
 `;
