@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import { isAuthenticated, tokenCheck } from "./Auth/Auth";
+import { hasToken, isAuthenticated, tokenExpired } from "./Auth/Auth";
 import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
@@ -24,35 +24,10 @@ const PrivateRoutes = ({ component: Component, ...prop }) => (
     {...prop}
     render={(props) =>
       // Check if the user has a valid token on his browser
-      tokenCheck() ? (
+      isAuthenticated() ? (
         <Component {...props} />
       ) : (
         <>
-          {
-            //Show a pop-up to inform user that his session is expired
-            toast(
-              (t) => (
-                <span style={{ textAlign: "center" }}>
-                  <p style={{ fontSize: "18px" }}>
-                    {
-                      // Check if user has a token in storage
-                      isAuthenticated() ? "Sessão Expirada!" : "Acesso negado!"
-                    }
-                  </p>
-                  <p>Para continuar realize login!</p>
-                  <GenericBlueButton
-                    title="Ok"
-                    onClick={() => {
-                      toast.dismiss(t.id);
-                    }}></GenericBlueButton>
-                </span>
-              ),
-              {
-                //Set the duration of the pop-up
-                duration: 10000000,
-              }
-            )
-          }
           {/* Redirect the user to login-screen if it's not logged */}
           <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
           <Toaster />
@@ -66,15 +41,8 @@ const Routes = () => (
   <BrowserRouter history={history}>
     <Switch>
       <Route exact path="/login" component={() => <LoginScreen history={history} />} />
-      <PrivateRoutes
-        exact
-        path="/ver-registro/:id"
-        component={() => <ViewRecord history={history} />}
-      />
-      <PrivateRoutes
-        path="/tela-inicial"
-        component={() => <HomePage history={history} />}
-      />
+      <PrivateRoutes exact path="/ver-registro/:id" component={() => <ViewRecord />} />
+      <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
       <PrivateRoutes path="/criar-registro" component={() => <CreateRecord />} />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />

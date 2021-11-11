@@ -9,13 +9,6 @@ services:
     volumes:
       - ./:/app/
       - node_modules_frontend:/app/node_modules
-    networks:
-      - processos-network
 
 volumes:
   node_modules_frontend:
-
-networks:
-  processos-network:
-    name: processos-network
-    driver: bridge
