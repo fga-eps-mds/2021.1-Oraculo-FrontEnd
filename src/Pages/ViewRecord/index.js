@@ -21,6 +21,7 @@ import {
   getRecordHistory,
   setStatusRecord,
   getUserByEmail,
+  reopenRecord,
 } from "../../Services/Axios/processService";
 import {
   getDepartments,
@@ -113,6 +114,36 @@ const ViewRecord = () => {
     setbuttonModalReopen(true);
   };
 
+  const handleClickModalBlueReopen = async () => {
+    //setting data of who reopened the record
+    const infoRecord = {
+      id: id,
+      reopened_by: userEmail,
+      reason: " ",
+    }
+
+    //send request to reopen the record
+    await reopenRecord(infoRecord);
+
+    const newForward = [
+      ...forward,
+      {
+        name: userName,
+        defaultText: "Registro: Reaberto",
+        date: getDate(),
+      },
+    ];
+
+    await setStatusRecord(id, "pending", toast);
+    setForward(newForward);
+    setbuttonModalReopen(false);
+    setButtonDone(true);
+
+    document.querySelector(".forwardIcon").style.display = "visible";
+    setForwardData(infoRecord);
+
+  }
+
   const handleForward = async () => {
     setButtonModalConfirmForward(true);
   };
@@ -131,9 +162,10 @@ const ViewRecord = () => {
   const handleClickModalWhite = () => {
     setButtonModal(false);
     setButtonModalConfirmForward(false);
+    setbuttonModalReopen(false);
   };
 
-  const handleClickModalBlue= async () => {
+  const handleClickModalBlue = async () => {
 
     //setting data of who forwarded the record
     const infoRecord = {
@@ -143,8 +175,7 @@ const ViewRecord = () => {
     }
 
     //send request to close record
-    const response = await closeRecord(infoRecord, toast);
-    console.log(response);
+    await closeRecord(infoRecord, toast);
 
     const newForward = [
       ...forward,
@@ -341,7 +372,7 @@ const ViewRecord = () => {
           trigger={buttonModalReopen}
           titleBlueButton="Reabrir"
           titleWhiteButton="Cancelar"
-          onClickBlueButton={handleClickModalBlue}
+          onClickBlueButton={handleClickModalBlueReopen}
           onClickWhiteButton={handleClickModalWhite}
           onChange={(event) => setReason(event.target.value)}
         />
