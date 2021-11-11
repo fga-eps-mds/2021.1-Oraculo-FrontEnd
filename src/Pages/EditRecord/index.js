@@ -27,6 +27,7 @@ import {
 
 const EditRecord = () => {
   useEffect(() => {
+    // if user is not logged, go back to login screen
     async function getUser() {
       const user = await getInfoUser(toast);
       if (!user) {
@@ -36,6 +37,7 @@ const EditRecord = () => {
     getUser();
   }, []);
 
+  // Convert dd/mm/yyyy para Date()
   const convertDate = (dateBR) => {
     const dateUS = dateBR.split("/");
     return new Date(dateUS[2], dateUS[1] - 1, dateUS[0]);
@@ -95,6 +97,7 @@ const EditRecord = () => {
       requester: requester,
       document_type: documentType,
       document_number: documentNumber,
+      // Convert Date() to dd/mm/yyyy
       document_date: documentDate.toLocaleDateString(),
       description: documentDescription,
       sei_number: seiNumber,
