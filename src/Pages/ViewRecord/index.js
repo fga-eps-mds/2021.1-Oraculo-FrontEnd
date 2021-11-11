@@ -119,6 +119,7 @@ const ViewRecord = () => {
     if (reason) {
       //setting data of who reopened the record
       const infoRecord = {
+
         id: id,
         reopened_by: userEmail,
         reason: reason,
@@ -130,8 +131,10 @@ const ViewRecord = () => {
       const newForward = [
         ...forward,
         {
+          setor: " ",
+          setorOrigin: " ",
           name: userName,
-          defaultText: "Registro: Reaberto",
+          defaultText: "Registro reaberto" + reason,
           date: getDate(),
         },
       ];
@@ -183,8 +186,10 @@ const ViewRecord = () => {
     const newForward = [
       ...forward,
       {
+        setor: " ",
+        setorOrigin: " ",
         name: userName,
-        defaultText: "Registro: Concluido",
+        defaultText: "Registro concluido",
         date: getDate(),
       },
     ];
