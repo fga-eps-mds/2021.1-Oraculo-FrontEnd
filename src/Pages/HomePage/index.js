@@ -16,7 +16,7 @@ const HomePage = () => {
   // Setar estados de processos e paginação
 
   const [process, setProcess] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [processPerPage] = useState(30);
   const [allProcesses, setAllProcesses] = useState(0);
   const [department, setDepartment] = useState("");
@@ -47,7 +47,7 @@ const HomePage = () => {
     //Set the name of user's department
     setDepartment(user.departments[0].name);
 
-    const temp = await getProcessByPage(currentPage * processPerPage, toast);
+    const temp = await getProcessByPage(currentPage, toast, {where});
     setProcess(temp);
   };
 
