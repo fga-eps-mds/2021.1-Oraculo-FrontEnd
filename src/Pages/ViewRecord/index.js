@@ -51,7 +51,8 @@ const ViewRecord = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
 
-  const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
+  const [buttonModalConfirmForward, setButtonModalConfirmForward] =
+    useState("");
   const [buttonModal, setButtonModal] = useState("");
   const [buttonDone, setButtonDone] = useState(false);
 
@@ -79,7 +80,7 @@ const ViewRecord = () => {
       setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
-      console.log("responseHR",responseHR);
+      console.log("responseHR", responseHR);
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
@@ -92,7 +93,7 @@ const ViewRecord = () => {
       }
     }
     fetchRecordData();
-  }, [forwardData]);
+  }, [buttonModalConfirmForward]);
 
   const getDate = () => {
     var data = new Date();
@@ -123,21 +124,20 @@ const ViewRecord = () => {
     };
     await forwardRecordInfo(toast, forwardRecInfo);
     setButtonModalConfirmForward(false);
-  }
+  };
 
   const handleClickModalWhite = () => {
     setButtonModal(false);
     setButtonModalConfirmForward(false);
   };
 
-  const handleClickModalBlue= async () => {
-
+  const handleClickModalBlue = async () => {
     //setting data of who forwarded the record
     const infoRecord = {
       id: id,
       closed_by: userEmail,
       reason: " ",
-    }
+    };
 
     //send request to close record
     const response = await closeRecord(infoRecord, toast);
@@ -163,8 +163,14 @@ const ViewRecord = () => {
 
   const formatedDate = (infoDate) => {
     const dataDone = new Date(infoDate);
-    return dataDone.getDate() + "/" + (dataDone.getMonth() + 1) + "/" + dataDone.getFullYear(); 
-  }
+    return (
+      dataDone.getDate() +
+      "/" +
+      (dataDone.getMonth() + 1) +
+      "/" +
+      dataDone.getFullYear()
+    );
+  };
 
   const previousForward = async (response) => {
     let newForward = {};
@@ -174,7 +180,7 @@ const ViewRecord = () => {
       const infoUser = await getUserByEmail(email);
       const destinationID = response.destination_id;
       const originSecID = response.origin_id;
-      console.log("originsecid",originSecID);
+      console.log("originsecid", originSecID);
       const allDepartments2 = await getDepartments();
       console.log("Allsec", allDepartments2);
 
@@ -194,7 +200,7 @@ const ViewRecord = () => {
         setorOrigin: originSection[0].name,
         date: dataFormatadaCreatedAt,
         dateForward: dataFormatadaUpdatedAt,
-        name:infoUser.name,
+        name: infoUser.name,
       };
     } else if (response.closed_by != null) {
       const dateDoneReg = formatedDate(response.closed_at);
@@ -206,10 +212,10 @@ const ViewRecord = () => {
         date: dateDoneReg,
         dateForward: " ",
         name: infoUserDone.name,
-      }
+      };
     } else {
       const infoUser = await getUserByEmail(response.created_by);
-      console.log("info user",infoUser);
+      console.log("info user", infoUser);
       const createDate = formatedDate(response.created_at);
       newForward = {
         setor: " ",
@@ -218,10 +224,10 @@ const ViewRecord = () => {
         date: createDate,
         dateForward: " ",
         name: infoUser.name,
-      }
+      };
     }
-      return newForward;
-};
+    return newForward;
+  };
 
   function handleEditRegister() {
     history.push(`/editar-registro/${id}`);
@@ -287,9 +293,16 @@ const ViewRecord = () => {
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
-            <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
-            <GenericBlueButton title={buttonDone ? "Reabrir" : "Concluir"}
-              onClick={buttonDone ? handleButtonProcessReopen : handleButtonProcessDone} />
+            <GenericWhiteButton
+              title="voltar"
+              onClick={() => window.history.back()}
+            />
+            <GenericBlueButton
+              title={buttonDone ? "Reabrir" : "Concluir"}
+              onClick={
+                buttonDone ? handleButtonProcessReopen : handleButtonProcessDone
+              }
+            />
           </StyledDivButtons>
         </StyledDivShowProcess>
         <StyledDivInfoProcess>
