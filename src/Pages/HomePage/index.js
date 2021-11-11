@@ -12,7 +12,7 @@ import {
 import { StyledSearchBar } from "../../Components/SearchBar/styles";
 import { GrFormSearch } from "react-icons/gr";
 
-const HomePage = () => {
+const HomePage = (props) => {
   // Setar estados de processos e paginação
 
   const [process, setProcess] = useState([]);
@@ -38,7 +38,7 @@ const HomePage = () => {
     const user = await getInfoUser(toast);
 
     if (user.levels == undefined) {
-      this.props.history.push("/");
+      props.history.push("/");
       return;
     }
 
