@@ -1,52 +1,69 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Checkbox } from "antd";
+import { useState } from "react";
+import Modal from "react-modal";
 import { StyledAlertDialog } from "./styles";
-import GenericRedButton from "../GenericRedButton";
 import GenericBlueButton from "../GenericBlueButton";
-import toast from "react-hot-toast";
+import GenericWhiteButton from "../GenericWhiteButton";
+import { Checkbox } from "antd";
 
-const AddTagDialog = ({ onVisibleChanged }) => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+const modalStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    width: "30vw",
+    height: "50vh",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
-  const handleOk = () => {
-    setIsModalVisible(false);
+const TagModal = ({ onVisibleChanged }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setIsOpen(false);
     onVisibleChanged(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-    onVisibleChanged(false);
-  };
+  }
 
   return (
-    <>
-      <StyledAlertDialog>
-        <div>
-          <div className="headerDiv">
-            <p>Escolha a tag</p>
-            <GenericBlueButton
-              title="Criar Tag"
-              onClick={() =>
-                toast.loading("Em progresso ...", { duration: 2000 })
-              }></GenericBlueButton>
-          </div>
-          <div className="buttonsDiv">
-            <span>
-              <GenericRedButton
-                title="Cancelar"
-                onClick={() => onVisibleChanged(false)}></GenericRedButton>
-              <GenericBlueButton title="Adicionar"></GenericBlueButton>
-            </span>
-          </div>
+    <div>
+      <Modal
+        isOpen={true}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        contentLabel="Selecione uma tag"
+        style={modalStyle}
+      >
+        <StyledAlertDialog>
+          <span>
+            <h2>Escolha uma tag</h2>
+            <div className="headerDiv">
+              <GenericBlueButton title="Criar tag"></GenericBlueButton>
+            </div>
+          </span>
           <div className="checkBoxDiv">
-            <Checkbox>Tag 1</Checkbox>
-            <Checkbox>Tag 2</Checkbox>
-            <Checkbox>Tag 3</Checkbox>
+            <Checkbox>Text</Checkbox>
           </div>
-        </div>
-      </StyledAlertDialog>
-    </>
+          <div className="endOfPageDiv">
+            <GenericBlueButton title="Adicionar"> </GenericBlueButton>
+            <GenericWhiteButton
+              title="Cancelar"
+              onClick={closeModal}
+            ></GenericWhiteButton>
+          </div>
+        </StyledAlertDialog>
+      </Modal>
+    </div>
   );
 };
 
-export default AddTagDialog;
+export { TagModal };
