@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import {
   StyledSearchBar,
+  StyledFilterDiv
 } from "./styles";
 
 import { GrFormSearch } from "react-icons/gr";
@@ -95,39 +96,39 @@ const RenderFilters = ({ handleWhere }) => {
       setWhere({ ...where, [event.target.value]: options[key].value });
     }
   };
-        
-return (
-  <div style={{ display: 'flex', flexDirection: 'column' }}>
-    {Object.entries(options).map(([key, { selected }]) => {
-      return selected && (
-        <StyledSearchBar>
-          <select onChange={event => changeOption(event, key)}>
-            {Object.entries(options).map(([optKey, { label, selected: optSelected }]) => (
-              !optSelected || key === optKey ?
-                <option selected={key === optKey} value={optKey}>{label}</option>
-                : null
-            ))}
-          </select>
-          <button>
-            <GrFormSearch size="3rem" />
-          </button>
-          <input
-            id={key}
-            type="text"
-            value={options[key].value}
-            onChange={event => onChange(event)}
-          />
-        </StyledSearchBar>)
-    })}
-    <button onClick={() => {
-      const nextNotSelected = Object.entries(options).find(([, { selected }]) => !selected);
-      if (nextNotSelected) setOptions(prev => ({ ...prev, [nextNotSelected[0]]: { ...nextNotSelected[1], selected: true } }));
-    }}>
-      adicionar filtro
-    </button>
-  </div>
 
-);
-  }
+  return (
+    <StyledFilterDiv>
+      {Object.entries(options).map(([key, { selected }]) => {
+        return selected && (
+          <StyledSearchBar>
+            <select onChange={event => changeOption(event, key)}>
+              {Object.entries(options).map(([optKey, { label, selected: optSelected }]) => (
+                !optSelected || key === optKey ?
+                  <option selected={key === optKey} value={optKey}>{label}</option>
+                  : null
+              ))}
+            </select>
+            <button>
+              <GrFormSearch size="3rem" />
+            </button>
+            <input
+              id={key}
+              type="text"
+              value={options[key].value}
+              onChange={event => onChange(event)}
+            />
+          </StyledSearchBar>)
+      })}
+      <button onClick={() => {
+        const nextNotSelected = Object.entries(options).find(([, { selected }]) => !selected);
+        if (nextNotSelected) setOptions(prev => ({ ...prev, [nextNotSelected[0]]: { ...nextNotSelected[1], selected: true } }));
+      }}>
+        adicionar filtro
+      </button>
+    </StyledFilterDiv>
+
+  );
+};
 
 export default RenderFilters;

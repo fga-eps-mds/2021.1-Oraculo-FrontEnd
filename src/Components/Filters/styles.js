@@ -3,6 +3,11 @@ import { colors, fonts, radius } from "../../style";
 
 export const styles = {};
 
+export const StyledFilterDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const StyledSearchBar = styled.div`
   position: relative;
   display: flex;
