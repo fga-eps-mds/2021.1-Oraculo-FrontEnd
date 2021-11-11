@@ -3,6 +3,7 @@ import PocketDocument from "../PocketDocument";
 import { StyledListGroup } from "./style";
 
 const Process = ({ process }) => {
+  // Set a limit to the visualization of some fields
   const charLimits = (text) => {
     if (text.search(" ") === -1) {
       return `${text.substring(0, 20)}...`;
@@ -11,6 +12,7 @@ const Process = ({ process }) => {
     }
   };
 
+  // Set a limit to the visualization of the seiNumber
   const seiNumberLimit = (seiNumber) => {
     if (seiNumber.length < 10) {
       return seiNumber;
