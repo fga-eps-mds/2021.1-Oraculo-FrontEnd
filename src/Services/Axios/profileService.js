@@ -5,25 +5,13 @@ export function getToken() {
   return String(localStorage.getItem(STORAGE_KEY));
 }
 
-const userLevels = [
-  {
-    level: 1,
-    description: "admin",
-  },
-  {
-    level: 2,
-    description: "common",
-  },
-];
+const userLevel = {
+  admin: 1,
+  common: 2,
+};
 
 async function validateUser(user) {
   const department = Number.parseInt(user.departmentID);
-  let level = Number.parseInt(user.level);
-
-  level =
-    level !== userLevels[0].level && level !== userLevels[1].level
-      ? userLevels[1].level
-      : level;
 
   if (department <= 0) {
     throw new Error("invalid department");
@@ -33,7 +21,7 @@ async function validateUser(user) {
     name: user.name,
     email: user.email,
     departmentID: department,
-    level: level,
+    level: user.level ? userLevel.admin : userLevel.common,
     password: user.password,
   };
 }
@@ -41,7 +29,6 @@ async function validateUser(user) {
 export async function registerUser(usr, toast) {
   try {
     const user = await validateUser(usr);
-
     await APIProfile.post(
       "/register",
       {
@@ -59,13 +46,9 @@ export async function registerUser(usr, toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     } else if (status === 400) {
-      toast.error(
-        "Faltam algumas informações para realizar o cadastro do usuário"
-      );
+      toast.error("Faltam algumas informações para realizar o cadastro do usuário");
     } else {
       toast.error(`Erro ao cadastrar usuário!`);
     }
@@ -110,9 +93,7 @@ export async function listAllUsers(toast) {
     const status = err.response?.status;
 
     if (status === 401) {
-      toast.error(
-        "Você não possui privilégios suficientes para realizar esta ação"
-      );
+      toast.error("Você não possui privilégios suficientes para realizar esta ação");
     }
   }
 }
