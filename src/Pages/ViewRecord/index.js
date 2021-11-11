@@ -21,12 +21,17 @@ import {
   getRecordHistory,
   setStatusRecord,
   getUserByEmail,
+  reopenRecord,
 } from "../../Services/Axios/processService";
 import { getRecordTagColors } from "../../Services/Axios/tagsService";
 import { getDepartments, getInfoUser } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+<<<<<<< HEAD
 import { TagsList } from "./tags";
+=======
+import { ModalReopenProcess } from "../../Components/ModalDoubleCheck";
+>>>>>>> devel
 
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
@@ -50,10 +55,12 @@ const ViewRecord = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
   const [tags, setTags] = useState([]);
+  const [reason, setReason] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
   const [buttonModal, setButtonModal] = useState("");
   const [buttonDone, setButtonDone] = useState(false);
+  const [buttonModalReopen, setbuttonModalReopen] = useState(false);
 
   useEffect(() => {
     async function fetchRecordData() {
@@ -117,8 +124,46 @@ const ViewRecord = () => {
   };
 
   const handleButtonProcessReopen = () => {
-    toast.loading("Estamos trabalhando nisso ... :)", { duration: 3000 });
+    setbuttonModalReopen(true);
   };
+
+  const handleClickModalBlueReopen = async () => {
+    //check if the reason has been added
+    if (reason) {
+      //setting data of who reopened the record
+      const infoRecord = {
+
+        id: id,
+        reopened_by: userEmail,
+        reason: reason,
+      }
+
+      //send request to reopen the record
+      await reopenRecord(infoRecord);
+
+      const newForward = [
+        ...forward,
+        {
+          setor: " ",
+          setorOrigin: " ",
+          name: userName,
+          defaultText: "Registro reaberto",
+          reason: "Motivo:",
+          reasonText: reason,
+          date: getDate(),
+        },
+      ];
+
+      await setStatusRecord(id, "pending", toast);
+      setForward(newForward);
+      setbuttonModalReopen(false);
+      setButtonDone(false);
+
+      document.querySelector(".forwardIcon").style.display = "flex";
+      setForwardData(infoRecord);
+    } else toast.error("É obrigatorio inserir o motivo");
+
+  }
 
   const handleForward = async () => {
     setButtonModalConfirmForward(true);
@@ -138,9 +183,11 @@ const ViewRecord = () => {
   const handleClickModalWhite = () => {
     setButtonModal(false);
     setButtonModalConfirmForward(false);
+    setbuttonModalReopen(false);
   };
 
   const handleClickModalBlue = async () => {
+
     //setting data of who forwarded the record
     const infoRecord = {
       id: id,
@@ -149,14 +196,15 @@ const ViewRecord = () => {
     };
 
     //send request to close record
-    const response = await closeRecord(infoRecord, toast);
-    console.log(response);
+    await closeRecord(infoRecord, toast);
 
     const newForward = [
       ...forward,
       {
+        setor: " ",
+        setorOrigin: " ",
         name: userName,
-        defaultText: "Registro: Concluido",
+        defaultText: "Registro concluido",
         date: getDate(),
       },
     ];
@@ -217,7 +265,20 @@ const ViewRecord = () => {
         date: dateDoneReg,
         dateForward: " ",
         name: infoUserDone.name,
-      };
+      }
+    }else if (response.reopened_by != null) {
+      const dateReopenReg = formatedDate(response.reopened_at);
+      const infoUserDone = await getUserByEmail(response.reopened_by);
+      newForward = {
+        setor: " ",
+        setorOrigin: " ",
+        defaultText: "Registro reaberto",
+        reason: "Motivo:",
+        reasonText: response.reason,
+        date: dateReopenReg,
+        dateForward: " ",
+        name: infoUserDone.name,
+      }
     } else {
       const infoUser = await getUserByEmail(response.created_by);
       console.log("info user", infoUser);
@@ -338,6 +399,14 @@ const ViewRecord = () => {
           titleWhiteButton="Cancelar"
           onClickBlueButton={handleClickModalConfirmForward}
           onClickWhiteButton={handleClickModalWhite}
+        />
+         <ModalReopenProcess
+          trigger={buttonModalReopen}
+          titleBlueButton="Reabrir"
+          titleWhiteButton="Cancelar"
+          onClickBlueButton={handleClickModalBlueReopen}
+          onClickWhiteButton={handleClickModalWhite}
+          onChange={(event) => setReason(event.target.value)}
         />
       </StyledDivSupProcess>
       <Toaster />

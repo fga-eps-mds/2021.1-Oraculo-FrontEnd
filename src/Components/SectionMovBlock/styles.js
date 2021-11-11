@@ -48,8 +48,14 @@ const DivMovBlock = styled.div`
       height: 2rem;
     }
   }
-  div:last-child {
+  .forwardInfoBlock{
+   justify-content: space-between;
+  }
+  .infoSetor {
+    display: flex;
     justify-content: space-between;
+    p {
+    }
   }
 `;
 export { DivMovBlock, DivNodeBlock, StyledLine };
