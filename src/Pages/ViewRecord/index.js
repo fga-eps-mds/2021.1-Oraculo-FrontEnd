@@ -249,6 +249,17 @@ const ViewRecord = () => {
         dateForward: " ",
         name: infoUserDone.name,
       }
+    }else if (response.reopened_by != null) {
+      const dateReopenReg = formatedDate(response.reopened_at);
+      const infoUserDone = await getUserByEmail(response.reopened_by);
+      newForward = {
+        setor: " ",
+        setorOrigin: " ",
+        defaultText: "Registro reaberto: " + response.reason,
+        date: dateReopenReg,
+        dateForward: " ",
+        name: infoUserDone.name,
+      }
     } else {
       const infoUser = await getUserByEmail(response.created_by);
       console.log("info user",infoUser);
