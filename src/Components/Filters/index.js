@@ -61,8 +61,12 @@ const recordFields = {
   },
   history: {
     label: "Histórico",
-    value: ""
-  }
+    value: "",
+  },
+  document_date: {
+    label: "Data",
+    value: "",
+  },
 };
 
 const RenderFilters = ({ handleWhere }) => {
@@ -115,7 +119,7 @@ const RenderFilters = ({ handleWhere }) => {
     };
     setWhere({ ...where });
     setOptions((prev) => ({ ...prev, ...newOpt }));
-  }
+  };
 
   return (
     <StyledFilterDiv>
@@ -142,7 +146,9 @@ const RenderFilters = ({ handleWhere }) => {
                 value={options[key].value}
                 onChange={(event) => onChange(event)}
               />
-              <button class="x-button" onClick={() => removeFilter(key)}>X</button>
+              <button class="x-button" onClick={() => removeFilter(key)}>
+                X
+              </button>
             </StyledSearchBar>
           )
         );
