@@ -11,7 +11,8 @@ import {
   StyledBigButton,
   StyledTop,
   ButtonDiv,
-  StyledSearchBarSize
+  StyledSearchBarSize,
+  StyledSearchBar,
 } from "./styles";
 
 import Process from "../../Components/Process";
@@ -24,11 +25,11 @@ import toast from "react-hot-toast";
 
 const AllRegistersScreen = () => {
   const [process, setProcess] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(30);
   const [allProcesses, setAllProcesses] = useState(0);
   // Acrescentando termo para busca
-  const [ where, setWhere] = useState({});
+  const [where, setWhere] = useState({});
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
@@ -43,7 +44,7 @@ const AllRegistersScreen = () => {
   useEffect(() => {
     const fetchProcess = async () => {
       console.log(currentPage);
-      const temp = await getProcessByPage(currentPage, toast,{ where });
+      const temp = await getProcessByPage(currentPage, toast, { where });
       console.log(temp);
       setProcess(temp);
     };
@@ -66,7 +67,7 @@ const AllRegistersScreen = () => {
         <StyledTop>
           <StyledSearchBarSize>
             {/* área para procurar registros */}
-            <RenderFilters handleWhere={{where, setWhere}}/>
+            <RenderFilters handleWhere={{ where, setWhere }} />
           </StyledSearchBarSize>
           <ButtonDiv>
             <MainButton onClick={handleProcess} title={"Novo Registro"} />

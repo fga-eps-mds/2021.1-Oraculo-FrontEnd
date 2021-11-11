@@ -11,17 +11,16 @@ import {
 } from "../../Services/Axios/processService";
 import RenderFilters from "../../Components/Filters";
 
-
 const HomePage = () => {
   // Setar estados de processos e paginação
 
   const [process, setProcess] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [processPerPage] = useState(30);
   const [allProcesses, setAllProcesses] = useState(0);
   const [department, setDepartment] = useState("");
   const [admin, setAdmin] = useState("");
-  const [ where, setWhere] = useState({});
+  const [where, setWhere] = useState({});
 
   async function setAll() {
     const temp = await getProcessTotalNumber(toast);
@@ -47,7 +46,7 @@ const HomePage = () => {
     //Set the name of user's department
     setDepartment(user.departments[0].name);
 
-    const temp = await getProcessByPage(currentPage, toast, {where});
+    const temp = await getProcessByPage(currentPage, toast, { where });
     setProcess(temp);
   };
 
@@ -67,7 +66,7 @@ const HomePage = () => {
       <StyledBody>
         <h1>Pesquisar Registro</h1>
         {/* Fazer botão atualizar com registros */}
-        <RenderFilters handleWhere={{where, setWhere}}/>
+        <RenderFilters handleWhere={{ where, setWhere }} />
         <h1>Departamento: {department}</h1>
         <StyledOrganizeButtons>
           <StyledBigButton>Nº de Registro</StyledBigButton>
@@ -83,7 +82,9 @@ const HomePage = () => {
         {process.length > 0 ? (
           <Process process={process} />
         ) : (
-          <h1 class="zero-registros">Não há registros cadastrados no sistema</h1>
+          <h1 class="zero-registros">
+            Não há registros cadastrados no sistema
+          </h1>
         )}
         {/* paginar registros */}
         <Pagination
