@@ -18,22 +18,17 @@ const userLevels = [
 
 async function validateUser(user) {
   const department = Number.parseInt(user.departmentID);
-  let level = Number.parseInt(user.level);
-
-  level =
-    level !== userLevels[0].level && level !== userLevels[1].level
-      ? userLevels[1].level
-      : level;
 
   if (department <= 0) {
     throw new Error("invalid department");
   }
 
+  // UserLevel vai vir true ou false, 1 eh admin, 2 common
   return {
     name: user.name,
     email: user.email,
     departmentID: department,
-    level: level,
+    level: user.level ? 1 : 2,
     password: user.password,
   };
 }
@@ -41,7 +36,6 @@ async function validateUser(user) {
 export async function registerUser(usr, toast) {
   try {
     const user = await validateUser(usr);
-
     await APIProfile.post(
       "/register",
       {
