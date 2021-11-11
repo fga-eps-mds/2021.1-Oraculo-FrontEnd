@@ -4,16 +4,14 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import {
-  createRecord,
-  findRecordWithSei,
-} from "../../Services/Axios/processService";
+import { createRecord, findRecordWithSei } from "../../Services/Axios/processService";
 import GenericBlueButton from "../../Components/GenericBlueButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
+import AddTagDialog from "../../Components/AddTagDialog";
 
 import {
   StyledBlueRectangle,
@@ -40,6 +38,7 @@ const CreateRecord = () => {
   const [receiptForm, setReceiptForm] = useState("");
   const [contactInfo, setContactInfo] = useState("");
   const [createdBy, setCreatedBy] = useState("");
+  const [showTagModal, setShowTagModal] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -92,6 +91,7 @@ const CreateRecord = () => {
   return (
     <>
       <HeaderWithButtons />
+      {showTagModal && <AddTagDialog onVisibleChanged={setShowTagModal} />}
       <div>
         <StyledTitle>
           <p>Criar Registro</p>
@@ -99,7 +99,6 @@ const CreateRecord = () => {
             <MainButton title={"Adicionar Campo"} />
           </div>
         </StyledTitle>
-
         <StyledProcess>
           <StyledProcessDiv>
             <StyledBlueRectangle>
@@ -138,9 +137,7 @@ const CreateRecord = () => {
                       const [data, status] = await checkRecordSei(seiNumber);
 
                       if (status === 400) {
-                        toast.error(
-                          "Erro ao buscar número do sei no banco de dados"
-                        );
+                        toast.error("Erro ao buscar número do sei no banco de dados");
                         return;
                       }
                       console.error(`info ${data}, ${status}`);
@@ -157,21 +154,18 @@ const CreateRecord = () => {
                               onClick={() => {
                                 handleClick();
                                 toast.dismiss(t.id);
-                              }}
-                            ></GenericBlueButton>
+                              }}></GenericBlueButton>
                             <p></p>
                             <GenericRedButton
                               title="Cancelar"
-                              onClick={() => toast.dismiss(t.id)}
-                            ></GenericRedButton>
+                              onClick={() => toast.dismiss(t.id)}></GenericRedButton>
                           </span>
                         ));
                       } else {
                         handleClick();
                       }
                     }
-                  }}
-                >
+                  }}>
                   <div className="form-div">
                     <h1>Cidade</h1>
                     <input
@@ -221,9 +215,7 @@ const CreateRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) =>
-                        setDocumentNumber(event.target.value)
-                      }
+                      onChange={(event) => setDocumentNumber(event.target.value)}
                       value={documentNumber}
                     />
                   </div>
@@ -252,9 +244,7 @@ const CreateRecord = () => {
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
                       required
-                      onChange={(event) =>
-                        setDocumentDescription(event.target.value)
-                      }
+                      onChange={(event) => setDocumentDescription(event.target.value)}
                       value={documentDescription}
                     />
                   </div>
@@ -291,18 +281,14 @@ const CreateRecord = () => {
                   </div>
                   <div className="form-div">
                     <h1>Tags</h1>
-                    <button
-                      type="button"
-                      onClick={() => toast.error("Trabalho em progresso")}
-                    >
+                    <button type="button" onClick={() => setShowTagModal(true)}>
                       <FaPlus />
                     </button>
                   </div>
                   <StyledButtonsDiv>
                     <StyledCancelButton
                       type="button"
-                      onClick={() => window.history.back()}
-                    >
+                      onClick={() => window.history.back()}>
                       Cancelar
                     </StyledCancelButton>
                     <StyledCreateButton type="submit">Criar</StyledCreateButton>
