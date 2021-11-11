@@ -146,7 +146,7 @@ const ViewRecord = () => {
       setbuttonModalReopen(false);
       setButtonDone(false);
 
-      document.querySelector(".forwardIcon").style.display = "visible";
+      document.querySelector(".forwardIcon").style.display = "flex";
       setForwardData(infoRecord);
     } else toast.error("É obrigatorio inserir o motivo");
 
