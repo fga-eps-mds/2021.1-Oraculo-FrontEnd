@@ -3,7 +3,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
-import { editRecord, getProcessByID } from "../../Services/Axios/processService";
+import {
+  editRecord,
+  getProcessByID,
+} from "../../Services/Axios/processService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
@@ -24,6 +27,7 @@ import {
 
 const EditRecord = () => {
   useEffect(() => {
+    // if user is not logged, go back to login screen
     async function getUser() {
       const user = await getInfoUser(toast);
       if (!user) {
@@ -32,6 +36,12 @@ const EditRecord = () => {
     }
     getUser();
   }, []);
+
+  // Convert dd/mm/yyyy para Date()
+  const convertDate = (dateBR) => {
+    const dateUS = dateBR.split("/");
+    return new Date(dateUS[2], dateUS[1] - 1, dateUS[0]);
+  };
 
   const { id } = useParams();
   const [inclusionDate, setInclusionDate] = useState("");
@@ -53,7 +63,9 @@ const EditRecord = () => {
 
     originalRecord.city ? setCity(originalRecord.city) : setCity("-");
     originalRecord.state ? setState(originalRecord.state) : setState("-");
-    originalRecord.requester ? setRequester(originalRecord.requester) : setRequester("-");
+    originalRecord.requester
+      ? setRequester(originalRecord.requester)
+      : setRequester("-");
     originalRecord.document_type
       ? setDocumentType(originalRecord.document_type)
       : setDocumentType("-");
@@ -61,7 +73,7 @@ const EditRecord = () => {
       ? setDocumentNumber(originalRecord.document_number)
       : setDocumentNumber("-");
     originalRecord.document_date
-      ? setDocumentDate(originalRecord.document_date)
+      ? setDocumentDate(convertDate(originalRecord.document_date))
       : setDocumentDate("-");
     originalRecord.description
       ? setDocumentDescription(originalRecord.description)
@@ -85,7 +97,8 @@ const EditRecord = () => {
       requester: requester,
       document_type: documentType,
       document_number: documentNumber,
-      document_date: documentDate,
+      // Convert Date() to dd/mm/yyyy
+      document_date: documentDate.toLocaleDateString(),
       description: documentDescription,
       sei_number: seiNumber,
       receipt_form: receiptForm,
@@ -163,7 +176,9 @@ const EditRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) => setDocumentNumber(event.target.value)}
+                      onChange={(event) =>
+                        setDocumentNumber(event.target.value)
+                      }
                       value={documentNumber}
                     />
                   </div>
@@ -173,13 +188,15 @@ const EditRecord = () => {
 
                   <DatePicker
                     id="documentDateInput"
+                    selected={documentDate}
                     class="form-div"
                     locale={pt}
                     placeholderText="dd/mm/aaaa"
+                    strictParsing
+                    dateFormat="dd/MM/yyyy"
                     onChange={(event) => {
-                      setDocumentDate(event.toLocaleDateString());
+                      setDocumentDate(event);
                     }}
-                    value={documentDate}
                     customInput={<StyledDatePicker />}
                   />
                   <div class="form-div">
@@ -189,7 +206,9 @@ const EditRecord = () => {
                       id="documentDescriptionInput"
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
-                      onChange={(event) => setDocumentDescription(event.target.value)}
+                      onChange={(event) =>
+                        setDocumentDescription(event.target.value)
+                      }
                       value={documentDescription}
                     />
                   </div>
@@ -229,10 +248,13 @@ const EditRecord = () => {
                   <StyledButtonsDiv>
                     <StyledCancelButton
                       type="button"
-                      onClick={() => window.history.back()}>
+                      onClick={() => window.history.back()}
+                    >
                       Cancelar
                     </StyledCancelButton>
-                    <StyledCreateButton type="submit">Editar</StyledCreateButton>
+                    <StyledCreateButton type="submit">
+                      Editar
+                    </StyledCreateButton>
                   </StyledButtonsDiv>
                 </form>
               </StyledForms>
