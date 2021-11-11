@@ -26,6 +26,7 @@ import { getRecordTagColors } from "../../Services/Axios/tagsService";
 import { getDepartments, getInfoUser } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+import { TagsList } from "./tags";
 
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
@@ -101,7 +102,7 @@ const ViewRecord = () => {
 
     fetchTagsData();
     fetchRecordData();
-  }, [forwardData]);
+  }, [buttonModalConfirmForward]);
 
   const getDate = () => {
     var data = new Date();
