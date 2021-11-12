@@ -65,8 +65,8 @@ const EditRecord = () => {
     const originalRecord = await getProcessByID(id, toast);
     const getTagsApi = await getRecordTagColors(id);
 
+    const newTags = {};
     if (getTagsApi[0] === 200) {
-      const newTags = {};
       console.log(getTagsApi);
       getTagsApi[1].forEach((t) => {
         newTags[t.id] = { color: t.color, checked: true };
