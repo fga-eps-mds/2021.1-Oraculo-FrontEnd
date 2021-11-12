@@ -17,6 +17,12 @@ export const StyledAlertDialog = styled.div`
       right: 2rem;
     }
   }
+  span {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
 
   .checkBoxDiv {
     p {
@@ -94,4 +100,47 @@ export const CircleColor = styled.div`
 
 export const TagList = styled.div`
   margin-bottom: 3rem;
+`;
+
+export const StyledCreateTag = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-shadow: black;
+  justify-content: space-between;
+
+  span {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .input-section {
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    input {
+      padding: 1rem 5rem 1rem 1rem;
+      border-radius: ${fonts.sizeSm};
+      font-size: 1rem;
+    }
+    div {
+      align-items: center;
+      p {
+        margin-right: 1rem;
+      }
+      display: flex;
+    }
+  }
+  .endOfPageDiv {
+    display: flex;
+    width: 100%;
+    margin-top: 10rem;
+    align-content: center;
+    justify-content: flex-end;
+    button {
+      margin-left: 1rem;
+    }
+  }
 `;

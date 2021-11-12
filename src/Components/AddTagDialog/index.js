@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { CircleColor, StyledAlertDialog, TagList } from "./styles";
+import {
+  CircleColor,
+  StyledAlertDialog,
+  StyledCreateTag,
+  TagList,
+} from "./styles";
 import GenericBlueButton from "../GenericBlueButton";
 import GenericWhiteButton from "../GenericWhiteButton";
 import { Checkbox } from "antd";
@@ -28,16 +33,20 @@ const TagModal = ({ onVisibleChanged }) => {
   const [allTags, setAllTags] = useState([]);
   const [isAdmin, setAdmin] = useState(false);
 
+  const [allModal, setAllModal] = useState(true);
+  const [createModal, setCreateModal] = useState(false);
+
   async function fetchUserData() {
     try {
       const user = await getInfoUser(toast);
       const tags = await getAllTags();
-      if (user === undefined) {
-        window.location.reload();
-      } else if (tags !== undefined) {
+      if (tags !== undefined) {
         //set tags
         // only if tags are not undefined
         setAllTags(tags.data);
+      }
+      if (user === undefined) {
+        window.location.reload();
       } else {
         // if user is admin, show some things
         // only admins can see
@@ -70,7 +79,7 @@ const TagModal = ({ onVisibleChanged }) => {
   return (
     <div>
       <Modal
-        isOpen={true}
+        isOpen={allModal}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         contentLabel="Selecione uma tag"
@@ -81,7 +90,13 @@ const TagModal = ({ onVisibleChanged }) => {
             <h2>Escolha uma tag</h2>
             {isAdmin ? (
               <div className="headerDiv">
-                <GenericBlueButton title="Criar tag" />
+                <GenericBlueButton
+                  onClick={() => {
+                    setAllModal(false);
+                    setCreateModal(true);
+                  }}
+                  title="Criar tag"
+                />
               </div>
             ) : null}
           </span>
@@ -104,6 +119,29 @@ const TagModal = ({ onVisibleChanged }) => {
             <GenericBlueButton title="Adicionar" />
           </div>
         </StyledAlertDialog>
+      </Modal>
+      <Modal isOpen={createModal} contentLabel="Nova tag" style={modalStyle}>
+        <StyledCreateTag>
+          <h1>Nova Tag</h1>
+          <p>Nome:</p>
+          <div className="input-section">
+            <input type="text" />
+            <div>
+              <p>Cor:</p>
+              <CircleColor onClick={() => {}} />
+            </div>
+          </div>
+          <div className="endOfPageDiv">
+            <GenericWhiteButton
+              title="Cancelar"
+              onClick={() => {
+                setAllModal(true);
+                setCreateModal(false);
+              }}
+            />
+            <GenericBlueButton title="Adicionar" />
+          </div>
+        </StyledCreateTag>
       </Modal>
     </div>
   );
