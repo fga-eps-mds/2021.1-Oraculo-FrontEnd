@@ -3,7 +3,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
-import MainButton from "../../Components/MainButton";
 import {
   createRecord,
   findRecordWithSei,
@@ -95,9 +94,7 @@ const CreateRecord = () => {
       <div>
         <StyledTitle>
           <p>Criar Registro</p>
-          <div>
-            <MainButton title={"Adicionar Campo"} />
-          </div>
+          <div></div>
         </StyledTitle>
 
         <StyledProcess>

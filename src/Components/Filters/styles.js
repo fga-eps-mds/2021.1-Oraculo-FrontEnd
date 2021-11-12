@@ -8,6 +8,7 @@ export const StyledFilterDiv = styled.div`
   flex-direction: column;
 
   .add-filter {
+    cursor: pointer;
     width: 24rem;
     margin: 2rem 2rem 0 0;
     height: 3.38rem;
