@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import {
   CircleColor,
+  ColorPickerDiv,
   StyledAlertDialog,
   StyledCreateTag,
   TagList,
@@ -33,6 +34,9 @@ const TagModal = ({ onVisibleChanged }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [allTags, setAllTags] = useState([]);
   const [isAdmin, setAdmin] = useState(false);
+  const [openColorPicker, setOpenColorPicker] = useState(false);
+  const [color, setColor] = useState("#FFF");
+  const [nameTag, setNameTag] = useState("");
 
   const [allModal, setAllModal] = useState(true);
   const [createModal, setCreateModal] = useState(false);
@@ -128,12 +132,27 @@ const TagModal = ({ onVisibleChanged }) => {
           <h1>Nova Tag</h1>
           <p>Nome:</p>
           <div className="input-section">
-            <input type="text" />
+            <input
+              type="text"
+              value={nameTag}
+              onChange={(event) => setNameTag(event.target.value)}
+            />
             <div>
               <p>Cor:</p>
-              <CircleColor onClick={() => {}} />
+              <CircleColor
+                style={{ cursor: "pointer", backgroundColor: color }}
+                onClick={() => setOpenColorPicker(!openColorPicker)}
+              />
             </div>
           </div>
+          {openColorPicker ? (
+            <ColorPickerDiv>
+              <ChromePicker
+                color={color}
+                onChangeComplete={(color) => setColor(color.hex)}
+              />
+            </ColorPickerDiv>
+          ) : null}
           <div className="endOfPageDiv">
             {/* Button to return to another modal */}
             <GenericWhiteButton
@@ -143,7 +162,7 @@ const TagModal = ({ onVisibleChanged }) => {
                 setCreateModal(false);
               }}
             />
-            <GenericBlueButton title="Criar" />
+            <GenericBlueButton title="Criar" onClick={() => {}} />
           </div>
         </StyledCreateTag>
       </Modal>

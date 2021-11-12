@@ -120,6 +120,7 @@ export const StyledCreateTag = styled.div`
     justify-content: space-around;
     align-items: center;
     display: flex;
+    margin-bottom: 1rem;
     input {
       padding: 1rem 5rem 1rem 1rem;
       border-radius: ${fonts.sizeSm};
@@ -136,11 +137,16 @@ export const StyledCreateTag = styled.div`
   .endOfPageDiv {
     display: flex;
     width: 100%;
-    margin-top: 10rem;
+    margin-top: 4rem;
     align-content: center;
     justify-content: flex-end;
     button {
       margin-left: 1rem;
     }
   }
+`;
+
+export const ColorPickerDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
