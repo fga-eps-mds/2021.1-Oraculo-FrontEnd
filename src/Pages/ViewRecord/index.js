@@ -5,7 +5,7 @@ import {
   StyledDivShowProcess,
   StyledDivSupProcess,
   StyledDivButtons,
-  StyledInfoSection,
+  StyledInfoDiv,
 } from "./style";
 import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
@@ -294,7 +294,7 @@ const ViewRecord = () => {
       <HeaderWithButtons />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
-          <StyledInfoSection>
+          <StyledInfoDiv>
             <div>
               <h2>Nº do registro:&nbsp;</h2>
               <h2>{registerNumber ? registerNumber : "Erro"}</h2>
@@ -345,7 +345,7 @@ const ViewRecord = () => {
               <h3>Descrição:&nbsp;</h3>
               <h3>{description ? description : "Erro"}</h3>
             </div>
-          </StyledInfoSection>
+          </StyledInfoDiv>
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>

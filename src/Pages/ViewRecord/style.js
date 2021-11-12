@@ -130,7 +130,7 @@ const StyledDivButtons = styled.div`
   }
 `;
 
-const StyledInfoSection = styled.div`
+const StyledInfoDiv = styled.div`
   width: 98%;
   background: ${colors.white};
   border-radius: ${radius.sizeMd};
@@ -190,5 +190,5 @@ export {
   StyledDivShowProcess,
   StyledDivSupProcess,
   StyledDivButtons,
-  StyledInfoSection,
+  StyledInfoDiv,
 };
