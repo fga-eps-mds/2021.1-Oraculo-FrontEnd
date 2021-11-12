@@ -143,7 +143,7 @@ const StyledInfoSection = styled.div`
 
   .description {
     flex-direction: column;
-    max-height: 100rem;
+    max-height: none;
 
     h3:nth-child(2) {
       margin-top: 0;
