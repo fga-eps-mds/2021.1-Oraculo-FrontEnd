@@ -13,6 +13,7 @@ import { FaPen } from "react-icons/fa";
 import { getAllTags } from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import toast from "react-hot-toast";
+import { ChromePicker } from "react-color";
 
 const modalStyle = {
   content: {
@@ -120,6 +121,8 @@ const TagModal = ({ onVisibleChanged }) => {
           </div>
         </StyledAlertDialog>
       </Modal>
+
+      {/* Add new modal to create a new tag */}
       <Modal isOpen={createModal} contentLabel="Nova tag" style={modalStyle}>
         <StyledCreateTag>
           <h1>Nova Tag</h1>
@@ -132,6 +135,7 @@ const TagModal = ({ onVisibleChanged }) => {
             </div>
           </div>
           <div className="endOfPageDiv">
+            {/* Button to return to another modal */}
             <GenericWhiteButton
               title="Cancelar"
               onClick={() => {
@@ -139,7 +143,7 @@ const TagModal = ({ onVisibleChanged }) => {
                 setCreateModal(false);
               }}
             />
-            <GenericBlueButton title="Adicionar" />
+            <GenericBlueButton title="Criar" />
           </div>
         </StyledCreateTag>
       </Modal>
