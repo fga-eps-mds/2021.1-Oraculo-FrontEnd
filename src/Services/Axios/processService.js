@@ -49,7 +49,7 @@ export async function setStatusRecord(id, situation_record, toast) {
     const response = await APIProcess.post(`/records/${id}/status`, {
       situation: situation_record,
     });
-    if(response){
+    if (response) {
       toast.success("Sucesso!");
     }
   } catch (error) {
@@ -59,7 +59,7 @@ export async function setStatusRecord(id, situation_record, toast) {
 export async function getProcessByPage(page, toast, body) {
   try {
     const response = await APIProcess.post(`/records/page/${page}`, {
-      ...body
+      ...body,
     });
 
     return response.data;
@@ -213,11 +213,10 @@ export async function closeRecord(infoRecord) {
 
 export async function reopenRecord(infoRecord) {
   try {
-    const response = await APIProcess.post(`/records/${infoRecord.id}/reopen`, {
+    await APIProcess.post(`/records/${infoRecord.id}/reopen`, {
       reopened_by: infoRecord.reopened_by,
       reason: infoRecord.reason,
     });
-    
   } catch (error) {
     console.log(error);
     return error;
@@ -226,13 +225,14 @@ export async function reopenRecord(infoRecord) {
 
 export async function getUserByEmail(email) {
   try {
-    const response = await APIProcess.post(`/user/by-mail/`, {email});
+    const response = await APIProcess.post(`/user/by-mail/`, { email });
     return response.data;
   } catch (error) {
     console.error(error);
     return error;
   }
 }
+
 export async function findRecordWithSei(seiNumber) {
   try {
     console.log(seiNumber);
@@ -244,5 +244,14 @@ export async function findRecordWithSei(seiNumber) {
   } catch (err) {
     const statusCode = err.response?.status;
     return [err, statusCode];
+  }
+}
+
+export async function listAllTags(toast) {
+  try {
+    const response = await APIProcess.get("/tags/all", {});
+    return response.data;
+  } catch (err) {
+    toast.error("Erro ao buscar tags!");
   }
 }
