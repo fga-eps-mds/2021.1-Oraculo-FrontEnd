@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
-import Header from "../../Components/Header";
+import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import {
   StyledBlueRectangle,
   StyledButtonsDiv,
@@ -27,7 +27,7 @@ const RegistrationScreen = () => {
 
   return (
     <>
-      <Header />
+      <HeaderWithButtons />
       <div>
         <StyledTitle>
           <p>Registrar Usuário</p>

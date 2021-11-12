@@ -1,22 +1,26 @@
-import React from "react";
-import DivSelectSetor from "./styles";
+import { useEffect, useState } from "react";
+import { getDepartments } from "../../Services/Axios/profileService";
+import DivSelectSetor from "./DivSelectSetor";
 
-const DropDownButton = () => {
+const DropDownButton = ({ onChangeOpt }) => {
+  const [sections, setSections] = useState([]);
+
+  useEffect(() => {
+    async function fetchSections() {
+      const sectionsList = await getDepartments();
+      setSections(sectionsList);
+    }
+
+    fetchSections();
+  }, []);
+
   return (
     <DivSelectSetor>
-      <select>
-        <option claaname="selectSetorOpt" selected value="criminal">
-          Criminal
-        </option>
-        <option claaname="selectSetorOpt" value="tecnologia">
-          Tecnologia
-        </option>
-        <option claaname="selectSetorOpt" value="administrativa">
-          Administrativo
-        </option>
-        <option claaname="selectSetorOpt" value="civil">
-          civil
-        </option>
+      <select onChange={onChangeOpt}>
+        {sections.map(
+          (item) =>
+            item.name !== "none" && <option value={item.id}>{item.name}</option>
+        )}
       </select>
     </DivSelectSetor>
   );

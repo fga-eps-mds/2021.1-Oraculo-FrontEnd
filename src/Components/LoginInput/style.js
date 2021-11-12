@@ -13,7 +13,6 @@ export const DivInput = styled.div`
   padding-left: 0.5rem;
 
   svg {
-    position: absolute;
     height: 1.3rem;
     width: 1.3rem;
   }
@@ -26,5 +25,9 @@ export const DivInput = styled.div`
     ::placeholder {
       padding-left: 0rem;
     }
+  }
+  .pass-icon {
+    width: 50px;
+    padding-left: 2px;
   }
 `;
