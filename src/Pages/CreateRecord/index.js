@@ -4,7 +4,7 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import { federativeUnits } from "./federativeUnits";
+import { federativeUnits } from "../../Constants/federativeUnits";
 import {
   createRecord,
   findRecordWithSei,
