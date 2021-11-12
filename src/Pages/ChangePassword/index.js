@@ -24,7 +24,7 @@ const ChangePassword = () => {
     <>
       <HeaderWithButtons />
       <FormLogin>
-        <form onSubmit={(event) => handleClick(event.preventDefault())}>
+        <form onSubmit={(event) => handleClick()}>
           <StyledDiv>
             <h1>Alterar Senha</h1>
 
