@@ -24,14 +24,14 @@ import {
   reopenRecord,
 } from "../../Services/Axios/processService";
 import { getRecordTagColors } from "../../Services/Axios/tagsService";
-import { getDepartments, getInfoUser } from "../../Services/Axios/profileService";
+import {
+  getDepartments,
+  getInfoUser,
+} from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
-<<<<<<< HEAD
 import { TagsList } from "./tags";
-=======
 import { ModalReopenProcess } from "../../Components/ModalDoubleCheck";
->>>>>>> devel
 
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
@@ -57,7 +57,8 @@ const ViewRecord = () => {
   const [tags, setTags] = useState([]);
   const [reason, setReason] = useState("");
 
-  const [buttonModalConfirmForward, setButtonModalConfirmForward] = useState("");
+  const [buttonModalConfirmForward, setButtonModalConfirmForward] =
+    useState("");
   const [buttonModal, setButtonModal] = useState("");
   const [buttonDone, setButtonDone] = useState(false);
   const [buttonModalReopen, setbuttonModalReopen] = useState(false);
@@ -132,11 +133,10 @@ const ViewRecord = () => {
     if (reason) {
       //setting data of who reopened the record
       const infoRecord = {
-
         id: id,
         reopened_by: userEmail,
         reason: reason,
-      }
+      };
 
       //send request to reopen the record
       await reopenRecord(infoRecord);
@@ -162,8 +162,7 @@ const ViewRecord = () => {
       document.querySelector(".forwardIcon").style.display = "flex";
       setForwardData(infoRecord);
     } else toast.error("É obrigatorio inserir o motivo");
-
-  }
+  };
 
   const handleForward = async () => {
     setButtonModalConfirmForward(true);
@@ -187,7 +186,6 @@ const ViewRecord = () => {
   };
 
   const handleClickModalBlue = async () => {
-
     //setting data of who forwarded the record
     const infoRecord = {
       id: id,
@@ -221,7 +219,11 @@ const ViewRecord = () => {
   const formatedDate = (infoDate) => {
     const dataDone = new Date(infoDate);
     return (
-      dataDone.getDate() + "/" + (dataDone.getMonth() + 1) + "/" + dataDone.getFullYear()
+      dataDone.getDate() +
+      "/" +
+      (dataDone.getMonth() + 1) +
+      "/" +
+      dataDone.getFullYear()
     );
   };
 
@@ -265,8 +267,8 @@ const ViewRecord = () => {
         date: dateDoneReg,
         dateForward: " ",
         name: infoUserDone.name,
-      }
-    }else if (response.reopened_by != null) {
+      };
+    } else if (response.reopened_by != null) {
       const dateReopenReg = formatedDate(response.reopened_at);
       const infoUserDone = await getUserByEmail(response.reopened_by);
       newForward = {
@@ -278,7 +280,7 @@ const ViewRecord = () => {
         date: dateReopenReg,
         dateForward: " ",
         name: infoUserDone.name,
-      }
+      };
     } else {
       const infoUser = await getUserByEmail(response.created_by);
       console.log("info user", infoUser);
@@ -309,7 +311,11 @@ const ViewRecord = () => {
             <div>
               <h2>Nº do registro:&nbsp;</h2>
               <h2>{registerNumber ? registerNumber : "Erro"}</h2>
-              <FaPen size="2rem" onClick={handleEditRegister} class="info-icon" />
+              <FaPen
+                size="2rem"
+                onClick={handleEditRegister}
+                class="info-icon"
+              />
             </div>
             <div>
               <h3>Descrição:&nbsp;</h3>
@@ -355,10 +361,15 @@ const ViewRecord = () => {
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
-            <GenericWhiteButton title="voltar" onClick={() => window.history.back()} />
+            <GenericWhiteButton
+              title="voltar"
+              onClick={() => window.history.back()}
+            />
             <GenericBlueButton
               title={buttonDone ? "Reabrir" : "Concluir"}
-              onClick={buttonDone ? handleButtonProcessReopen : handleButtonProcessDone}
+              onClick={
+                buttonDone ? handleButtonProcessReopen : handleButtonProcessDone
+              }
             />
           </StyledDivButtons>
         </StyledDivShowProcess>
@@ -370,7 +381,9 @@ const ViewRecord = () => {
           </div>
           <span>Departamento:</span>
 
-          <DropDownButton onChangeOpt={(event) => setSector(event.target.value)} />
+          <DropDownButton
+            onChangeOpt={(event) => setSector(event.target.value)}
+          />
           <div className="forwardIcon">
             <p onClick={handleForward}>Encaminhar</p>
             <FaTelegramPlane />
@@ -400,7 +413,7 @@ const ViewRecord = () => {
           onClickBlueButton={handleClickModalConfirmForward}
           onClickWhiteButton={handleClickModalWhite}
         />
-         <ModalReopenProcess
+        <ModalReopenProcess
           trigger={buttonModalReopen}
           titleBlueButton="Reabrir"
           titleWhiteButton="Cancelar"

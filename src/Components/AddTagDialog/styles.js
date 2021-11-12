@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { colors, fonts, radius } from "../../style";
 
 export const StyledAlertDialog = styled.div`
+  display: flex;
+  flex-direction: column;
   box-shadow: black;
+  justify-content: space-between;
   .headerDiv {
     a {
       text-align: left;
@@ -10,32 +13,41 @@ export const StyledAlertDialog = styled.div`
     }
 
     button {
-      position: absolute;
       top: 2rem;
       right: 2rem;
     }
   }
 
   .checkBoxDiv {
-    position: absolute;
-    padding-top: 5rem;
-    input {
+    p {
+      padding: 1rem 5rem 1rem 1rem;
+      border: 1px solid black;
+      margin: 0;
+      border-radius: ${fonts.sizeSm};
     }
+    a {
+      margin-right: 1rem;
+      cursor: pointer;
+    }
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    display: flex;
+    padding-top: 4rem;
   }
 
   .endOfPageDiv {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    display: flex;
+    width: 100%;
     align-content: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     button {
-      margin-left: 0.5rem;
+      margin-left: 1rem;
     }
   }
 
   input[type="checkbox"] {
-    position: absolute;
+    cursor: pointer;
     text-align: center;
     appearance: none;
     background-color: #ffffff;
@@ -52,6 +64,7 @@ export const StyledAlertDialog = styled.div`
   }
 
   input[type="checkbox"]::before {
+    cursor: pointer;
     content: "";
     width: 1.5rem;
     height: 1.5rem;
@@ -70,4 +83,15 @@ export const StyledAlertDialog = styled.div`
   input[type="checkbox"]:after {
     content: attr(value);
   }
+`;
+
+export const CircleColor = styled.div`
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1px solid #000000;
+`;
+
+export const TagList = styled.div`
+  margin-bottom: 3rem;
 `;

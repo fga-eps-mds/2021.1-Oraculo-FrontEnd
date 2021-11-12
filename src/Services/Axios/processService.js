@@ -91,7 +91,8 @@ export async function createRecord(recordInfo, toast) {
         <p style={{ fontSize: "28px" }}>{record.data.register_number}</p>
         <GenericBlueButton
           title="OK"
-          onClick={() => toast.dismiss(t.id)}></GenericBlueButton>
+          onClick={() => toast.dismiss(t.id)}
+        ></GenericBlueButton>
       </span>
     ));
 
@@ -131,11 +132,14 @@ export async function getAllDepartmentRecords(toast, id) {
 
 export async function forwardRecordInfo(toast, forwardRecInfo) {
   try {
-    const response = await APIProcess.post(`/records/${forwardRecInfo.id}/forward`, {
-      forwarded_by: forwardRecInfo.forwarded_by,
-      origin_id: forwardRecInfo.origin_id,
-      destination_id: forwardRecInfo.destination_id,
-    });
+    const response = await APIProcess.post(
+      `/records/${forwardRecInfo.id}/forward`,
+      {
+        forwarded_by: forwardRecInfo.forwarded_by,
+        origin_id: forwardRecInfo.origin_id,
+        destination_id: forwardRecInfo.destination_id,
+      }
+    );
     toast.success("Registro encaminhado com sucesso!");
     return response.data;
   } catch (error) {
@@ -239,5 +243,15 @@ export async function findRecordWithSei(seiNumber) {
   } catch (err) {
     const statusCode = err.response?.status;
     return [err, statusCode];
+  }
+}
+
+export async function getAllTags() {
+  try {
+    const response = await APIProcess.get(`/tags/all`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
   }
 }
