@@ -26,7 +26,8 @@ export const StyledAlertDialog = styled.div`
 
   .checkBoxDiv {
     p {
-      padding: 1rem 5rem 1rem 1rem;
+      padding: 1rem 0 1rem 1rem;
+      width: 10em;
       border: 1px solid black;
       margin: 0;
       border-radius: ${fonts.sizeSm};

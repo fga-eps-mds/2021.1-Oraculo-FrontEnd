@@ -37,9 +37,13 @@ const TagModal = ({ onVisibleChanged }) => {
   const [openColorPicker, setOpenColorPicker] = useState(false);
   const [color, setColor] = useState("#FFF");
   const [nameTag, setNameTag] = useState("");
+  const [editColor, setEditColor] = useState("");
+  const [editNameTag, setEditNameTag] = useState("");
+  const [editId, setEditId] = useState();
 
   const [allModal, setAllModal] = useState(true);
   const [createModal, setCreateModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   async function fetchUserData() {
     try {
@@ -79,7 +83,7 @@ const TagModal = ({ onVisibleChanged }) => {
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [color]);
 
   return (
     <div>
@@ -114,7 +118,16 @@ const TagModal = ({ onVisibleChanged }) => {
                 <CircleColor style={{ backgroundColor: val.color }} />
                 <p>{val.name}</p>
                 <a>
-                  <FaPen size="2rem" />
+                  <FaPen
+                    onClick={() => {
+                      setEditId(val.id);
+                      setEditNameTag(val.name);
+                      setEditColor(val.color);
+                      setEditModal(true);
+                      setAllModal(false);
+                    }}
+                    size="2rem"
+                  />
                 </a>
               </div>
             ))}
@@ -160,6 +173,8 @@ const TagModal = ({ onVisibleChanged }) => {
               onClick={() => {
                 setAllModal(true);
                 setCreateModal(false);
+                setNameTag("");
+                setColor("");
               }}
             />
             <GenericBlueButton
@@ -170,6 +185,50 @@ const TagModal = ({ onVisibleChanged }) => {
                 setColor("");
               }}
             />
+          </div>
+        </StyledCreateTag>
+      </Modal>
+
+      {/* Add new modal to edit a tag */}
+      <Modal isOpen={editModal} contentLabel="Editar tag" style={modalStyle}>
+        <StyledCreateTag>
+          <h1>Editar Tag</h1>
+          <p>Nome:</p>
+          <div className="input-section">
+            <input
+              type="text"
+              value={editNameTag}
+              onChange={(event) => setEditNameTag(event.target.value)}
+            />
+            <div>
+              <p>Cor:</p>
+              <CircleColor
+                style={{ cursor: "pointer", backgroundColor: editColor }}
+                onClick={() => setOpenColorPicker(!openColorPicker)}
+              />
+            </div>
+          </div>
+          {openColorPicker ? (
+            <ColorPickerDiv>
+              <ChromePicker
+                color={editColor}
+                onChangeComplete={(color) => setEditColor(color.hex)}
+              />
+            </ColorPickerDiv>
+          ) : null}
+          <div className="endOfPageDiv">
+            {/* Button to return to another modal */}
+            <GenericWhiteButton
+              title="Cancelar"
+              onClick={() => {
+                setEditId();
+                setEditNameTag("");
+                setEditColor("");
+                setEditModal(false);
+                setAllModal(true);
+              }}
+            />
+            <GenericBlueButton title="Editar" onClick={() => {}} />
           </div>
         </StyledCreateTag>
       </Modal>
