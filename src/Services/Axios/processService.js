@@ -31,8 +31,6 @@ export async function getProcessByID(ID, toast) {
 
 export async function fowardRegisterDep(section_id, id, toast) {
   try {
-    console.log(id);
-    console.log(section_id);
     await APIProcess.post(`/records/${id}/forward`, {
       section_id: section_id,
     });
@@ -49,7 +47,7 @@ export async function setStatusRecord(id, situation_record, toast) {
     const response = await APIProcess.post(`/records/${id}/status`, {
       situation: situation_record,
     });
-    if(response){
+    if (response) {
       toast.success("Sucesso!");
     }
   } catch (error) {
@@ -59,7 +57,7 @@ export async function setStatusRecord(id, situation_record, toast) {
 export async function getProcessByPage(page, toast, body) {
   try {
     const response = await APIProcess.post(`/records/page/${page}`, {
-      ...body
+      ...body,
     });
 
     return response.data;
@@ -83,7 +81,6 @@ export async function getProcessTotalNumber(toast) {
 
 export async function createRecord(recordInfo, toast) {
   try {
-    console.log(recordInfo);
     const record = await APIProcess.post("/records", recordInfo);
     toast((t) => (
       <span style={{ textAlign: "center" }}>
@@ -111,7 +108,6 @@ export async function createRecord(recordInfo, toast) {
 export async function getAllFields(toast) {
   try {
     const response = await APIProcess.get("/records/fields");
-    console.log(response.data);
     return response.data;
   } catch (error) {
     toast.error(erroTotal);
@@ -122,7 +118,6 @@ export async function getAllFields(toast) {
 export async function getAllDepartmentRecords(toast, id) {
   try {
     const response = await APIProcess.get("/records/department/" + id);
-    console.log(response.data, "hm");
     return response.data;
   } catch (error) {
     toast.error(erroTotal);
@@ -217,7 +212,6 @@ export async function reopenRecord(infoRecord) {
       reopened_by: infoRecord.reopened_by,
       reason: infoRecord.reason,
     });
-    
   } catch (error) {
     console.log(error);
     return error;
@@ -226,7 +220,7 @@ export async function reopenRecord(infoRecord) {
 
 export async function getUserByEmail(email) {
   try {
-    const response = await APIProcess.post(`/user/by-mail/`, {email});
+    const response = await APIProcess.post(`/user/by-mail/`, { email });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -235,11 +229,9 @@ export async function getUserByEmail(email) {
 }
 export async function findRecordWithSei(seiNumber) {
   try {
-    console.log(seiNumber);
     const response = await APIProcess.post(`/records/with-sei`, {
       sei_number: seiNumber,
     });
-    console.log(response);
     return [response.data, response.status];
   } catch (err) {
     const statusCode = err.response?.status;
