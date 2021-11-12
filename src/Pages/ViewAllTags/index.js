@@ -15,6 +15,7 @@ import { getAllTags } from "../../Services/Axios/processService";
 import PocketTags from "../../Components/PocketTags";
 import { GrFormSearch } from "react-icons/gr";
 import { StyledSearchBar } from "../HomePage/styles";
+import { StyledBottomTags } from "../../Components/PocketTags/styles";
 
 const ViewAllTags = () => {
   const [tags, setAllTags] = useState([]);
@@ -34,7 +35,7 @@ const ViewAllTags = () => {
     }
   }
 
-  console.log("A"+tags);
+  console.log("A" + tags);
 
   window.onload = function () {
     fetchTags();
@@ -60,7 +61,7 @@ const ViewAllTags = () => {
             </StyledSearchBar>
           </StyledSearchBarSize>
         </StyledTop>
-        <StyledBottom>
+        <StyledBottomTags>
           <StyledOrganizeButtons>
             <StyledBigButton style={{ width: "50%" }}>Nome</StyledBigButton>
             <StyledBigButton style={{ width: "50%" }}>Cor</StyledBigButton>
@@ -71,13 +72,10 @@ const ViewAllTags = () => {
           ) : (
             <StyledTitle>Não há tags cadastradas</StyledTitle>
           )}
-          <StyledFooter>
-            <StyledBigButton style={{ width: "50%" }}>Nome</StyledBigButton>
-            <StyledBigButton style={{ width: "50%" }}>Cor</StyledBigButton>
-          </StyledFooter>
-        </StyledBottom>
+          <StyledFooter />
+        </StyledBottomTags>
       </StyledPage>
-      <Toaster></Toaster>
+      <Toaster />
     </>
   );
 };

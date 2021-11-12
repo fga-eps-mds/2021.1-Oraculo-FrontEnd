@@ -29,6 +29,7 @@ export const StyledListGroup = styled.ul`
 `;
 
 export const StyledCircleDiv = styled.div`
+  margin-top: 0 !important;
   flex: 1;
   display: flex;
   align-items: center;
@@ -37,9 +38,18 @@ export const StyledCircleDiv = styled.div`
 `;
 
 export const CircleColor = styled.div`
+  margin-top: 0 !important;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
   border: 1px solid #000000;
   align-items: center;
+`;
+
+export const StyledBottomTags = styled.div`
+  margin-bottom: 2rem;
+  div {
+    display: flex;
+    margin: 2rem 0 0 0;
+  }
 `;
