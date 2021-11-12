@@ -152,7 +152,6 @@ const TagModal = ({ onVisibleChanged, addTags, tagsObj }) => {
                         color: val.color,
                       },
                     }));
-                    console.log(tagsObj);
                   }}
                 />
                 <CircleColor style={{ backgroundColor: val.color }} />

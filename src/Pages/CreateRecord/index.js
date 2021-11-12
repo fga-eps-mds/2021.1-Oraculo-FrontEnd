@@ -76,8 +76,11 @@ const CreateRecord = () => {
       receipt_form: receiptForm,
       contact_info: contactInfo,
       created_by: createdBy,
+      tags: Object.entries(tags)
+        .filter(([key, value]) => value.checked)
+        .map(([key, value]) => key),
     };
-
+    console.log(record, "antes");
     // envia request para criar registro no banco
     await createRecord(record, toast);
 

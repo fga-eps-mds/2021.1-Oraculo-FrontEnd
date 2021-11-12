@@ -95,7 +95,7 @@ export async function createRecord(recordInfo, toast) {
         ></GenericBlueButton>
       </span>
     ));
-
+    console.log(record, "depois");
     return record.data;
   } catch (err) {
     const status = err.response?.status;
