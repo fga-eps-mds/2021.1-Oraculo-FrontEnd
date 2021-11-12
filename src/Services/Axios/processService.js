@@ -246,6 +246,20 @@ export async function findRecordWithSei(seiNumber) {
   }
 }
 
+export async function createTag(name, color, toast) {
+  try {
+    const response = await APIProcess.post(`/tag/new`, {
+      name: name,
+      color: color,
+    });
+    toast.success("Tag criada com sucesso", { duration: 3000 });
+    return response.data;
+  } catch (error) {
+    toast.error("Tag não foi criada, tente novamente mais tarde");
+    return error;
+  }
+}
+
 export async function getAllTags() {
   try {
     const response = await APIProcess.get(`/tags/all`);
