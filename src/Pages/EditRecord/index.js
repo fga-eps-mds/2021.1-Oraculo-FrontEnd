@@ -65,12 +65,15 @@ const EditRecord = () => {
     const originalRecord = await getProcessByID(id, toast);
     const getTagsApi = await getRecordTagColors(id);
 
-    const newTags = {};
-    getTagsApi[1].forEach((t) => {
-      newTags[t.id] = { color: t.color, checked: true };
-    });
+    if (getTagsApi[0] === 200) {
+      const newTags = {};
+      console.log(getTagsApi);
+      getTagsApi[1].forEach((t) => {
+        newTags[t.id] = { color: t.color, checked: true };
+      });
+      setTags(newTags);
+    }
 
-    setTags(newTags);
     setInclusionDate(originalRecord.inclusion_date);
 
     originalRecord.city ? setCity(originalRecord.city) : setCity("-");
