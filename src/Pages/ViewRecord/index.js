@@ -358,7 +358,7 @@ const ViewRecord = () => {
 
           <StyledDivButtons>
             <GenericWhiteButton
-              title="voltar"
+              title="Voltar"
               onClick={() => window.history.back()}
             />
             <GenericBlueButton
@@ -404,7 +404,7 @@ const ViewRecord = () => {
         <ModalDoubleCheck
           content="Deseja realmente encaminhar esse registro?"
           trigger={buttonModalConfirmForward}
-          titleBlueButton="confirmar"
+          titleBlueButton="Confirmar"
           titleWhiteButton="Cancelar"
           onClickBlueButton={handleClickModalConfirmForward}
           onClickWhiteButton={handleClickModalWhite}
