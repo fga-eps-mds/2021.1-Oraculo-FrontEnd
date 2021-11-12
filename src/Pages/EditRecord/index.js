@@ -165,12 +165,13 @@ const EditRecord = () => {
                     <h1>Estado</h1>
                     <select
                       id="stateInput"
-                      required
                       placeholder="Selecione o estado"
                       onChange={(event) => setState(event.target.value)}
                     >
                       <>
-                        <option selected>{state}</option>
+                        <option selected required>
+                          {state}
+                        </option>
                         {federativeUnits.map((uf) => (
                           <option value={uf}>{uf}</option>
                         ))}
