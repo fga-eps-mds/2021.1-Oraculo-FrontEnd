@@ -191,3 +191,10 @@ export const StyledDatePicker = styled.input`
     opacity: 0.7;
   }
 `;
+
+export const CircleDiv = styled.div`
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid black;
+  border-radius: 50%;
+`;

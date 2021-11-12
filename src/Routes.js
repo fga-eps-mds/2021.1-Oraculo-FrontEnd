@@ -42,7 +42,10 @@ const Routes = () => (
     <Switch>
       <Route exact path="/login" component={() => <LoginScreen history={history} />} />
       <PrivateRoutes exact path="/ver-registro/:id" component={() => <ViewRecord />} />
-      <PrivateRoutes path="/tela-inicial" component={() => <HomePage />} />
+      <PrivateRoutes
+        path="/tela-inicial"
+        component={() => <HomePage history={history} />}
+      />
       <PrivateRoutes path="/criar-registro" component={() => <CreateRecord />} />
       <PrivateRoutes path="/criar-usuario" component={() => <CreateUser />} />
       <PrivateRoutes path="/usuario" component={() => <ViewProfile />} />

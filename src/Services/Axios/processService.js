@@ -92,7 +92,7 @@ export async function createRecord(recordInfo, toast) {
         ></GenericBlueButton>
       </span>
     ));
-
+    console.log(record, "depois");
     return record.data;
   } catch (err) {
     const status = err.response?.status;
@@ -236,5 +236,43 @@ export async function findRecordWithSei(seiNumber) {
   } catch (err) {
     const statusCode = err.response?.status;
     return [err, statusCode];
+  }
+}
+
+export async function createTag(name, color, toast) {
+  try {
+    const response = await APIProcess.post(`/tag/new`, {
+      name: name,
+      color: color,
+    });
+    toast.success("Tag criada com sucesso", { duration: 3000 });
+    return response.data;
+  } catch (error) {
+    toast.error("Tag não foi criada, tente novamente mais tarde");
+    return error;
+  }
+}
+
+export async function getAllTags() {
+  try {
+    const response = await APIProcess.get(`/tags/all`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function editTag(id, name, color, toast) {
+  try {
+    const response = await APIProcess.post(`/tag/${id}/edit`, {
+      name: name,
+      color: color,
+    });
+    toast.success("Tag editada com sucesso", { duration: 3000 });
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível editar esta tag, tente novamente mais tarde");
+    return error;
   }
 }

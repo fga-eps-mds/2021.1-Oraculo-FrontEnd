@@ -23,18 +23,20 @@ import {
   getUserByEmail,
   reopenRecord,
 } from "../../Services/Axios/processService";
+import { getRecordTagColors } from "../../Services/Axios/tagsService";
 import {
   getDepartments,
   getInfoUser,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+import { TagsList } from "./tags";
 import { ModalReopenProcess } from "../../Components/ModalDoubleCheck";
 
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
   const { id } = useParams();
-  const [sector, setSector] = useState("criminal");
+  const [sector, setSector] = useState("");
   const [forward, setForward] = useState([]);
   const [forwardData, setForwardData] = useState("");
 
@@ -52,6 +54,7 @@ const ViewRecord = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
+  const [tags, setTags] = useState([]);
   const [reason, setReason] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] =
@@ -64,6 +67,7 @@ const ViewRecord = () => {
     async function fetchRecordData() {
       // get all records data by process by id
       const record = await getProcessByID(id, toast);
+
       setRegisterNumber(record.register_number);
       setSeiNumber(record.sei_number);
       setDocumentDate(record.document_date);
@@ -94,6 +98,15 @@ const ViewRecord = () => {
         document.querySelector(".forwardIcon").style.display = "none";
       }
     }
+
+    async function fetchTagsData() {
+      const [httpCode, recordTags] = await getRecordTagColors(id);
+      if (httpCode === 200 && recordTags.length > 0) {
+        setTags(recordTags);
+      }
+    }
+
+    fetchTagsData();
     fetchRecordData();
   }, [buttonModalConfirmForward]);
 
@@ -373,9 +386,7 @@ const ViewRecord = () => {
           </div>
           <span>Tags:</span>
           <div className="tagsTest">
-            <span></span>
-            <span></span>
-            <span></span>
+            <TagsList id={id} />
           </div>
 
           <a className="historic" href="/historico-registro">

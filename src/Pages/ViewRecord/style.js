@@ -59,19 +59,6 @@ const StyledDivInfoProcess = styled.div`
 
   .tagsTest {
     display: flex;
-    span {
-      height: 2.5rem;
-      width: 2.5rem;
-      border-radius: 50%;
-      margin: 1rem 0.5rem;
-      background-color: red;
-    }
-    span:first-child {
-      background-color: purple;
-    }
-    span:last-child {
-      background-color: yellow;
-    }
   }
 
   .historic {
