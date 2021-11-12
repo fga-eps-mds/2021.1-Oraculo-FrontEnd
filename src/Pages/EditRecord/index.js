@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { FaRegFileAlt } from "react-icons/fa";
+import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import {
@@ -25,6 +25,8 @@ import {
   StyledTitle,
   StyledWhiteRectangle,
 } from "../CreateRecord/styles";
+import { getRecordTagColors } from "../../Services/Axios/tagsService";
+import { TagModal } from "../../Components/AddTagDialog";
 
 const EditRecord = () => {
   useEffect(() => {
@@ -56,10 +58,19 @@ const EditRecord = () => {
   const [seiNumber, setSeiNumber] = useState("");
   const [receiptForm, setReceiptForm] = useState("");
   const [contactInfo, setContactInfo] = useState("");
+  const [tags, setTags] = useState({});
+  const [showTagModal, setShowTagModal] = useState(false);
 
   window.onload = async function () {
     const originalRecord = await getProcessByID(id, toast);
+    const getTagsApi = await getRecordTagColors(id);
 
+    const newTags = {};
+    getTagsApi[1].forEach((t) => {
+      newTags[t.id] = { color: t.color, checked: true };
+    });
+
+    setTags(newTags);
     setInclusionDate(originalRecord.inclusion_date);
 
     originalRecord.city ? setCity(originalRecord.city) : setCity("-");
@@ -104,6 +115,9 @@ const EditRecord = () => {
       sei_number: seiNumber,
       receipt_form: receiptForm,
       contact_info: contactInfo,
+      tags: Object.entries(tags)
+        .filter(([key, value]) => value.checked)
+        .map(([key, value]) => key),
     };
 
     await editRecord(record, id, toast);
@@ -111,6 +125,13 @@ const EditRecord = () => {
 
   return (
     <>
+      {showTagModal && (
+        <TagModal
+          onVisibleChanged={setShowTagModal}
+          addTags={setTags}
+          tagsObj={tags}
+        />
+      )}
       <HeaderWithButtons />
       <div>
         <StyledTitle>
@@ -251,6 +272,30 @@ const EditRecord = () => {
                       onChange={(event) => setContactInfo(event.target.value)}
                       value={contactInfo}
                     />
+                  </div>
+                  <div className="form-div">
+                    <h1>Tags</h1>
+                    <button type="button" onClick={() => setShowTagModal(true)}>
+                      <div style={{ display: "flex" }}>
+                        {Object.entries(tags).map(([key, value]) => {
+                          return (
+                            value.checked && (
+                              <div
+                                style={{
+                                  height: "1rem",
+                                  width: "1rem",
+                                  border: "1px solid black",
+                                  borderRadius: "50%",
+                                  backgroundColor: value.color,
+                                  marginRight: "0.5rem",
+                                }}
+                              />
+                            )
+                          );
+                        })}
+                        <FaPlus />
+                      </div>
+                    </button>
                   </div>
                   <StyledButtonsDiv>
                     <StyledCancelButton
