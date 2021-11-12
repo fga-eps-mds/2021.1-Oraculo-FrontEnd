@@ -3,7 +3,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
-import MainButton from "../../Components/MainButton";
 import { federativeUnits } from "../../Constants/federativeUnits";
 
 import {
@@ -185,14 +184,14 @@ const CreateRecord = () => {
                     />
                   </div>
                   <div className="form-div">
-                    <h1>Estado</h1>
+                    <h1>UF</h1>
                     <select
                       required
-                      placeholder="Selecione o estado"
+                      placeholder="Selecione a UF"
                       onChange={(event) => setState(event.target.value)}
                     >
                       <>
-                        <option value="">Selecione o estado</option>
+                        <option value="">Selecione a UF</option>
                         {federativeUnits.map((uf) => (
                           <option value={uf}>{uf}</option>
                         ))}
@@ -215,7 +214,7 @@ const CreateRecord = () => {
                     <input
                       id="documentTypeInput"
                       type="text"
-                      placeholder="Oficio, Despacho ..."
+                      placeholder="Ofício, Despacho ..."
                       onChange={(event) => setDocumentType(event.target.value)}
                       value={documentType}
                     />
@@ -225,7 +224,7 @@ const CreateRecord = () => {
                     <input
                       id="documentNumberInput"
                       type="text"
-                      placeholder="Numero do Documento"
+                      placeholder="Número do Documento"
                       onChange={(event) =>
                         setDocumentNumber(event.target.value)
                       }

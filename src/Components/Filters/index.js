@@ -7,7 +7,7 @@ import { GrFormSearch } from "react-icons/gr";
 
 const recordFields = {
   register_number: {
-    label: "Numero de registro",
+    label: "Número de registro",
     value: "",
     selected: true,
   },
@@ -28,7 +28,7 @@ const recordFields = {
     value: "",
   },
   document_number: {
-    label: "Numero do documento",
+    label: "Número do documento",
     value: "",
   },
   description: {
@@ -36,7 +36,7 @@ const recordFields = {
     value: "",
   },
   sei_number: {
-    label: "Numero do SEI",
+    label: "Número do SEI",
     value: "",
   },
   receipt_form: {
