@@ -15,8 +15,10 @@ import { getInfoUser } from "../../Services/Axios/profileService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
+import AddTagDialog, { TagModal } from "../../Components/AddTagDialog";
 
 import {
+  CircleDiv,
   StyledBlueRectangle,
   StyledButtonsDiv,
   StyledCancelButton,
@@ -41,6 +43,8 @@ const CreateRecord = () => {
   const [receiptForm, setReceiptForm] = useState("");
   const [contactInfo, setContactInfo] = useState("");
   const [createdBy, setCreatedBy] = useState("");
+  const [showTagModal, setShowTagModal] = useState(false);
+  const [tags, setTags] = useState({});
 
   useEffect(() => {
     async function getUser() {
@@ -74,8 +78,11 @@ const CreateRecord = () => {
       receipt_form: receiptForm,
       contact_info: contactInfo,
       created_by: createdBy,
+      tags: Object.entries(tags)
+        .filter(([key, value]) => value.checked)
+        .map(([key, value]) => key),
     };
-
+    console.log(record, "antes");
     // envia request para criar registro no banco
     await createRecord(record, toast);
 
@@ -95,11 +102,17 @@ const CreateRecord = () => {
     <>
       <HeaderWithButtons />
       <div>
+        {showTagModal && (
+          <TagModal
+            onVisibleChanged={setShowTagModal}
+            addTags={setTags}
+            tagsObj={tags}
+          />
+        )}
         <StyledTitle>
           <p>Criar Registro</p>
           <div></div>
         </StyledTitle>
-
         <StyledProcess>
           <StyledProcessDiv>
             <StyledBlueRectangle>
@@ -296,11 +309,21 @@ const CreateRecord = () => {
                   </div>
                   <div className="form-div">
                     <h1>Tags</h1>
-                    <button
-                      type="button"
-                      onClick={() => toast.error("Trabalho em progresso")}
-                    >
-                      <FaPlus />
+                    <button type="button" onClick={() => setShowTagModal(true)}>
+                      <div style={{ display: "flex" }}>
+                        {Object.values(tags).map(
+                          ({ color, checked }) =>
+                            checked && (
+                              <CircleDiv
+                                style={{
+                                  backgroundColor: color,
+                                  marginRight: "0.5rem",
+                                }}
+                              />
+                            )
+                        )}
+                        <FaPlus />
+                      </div>
                     </button>
                   </div>
                   <StyledButtonsDiv>
@@ -317,6 +340,7 @@ const CreateRecord = () => {
             </StyledWhiteRectangle>
           </StyledProcessDiv>
         </StyledProcess>
+
         <Toaster
           toastOptions={{
             duration: 100000,

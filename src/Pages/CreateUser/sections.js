@@ -9,7 +9,6 @@ const SectionsList = (type) => {
     async function fetchDepartments() {
       const departmentsList = await getDepartments();
       setDepartments(departmentsList);
-      console.log("DepList", departmentsList);
     }
 
     fetchDepartments();

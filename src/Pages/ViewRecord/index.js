@@ -23,18 +23,20 @@ import {
   getUserByEmail,
   reopenRecord,
 } from "../../Services/Axios/processService";
+import { getRecordTagColors } from "../../Services/Axios/tagsService";
 import {
   getDepartments,
   getInfoUser,
 } from "../../Services/Axios/profileService";
 import { useParams } from "react-router";
 import { ModalDoubleCheck } from "../../Components/ModalDoubleCheck";
+import { TagsList } from "./tags";
 import { ModalReopenProcess } from "../../Components/ModalDoubleCheck";
 
 const ViewRecord = () => {
   const naoCadastrada = "Informação não cadastrada";
   const { id } = useParams();
-  const [sector, setSector] = useState("criminal");
+  const [sector, setSector] = useState("");
   const [forward, setForward] = useState([]);
   const [forwardData, setForwardData] = useState("");
 
@@ -52,6 +54,7 @@ const ViewRecord = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userSectorNum, setUserSectorNum] = useState("");
+  const [tags, setTags] = useState([]);
   const [reason, setReason] = useState("");
 
   const [buttonModalConfirmForward, setButtonModalConfirmForward] =
@@ -64,6 +67,7 @@ const ViewRecord = () => {
     async function fetchRecordData() {
       // get all records data by process by id
       const record = await getProcessByID(id, toast);
+
       setRegisterNumber(record.register_number);
       setSeiNumber(record.sei_number);
       setDocumentDate(record.document_date);
@@ -78,13 +82,11 @@ const ViewRecord = () => {
       setDocumentType(record.document_type);
 
       const user = await getInfoUser(toast);
-      console.log(user, "teste");
       setUserName(user.name);
       setUserEmail(user.email);
       setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
-      console.log("responseHR", responseHR);
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
@@ -96,6 +98,15 @@ const ViewRecord = () => {
         document.querySelector(".forwardIcon").style.display = "none";
       }
     }
+
+    async function fetchTagsData() {
+      const [httpCode, recordTags] = await getRecordTagColors(id);
+      if (httpCode === 200 && recordTags.length > 0) {
+        setTags(recordTags);
+      }
+    }
+
+    fetchTagsData();
     fetchRecordData();
   }, [buttonModalConfirmForward]);
 
@@ -222,9 +233,7 @@ const ViewRecord = () => {
       const infoUser = await getUserByEmail(email);
       const destinationID = response.destination_id;
       const originSecID = response.origin_id;
-      console.log("originsecid", originSecID);
       const allDepartments2 = await getDepartments();
-      console.log("Allsec", allDepartments2);
 
       const destinationSection = allDepartments2.filter((indice) => {
         return indice.id === destinationID;
@@ -270,7 +279,6 @@ const ViewRecord = () => {
       };
     } else {
       const infoUser = await getUserByEmail(response.created_by);
-      console.log("info user", infoUser);
       const createDate = formatedDate(response.created_at);
       newForward = {
         setor: " ",
@@ -378,9 +386,7 @@ const ViewRecord = () => {
           </div>
           <span>Tags:</span>
           <div className="tagsTest">
-            <span></span>
-            <span></span>
-            <span></span>
+            <TagsList id={id} />
           </div>
 
           <a className="historic" href="/historico-registro">

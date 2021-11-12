@@ -30,7 +30,6 @@ class LoginScreen extends React.Component {
     // Checks if the local storage has a token
     if (isAuthenticated()) {
       const token = getToken();
-      console.log("Token =>", token);
       const decoded = jwt_decode(token);
       let expTime = decoded.exp * 1000;
       expTime = new Date(expTime);

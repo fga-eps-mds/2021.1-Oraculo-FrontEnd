@@ -9,7 +9,6 @@ const DropDownButton = ({ onChangeOpt }) => {
     async function fetchSections() {
       const sectionsList = await getDepartments();
       setSections(sectionsList);
-      console.log("SecList", sectionsList);
     }
 
     fetchSections();

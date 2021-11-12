@@ -26,7 +26,6 @@ const EditDepartment = () => {
     const allDepart = await getDepartments();
 
     for (const element of allDepart) {
-      console.log(element);
       if (element.id == id) {
         setDepartment(element.name);
         break;

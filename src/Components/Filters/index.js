@@ -67,6 +67,10 @@ const recordFields = {
     label: "Data",
     value: "",
   },
+  tag: {
+    label: "Tag",
+    value: "",
+  },
 };
 
 const RenderFilters = ({ handleWhere }) => {

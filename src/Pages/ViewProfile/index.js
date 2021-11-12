@@ -34,7 +34,6 @@ const ViewProfile = () => {
       changeUser(toast, name, email, 0, departmentID);
     }
     const user = await getInfoUser(toast);
-    console.log("Usuário atualizado", user);
     setName(user.name);
     setEmail(user.email);
     setDepartmentID(user.departments[user.departments.length - 1].id);
@@ -50,7 +49,6 @@ const ViewProfile = () => {
       setDepartmentName(user.departments[0].name);
       setLevel(parseInt(user.levels[0].id));
       setAdmin(level === userType.admin ? true : false);
-      console.log("Dados do Usuário", user);
     }
     fetchUserData();
   }, [isAdmin]);
@@ -91,13 +89,9 @@ const ViewProfile = () => {
                   <h1>Departamento</h1>
                   <select
                     required
-                    onChange={(event) => (
-                      setDepartmentID(parseInt(event.target.value)),
-                      console.log(
-                        "Departamento Selecionado:",
-                        event.target.value
-                      )
-                    )}
+                    onChange={(event) =>
+                      setDepartmentID(parseInt(event.target.value))
+                    }
                   >
                     <option selected>Dep. Atual - {departmentName}</option>
                     <SectionsList type={"departmens"} />

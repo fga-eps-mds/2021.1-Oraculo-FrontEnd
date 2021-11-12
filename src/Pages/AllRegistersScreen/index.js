@@ -43,9 +43,7 @@ const AllRegistersScreen = () => {
 
   useEffect(() => {
     const fetchProcess = async () => {
-      console.log(currentPage);
       const temp = await getProcessByPage(currentPage, toast, { where });
-      console.log(temp);
       setProcess(temp);
     };
     fetchProcess();

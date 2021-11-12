@@ -31,8 +31,6 @@ export async function getProcessByID(ID, toast) {
 
 export async function fowardRegisterDep(section_id, id, toast) {
   try {
-    console.log(id);
-    console.log(section_id);
     await APIProcess.post(`/records/${id}/forward`, {
       section_id: section_id,
     });
@@ -83,7 +81,6 @@ export async function getProcessTotalNumber(toast) {
 
 export async function createRecord(recordInfo, toast) {
   try {
-    console.log(recordInfo);
     const record = await APIProcess.post("/records", recordInfo);
     toast((t) => (
       <span style={{ textAlign: "center" }}>
@@ -95,7 +92,7 @@ export async function createRecord(recordInfo, toast) {
         ></GenericBlueButton>
       </span>
     ));
-
+    console.log(record, "depois");
     return record.data;
   } catch (err) {
     const status = err.response?.status;
@@ -111,7 +108,6 @@ export async function createRecord(recordInfo, toast) {
 export async function getAllFields(toast) {
   try {
     const response = await APIProcess.get("/records/fields");
-    console.log(response.data);
     return response.data;
   } catch (error) {
     toast.error(erroTotal);
@@ -122,7 +118,6 @@ export async function getAllFields(toast) {
 export async function getAllDepartmentRecords(toast, id) {
   try {
     const response = await APIProcess.get("/records/department/" + id);
-    console.log(response.data, "hm");
     return response.data;
   } catch (error) {
     toast.error(erroTotal);
@@ -235,11 +230,9 @@ export async function getUserByEmail(email) {
 
 export async function findRecordWithSei(seiNumber) {
   try {
-    console.log(seiNumber);
     const response = await APIProcess.post(`/records/with-sei`, {
       sei_number: seiNumber,
     });
-    console.log(response);
     return [response.data, response.status];
   } catch (err) {
     const statusCode = err.response?.status;
@@ -247,11 +240,40 @@ export async function findRecordWithSei(seiNumber) {
   }
 }
 
-export async function listAllTags(toast) {
+export async function createTag(name, color, toast) {
   try {
-    const response = await APIProcess.get("/tags/all", {});
+    const response = await APIProcess.post(`/tag/new`, {
+      name: name,
+      color: color,
+    });
+    toast.success("Tag criada com sucesso", { duration: 3000 });
     return response.data;
-  } catch (err) {
-    toast.error("Erro ao buscar tags!");
+  } catch (error) {
+    toast.error("Tag não foi criada, tente novamente mais tarde");
+    return error;
+  }
+}
+
+export async function getAllTags() {
+  try {
+    const response = await APIProcess.get(`/tags/all`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function editTag(id, name, color, toast) {
+  try {
+    const response = await APIProcess.post(`/tag/${id}/edit`, {
+      name: name,
+      color: color,
+    });
+    toast.success("Tag editada com sucesso", { duration: 3000 });
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível editar esta tag, tente novamente mais tarde");
+    return error;
   }
 }
