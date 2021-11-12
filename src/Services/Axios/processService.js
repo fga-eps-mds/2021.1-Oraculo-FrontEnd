@@ -208,7 +208,7 @@ export async function closeRecord(infoRecord) {
 
 export async function reopenRecord(infoRecord) {
   try {
-    const response = await APIProcess.post(`/records/${infoRecord.id}/reopen`, {
+    await APIProcess.post(`/records/${infoRecord.id}/reopen`, {
       reopened_by: infoRecord.reopened_by,
       reason: infoRecord.reason,
     });
@@ -227,6 +227,7 @@ export async function getUserByEmail(email) {
     return error;
   }
 }
+
 export async function findRecordWithSei(seiNumber) {
   try {
     const response = await APIProcess.post(`/records/with-sei`, {

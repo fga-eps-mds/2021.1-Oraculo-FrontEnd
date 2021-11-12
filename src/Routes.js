@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
-import { hasToken, isAuthenticated, tokenExpired } from "./Auth/Auth";
+import { Toaster } from "react-hot-toast";
+import { isAuthenticated} from "./Auth/Auth";
 import CreateRecord from "./Pages/CreateRecord";
 import LoginScreen from "./Pages/LoginScreen";
 import ViewProfile from "./Pages/ViewProfile";
@@ -17,7 +17,7 @@ import CreateDepartment from "./Pages/CreateDepartment";
 import ViewAllUsers from "./Pages/ViewAllUsers";
 import EditRecord from "./Pages/EditRecord";
 import EditDepartment from "./Pages/EditDepartment";
-import GenericBlueButton from "./Components/GenericBlueButton";
+import ViewAllTags from "./Pages/ViewAllTags";
 
 const PrivateRoutes = ({ component: Component, ...prop }) => (
   <Route
@@ -67,6 +67,7 @@ const Routes = () => (
         path="/editar-departamento/:id"
         component={() => <EditDepartment />}
       />
+      <PrivateRoutes path="/visualizar-tags" component={() => <ViewAllTags />} />
       <Route exact path="/" component={() => <LoginScreen />} />
     </Switch>
   </BrowserRouter>
