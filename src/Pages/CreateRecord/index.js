@@ -5,6 +5,7 @@ import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
 import { federativeUnits } from "../../Constants/federativeUnits";
+
 import {
   createRecord,
   findRecordWithSei,
@@ -99,9 +100,7 @@ const CreateRecord = () => {
       <div>
         <StyledTitle>
           <p>Criar Registro</p>
-          <div>
-            <MainButton title={"Adicionar Campo"} />
-          </div>
+          <div></div>
         </StyledTitle>
 
         <StyledProcess>
