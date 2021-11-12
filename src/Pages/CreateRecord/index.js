@@ -3,6 +3,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
+import MainButton from "../../Components/MainButton";
+import { federativeUnits } from "../../Constants/federativeUnits";
+
 import {
   createRecord,
   findRecordWithSei,
@@ -48,6 +51,7 @@ const CreateRecord = () => {
       }
       setCreatedBy(user.email);
     }
+
     getUser();
   }, []);
 
@@ -182,14 +186,18 @@ const CreateRecord = () => {
                   </div>
                   <div className="form-div">
                     <h1>Estado</h1>
-                    <input
-                      id="stateInput"
-                      type="text"
-                      placeholder="Estado (Obrigatório)"
+                    <select
                       required
+                      placeholder="Selecione o estado"
                       onChange={(event) => setState(event.target.value)}
-                      value={state}
-                    />
+                    >
+                      <>
+                        <option value="">Selecione o estado</option>
+                        {federativeUnits.map((uf) => (
+                          <option value={uf}>{uf}</option>
+                        ))}
+                      </>
+                    </select>
                   </div>
                   <div className="form-div">
                     <h1>Solicitante</h1>

@@ -10,6 +10,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt from "date-fns/locale/pt-BR";
+import { federativeUnits } from "../../Constants/federativeUnits";
 import { useParams } from "react-router";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import {
@@ -138,14 +139,19 @@ const EditRecord = () => {
                   </div>
                   <div class="form-div">
                     <h1>Estado</h1>
-                    <input
-                      required
+                    <select
                       id="stateInput"
-                      type="text"
-                      placeholder="Estado (Obrigatório)"
+                      required
+                      placeholder="Selecione o estado"
                       onChange={(event) => setState(event.target.value)}
-                      value={state}
-                    />
+                    >
+                      <>
+                        <option selected>{state}</option>
+                        {federativeUnits.map((uf) => (
+                          <option value={uf}>{uf}</option>
+                        ))}
+                      </>
+                    </select>
                   </div>
                   <div class="form-div">
                     <h1>Solicitante</h1>
