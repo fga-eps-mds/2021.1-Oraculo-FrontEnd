@@ -35,7 +35,6 @@ const ViewProfile = () => {
       level: isAdmin,
       password: password,
     };
-    console.log("USER", user);
 
     // Register User to Profile
     registerUser(user, toast);

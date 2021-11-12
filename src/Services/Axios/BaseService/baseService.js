@@ -1,5 +1,9 @@
 import axios from "axios";
-import { BaseUrlProcess, BaseUrlProfile, BaseUrlTags } from "../../../Constants/baseUrls";
+import {
+  BaseUrlProcess,
+  BaseUrlProfile,
+  BaseUrlTags,
+} from "../../../Constants/baseUrls";
 
 export const APIProcess = axios.create({
   baseURL: BaseUrlProcess,
@@ -23,7 +27,7 @@ APIProcess.interceptors.response.use(
 APITags.interceptors.response.use(
   async (response) => {
     const status = await response.status;
-    console.log(`status: ${status}`);
+    console.log("status:", status);
     return response;
   },
   (error) => {
