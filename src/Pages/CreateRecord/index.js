@@ -244,6 +244,7 @@ const CreateRecord = () => {
                     disabledKeyboardNavigation
                     dateFormat="dd/MM/yyyy"
                     strictParsing
+                    maxDate={new Date()}
                     onChange={(date) => {
                       setDocumentDate(date);
                     }}
