@@ -5,7 +5,7 @@ import {
   StyledDivShowProcess,
   StyledDivSupProcess,
   StyledDivButtons,
-  StyledInfoSection,
+  StyledInfoDiv,
 } from "./style";
 import { FaUserCircle, FaTelegramPlane, FaPen } from "react-icons/fa";
 import DropDownButton from "../../Components/DropDownButton";
@@ -120,11 +120,10 @@ const ViewRecord = () => {
     if (reason) {
       //setting data of who reopened the record
       const infoRecord = {
-
         id: id,
         reopened_by: userEmail,
         reason: reason,
-      }
+      };
 
       //send request to reopen the record
       await reopenRecord(infoRecord);
@@ -150,8 +149,7 @@ const ViewRecord = () => {
       document.querySelector(".forwardIcon").style.display = "flex";
       setForwardData(infoRecord);
     } else toast.error("É obrigatorio inserir o motivo");
-
-  }
+  };
 
   const handleForward = async () => {
     setButtonModalConfirmForward(true);
@@ -175,7 +173,6 @@ const ViewRecord = () => {
   };
 
   const handleClickModalBlue = async () => {
-
     //setting data of who forwarded the record
     const infoRecord = {
       id: id,
@@ -257,8 +254,8 @@ const ViewRecord = () => {
         date: dateDoneReg,
         dateForward: " ",
         name: infoUserDone.name,
-      }
-    }else if (response.reopened_by != null) {
+      };
+    } else if (response.reopened_by != null) {
       const dateReopenReg = formatedDate(response.reopened_at);
       const infoUserDone = await getUserByEmail(response.reopened_by);
       newForward = {
@@ -270,7 +267,7 @@ const ViewRecord = () => {
         date: dateReopenReg,
         dateForward: " ",
         name: infoUserDone.name,
-      }
+      };
     } else {
       const infoUser = await getUserByEmail(response.created_by);
       console.log("info user", infoUser);
@@ -297,7 +294,7 @@ const ViewRecord = () => {
       <HeaderWithButtons />
       <StyledDivSupProcess>
         <StyledDivShowProcess>
-          <StyledInfoSection>
+          <StyledInfoDiv>
             <div>
               <h2>Nº do registro:&nbsp;</h2>
               <h2>{registerNumber ? registerNumber : "Erro"}</h2>
@@ -307,10 +304,7 @@ const ViewRecord = () => {
                 class="info-icon"
               />
             </div>
-            <div>
-              <h3>Descrição:&nbsp;</h3>
-              <h3>{description ? description : "Erro"}</h3>
-            </div>
+
             <div>
               <h3>Localidade:&nbsp;</h3>
               <h3>{city ? city : "Erro"}</h3>
@@ -347,7 +341,11 @@ const ViewRecord = () => {
                 {documentContactInfo ? documentContactInfo : naoCadastrada}
               </h3>
             </div>
-          </StyledInfoSection>
+            <div class="description">
+              <h3>Descrição:&nbsp;</h3>
+              <h3>{description ? description : "Erro"}</h3>
+            </div>
+          </StyledInfoDiv>
           <ForwardSector forward={forward} />
 
           <StyledDivButtons>
@@ -405,7 +403,7 @@ const ViewRecord = () => {
           onClickBlueButton={handleClickModalConfirmForward}
           onClickWhiteButton={handleClickModalWhite}
         />
-         <ModalReopenProcess
+        <ModalReopenProcess
           trigger={buttonModalReopen}
           titleBlueButton="Reabrir"
           titleWhiteButton="Cancelar"

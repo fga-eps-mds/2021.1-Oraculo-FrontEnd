@@ -165,7 +165,7 @@ const EditRecord = () => {
                     />
                   </div>
                   <div class="form-div">
-                    <h1>Tido de documento</h1>
+                    <h1>Tipo de documento</h1>
                     <input
                       required
                       id="documentTypeInput"

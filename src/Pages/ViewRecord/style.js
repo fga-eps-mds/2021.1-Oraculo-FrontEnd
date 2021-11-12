@@ -130,7 +130,7 @@ const StyledDivButtons = styled.div`
   }
 `;
 
-const StyledInfoSection = styled.section`
+const StyledInfoDiv = styled.div`
   width: 98%;
   background: ${colors.white};
   border-radius: ${radius.sizeMd};
@@ -141,6 +141,21 @@ const StyledInfoSection = styled.section`
   display: flex;
   flex-direction: column;
 
+  .description {
+    flex-direction: column;
+    max-height: none;
+
+    h3:nth-child(2) {
+      margin-top: 0;
+      border: 1px solid black;
+      padding: 4px 0 4px 8px;
+      border-radius: 8px;
+      text-transform: none;
+      line-height: 1.5;
+      font-weight: 30;
+    }
+  }
+
   .info-icon {
     margin: 1rem 0 0 auto;
     cursor: pointer;
@@ -149,7 +164,11 @@ const StyledInfoSection = styled.section`
   div {
     display: flex;
     margin: 0 2rem 0 2rem;
-    line-height: 0;
+    line-height: 1.25;
+
+    h3:not(:first-child) {
+      font-weight: 30;
+    }
   }
 
   h2 {
@@ -171,5 +190,5 @@ export {
   StyledDivShowProcess,
   StyledDivSupProcess,
   StyledDivButtons,
-  StyledInfoSection,
+  StyledInfoDiv,
 };
