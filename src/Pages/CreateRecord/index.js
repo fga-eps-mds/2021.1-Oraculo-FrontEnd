@@ -4,7 +4,10 @@ import { FaPlus, FaRegFileAlt } from "react-icons/fa";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import { history } from "../../history";
 import MainButton from "../../Components/MainButton";
-import { createRecord, findRecordWithSei } from "../../Services/Axios/processService";
+import {
+  createRecord,
+  findRecordWithSei,
+} from "../../Services/Axios/processService";
 import GenericBlueButton from "../../Components/GenericBlueButton";
 import GenericRedButton from "../../Components/GenericRedButton";
 import { getInfoUser } from "../../Services/Axios/profileService";
@@ -14,6 +17,7 @@ import pt from "date-fns/locale/pt-BR";
 import AddTagDialog, { TagModal } from "../../Components/AddTagDialog";
 
 import {
+  CircleDiv,
   StyledBlueRectangle,
   StyledButtonsDiv,
   StyledCancelButton,
@@ -39,6 +43,7 @@ const CreateRecord = () => {
   const [contactInfo, setContactInfo] = useState("");
   const [createdBy, setCreatedBy] = useState("");
   const [showTagModal, setShowTagModal] = useState(false);
+  const [tags, setTags] = useState({});
 
   useEffect(() => {
     async function getUser() {
@@ -92,7 +97,13 @@ const CreateRecord = () => {
     <>
       <HeaderWithButtons />
       <div>
-        {showTagModal && <TagModal onVisibleChanged={setShowTagModal} />}
+        {showTagModal && (
+          <TagModal
+            onVisibleChanged={setShowTagModal}
+            addTags={setTags}
+            tagsObj={tags}
+          />
+        )}
         <StyledTitle>
           <p>Criar Registro</p>
           <div>
@@ -137,7 +148,9 @@ const CreateRecord = () => {
                       const [data, status] = await checkRecordSei(seiNumber);
 
                       if (status === 400) {
-                        toast.error("Erro ao buscar número do sei no banco de dados");
+                        toast.error(
+                          "Erro ao buscar número do sei no banco de dados"
+                        );
                         return;
                       }
                       console.error(`info ${data}, ${status}`);
@@ -218,7 +231,9 @@ const CreateRecord = () => {
                       id="documentNumberInput"
                       type="text"
                       placeholder="Numero do Documento"
-                      onChange={(event) => setDocumentNumber(event.target.value)}
+                      onChange={(event) =>
+                        setDocumentNumber(event.target.value)
+                      }
                       value={documentNumber}
                     />
                   </div>
@@ -247,7 +262,9 @@ const CreateRecord = () => {
                       type="text"
                       placeholder="Ex: Solicita antecedentes ... (Obrigatório)"
                       required
-                      onChange={(event) => setDocumentDescription(event.target.value)}
+                      onChange={(event) =>
+                        setDocumentDescription(event.target.value)
+                      }
                       value={documentDescription}
                     />
                   </div>
@@ -285,7 +302,20 @@ const CreateRecord = () => {
                   <div className="form-div">
                     <h1>Tags</h1>
                     <button type="button" onClick={() => setShowTagModal(true)}>
-                      <FaPlus />
+                      <div style={{ display: "flex" }}>
+                        {Object.values(tags).map(
+                          ({ color, checked }) =>
+                            checked && (
+                              <CircleDiv
+                                style={{
+                                  backgroundColor: color,
+                                  marginRight: "0.5rem",
+                                }}
+                              />
+                            )
+                        )}
+                        <FaPlus />
+                      </div>
                     </button>
                   </div>
                   <StyledButtonsDiv>

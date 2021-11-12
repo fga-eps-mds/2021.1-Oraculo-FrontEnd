@@ -34,7 +34,7 @@ const modalStyle = {
   },
 };
 
-const TagModal = ({ onVisibleChanged }) => {
+const TagModal = ({ onVisibleChanged, addTags, tagsObj }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [allTags, setAllTags] = useState([]);
   const [isAdmin, setAdmin] = useState(false);
@@ -44,7 +44,6 @@ const TagModal = ({ onVisibleChanged }) => {
   const [editColor, setEditColor] = useState("");
   const [editNameTag, setEditNameTag] = useState("");
   const [editId, setEditId] = useState();
-  const [tagArray, setTagArray] = useState({});
 
   const [allModal, setAllModal] = useState(true);
   const [createModal, setCreateModal] = useState(false);
@@ -144,13 +143,16 @@ const TagModal = ({ onVisibleChanged }) => {
             {allTags.map((val) => (
               <div className="checkBoxDiv" key={val.id}>
                 <Checkbox
-                  checked={tagArray[val.id] || false}
+                  checked={tagsObj[val.id]?.checked || false}
                   onClick={() => {
-                    setTagArray((prev) => ({
+                    addTags((prev) => ({
                       ...prev,
-                      [val.id]: !(tagArray[val.id] || false),
+                      [val.id]: {
+                        checked: !(tagsObj[val.id]?.checked || false),
+                        color: val.color,
+                      },
                     }));
-                    console.log(tagArray);
+                    console.log(tagsObj);
                   }}
                 />
                 <CircleColor style={{ backgroundColor: val.color }} />
@@ -167,11 +169,7 @@ const TagModal = ({ onVisibleChanged }) => {
             ))}
           </TagList>
           <div className="endOfPageDiv">
-            <GenericWhiteButton title="Cancelar" onClick={closeModal} />
-            <GenericBlueButton
-              title="Adicionar"
-              onClick={() => console.log(tagArray)}
-            />
+            <GenericWhiteButton title="Fechar" onClick={closeModal} />
           </div>
         </StyledAlertDialog>
       </Modal>
