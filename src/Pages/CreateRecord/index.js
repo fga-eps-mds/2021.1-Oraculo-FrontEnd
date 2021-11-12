@@ -51,6 +51,7 @@ const CreateRecord = () => {
       }
       setCreatedBy(user.email);
     }
+
     getUser();
   }, []);
 
