@@ -78,13 +78,11 @@ const ViewRecord = () => {
       setDocumentType(record.document_type);
 
       const user = await getInfoUser(toast);
-      console.log(user, "teste");
       setUserName(user.name);
       setUserEmail(user.email);
       setUserSectorNum(user.departments[0].id);
 
       const responseHR = await getRecordHistory(toast, id);
-      console.log("responseHR", responseHR);
       const arrInfoForward = await Promise.all(
         responseHR.map((post) => previousForward(post))
       );
@@ -222,9 +220,7 @@ const ViewRecord = () => {
       const infoUser = await getUserByEmail(email);
       const destinationID = response.destination_id;
       const originSecID = response.origin_id;
-      console.log("originsecid", originSecID);
       const allDepartments2 = await getDepartments();
-      console.log("Allsec", allDepartments2);
 
       const destinationSection = allDepartments2.filter((indice) => {
         return indice.id === destinationID;
@@ -270,7 +266,6 @@ const ViewRecord = () => {
       };
     } else {
       const infoUser = await getUserByEmail(response.created_by);
-      console.log("info user", infoUser);
       const createDate = formatedDate(response.created_at);
       newForward = {
         setor: " ",
