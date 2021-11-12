@@ -63,6 +63,11 @@ const HeaderWithButtons = () => {
     window.location.reload();
   }
 
+  function handleSeeAllTags() {
+    history.push("/visualizar-tags");
+    window.location.reload();
+  }
+
   const [nameUser, setName] = useState("-");
 
   async function fetchUserData() {
@@ -110,7 +115,7 @@ const HeaderWithButtons = () => {
               <div>
                 <button onClick={handleCreateUser}>Criar Usuário</button>
                 <button onClick={handleSeeDepartment}>Ver Departamentos</button>
-                <button>Tag</button>
+                <button onClick={handleSeeAllTags}>Tag</button>
                 <button onClick={handleSeeAllFields}>Campos</button>
                 <button onClick={handleSeeAllUsers}>Listar Usuários</button>
               </div>
