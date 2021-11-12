@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import HeaderWithButtons from "../../Components/HeaderWithButtons";
 import toast, { Toaster } from "react-hot-toast";
-import { history } from "../../history";
 import {
   StyledTitle,
   StyledBottom,
@@ -18,18 +17,27 @@ import { GrFormSearch } from "react-icons/gr";
 import { StyledSearchBar } from "../HomePage/styles";
 
 const ViewAllTags = () => {
-  const [tags, setTags] = useState([]);
+  const [tags, setAllTags] = useState([]);
   /* Estado para termo de procura */
   const [searchTerm, setSearchTerm] = useState("");
 
-  const receiveTags = async () => {
-    setTags(await getAllTags(toast));
-  };
+  async function fetchTags() {
+    try {
+      const tags = await getAllTags();
+      if (tags !== undefined) {
+        //set tags
+        // only if tags are not undefined
+        setAllTags(tags.data);
+      }
+    } catch (err) {
+      console.log("Erro ao carregar as tags!", err);
+    }
+  }
 
   console.log("A"+tags);
 
   window.onload = function () {
-    receiveTags();
+    fetchTags();
   };
 
   return (
