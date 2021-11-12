@@ -46,10 +46,13 @@ const HomePage = (props) => {
     //Set the name of user's department
     setDepartment(user.departments[0].name);
 
-    const temp = await getProcessByPage(currentPage, toast, { department_id: user.departments[0].id, where });
+    const temp = await getProcessByPage(currentPage, toast, {
+      department_id: user.departments[0].id,
+      where,
+    });
     setProcess(temp);
   };
-  
+
   useEffect(() => {
     fetchProcess();
   }, [currentPage, admin, where]);
@@ -75,8 +78,8 @@ const HomePage = (props) => {
           <StyledBigButton>Solicitante</StyledBigButton>
           <StyledBigButton>Inclusão</StyledBigButton>
           <StyledBigButton>Nº do SEI</StyledBigButton>
-          <StyledBigButton>Tags</StyledBigButton>
-          <StyledBigButton>...</StyledBigButton>
+          <StyledBigButton>Tag</StyledBigButton>
+          <StyledBigButton />
         </StyledOrganizeButtons>
         {/* fazer registro atualizar com SearchTerm */}
         {process.length > 0 ? (

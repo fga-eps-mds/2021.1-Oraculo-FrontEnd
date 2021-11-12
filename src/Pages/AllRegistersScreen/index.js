@@ -79,7 +79,7 @@ const AllRegistersScreen = () => {
           <StyledBigButton>Inclusão</StyledBigButton>
           <StyledBigButton>Nº do SEI</StyledBigButton>
           <StyledBigButton>Tag</StyledBigButton>
-          <StyledBigButton>...</StyledBigButton>
+          <StyledBigButton />
         </StyledOrganizeButtons>
         {/* Procurar registros com base no termo procurado*/}
         {process ? (
