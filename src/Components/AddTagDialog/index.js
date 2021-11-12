@@ -44,6 +44,7 @@ const TagModal = ({ onVisibleChanged }) => {
   const [editColor, setEditColor] = useState("");
   const [editNameTag, setEditNameTag] = useState("");
   const [editId, setEditId] = useState();
+  const [tagArray, setTagArray] = useState({});
 
   const [allModal, setAllModal] = useState(true);
   const [createModal, setCreateModal] = useState(false);
@@ -85,9 +86,33 @@ const TagModal = ({ onVisibleChanged }) => {
     onVisibleChanged(false);
   }
 
+  //Function to send the information
+  //to edit a tag
+  function sendEditTag(val) {
+    setEditId(val.id);
+    setEditNameTag(val.name);
+    setEditColor(val.color);
+    setEditModal(true);
+    setAllModal(false);
+  }
+
+  //function to return to all tag modal
+  function returnEditFunction() {
+    setEditId();
+    setEditNameTag("");
+    setEditColor("");
+    setEditModal(false);
+    setAllModal(true);
+  }
+
+  //function to edit a tag
+  function editTagFunction() {
+    editTag(editId, editNameTag, editColor, toast);
+  }
+
   useEffect(() => {
     fetchUserData();
-  }, [color, editColor]);
+  }, [color, editModal]);
 
   return (
     <div>
@@ -118,17 +143,22 @@ const TagModal = ({ onVisibleChanged }) => {
           <TagList>
             {allTags.map((val) => (
               <div className="checkBoxDiv" key={val.id}>
-                <Checkbox />
+                <Checkbox
+                  checked={tagArray[val.id] || false}
+                  onClick={() => {
+                    setTagArray((prev) => ({
+                      ...prev,
+                      [val.id]: !(tagArray[val.id] || false),
+                    }));
+                    console.log(tagArray);
+                  }}
+                />
                 <CircleColor style={{ backgroundColor: val.color }} />
                 <p>{val.name}</p>
                 <a>
                   <FaPen
                     onClick={() => {
-                      setEditId(val.id);
-                      setEditNameTag(val.name);
-                      setEditColor(val.color);
-                      setEditModal(true);
-                      setAllModal(false);
+                      sendEditTag(val);
                     }}
                     size="2rem"
                   />
@@ -138,7 +168,10 @@ const TagModal = ({ onVisibleChanged }) => {
           </TagList>
           <div className="endOfPageDiv">
             <GenericWhiteButton title="Cancelar" onClick={closeModal} />
-            <GenericBlueButton title="Adicionar" />
+            <GenericBlueButton
+              title="Adicionar"
+              onClick={() => console.log(tagArray)}
+            />
           </div>
         </StyledAlertDialog>
       </Modal>
@@ -225,20 +258,13 @@ const TagModal = ({ onVisibleChanged }) => {
             <GenericWhiteButton
               title="Cancelar"
               onClick={() => {
-                setEditId();
-                setEditNameTag("");
-                setEditColor("");
-                setEditModal(false);
-                setAllModal(true);
+                returnEditFunction();
               }}
             />
             <GenericBlueButton
               title="Editar"
               onClick={() => {
-                editTag(editId, editNameTag, editColor, toast);
-                setEditId();
-                setEditNameTag("");
-                setEditColor("");
+                editTagFunction();
               }}
             />
           </div>
