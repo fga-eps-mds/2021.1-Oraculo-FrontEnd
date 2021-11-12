@@ -11,7 +11,11 @@ import GenericBlueButton from "../GenericBlueButton";
 import GenericWhiteButton from "../GenericWhiteButton";
 import { Checkbox } from "antd";
 import { FaPen } from "react-icons/fa";
-import { createTag, getAllTags } from "../../Services/Axios/processService";
+import {
+  createTag,
+  editTag,
+  getAllTags,
+} from "../../Services/Axios/processService";
 import { getInfoUser } from "../../Services/Axios/profileService";
 import toast from "react-hot-toast";
 import { ChromePicker } from "react-color";
@@ -83,7 +87,7 @@ const TagModal = ({ onVisibleChanged }) => {
 
   useEffect(() => {
     fetchUserData();
-  }, [color]);
+  }, [color, editColor]);
 
   return (
     <div>
@@ -228,7 +232,15 @@ const TagModal = ({ onVisibleChanged }) => {
                 setAllModal(true);
               }}
             />
-            <GenericBlueButton title="Editar" onClick={() => {}} />
+            <GenericBlueButton
+              title="Editar"
+              onClick={() => {
+                editTag(editId, editNameTag, editColor, toast);
+                setEditId();
+                setEditNameTag("");
+                setEditColor("");
+              }}
+            />
           </div>
         </StyledCreateTag>
       </Modal>

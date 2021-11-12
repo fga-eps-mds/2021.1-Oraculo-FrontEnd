@@ -269,3 +269,17 @@ export async function getAllTags() {
     return error;
   }
 }
+
+export async function editTag(id, name, color, toast) {
+  try {
+    const response = await APIProcess.post(`/tag/${id}/edit`, {
+      name: name,
+      color: color,
+    });
+    toast.success("Tag editada com sucesso", { duration: 3000 });
+    return response.data;
+  } catch (error) {
+    toast.error("Não foi possível editar esta tag, tente novamente mais tarde");
+    return error;
+  }
+}
