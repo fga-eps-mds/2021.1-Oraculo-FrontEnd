@@ -90,6 +90,25 @@ export const StyledForms = styled.div`
           opacity: 0.7;
         }
       }
+      select {
+        width: 72%;
+        height: 2rem;
+        background: ${colors.white};
+        padding-left: 0.5rem;
+
+        border-radius: ${radius.sizeSm};
+        border: 2px solid ${colors.black};
+        outline: none;
+        cursor: pointer;
+        ::placeholder {
+          font-family: Open Sans;
+          font-style: normal;
+          font-weight: normal;
+          font-size: ${fonts.sizeLg};
+          line-height: 33px;
+          opacity: 0.7;
+        }
+      }
 
       button {
         width: 72%;
