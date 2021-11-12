@@ -200,6 +200,7 @@ const EditRecord = () => {
                     placeholderText="dd/mm/aaaa"
                     strictParsing
                     dateFormat="dd/MM/yyyy"
+                    maxDate={new Date()}
                     onChange={(event) => {
                       setDocumentDate(event);
                     }}
