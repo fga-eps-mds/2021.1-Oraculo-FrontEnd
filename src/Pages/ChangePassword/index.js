@@ -11,7 +11,7 @@ const ChangePassword = () => {
   const [isRevealPassword, setIsRevealPassword] = useState(false);
   const [isRevealConfirmPassword, setIsRevealConfirmPassword] = useState(false);
 
-  async function handleClick(event) {
+  async function handleClick() {
     password === confirmPassword
       ? await changeUserPassword(toast, password)
       : toast.error("As senhas devem ser iguais!");
