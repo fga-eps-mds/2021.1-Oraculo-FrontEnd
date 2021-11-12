@@ -39,24 +39,42 @@ export const FormLogin = styled.div`
       width: 100%;
       justify-content: center;
     }
-
-    input {
+    .input-div {
+      border: 2px solid #000000;
+      border-radius: 12px;
       width: 22rem;
       height: 2rem;
-      background: #ffffff;
-      padding-left: 0.5rem;
-
-      border-radius: 12px;
-      border: 2px solid #000000;
       outline: none;
+      background: #ffffff;
+      display: flex;
 
-      ::placeholder {
-        font-family: Open Sans;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 33px;
-        opacity: 0.7;
+      input {
+        width: 90%;
+        height: 100%;
+        padding-left: 0.5rem;
+        background: transparent;
+        border: 0;
+        line-height: 0;
+        justify-content: center;
+        align-items: center;
+        box-shadow: none;
+        :focus {
+          outline: none;
+        }
+
+        ::placeholder {
+          font-family: Open Sans;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 20px;
+          line-height: 33px;
+          opacity: 0.7;
+        }
+      }
+      .input-icon {
+        width: 10%;
+        justify-content: center;
+        align-self: center;
       }
     }
   }
