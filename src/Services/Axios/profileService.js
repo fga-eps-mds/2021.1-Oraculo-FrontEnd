@@ -141,7 +141,7 @@ export async function getInfoUserbyID() {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log("Não foi possível acessar informações do usuário", error);
     return error;
   }
 }
