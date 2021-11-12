@@ -51,9 +51,6 @@ const CreateRecord = () => {
       setCreatedBy(user.email);
     }
     getUser();
-    federativeUnits.map((uf) => {
-      console.log(uf);
-    });
   }, []);
 
   async function checkRecordSei(sei) {
