@@ -174,7 +174,6 @@ export async function changeUser(toast, name, email, departmentID) {
         headers: { "X-Access-Token": getToken() },
       }
     );
-    console.log("Cadastro atualizado com sucesso!", response);
     toast.success("Usuário alterado com sucesso!");
   } catch (err) {
     console.log("Erro ao atualizar cadastro!", err);
@@ -220,7 +219,7 @@ export async function getDepartmentsByPage(toast) {
   } catch (error) {
     toast.error("Erro ao buscar departamento!");
 
-    console.log(error);
+    console.log("Erro ao buscar departamento!", error);
   }
 }
 
