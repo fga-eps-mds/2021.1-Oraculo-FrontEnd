@@ -78,8 +78,6 @@ const PocketDocument = ({
           );
         })
       )}
-
-      <button class="extra">...</button>
     </StyledBigDiv>
   );
 };
