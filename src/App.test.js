@@ -7,5 +7,5 @@ test("renders main app component", () => {
 });
 
 test("renders main button component", () => {
-  render(<MainButton/>
+  render(<MainButton />);
 });
