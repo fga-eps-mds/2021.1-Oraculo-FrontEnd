@@ -375,15 +375,15 @@ const ViewRecord = () => {
             <FaUserCircle />
             <p>{userName === "" ? "Policia Federal (mock)" : userName}</p>
           </div>
-          <span>Departamento:</span>
+          <button onClick={handleForward} className="forwardIcon">
+            <p>Encaminhar para</p>
+            <FaTelegramPlane />
+          </button>
 
           <DropDownButton
             onChangeOpt={(event) => setSector(event.target.value)}
           />
-          <div className="forwardIcon">
-            <p onClick={handleForward}>Encaminhar</p>
-            <FaTelegramPlane />
-          </div>
+
           <span>Tags:</span>
           <div className="tagsTest">
             <TagsList id={id} />

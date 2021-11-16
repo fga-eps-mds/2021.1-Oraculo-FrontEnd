@@ -42,18 +42,22 @@ const StyledDivInfoProcess = styled.div`
   }
 
   .forwardIcon {
+    align-items: end;
+    background: none;
+    border: none;
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    margin-top: 1rem;
     cursor: pointer;
     p {
       text-decoration: none;
       color: white;
-      font-size: ${fonts.sizeLg};
+      font-size: ${fonts.sizeXlg};
+      margin-bottom: 0;
     }
     svg {
-      margin: 0 1rem;
+      font-size: ${fonts.sizeXlg};
+      margin-left: 1rem;
+      color: white;
     }
   }
 
