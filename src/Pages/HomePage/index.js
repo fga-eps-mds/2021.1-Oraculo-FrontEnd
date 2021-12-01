@@ -37,7 +37,7 @@ const HomePage = (props) => {
     const user = await getInfoUser(toast);
 
     if (user.levels == undefined) {
-      props.history.push("/");
+      window.location.reload();
       return;
     }
 

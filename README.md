@@ -38,6 +38,7 @@ export REACT_APP_PROD=false
 export REACT_APP_PROD=true
 export REACT_APP_PROFILE_BASE_URL=""
 export REACT_APP_RECORDS_BASE_URL=""
+export REACT_APP_TAGS_BASE_URL="$REACT_APP_RECORDS_BASE_URL"
 ```
 
 **Importante**: as variáveis `REACT_APP_PROFILE_BASE_URL` e `REACT_APP_RECORDS_BASE_URL` deverão possuir
